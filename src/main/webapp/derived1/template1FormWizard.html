@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="mainController">
+  <head>
+  <title>Enter or Update School Info. </title>
+   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+ 
+   <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
+   
+   
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-resource.js"></script>
+
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	
+  	<script src="js/bootstrap.js"></script>
+  	<script src="js/template1.js"></script>
+	<script src="js/fileSaver.js"></script>
+	<link href="css/bootstrap.css" rel="stylesheet">
+
+  	<link href="css/bootstrap-social.css" rel="stylesheet">
+  	<link href="css/font-awesome.css" rel="stylesheet">
+  	
+  	<link href="css/template1.css" rel="stylesheet">
+	
+	<script>
+	
+	
+	function show(comingFrom, whereTo){
+		if(comingFrom ==1){
+		
+			 if(document.forms["template1Form"]["template.email"].checkValidity() == false){
+				document.getElementById("template.email").focus();
+				document.getElementById("errorEmail").innerHTML = "Invalid Email";
+				return;
+			 }
+			 else{
+				document.getElementById("errorEmail").innerHTML = "";
+			 }
+			 
+			 if(document.forms["template1Form"]["template.candidateName"].checkValidity() == false){
+				document.getElementById("template.candidateName").focus();
+				document.getElementById("errorcandidateName").innerHTML = "Enter Full Name";
+				return;
+			 }
+			 else{
+				document.getElementById("errorcandidateName").innerHTML = "";
+			 }
+			 
+			 if(document.forms["template1Form"]["template.address"].checkValidity() == false){
+				document.getElementById("template.address").focus();
+				document.getElementById("erroraddress").innerHTML = "Enter Address";
+				return;
+			 }
+			 else{
+				document.getElementById("erroraddress").innerHTML = "";
+			 }
+			 
+			 
+			  if(document.forms["template1Form"]["template.mobile"].checkValidity() == false){
+				document.getElementById("template.mobile").focus();
+				document.getElementById("errormobile").innerHTML = "Enter Mobile";
+				return;
+			 }
+			 else{
+				document.getElementById("errormobile").innerHTML = "";
+			 }
+			
+			
+			angular.element(document.getElementById('parent')).scope().saveTemplate1();
+		}
+		
+		
+	
+		if(whereTo == 2){
+			angular.element(document.getElementById('parent')).scope().saveTemplate1();
+			
+		}
+		
+		if(whereTo == 3){
+			angular.element(document.getElementById('parent')).scope().saveTemplate1();
+			
+		}
+		
+		if(whereTo == 4){
+			angular.element(document.getElementById('parent')).scope().saveTemplate1();
+		}
+		
+		
+		
+			
+		for(i=1; i<=4; i++){
+		document.getElementById('l'+i).setAttribute('class', '');
+		document.getElementById('tab'+i).setAttribute('class', 'tab-pane');
+		}
+		
+		
+		
+		document.getElementById('l'+whereTo).setAttribute('class', 'active');
+		document.getElementById('tab'+whereTo).setAttribute('class', 'tab-pane active');
+	}
+	
+	function load_home(){
+		//alert('loading');
+		//document.getElementById("bid").innerHTML='<object type="text/html" data="vendorForm.html" ></object>';
+	}
+	
+	</script>
+	
+  </head>
+  <body > 	
+<div class="container" id="parent">
+<a href="adminBeJobReady.html" class="btn btn-primary btn-xs pull-right" ng-click="logOff()" > Go Back         </a>
+<a href="#" class="btn btn-primary btn-xs pull-right" ng-click="logOff()" > Log Off</a>
+	<ul class="nav nav-tabs" id="myTab">
+	    <li class="active" id="l1"><a href="#tab1" data-toggle="tab">Basic Information <i class="fa"></i></a></li>
+	    <li id="l2"><a href="#tab2" data-toggle="tab">Schools<i class="fa"></i></a></li>
+	     <li id="l3"><a href="#tab3" data-toggle="tab">Work Experiences <i class="fa"></i></a></li>
+	     <li id="l4"><a href="#tab4" data-toggle="tab">Miscellaneous <i class="fa"></i></a></li>
+	     
+	     
+	</ul>
+
+<form id="template1Form" method="post" class="form-horizontal" novalidate>
+    <div class="tab-content">
+	
+        <div class="tab-pane active" id="tab1" >
+            <div class="form-group">
+	 
+			<label class="col-xs-3 control-label">Candidate Name</label>
+			<div class="col-xs-3">
+			    <input type="text" class="form-control" id= "template.candidateName" name="template.candidateName" ng-model= "template.candidateName" required /><span style="color:red;" id="errorcandidateName" >
+			</div>
+	       
+           </div>
+	   
+	    <div class="form-group">
+                <label class="col-xs-3 control-label">Candidate Address</label>
+                <div class="col-xs-3">
+                    <input type="text" class="form-control" id= "template.address" name="template.address" ng-model= "template.address"  required /><span style="color:red;" id="erroraddress" >
+                </div>
+		
+          
+
+            
+           </div>
+	   
+	   <div class="form-group">
+                <label class="col-xs-3 control-label">Candidate Mobile</label>
+                <div class="col-xs-3">
+                    <input type="text" class="form-control" id= "template.mobile" name="template.mobile" ng-model= "template.mobile" required /><span style="color:red;" id="errormobile" >
+                </div>
+		
+          
+
+            
+           </div>
+	   
+	   <div class="form-group">
+                <label class="col-xs-3 control-label">Candidate Email</label>
+                <div class="col-xs-3">
+                    <input type="email" class="form-control" id= "template.email" name="template.email" ng-model= "template.email" required  /> <span style="color:red;" id="errorEmail" >
+                </div>
+		
+          
+
+            
+           </div>
+           
+           <div class="form-group">
+                <label class="col-xs-3 control-label">Specify Font Size for Content (Pixels)</label>
+                <div class="col-xs-3">
+                    <input type="text" class="form-control" id= "template.fontSizeContents" name="template.fontSizeContents" ng-model= "template.fontSizeContents" required  /> <span style="color:red;" id="errorEmail" >
+                </div>
+		
+          
+
+            
+           </div>
+	    
+	     <div class="form-group" style="margin-top: 15px;">
+		<div class="col-xs-5 col-xs-offset-3">
+		    
+		    
+		     <button class="btn btn-info btn-xs" type="submit" onClick="show('1', '2')" href="#"><span class="glyphicon glyphicon-circle-arrow-right"></span> Save and Proceed</button>
+		  
+		
+		   
+		</div>
+	    </div>
+	    
+	  
+        </div>
+	
+        <div class="tab-pane" id="tab2" >
+		
+	
+	
+           <div class="row col-md-10 col-md-offset-2 custyle" >
+		<div class="col-xs-4">
+			<a class="btn btn-info btn-xs" ng-click="addSchool()" href="#"><span class="glyphicon glyphicon-plus"></span> Add new School</a>
+		</div>
+	   
+		<table class="table table-striped custab">
+		<thead>
+			
+			<tr>
+			<th>School Name</th>
+			    <th>School Location</th>
+			    <th>Degree Earned</th>
+			    
+			     <th class="text-center">Action</th>
+			</tr>
+		</thead>
+		<tr ng-repeat="school in template.schools">
+			<td>{{ school.schoolName }}</td>
+			<td>{{ school.schoolLocation }}</td>
+			<td>{{ school.degree }}</td>
+			<td class="text-center">
+			<a class="btn btn-info btn-xs" ng-click="editSchool(school)" href="#"><span class="glyphicon glyphicon-pencil"></span> Edit School</a>
+			<a class="btn btn-danger btn-xs" ng-click="deleteSchool(school)" href="#"><span class="glyphicon glyphicon-remove"></span> Remove School</a></td>
+		</tr>
+            
+		</table>
+	  </div>
+	  
+	  
+	  <div ng-show="schoolFormShow == 'true'">
+	  
+	  <hr align = "center"/>
+	  <div  class="row col-md-10 col-md-offset-2 custyle" >
+	  
+	   <h4> <b>Add\Update School to your Profile</b></h4>  <span style="color:red;" id="errorschool" ></span>
+		<div class="form-group">
+			<label class="col-xs-2 control-label">School Name</label>
+			<!-- <input type="text" class="col-xs-2" name="schoolName" id="schoolName" required ng-model= "currentSchool.schoolName" placeholder="Enter School Name" ng-disabled="schoolNameDisabled == 'true'"/> -->
+			 <input type="text" class="col-xs-2" name="schoolName" id="schoolName" required ng-model= "currentSchool.schoolName" placeholder="Enter School Name"/>
+			<label class="col-xs-2 control-label">School Location</label>
+			 <input type="text" class="col-xs-2" name="schoolLocation" id="schoolLocation" required ng-model= "currentSchool.schoolLocation" placeholder="Enter School Location" />
+			<label class="col-xs-2 control-label">Pass Year</label>
+			 <input type="text" class="col-xs-2" name="monthAndYear" id="monthAndYear" required ng-model= "currentSchool.monthAndYear" placeholder="Month, Year" />
+			
+			
+            </div>
+	    <div class="form-group">
+			 <label class="col-xs-2 control-label">Degree</label>
+			 <input type="text" class="col-xs-2" name="degree" id="degree" required ng-model= "currentSchool.degree" placeholder="Degree" />
+			
+            </div>
+	    
+           
+	    
+	    <div class="form-group">
+			<label class="col-xs-2 control-label">Add Comment(s) for your School</label>
+		
+			  <textarea class="col-xs-6" required="required"  placeholder="Enter School Comment"  rows="2"  id="schoolComment"  name="schoolComment"  ng-model="schoolComment"></textarea>
+			
+			<span style="color:red;" id="errorschoolcomment" ></span>
+			
+            </div>
+	    
+	      <div class="form-group">
+				<div class="col-xs-4">
+				   
+				    <a class="btn btn-info btn-xs" ng-click="addComment()" href="#"><span class="glyphicon glyphicon-text-color"></span> Add Comment for this school</a>
+				</div>
+			
+			
+            </div>
+	    
+	  </div>
+	    
+	    
+	    <div class="row col-md-10 col-md-offset-2 custyle">
+		<table class="table table-striped custab">
+		<thead>
+			
+			<tr>
+			<th>School Comment</th>
+			         <th class="text-center">Action</th>
+			</tr>
+		</thead>
+		<tr ng-repeat="(i,comment) in currentSchool.schoolComments track by $index">
+			<td><textarea rows="4" cols="50" style="border: 0px;background: transparent;" ng-model="currentSchool.schoolComments [i]" ></textarea> </td>
+		
+			
+			<td class="text-center">
+			
+			<a class="btn btn-danger btn-xs" ng-click="deleteComment(comment)" href="#"><span class="glyphicon glyphicon-remove"></span> Remove Comment for School</a></td>
+		</tr>
+            
+		</table>
+		<div class="col-xs-4">
+				
+				    <a class="btn btn-primary btn-xs" ng-click="saveSchool(currentSchool)" href="#"><span class="glyphicon glyphicon-success"></span> Save School</a></td>
+				  
+				</div>
+	  </div>
+		<hr align = "center"/>
+	</div> <!-- ng-show end -->
+	    <br>
+		 <div class="form-group" style="margin-top: 15px;">
+		<div class="col-xs-5 col-xs-offset-3">
+		  <a class="btn btn-info btn-xs" onClick="show('2', '3')" href="#"><span class="glyphicon glyphicon-circle-arrow-right"></span> Save and Proceed to Work Experience section</a>
+		  
+		   <a class="btn btn-info btn-xs" onClick="show('2', '1')" href="#"><span class="glyphicon glyphicon-circle-arrow-left"></span> Previous</a>
+		   
+		     
+		</div>
+	    </div>
+	  
+        </div>
+	
+	<!---------   -->
+	
+	
+	<div class="tab-pane" id="tab3">
+	  <div class="row col-md-10 col-md-offset-2 custyle" >
+		<div class="col-xs-4">
+			<a class="btn btn-info btn-xs" ng-click="addCompany()" href="#"><span class="glyphicon glyphicon-plus"></span> Add new Company</a>
+		</div>
+	   
+		<table class="table table-striped custab">
+		<thead>
+			
+			<tr>
+			<th>Company Name</th>
+			    <th>Company Location</th>
+			    <th>Role</th>
+			    <th>Duration</th>
+			     <th class="text-center">Action</th>
+			</tr>
+		</thead>
+		<tr ng-repeat="company in template.companies">
+			<td>{{ company.companyName }}</td>
+			<td>{{ company.companyLocation }}</td>
+			<td>{{ company.role }}</td>
+			<td>{{ company.duration }}</td>
+			
+			<td class="text-center">
+			<a class="btn btn-info btn-xs" ng-click="editCompany(company)" href="#"><span class="glyphicon glyphicon-pencil"></span> Edit Company</a>
+			<a class="btn btn-danger btn-xs" ng-click="deleteCompany(company)" href="#"><span class="glyphicon glyphicon-remove"></span> Remove Company</a></td>
+		</tr>
+            
+		</table>
+	  </div>
+	  
+	  
+	  <div ng-show="companyFormShow == 'true'">
+	  
+	  <hr align = "center"/>
+	  <div  class="row col-md-10 col-md-offset-2 custyle" >
+	  
+	   <h4> <b>Add\Update Company to your Profile</b></h4> <span style="color:red;" id="errorcompany" ></span>
+		<div class="form-group">
+			<label class="col-xs-2 control-label">Company Name</label>
+			 <!-- <input type="text" class="col-xs-2" name="companyName" id="companyName" required ng-model= "currentCompany.companyName" placeholder="Enter Company Name" ng-disabled="companyNameDisabled == 'true'"/> -->
+			 <input type="text" class="col-xs-2" name="companyName" id="companyName" required ng-model= "currentCompany.companyName" placeholder="Enter Company Name" />
+			<label class="col-xs-2 control-label">Company Location</label>
+			 <input type="text" class="col-xs-2" name="companyLocation" id="companyLocation" required ng-model= "currentCompany.companyLocation" placeholder="Enter Company Location" />
+		</div>
+	    
+		<div class="form-group">
+			<label class="col-xs-2 control-label">Role</label>
+			<!--  <input type="text" class="col-xs-2" name="role" id="role" required ng-model= "currentCompany.role" placeholder="Enter Role"  ng-disabled="companyRoleDisabled == 'true'" />-->
+			<input type="text" class="col-xs-2" name="role" id="role" required ng-model= "currentCompany.role" placeholder="Enter Role" />
+			<label class="col-xs-2 control-label">Tenor</label>
+			 <input type="text" class="col-xs-2" name="duration" id="duration" required ng-model= "currentCompany.duration" placeholder="Month Year - Month Year" />
+		</div>
+	    
+	    <div class="form-group">
+			<label class="col-xs-2 control-label">Header Comment(Optional)</label>
+			<!--  <input type="text" class="col-xs-2" name="role" id="role" required ng-model= "currentCompany.role" placeholder="Enter Role"  ng-disabled="companyRoleDisabled == 'true'" />-->
+			<input type="text" class="col-xs-2" name="headerComment" id="headerComment" ng-model= "currentCompany.headerComment" placeholder="Enter Header Comment" />
+					</div>
+	    
+         
+	    
+	    <div class="form-group">
+			<label class="col-xs-2 control-label">Add Comment(s) for your Company</label>
+		
+			  <textarea class="col-xs-6"   placeholder="Enter Role Comment"  rows="2" required   id="roleComment" name="roleComment"  ng-model="roleComment"></textarea>
+			<span style="color:red;" id="errorrolecomment" ></span>
+			
+			
+            </div>
+	    
+	      <div class="form-group">
+				<div class="col-xs-4">
+				   
+				    <a class="btn btn-info btn-xs" ng-click="addRoleComment()" href="#"><span class="glyphicon glyphicon-text-color"></span> Add Role Comment for this Company</a>
+				</div>
+			
+			
+            </div>
+	    
+	  </div>
+	    
+	    
+	    <div class="row col-md-10 col-md-offset-2 custyle">
+		<table class="table table-striped custab">
+		<thead>
+			
+			<tr>
+			<th>Role Comment</th>
+			         <th class="text-center">Action</th>
+			</tr>
+		</thead>
+		<tr ng-repeat="(i,comment) in currentCompany.roleComments track by $index">
+			<td><textarea rows="4" cols="50" style="border: 0px;background: transparent;" ng-model="currentCompany.roleComments [i]" ></textarea> </td>
+		
+			<td class="text-center">
+			
+			<a class="btn btn-danger btn-xs" ng-click="deleteRoleComment(comment)" href="#"><span class="glyphicon glyphicon-remove"></span> Remove Comment for Company</a></td>
+		</tr>
+            
+		</table>
+		<div class="col-xs-4">
+				
+				    <a class="btn btn-primary btn-xs" ng-click="saveCompany(currentCompany)" href="#"><span class="glyphicon glyphicon-success"></span> Save Company</a></td>
+				</div>
+	  </div>
+		<hr align = "center"/>
+	</div> <!-- ng-show end -->
+	    <br>
+		 <div class="form-group" style="margin-top: 15px;">
+		<!-- div class="col-xs-5 col-xs-offset-3">
+		  <a class="btn btn-info btn-xs" onClick="show('2', '3')" href="#"><span class="glyphicon glyphicon-circle-arrow-right"></span> Save and Proceed to Miscellaneous section</a>
+		  
+		   <a class="btn btn-info btn-xs" onClick="show('2', '1')" href="#"><span class="glyphicon glyphicon-circle-arrow-left"></span> Previous</a>
+		   
+		     
+		</div -->
+	    </div>
+		
+	    
+	    
+		 <div class="form-group" style="margin-top: 15px;">
+		<div class="col-xs-5 col-xs-offset-3">
+		   
+		   <a class="btn btn-info btn-xs" onClick="show('3', '4')" href="#"><span class="glyphicon glyphicon-circle-arrow-right"></span> Fill Miscellaneous - Awards, Recognitions, etc section</a>
+		  
+		   <a class="btn btn-info btn-xs" onClick="show('3', '2')" href="#"><span class="glyphicon glyphicon-circle-arrow-left"></span> Previous</a>
+		     
+		</div>
+	    </div>
+	  
+		
+	</div>
+	
+	
+	<! --- last tab --->
+	
+	<div class="tab-pane" id="tab4">
+	
+		
+	     <div class="row col-md-10 col-md-offset-2 custyle" >
+		<div class="col-xs-4">
+			<a class="btn btn-info btn-xs" ng-click="addActivity()" href="#"><span class="glyphicon glyphicon-plus"></span> Add new Leadership or Activity</a>
+		</div>
+	   
+		<table class="table table-striped custab">
+		<thead>
+			
+			<tr>
+			<th>Place of Origin - For Activity or Award</th>
+			   
+			     <th class="text-center">Action</th>
+			</tr>
+		</thead>
+		<tr ng-repeat="activity in template.leaderships">
+			<td>{{ activity.source }}</td>
+		
+			
+			<td class="text-center">
+			<a class="btn btn-info btn-xs" ng-click="editActivity(activity)" href="#"><span class="glyphicon glyphicon-pencil"></span> Edit Activity or Award</a>
+			<a class="btn btn-danger btn-xs" ng-click="deleteActivity(activity)" href="#"><span class="glyphicon glyphicon-remove"></span> Remove Activity or Award</a></td>
+		</tr>
+            
+		</table>
+	  </div>
+	  
+	  
+	  <div ng-show="activityFormShow == 'true'">
+	  
+	  <hr align = "center"/>
+	  <div  class="row col-md-10 col-md-offset-2 custyle" >
+	  
+	   <h4> <b>Add\Update Activity\Award to your Profile</b></h4><span style="color:red;" id="errorleadership" ></span>
+		<div class="form-group">
+			<label class="col-xs-2 control-label">Activity or Award Source</label>
+			 <!-- <input type="text" class="col-xs-2"  id="source"  name="currentActivity.source" required ng-model= "currentActivity.source" placeholder="Leadership/Activity" ng-disabled="activitySourceDisabled == 'true'"/> -->
+			 <input type="text" class="col-xs-2"  id="source"  name="currentActivity.source" required ng-model= "currentActivity.source" placeholder="Leadership/Activity"/>
+			
+		</div>
+	    
+		
+	    
+	    
+         
+	    
+	    <div class="form-group">
+			<label class="col-xs-2 control-label">Add Activity or Leadership Specifics for above</label>
+		
+			  <textarea class="col-xs-6"   placeholder="Activity\Leadership Comment"  rows="2"  id="activityComment" name="activityComment" required  ng-model="activityComment"></textarea>
+			
+			
+			
+            </div>
+	    
+	      <div class="form-group">
+				<div class="col-xs-4">
+				   
+				    <a class="btn btn-info btn-xs" ng-click="addActivityComment()" href="#"><span class="glyphicon glyphicon-text-color"></span> Add Activity Comment for above</a>
+				</div>
+			
+			
+            </div>
+	    
+	  </div>
+	    
+	    
+	    <div class="row col-md-10 col-md-offset-2 custyle">
+		<table class="table table-striped custab">
+		<thead>
+			
+			<tr>
+			<th>Activity\Leadership Comment</th>
+			         <th class="text-center">Action</th>
+			</tr>
+		</thead>
+		
+		<tr ng-repeat="(i,comment) in currentActivity.comments track by $index">
+			<td><textarea rows="4" cols="50" style="border: 0px;background: transparent;" ng-model="currentActivity.comments [i]" ></textarea> </td>
+		
+		
+			<td class="text-center">
+			
+			<a class="btn btn-danger btn-xs" ng-click="deleteActivityComment(comment)" href="#"><span class="glyphicon glyphicon-remove"></span> Delete Activity\Leadership Comment </a></td>
+		</tr>
+            
+		</table>
+		<div class="col-xs-4">
+				
+				    <a class="btn btn-primary btn-xs" ng-click="saveActivity(currentActivity)" href="#"><span class="glyphicon glyphicon-success"></span> Save Current Activity</a></td>
+				</div>
+	  </div>
+		<hr align = "center"/>
+	</div> <!-- ng-show end -->
+	   
+	     
+	<div class="form-group" style="margin-top: 15px;">
+		<div class="col-xs-5 col-xs-offset-3">
+		   
+		      <a class="btn btn-info btn-xs" ng-click="generateProfile()"  href="#"><span class="glyphicon glyphicon-asterisk"></span> Generate Profile</a>
+		  
+		   <a class="btn btn-info btn-xs" onClick="show('4', '3')" href="#"><span class="glyphicon glyphicon-circle-arrow-left"></span> Previous</a>
+		</div>
+	    </div>
+	  
+		
+	</div>
+	
+	
+	
+	
+    </div>
+
+   
+</form>
+</div>
+</body>
+ </html>
+ 

@@ -1,0 +1,42 @@
+package com.v2tech.base;
+
+import org.neo4j.ogm.session.Session;
+import org.neo4j.ogm.session.SessionFactory;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.data.neo4j.config.Neo4jConfiguration;
+import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
+import org.springframework.data.neo4j.server.Neo4jServer;
+import org.springframework.data.neo4j.server.RemoteServer;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+@EnableAutoConfiguration
+@Configuration
+@ComponentScan(basePackages = {"com.v2tech.services"})
+@EnableNeo4jRepositories(basePackages = "com.v2tech.repository")
+@EnableTransactionManagement
+public class MyConfiguration extends Neo4jConfiguration {
+
+    @Bean
+    public Neo4jServer neo4jServer() {
+        return new RemoteServer("http://localhost:7474", "neo4j", "Welcome@1");
+    }
+
+    @Bean
+    public SessionFactory getSessionFactory() {
+        // with domain entity base package(s)
+        return new SessionFactory("com.v2tech.domain");
+    }
+
+    // needed for session in view in web-applications
+    @Bean
+    @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public Session getSession() throws Exception {
+        return super.getSession();
+    }
+
+}

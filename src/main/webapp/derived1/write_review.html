@@ -1,0 +1,1823 @@
+   <!DOCTYPE html>
+   <html lang="en">
+      <head>
+         <meta charset="utf-8">
+         <title id='Description'>Write A Review</title>
+         <meta name="description" content="">
+         <meta name="viewport" content="width=device-width">
+         <!--<link rel="icon" href="favicon.png">-->
+         <link rel="stylesheet" href="css/style.css">
+         <link rel="stylesheet" href="css/bootstrap.min.css">
+         <link rel="stylesheet" href="css/font-awesome.min.css">
+         <link rel="stylesheet" href="css/responsive.css">
+         <link rel="stylesheet" href="css/menu.css">
+         <link rel="stylesheet" href="css/popup.css">
+         <script src="js/jquery-1.11.2.min.js"></script>
+         <script src="js/jquery-1.9.1.min.js"></script>
+         <script src="js/bootstrap.min.js"></script>
+         <script src="js/placeholders.min.js"></script>
+         <script src="js/custom-scripts.js"></script>
+         <script src="js/menu.js"></script>
+         <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
+         <script type="text/javascript" src="js/jquery.lbslider.js"></script>
+         <script src="js/angular-1.0.7.min.js"></script>
+         <script src="js/angular-resource-1.0.7.js"></script>
+         <script src="js/bootbox.js"></script>
+        <script src="js/hello.js"></script>
+         <script src="js/prepare4greatnesstController.js"></script>
+      </head>
+      <body ng-app="myApp" ng-controller="prepare4greatnesstController" ng-init="init('write_a_review',false)">
+         <div class="header">
+            <div class="container">
+                <div class="logo col-md-3"> 
+                    <a href="index.html"><img src="images/colorlogo.png" /></a>
+                </div>
+
+                <div class="menu col-md-6">
+                    <div class="top topsearch">
+                        <div class="search">
+                            <div class="all"><a href="javascript:void(0);" id="all">All <i class="fa fa-caret-down" aria-hidden="true"></i></a> </div>
+                            <input type="text" name="search"/>
+                            <!--<input type="text" class="hideshow" name="search" placeholder="Search"/>-->
+                            <a href="javascript:void(0);" id="searchshow"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            <div class="popup">
+                                <i class="fa fa-caret-up" aria-hidden="true"></i>
+                                <ul>
+                                    <li><a href="#">Management</a></li>
+                                    <li><a href="#">Engineering</a></li>
+                                    <li><a href="#">Medicine</a></li>
+                                    <li><a href="#">Law</a></li>
+                                    <li><a href="#">Unversities</a></li>
+                                    <li><a href="#">Pharmacy</a></li>
+                                    <li><a href="#">Computer Applications</a></li>
+                                    <li><a href="#">Finance & Accounts</a></li>
+                                    <li><a href="#">Hospitality & Tourism</a></li>
+                                    <li><a href="#">Media & Jourmalism</a></li>
+                                    <li><a href="#">Animation & Fashion</a></li>
+                                    <li><a href="#">School</a></li>
+                                    <li><a href="#">Competition</a></li>
+                                    <li><a href="#">Study Abroad</a></li>           
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu col-md-3">
+                    <div class="top">
+                        <div class="login-reg"> 
+                            
+                <div class="headeruser" ><a href="{{headeruser}}" id="header_user_trigger"><img src="images/user.png" /></a></div>
+                            
+                            <!--===================== Header User Popup Form =====================-->
+                            <div id="headeruser" class="popupContainer headerusercontainer" style="display:none;">
+                                
+                                <section class="popupBody">
+                                    <div class="headeruserpopup">
+                    <i class="fa fa-caret-up" aria-hidden="true"></i>
+                    <div class="tellusright" id="tellusright">
+                        <div class="userimg"><img src="images/testimonials.png"></div>
+                            <h4>User Name Loren</h4>
+                            <p>14 Review, 38 Followers</p>
+                            
+                            
+             
+                            <strong><a id="tab_trigger" href="" ng-click="showInviteFriends()" >Invite Friends</a></strong>
+                            <strong><a id="tab_trigger" href="" ng-click="showEditProfile()" >Edit Profile</a></strong>
+                            <strong><a id="change_password_trigger" href="#changepassword">Change Password</a></strong>
+                            
+                            <strong><a href="" ng-click="signOff()">Log Out</a></strong>
+                        </div>
+                    </div>
+                                </section>
+                            </div>
+                            
+                            <!--===================== Change Password Popup Form =====================-->
+                            <div id="changepassword" class="popupContainer changepasswordcontainer" style="display:none;">
+                                <header class="popupHeader">
+                                    <span class="header_title">Change Password</span>
+                                    <span class="modal_close"><img src="images/x.png"></span>
+                                </header>
+                                <section class="popupBody">
+                                    <div class="change_password">
+                                        <form>
+                                            <fieldset class="form-group">
+                                                <input type="text" name="username" placeholder="User Name*" ng-model="loggedInUser.user" />
+                                            </fieldset>
+                                            <fieldset class="form-group">
+                                                <input type="password" name="oldpassword" placeholder="Old Password*" ng-model="loggedInUser.password" />
+                                            </fieldset>
+                                            <fieldset class="form-group">
+                                                <input type="password" name="newpassword" placeholder="New Password*" ng-model="loggedInUser.newPassword"/>
+                                            </fieldset>
+                                            <fieldset class="form-group">
+                                                <input type="password" name="reconfirm" placeholder="Reconfirm*" ng-model="repeatPassword" />
+                                            </fieldset>
+                                            <div class="action_btns">
+                                                <div class="submit_btn"><a href="" ng-click="checkPasswordValidations()" class="btn btn_red">SUBMIT</a></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </section>
+                            </div>
+                            
+                            
+                            <div class="logreg">
+                                <a id="modal_trigger" href="#{{profileDialog}}">{{profileText}}</a>
+                            </div>
+                            
+                            
+                            <!--===================== Login & Register Popup Form =====================-->
+                            <div id="modal" class="popupContainer loginregistercontainer" style="display:none;">
+                                <header class="popupHeader">
+                                    <span class="header_title">Join the Network</span>
+                                    <span class="modal_close"><a href="" ng-click="closeRegDialog()"><img src="images/x.png"/> </a></span>
+                                </header>
+                                <section class="popupBody">
+                                    <!-- Register Form -->
+                                    <div class="user_register">
+                                        <label class="title">Sign Up</label>
+                                        <form id="formRegister" action="" ng-submit="signup(user)">
+                         <fieldset class="form-group">
+                            <input type="text" name="name" ng-model="user.firstName" placeholder="Name" style="width: 36% !important; float: left;" required /> <input type="text" name="lastname" ng-model="user.lastName" placeholder="Last Name" style="width: 60% !important; float: right;" required />
+                         </fieldset>
+                         <fieldset class="form-group">
+                            <input type="text" name="contact" ng-model="user.contact" placeholder="Contact Number" required />
+                         </fieldset>
+                         <fieldset class="form-group">
+                            <input type="email" ng-model="user.user" name="email" placeholder="Email ID" required />
+                         </fieldset>
+                         <fieldset class="form-group">
+                            <input type="password" name="password" ng-model="user.password" placeholder="Password" required />
+                         </fieldset>
+                         <div class="checkbox">
+                            <input id="send_updates" type="checkbox" ng-model="termCheck" ng-click="display()" /> <label for="send_updates">I agree to the <a href="">Terms & Conditions</a>,<a href="">Privacy Policy</a></label>
+                         </div>
+                         <div class="action_btns">
+                            <div class="one_half last">
+                               <input type="submit" name="button" class="btn btn_red" value="SIGNUP" ng-disabled="check()" />
+                            </div>
+                         </div>
+                      </form>
+                                    </div>
+                                    <!-- Social Login -->
+                                    <div class="social_login">
+                      <label class="title">Sign in With</label>
+                      <p>
+                     Just select your favorite social <br> network to get started
+                      </p>
+                     
+                      <!-- social login Div updated By sharmapuneet1510@gmail.com -->
+                      <div class="social_icon">
+                     <ul>
+                        <!-- Social Login  -->
+                        <!--<button onclick="hello('facebook').login({scope:'user_friends'})">Login</button>-->
+                        <li data-ng-click="socialLogin('facebook')"><a href=""><i class="fa fa-facebook"></i></a></li>
+                        <li data-ng-click="socialLogin('twitter')"><a href=""><i class="fa fa-twitter"></i></a></li>
+                        <li data-ng-click="socialLogin('google')"><a href=""><i class="fa fa-google-plus"></i></a></li>
+                        <!-- <li data-ng-click="socialLogin('linkedin')"><a href=""><i class="fa fa-linkedin"></i></a></li>  -->
+                        <li data-ng-click="socialLogin('instagram')"><a href=""><i class="fa fa-instagram"></i></a></li>
+                     </ul>
+                     <br>
+                     
+                      </div>
+                   </div>
+                                    <!-- Username & Password Login form -->
+                                    <div class="user_login">
+                      <label class="title">User Login</label>
+                      <form id="loginForm" action="" ng-submit="login(user1)">
+                     <fieldset class="form-group">
+                        <input type="text" name="email" placeholder="Username" ng-model="user1.user" required />
+                     </fieldset>
+                     <fieldset class="form-group">
+                        <input type="password" name="password" placeholder="Password" ng-model="user1.password" required />
+                     </fieldset>
+                     <div class="action_btns">
+                        <div class="one_half last">
+                           <input type="submit" name="submit" class="btn btn_red" value="SUBMIT" />
+                        </div>
+                     </div>
+                      </form>
+                   </div>
+                                </section>
+                            </div>
+                            
+                            
+                             <!--===================== Invite Friends Popup Form =====================-->
+                             <div id="invitefriendsmodal" class="popupContainer" style="display: none;">
+                 <header class="popupHeader invitefriendheader">
+                    <span class="header_title">Invite Your Friends</span> <span class="modal_close" ng-click=closeInvitefriendsmodal()><img src="images/x.png"></span>
+                 </header>
+                 <section class="popupBody invitefriendbody">
+                    <!-- Select Your Friends -->
+                    <div class="user_register select_your_friends">
+                       <label class="title">Select Your Friends</label>
+                       <div class="formbg">
+                      <form>
+                         <fieldset class="form-group friendborder" ng-repeat="friend in friendslist | orderBy:'displayName'">
+                        <div class="hanuman">
+                           <img src="images/userfill.png" />
+                           <p>{{friend.displayName}}</p>
+                           <input value={{friend.email}} ng-checked="isSelected(friend.email)" ng-click="addFriendToInvitationList(friend.email)" type="checkbox" name="usercheckbox[]">
+                        </div>
+                         </fieldset>
+                      </form>
+                       </div>
+                    </div>
+                    <!-- Your Message -->
+                    <div class="user_login your_message">
+                       <label class="title">Your Message</label>
+                       <div class="formbg">
+                      <form>
+                         <fieldset class="form-group">
+                        <textarea cols="5" rows="5" placeholder="MESSAGE" ng-model="invitationMessage"></textarea>
+                         </fieldset>
+                         <div class="action_btns">
+                        <div class="one_half last messageright">
+                           <a href="#" class="btn btn_red" ng-click="inviteFriends()">SEND</a><a href="#" class="btn btn_red" ng-click="closeInvitefriendsmodal()">CANCEL</a>
+                        </div>
+                         </div>
+                      </form>
+                       </div>
+                    </div>
+                 </section>
+                  </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="menu main_menu col-md-12">
+                     <div id='cssmenu'>
+                        <ul>
+                            <li><a href="Discover.html" class="menulink">discover</a></li>
+                            <li ><a href="prepare_for_greatness.html" class="menulink">prepare for greatness
+                            <li ><a href="be_job_ready.html" class="menulink">be job ready</a></li>
+                            <li class='active' id="last"><a href="#.html" class="menulink">write a review</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <!-- Header -->
+         <div class="tellyourgb">
+            <!-- <div class="tellusreview">
+               <div class="tellusleft col-md-9 text-center">
+                  <label>Share your gyaan</label>
+               </div>
+               <div class="tellusright col-md-3">
+                  <div class="img">
+                     <a href="#"><img src="images/testimonials.png"></a> 
+                  </div>
+                  <div class="userinfo">
+                     <h3>User Name</h3>
+                     <p>14 Review, 38 Followers</p>
+                     <span>Last Activity <br> 15 minutes ago</span>
+                     
+                  </div>
+               </div>
+            </div> -->
+            <!-- User Name -->
+            <!-- <div>
+               <div class="container">
+                  <div class="selectbook">
+                     <div class="bcd active col-md-4 text-center">
+                        <a href="javascript:void(0);" class="reviewbookid"><img src="images/book.png"></a>
+                        <h3>Books</h3>
+                     </div>
+                     <div class="bcd col-md-4 text-center">
+                        <a href="#reviewcoachingclasses" class="reviewcoachingid" id="review_coaching_classes_trigger"><img src="images/coaching.png"></a>
+                        <h3>Coaching Classes</h3>
+                     </div>
+                     <div class="bcd col-md-4 text-center">
+                        <a href="javascript:void(0);" class="reviewdigitalid"><img src="images/digital.png"></a>
+                        <h3>Digital Tools</h3>
+                     </div>
+                  </div>
+               </div>
+            </div> -->
+            <div class="book_coaching_digital" id="sliderfirst">
+               <div class="container">
+                   <div class="selectbook">
+                       <div  id="selectbook" class="bcd active col-md-4 text-center" ng-click="changeActive('book')">
+                           <a href="javascript:void(0);" class="bookid"><img src="images/book.png"></a>
+                           <h3>Books</h3>
+                       </div>
+                       <div id="selectCoachingClass" class="bcd col-md-4 text-center" ng-click="changeActive('coachingClass')">
+                           <a href="#coachingclasses" class="coachingid" id="coaching_classes_trigger"><img src="images/coaching.png"></a>
+                           <h3>Coaching Classes</h3>
+                       </div>
+                       <div id="selectDigitalResource" class="bcd col-md-4 text-center" ng-click="changeActive('digitalResource')">
+                           <a href="javascript:void(0);" class="digitalid"><img src="images/digital.png"></a>
+                           <h3>Digital Tools</h3>
+                       </div>
+                   </div>
+               </div> 
+           </div>
+            <!-- Books, Coaching Classes, Digital Tools -->
+            <!--===================== Coaching Classes Popup Form =====================-->
+            <div id="coachingclasses" class="popupContainer coachingclassescontainer" style="display:none;">
+            <header class="popupHeader">
+                <span class="modal_close" ng-click="closeSelectStateCityOption()"><img src="images/x.png"></span>
+            </header>
+            <section class="popupBody">
+                <span class="header_title">Choose your venue</span>
+                <div class="coaching_class">
+                    <form>
+                    <fieldset class="form-group">
+                        <select ng-model="selectedState"
+                            ng-options="state for state in states" ng-change="updateCity()">
+                        </select>
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                        <select ng-model="selectedCity"
+                            ng-options="city for city in cities"></select>
+                    </fieldset>
+                    <div class="action_btns">
+                        <div class="submit_btn">
+                            <a href="#" class="btn btn_red" ng-click="searchCoachingClassBasedUponLocation()">SUBMIT</a>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </section>
+        </div>
+            <div class="container auto-search">
+               <div class="row">
+                  <div class="col-md-12 searchbox">
+                     <form name="search" action="javascript:void(0);" id="booksearch">
+                        <i id="searchclose" class="fa fa-times" aria-hidden="true"></i>
+                        <input type="text" name="autosearch" list="autosearch" id="booktext" placeholder="SEARCH GROVENUE"/>
+                        <input type="submit" name="submit" value="search" id="searchbook">
+                        <!--                            <datalist id="autosearch">
+                           <option value="Big Vision, medium Business : The Four Keys to Finding Success & Satisfaction as a Lifestyle Entrepreneur">
+                           <option value="The Leadership Pill: The Missing Ingredient in Motivating People Today">
+                           <option value="The Great Unraveling: Losing Our Way in the New Century">
+                           <option value="The Five Dysfunctions of a Team: A Leadership Fable">
+                           <option value="The Sales Bible: The Ultimate Sales Resource, Revised Edition">
+                           <option value="The 21 Irrefutable Laws of Leadership: Follow Them and People Will Follow You">
+                           <option value="The Smartest Guys In The Room">
+                           <option value="The Tipping Point: How Little Things Can Make a Big Difference">    
+                           </datalist>-->
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <!-- Search -->
+         </div>
+         <div class="container searchtxt">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="radio-option">
+                     <div class="radio_tips">
+                        <!-- <input type="checkbox">Search by ISBN -->
+                        <!--                            <input type="radio" name="radio">All 
+                           <input type="radio" name="radio">Title
+                           <input type="radio" name="radio">Author
+                           <input type="radio" name="radio">Subject
+                           <input type="radio" name="radio">Exam-->
+                     </div>
+                     <!--<div id="tips"><input type="radio" name="radio">Search tips
+                        <div id="searchtips">
+                            <i class="fa fa-caret-left" aria-hidden="true"></i>
+                            <label>Sreach Tips</label>
+                            <ul>
+                                <li>harry potter (does an AND search by default)</li>
+                                <li>harry or potter (friend titles with either word)</li>
+                                <li>harry-potter (same as harry NOT potter)</li>
+                                <li>titles:dune (search all books titles)</li>
+                                <li>authors:herbert (search all author names)</li>
+                                <li>shelves:sciencefiction (search all shelves)</li>
+                            </ul>
+                        </div>
+                        </div> -->
+                  </div>
+                  <!--                    <div class="lookingbook">
+                     <label style="width: 100%;">Looking for a book?</label>
+                     <ul>
+                         <li>Search by both title and author, and double-check the spelling.</li>
+                         <li>Try searching by ISBN.</li>
+                     </ul>
+                     </div>-->
+               </div>
+            </div>
+         </div>
+         <div class="feedback">
+            <div class="feedbacklink">
+               <a href="javascript:void(0);" id="showfeedback">feedback</a>
+            </div>
+            <div class="forms">
+               <div class="closes" id="hidefeedback"><img src="images/close.png"></div>
+               <p>We'd love to hear from you. Drop us a note!</p>
+               <input type="text" name="name" placeholder="Name" />
+               <input type="email" name="email" placeholder="Email" />
+               <textarea name="message" placeholder="Message"></textarea>
+               <input type="submit" name="submit" value="Submit" />
+            </div>
+            <!-- Feedback -->
+            <div class="tack_a_break">
+               <a id="tack_a_break_trigger" href="#tackabreak">tack a break</a>
+            </div>
+            <!--===================== Login & Register Popup Form =====================-->
+            <div id="tackabreak" class="popupContainer tackabreakcontainer" style="display:none;">
+               <header class="popupHeader">                        
+                  <span class="modal_close"><img src="images/x.png"></span>
+               </header>
+               <section class="popupBody tackabreakbody">
+                  <iframe width="100%" height="400px" src="https://www.youtube.com/embed/8vicEGLOEdw" frameborder="0" allowfullscreen> </iframe>
+                  <div class="like_video">
+                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                     <span>276 Likes</span>
+                  </div>
+                  <div class="dislike_video">
+                     <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                     <span>16 Dislikes</span>
+                  </div>
+               </section>
+            </div>
+            <!-- Tack a Break -->
+         </div>
+         <!-- FeedBack And Tack A Break -->
+         <div class="greatnessfor" id="review_books">
+            <div class="prepare_for_greatness_slider">
+               <div class="slider-wrap">
+                  <div id ="reviewSliderId" class="slider4 container" style="height:480px">
+                  <!-- <div id ="reviewSliderId" class="container" style="height:800px"> -->
+                     <ul >
+                        <li ng-repeat="slide in resourceEntities">
+                           <div class="book_first_slide" style="width:245px ; height:460px " >
+                              <a href="javascript:void(0);" class="reviewpgnext1">
+                              <img ng-src="{{slide.bigUrl}}" ng-click="updateSelectedInstance(slide)" style="height:245px ; width:245px"/></a>
+                              <div >{{slide.name}}</div>
+                              <div ng-show="showBook">Author : {{slide.author}}</div>
+                              <div ng-show="showCoachingClass">Branch : {{slide.branch}}</div>
+                              <div class="prepare_rateing" style="width :245px ;height:20px">
+                                 <fieldset class="rating">
+                                    <input type="radio" id={{'star5_'+slide.identity}}  ng-model="slide.rating"  ng-value=5  /><label class = "full" for={{'star5_'+slide.identity}} title="Awesome - 5 stars"></label>
+                                    <input type="radio" id={{'star4_'+slide.identity}}  ng-model="slide.rating"  ng-value=4 /><label class = "full" for={{'star4_'+slide.identity}} title="Pretty good - 4 stars"></label>
+                                    <input type="radio" id={{'star3_'+slide.identity}}   ng-model="slide.rating"  ng-value=3 /><label class = "full" for={{'star3_'+slide.identity}}  title="Meh - 3 stars"></label>
+                                    <input type="radio" id={{'star2_'+slide.identity}}   ng-model="slide.rating"  ng-value=2 /><label class = "full" for={{'star2_'+slide.identity}}  title="Kinda bad - 2 stars"></label>
+                                    <input type="radio" id={{'star1_'+slide.identity}}   ng-model="slide.rating"  ng-value=1 /><label class = "full" for={{'star1_'+slide.identity}}  title="Sucks big time - 1 star"></label>
+                                 </fieldset>
+                              </div>
+                              <div ng-show="showBook" class="prices">{{slide.priceTag}}</div>
+                              <!-- <div class="readmore"><a href="#">read more</a></div> -->
+                           </div>
+                          
+                        </li>
+                     </ul>
+                  </div>
+                  <!-- <a href="#" class="slider-arrow sa-left4"><i class="fa fa-caret-left" aria-hidden="true"></i></a> 
+                  <a href="#" class="slider-arrow sa-right4"><i class="fa fa-caret-right" aria-hidden="true"></i></a>  -->
+               </div>
+            </div>
+            <!--Carousel Slider -->
+            <div class="review_book_details" id="reviewsliderfirst">
+               <div class="container reviewtoparrow">
+                  <h1>Review Book</h1>
+                  <div class="booktoparrow"><i class="fa fa-caret-up" aria-hidden="true"></i></div>
+                  <div class="containerpadding">
+                     <div class="leftbooks col-md-4">
+                        <div class="books"><img ng-src="{{resource.bigUrl}}" /></div>
+                     </div>
+                     <div class="rightdetails col-md-8">
+                        <div class="bookname">Name : {{resource.name}}</div>
+                        <div ng-show="showCoachingClass" id="branch" class="author">Branch : {{resource.branch}}</div>
+                        <div ng-show="showBook" id="author" class="author">Author : {{resource.author}}</div>
+                        <div ng-show="showBook" id="publisher" class="publisher">Publisher: {{resource.publication}}</div>
+                        <div ng-show="showBook" id="isbn" class="isbn">ISBN : {{resource.identity}}</div>
+                        <div ng-show="showBook"  id="mrp" class="mrp">MRP : {{resource.priceTag}} </div>
+                        <div ng-show="showBook"  id="mrp" class="mrp">EDITION : {{resource.year}} </div>
+                        <div ng-show="showCoachingClass"  id="mrp" class="mrp">Series : {{resource.stream}} </div>
+                        <div ng-show="showCoachingClass"  id="mrp" class="mrp">Year Founded : {{resource.year}} </div>
+                        <div ng-show="showCoachingClass"  id="mrp" class="mrp">WebSite : {{resource.website}} </div>
+
+                        <div ng-show="showDigitalResource"  id="mrp" class="mrp">Carear Stream : {{resource.stream}} </div>
+                        <div ng-show="showDigitalResource"  id="mrp" class="mrp">Year Founded : {{resource.year}} </div>
+                        <div ng-show="showDigitalResource"  id="mrp" class="mrp">WebSite : {{resource.website}} </div>
+                        
+                        <hr class="line_break">
+                        <div id="descriptionTitle" class="author">Description</div>
+                        <div id="description" class="description">{{resource.description}}</div>
+                     </div>
+                  </div>
+               </div>
+               <div class="container reviewtoparrow">
+                  <div class="leftbooks leftratingbooks col-md-4">
+                     <div class="title">Rating</div>
+                     <fieldset class="rating">       
+                        <input type="radio" id="star5" name="rating" value="5" ng-model="resource.rating" /><label for="star5" title="Rocks!">5 stars</label>
+                        <input type="radio" id="star4" name="rating" value="4" ng-model="resource.rating" /><label for="star4" title="Pretty good">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3" ng-model="resource.rating"/><label for="star3" title="Meh">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2" ng-model="resource.rating"/><label for="star2" title="Kinda bad">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1" ng-model="resource.rating"
+                        /><label for="star1" title="Sucks big time">1 star</label>
+                     </fieldset>
+                     <div class="reviewankar"><a href="#">view preview</a></div>
+                     <div class="title">Top 3 Topics</div>
+                     <div class="reviewankar">
+                        <select>
+                           <option value="select">select</option>
+                        </select>
+                     </div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                  </div>
+                  <div class="rightdetails reviewrightdetails col-md-8">
+                     <div class="left_rating">
+                        <div class="rate_title">{{identity1}} {{ratingScope.identity1}}</div>
+                        <div class="count-rating">                        
+                           <div class="rate1" ng-click="updateIdentity1(1)"></div>
+                           <div class="rate2" ng-click="updateIdentity1(2)"></div>
+                           <div class="rate3" ng-click="updateIdentity1(3)"></div>
+                           <div class="rate4" ng-click="updateIdentity1(4)"></div>
+                           <div class="rate5" ng-click="updateIdentity1(5)"></div>
+                           <div class="rate6" ng-click="updateIdentity1(6)"></div>
+                           <div class="rate7" ng-click="updateIdentity1(7)"></div>
+                           <div class="rate8" ng-click="updateIdentity1(8)"></div>
+                           <div class="rate9" ng-click="updateIdentity1(9)"></div>
+                           <div class="rate10" ng-click="updateIdentity1(10)"></div>
+                           <!-- <div>{{effectiveness}}</div> -->
+                           <span><a href="">i</a></span>
+                        </div>
+                        <div class="rate_title">{{identity2}} {{ratingScope.identity2}}</div>
+                        <div class="count-rating">
+                           <div class="rate1" ng-click="updateIdentity2(1)"></div>
+                           <div class="rate2" ng-click="updateIdentity2(2)"></div>
+                           <div class="rate3" ng-click="updateIdentity2(3)"></div>
+                           <div class="rate4" ng-click="updateIdentity2(4)"></div>
+                           <div class="rate5" ng-click="updateIdentity2(5)"></div>
+                           <div class="rate6" ng-click="updateIdentity2(6)"></div>
+                           <div class="rate7" ng-click="updateIdentity2(7)"></div>
+                           <div class="rate8" ng-click="updateIdentity2(8)"></div>
+                           <div class="rate9" ng-click="updateIdentity2(9)"></div>
+                           <div class="rate10" ng-click="updateIdentity2(10)"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                     </div>
+                     <div class="right_rating">
+                        <div class="rate_title">{{identity3}} {{ratingScope.identity3}}</div>
+                        <div class="count-rating">
+                           <div class="rate1" ng-click="updateIdentity3(1)"></div>
+                           <div class="rate2" ng-click="updateIdentity3(2)"></div>
+                           <div class="rate3" ng-click="updateIdentity3(3)"></div>
+                           <div class="rate4" ng-click="updateIdentity3(4)"></div>
+                           <div class="rate5" ng-click="updateIdentity3(5)"></div>
+                           <div class="rate6" ng-click="updateIdentity3(6)"></div>
+                           <div class="rate7" ng-click="updateIdentity3(7)"></div>
+                           <div class="rate8" ng-click="updateIdentity3(8)"></div>
+                           <div class="rate9" ng-click="updateIdentity3(9)"></div>
+                           <div class="rate10" ng-click="updateIdentity3(10)"></div>
+                           <!-- <div>{{solution}}</div> -->
+                           <span><a href="#">i</a></span>
+                        </div>
+                        <div class="rate_title">{{identity4}} {{ratingScope.identity4}}</div>
+                        <div class="count-rating">
+                           <div class="rate1" ng-click="updateIdentity4(1)"></div>
+                           <div class="rate2" ng-click="updateIdentity4(2)"></div>
+                           <div class="rate3" ng-click="updateIdentity4(3)"></div>
+                           <div class="rate4" ng-click="updateIdentity4(4)"></div>
+                           <div class="rate5" ng-click="updateIdentity4(5)"></div>
+                           <div class="rate6" ng-click="updateIdentity4(6)"></div>
+                           <div class="rate7" ng-click="updateIdentity4(7)"></div>
+                           <div class="rate8" ng-click="updateIdentity4(8)"></div>
+                           <div class="rate9" ng-click="updateIdentity4(9)"></div>
+                           <div class="rate10" ng-click="updateIdentity4(10)"></div>
+                           <!-- <div>{{example}}</div> -->
+                           <span><a href="#">i</a></span>
+                        </div>
+                     </div>                  
+                     <div class="customer_review"><textarea rows="5" ng-model="review.comment"placeholder="How to best use the book, overall comments, suggestions for improvement"></textarea></div>
+                     <div class="review-buttons">
+                        <span><a href="#">i</a></span>
+                        <input type="submit" value="submit" name="submit" ng-click="writeAReview()" />
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- Book Details First -->
+           <!--  <div class="review_book_details" id="reviewslidersecond">
+               <div class="container reviewtoparrow">
+                  <h1>Second</h1>
+                  <div class="booktoparrow"><i class="fa fa-caret-up" aria-hidden="true"></i></div>
+                  <div class="containerpadding">
+                     <div class="leftbooks col-md-4">
+                        <div class="books"><img src="images/access.png" /></div>
+                     </div>
+                     <div class="rightdetails col-md-8">
+                        <div class="bookname">
+                        Fuck</div>
+                        <div class="author">Author: Experts Compilation</div>
+                        <div class="publisher">Publisher: Experts Compilation</div>
+                        <div class="isbn">ISBN: 978-9352035380</div>
+                        <div class="mrp">MRP: 300 INR</div>
+                        <div class="edition">Edition: July 2015</div>
+                        <div class="titledesc">Description</div>
+                        <div class="description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+                     </div>
+                  </div>
+               </div>
+               <div class="container reviewtoparrow">
+                  <div class="leftbooks leftratingbooks col-md-4">
+                     <div class="title">Rating</div>
+                     <fieldset class="rating">       
+                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                     </fieldset>
+                     <div class="reviewankar"><a href="#">view preview</a></div>
+                     <div class="title">Top 3 Topics</div>
+                     <div class="reviewankar">
+                        <select>
+                           <option value="select">select</option>
+                        </select>
+                     </div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                  </div>
+                  <div class="rightdetails reviewrightdetails col-md-8">
+                     <div class="left_rating">
+                        <div class="rate_title">Effectiveness</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                        <div class="rate_title">Visual Aides</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                     </div>
+                     <div class="right_rating">
+                        <div class="rate_title">Solutions to practical problems</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                        <div class="rate_title">Real-world examples</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                     </div>
+                     <div class="customer_review"><textarea rows="5" placeholder="How to best use the book, overall comments, suggestions for improvement"></textarea></div>
+                     <div class="review-buttons">
+                        <span><a href="#">i</a></span>
+                        <input type="submit" value="submit" name="submit" />
+                     </div>
+                  </div>
+               </div>
+            </div> -->
+            <!-- Book Details Second </div>-->
+         
+         <!--============ Review Books ============-->
+         <!-- <div class="greatnessfor" id="review_coaching_classes">
+            <div class="prepare_for_greatness_slider reviewcoachingclass">
+               <div class="slider-wrap">
+                  <div class="slider5 container">
+                     <ul>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewcoachingpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+                  <a href="#" class="slider-arrow sa-left5"><i class="fa fa-caret-left" aria-hidden="true"></i></a> 
+                  <a href="#" class="slider-arrow sa-right5"><i class="fa fa-caret-right" aria-hidden="true"></i></a> 
+               </div>
+            </div> -->
+            <!--Carousel Slider -->
+            <!-- <div class="review_book_details coaching_book_details" id="reviewcoachingsliderfirst">
+               <div class="container reviewtoparrow">
+                  <h1>First</h1>
+                  <div class="booktoparrow"><i class="fa fa-caret-up" aria-hidden="true"></i></div>
+                  <div class="containerpadding">
+                     <div class="leftbooks col-md-4">
+                        <div class="books"><img src="images/choching_book.png" /></div>
+                     </div>
+                     <div class="rightdetails col-md-8">
+                        <div class="bookname">Chapter1-wish Solutions JEE Main Mathematics</div>
+                        <div class="author">Author: Experts Compilation</div>
+                        <div class="publisher">Publisher: Experts Compilation</div>
+                        <div class="isbn">ISBN: 978-9352035380</div>
+                        <div class="mrp">MRP: 300 INR</div>
+                        <div class="edition">Edition: July 2015</div>
+                        <div class="titledesc">Description</div>
+                        <div class="description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+                     </div>
+                  </div>
+               </div>
+               <div class="container reviewtoparrow">
+                  <div class="leftbooks leftratingbooks col-md-4">
+                     <div class="title">Rating</div>
+                     <fieldset class="rating">       
+                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                     </fieldset>
+                     <div class="reviewankar"><a href="#">view preview</a></div>
+                     <div class="title">Top 3 Topics</div>
+                     <div class="reviewankar">
+                        <select>
+                           <option value="select">select</option>
+                        </select>
+                     </div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                  </div>
+                  <div class="rightdetails reviewrightdetails col-md-8">
+                     <div class="left_rating">
+                        <div class="rate_title">Effectiveness</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                        <div class="rate_title">Visual Aides</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                     </div>
+                     <div class="right_rating">
+                        <div class="rate_title">Solutions to practical problems</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                        <div class="rate_title">Real-world examples</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                     </div>
+                     <div class="customer_review"><textarea rows="5" placeholder="How to best use the book, overall comments, suggestions for improvement"></textarea></div>
+                     <div class="review-buttons">
+                        <span><a href="#">i</a></span>
+                        <input type="submit" value="submit" name="submit" />
+                     </div>
+                  </div>
+               </div>
+            </div> -->
+            <!-- Book Details First -->
+            <!-- <div class="review_book_details coaching_book_details" id="reviewcoachingslidersecond">
+               <div class="container reviewtoparrow">
+                  <h1>Second</h1>
+                  <div class="booktoparrow"><i class="fa fa-caret-up" aria-hidden="true"></i></div>
+                  <div class="containerpadding">
+                     <div class="leftbooks col-md-4">
+                        <div class="books"><img src="images/choching_book.png" /></div>
+                     </div>
+                     <div class="rightdetails col-md-8">
+                        <div class="bookname">Chapter-wish Solutions JEE Main Mathematics 2</div>
+                        <div class="author">Author: Experts Compilation</div>
+                        <div class="publisher">Publisher: Experts Compilation</div>
+                        <div class="isbn">ISBN: 978-9352035380</div>
+                        <div class="mrp">MRP: 300 INR</div>
+                        <div class="edition">Edition: July 2015</div>
+                        <div class="titledesc">Description</div>
+                        <div class="description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+                     </div>
+                  </div>
+               </div>
+               <div class="container reviewtoparrow">
+                  <div class="leftbooks leftratingbooks col-md-4">
+                     <div class="title">Rating</div>
+                     <fieldset class="rating">       
+                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                     </fieldset>
+                     <div class="reviewankar"><a href="#">view preview</a></div>
+                     <div class="title">Top 3 Topics</div>
+                     <div class="reviewankar">
+                        <select>
+                           <option value="select">select</option>
+                        </select>
+                     </div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                  </div>
+                  <div class="rightdetails reviewrightdetails col-md-8">
+                     <div class="left_rating">
+                        <div class="rate_title">Effectiveness</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                        <div class="rate_title">Visual Aides</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                     </div>
+                     <div class="right_rating">
+                        <div class="rate_title">Solutions to practical problems</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                        <div class="rate_title">Real-world examples</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                     </div>
+                     <div class="customer_review"><textarea rows="5" placeholder="How to best use the book, overall comments, suggestions for improvement"></textarea></div>
+                     <div class="review-buttons">
+                        <span><a href="#">i</a></span>
+                        <input type="submit" value="submit" name="submit" />
+                     </div>
+                  </div>
+               </div>
+            </div> -->
+            <!-- Book Details Second -->
+         </div>
+         <!--============ Review Coaching Classes ============-->
+         <div class="greatnessfor" id="review_digital_tools">
+            <div class="prepare_for_greatness_slider reviewcoachingclass">
+               <div class="slider-wrap">
+                  <div class="slider6 container">
+                     <ul>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                        <li>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext1"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                           <div class="book_first_slide">
+                              <a href="javascript:void(0);" class="reviewdigitalgpgnext2"><img src="images/rectangle.png" /></a>
+                              <div class="title">Lorem Ipsum</div>
+                              <div class="subtitle">Lorem Ipsum</div>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+                  <a href="#" class="slider-arrow sa-left6"><i class="fa fa-caret-left" aria-hidden="true"></i></a> 
+                  <a href="#" class="slider-arrow sa-right6"><i class="fa fa-caret-right" aria-hidden="true"></i></a> 
+               </div>
+            </div>
+            <!--Carousel Slider -->
+            <!-- <div class="review_book_details digital_img_tools" id="reviewdigitalsliderfirst">
+               <div class="container reviewtoparrow">
+                  <h1>First</h1>
+                  <div class="booktoparrow"><i class="fa fa-caret-up" aria-hidden="true"></i></div>
+                  <div class="containerpadding">
+                     <div class="leftbooks col-md-4">
+                        <div class="books"><img src="images/choching_book.png" /></div>
+                     </div>
+                     <div class="rightdetails col-md-8">
+                        <div class="bookname">Chapter-wsdsdish Solutions JEE Main Mathematics</div>
+                        <div class="author">Author: Experts Compilation</div>
+                        <div class="publisher">Publisher: Experts Compilation</div>
+                        <div class="isbn">ISBN: 978-9352035380</div>
+                        <div class="mrp">MRP: 300 INR</div>
+                        <div class="edition">Edition: July 2015</div>
+                        <div class="titledesc">Description</div>
+                        <div class="description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+                     </div>
+                  </div>
+               </div>
+               <div class="container reviewtoparrow">
+                  <div class="leftbooks leftratingbooks col-md-4">
+                     <div class="title">Rating</div>
+                     <fieldset class="rating">       
+                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                     </fieldset>
+                     <div class="reviewankar"><a href="#">view preview</a></div>
+                     <div class="title">Top 3 Topics</div>
+                     <div class="reviewankar">
+                        <select>
+                           <option value="select">select</option>
+                        </select>
+                     </div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                  </div>
+                  <div class="rightdetails reviewrightdetails col-md-8">
+                     <div class="left_rating">
+                        <div class="rate_title">Effectiveness</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                        <div class="rate_title">Visual Aides</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                     </div>
+                     <div class="right_rating">
+                        <div class="rate_title">Solutions to practical problems</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                        <div class="rate_title">Real-world examples</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                     </div>
+                     <div class="customer_review"><textarea rows="5" placeholder="How to best use the book, overall comments, suggestions for improvement"></textarea></div>
+                     <div class="review-buttons">
+                        <span><a href="#">i</a></span>
+                        <input type="submit" value="submit" name="submit" />
+                     </div>
+                  </div>
+               </div>
+            </div> -->
+            <!-- Book Details First -->
+            <!-- <div class="review_book_details digital_img_tools" id="reviewdigitalslidersecond">
+               <div class="container reviewtoparrow">
+                  <h1>Second</h1>
+                  <div class="booktoparrow"><i class="fa fa-caret-up" aria-hidden="true"></i></div>
+                  <div class="containerpadding">
+                     <div class="leftbooks col-md-4">
+                        <div class="books"><img src="images/choching_book.png" /></div>
+                     </div>
+                     <div class="rightdetails col-md-8">
+                        <div class="bookname">Chapter-wisssh Solutions JEE Main Mathematics</div>
+                        <div class="author">Author: Experts Compilation</div>
+                        <div class="publisher">Publisher: Experts Compilation</div>
+                        <div class="isbn">ISBN: 978-9352035380</div>
+                        <div class="mrp">MRP: 300 INR</div>
+                        <div class="edition">Edition: July 2015</div>
+                        <div class="titledesc">Description</div>
+                        <div class="description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+                     </div>
+                  </div>
+               </div>
+               <div class="container reviewtoparrow">
+                  <div class="leftbooks leftratingbooks col-md-4">
+                     <div class="title">Rating</div>
+                     <fieldset class="rating">       
+                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                     </fieldset>
+                     <div class="reviewankar"><a href="#">view preview</a></div>
+                     <div class="title">Top 3 Topics</div>
+                     <div class="reviewankar">
+                        <select>
+                           <option value="select">select</option>
+                        </select>
+                     </div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                  </div>
+                  <div class="rightdetails reviewrightdetails col-md-8">
+                     <div class="left_rating">
+                        <div class="rate_title">Effectiveness</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                        <div class="rate_title">Visual Aides</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                     </div>
+                     <div class="right_rating">
+                        <div class="rate_title">Solutions to practical problems</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                        <div class="rate_title">Real-world examples</div>
+                        <div class="count-rating">
+                           <div class="rate1"></div>
+                           <div class="rate2"></div>
+                           <div class="rate3"></div>
+                           <div class="rate4"></div>
+                           <div class="rate5"></div>
+                           <div class="rate6"></div>
+                           <div class="rate7"></div>
+                           <div class="rate8"></div>
+                           <div class="rate9"></div>
+                           <span><a href="#">i</a></span>
+                        </div>
+                     </div>
+                     <div class="customer_review"><textarea rows="5" placeholder="How to best use the book, overall comments, suggestions for improvement"></textarea></div>
+                     <div class="review-buttons">
+                        <span><a href="#">i</a></span>
+                        <input type="submit" value="submit" name="submit" />
+                     </div>
+                  </div>
+               </div>
+            </div>
+            Book Details Second --> 
+         </div>
+         <!--============ Digital Tools ============-->
+         <div class="footer">
+            <div class="container">
+               <div class="logo"><a href="index.html"><img src="images/colorlogo.png" /></a></div>
+               <div class="menu partners col-md-3">
+                  <div class="title">About Us</div>
+                  <ul>
+                     <li><a href="#">Team</a></li>
+                     <li><a href="#">Careers</a></li>
+                     <li><a href="#">Blog</a></li>
+                  </ul>
+               </div>
+               <div class="partners col-md-3">
+                  <div class="title">Partners</div>
+                  <ul>
+                     <li><a href="#">Advertise With Us</a></li>
+                     <li><a href="#">Contact Us</a></li>
+                  </ul>
+               </div>
+               <div class="others col-md-3">
+                  <div class="title">Others</div>
+                  <ul>
+                     <li><a href="#">FAQS</a></li>
+                     <li><a href="#">Privacy Policy</a></li>
+                     <li><a href="#">Terms & Conditions</a></li>
+                  </ul>
+               </div>
+               <!--<div class="experience">
+                  <div class="title">For Mobile Experience</div>
+                  <img src="images/googleplay.png" />
+                  </div>-->
+               <div class="followus col-md-3">
+                  <div class="title">Follow Us On</div>
+                  <ul>
+                     <li><a href="#"><img src="images/facebook.png" /></a></li>
+                     <li><a href="#"><img src="images/twitter.png" /></a></li>
+                     <li><a href="#"><img src="images/instra.jpg" /></a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <!-- Footer -->
+         <div class="horizonral"></div>
+         <!--===================== Personal Information, Education, Services Tab Popup Form =====================-->
+         <div id="tab" class="popupContainer tabcontainer" style="display:none;">
+            <header class="popupHeader">
+               <span class="modal_close"><img src="images/x.png"></span>
+               <ul class="nav nav-tabs">
+                  <li class="firsttab active"><a data-toggle="tab" href="#personal_information">Personal Information</a></li>
+                  <li class="secondtab firstpre"><a data-toggle="tab" href="#education">Education</a></li>
+                  <li class="therdtab secondpre"><a data-toggle="tab" href="#services">Services</a></li>
+               </ul>
+            </header>
+            <section class="popupBody">
+               <div class="tabpopup">
+                  <div class="tab-content">
+                     <div id="personal_information" class="tab-pane fade in active">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
+                           <form>
+                              <fieldset class="form-group">
+                                 <input type="text" name="name" placeholder="Name*" style="width: 36% !important;float: left;"/>
+                                 <input type="text" name="lastname" placeholder="Last Name*" style="width: 60% !important;float: right;"/>
+                              </fieldset>
+                              <fieldset class="form-group">
+                                 <input type="text" name="contactno" placeholder="Contact Number*"/>
+                              </fieldset>
+                              <fieldset class="form-group">
+                                 <select>
+                                    <option value="dateofbirth">Date of Birth*</option>
+                                 </select>
+                              </fieldset>
+                              <fieldset class="form-group">
+                                 <select>
+                                    <option value="state">State*</option>
+                                 </select>
+                              </fieldset>
+                              <fieldset class="form-group">
+                                 <select>
+                                    <option value="city">City*</option>
+                                 </select>
+                              </fieldset>
+                              <fieldset class="form-group">
+                                 <textarea rows="4" name="hobbies/interest" placeholder="Hobbies/Interest*"></textarea>
+                              </fieldset>
+                           </form>
+                        </div>
+                        <div class="col-md-5">
+                           <div class="userimg">
+                              <img src="images/testimonials.png">
+                              <span><a href="#">Add/Edit Photo</a></span>
+                           </div>
+                           <textarea rows="9" name="introduction" placeholder="Introduction*"></textarea>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="next"><a data-toggle="tab" class="firstnext" href="#education">Next <i class="fa fa-chevron-right" aria-hidden="true"></i></a></div>
+                     </div>
+                     <!-- First Tab -->
+                     <div id="education" class="tab-pane fade">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
+                           <form>
+                              <fieldset class="form-group">
+                                 <select>
+                                    <option value="basic_graduation">Basic Graduation*</option>
+                                 </select>
+                              </fieldset>
+                              <fieldset class="form-group">
+                                 <select>
+                                    <option value="specialization">Specialization*</option>
+                                 </select>
+                              </fieldset>
+                              <fieldset class="form-group">
+                                 <input type="text" name="institute_name" placeholder="Institute Name*"/>
+                              </fieldset>
+                              <fieldset class="form-group">
+                                 <select>
+                                    <option value="university_name">University Name*</option>
+                                 </select>
+                              </fieldset>
+                              <fieldset class="form-group">
+                                 <select>
+                                    <option value="course_completion_year">Course Completion Year*</option>
+                                 </select>
+                              </fieldset>
+                           </form>
+                        </div>
+                        <div class="col-md-5">
+                           <form>
+                              <fieldset class="form-group">
+                                 <input type="text" name="dream_job" placeholder="Dream Job"/>
+                              </fieldset>
+                              <fieldset class="form-group">
+                                 <input type="text" name="name" placeholder="Expected Date of Exams" style="width: 50% !important;float: left;"/>
+                                 <select style="width: 25% !important;float: left;">
+                                    <option value="month">Month</option>
+                                 </select>
+                                 <select style="width: 25% !important;float: left;">
+                                    <option value="year">Year</option>
+                                 </select>
+                              </fieldset>
+                           </form>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="back"><a data-toggle="tab" class="firstpre" href="#personal_information"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a></div>
+                        <div class="next"><a data-toggle="tab" class="secondnext" href="#services">Next <i class="fa fa-chevron-right" aria-hidden="true"></i></a></div>
+                     </div>
+                     <!-- Second Tab -->
+                     <div id="services" class="tab-pane fade">
+                        <div class="col-md-1"></div>
+                        <div class="review col-md-10">
+                           <div class="title">Your Revire</div>
+                           <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                              <div class="carousel-inner">
+                                 <!-- Quote 1 -->
+                                 <div class="item active">
+                                    <div class="col-sm-3 text-center">
+                                       <div class="imgtitle">Book Name</div>
+                                       <img src="images/friends.png">
+                                    </div>
+                                    <div class="col-sm-9">
+                                       <p>Contrary to popular belife, Lorem Ipsum is not simply random text, It has roots in a piece of classical Latin literature form 45 BC, making it over 2000 years old, Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Litin words, consectetur, form a Lorem Ipsum passage, and going through the cites of the word in classical literature, Contrary to popular belife, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin 45 BC.</p>
+                                    </div>
+                                 </div>
+                                 <!-- Quote 2 -->
+                                 <div class="item">
+                                    <div class="col-sm-3 text-center">
+                                       <div class="imgtitle">Book Name</div>
+                                       <img src="images/friends.png">
+                                    </div>
+                                    <div class="col-sm-9">
+                                       <p>Contrary to popular belife, Lorem Ipsum is not simply random text, It has roots in a piece of classical Latin literature form 45 BC, making it over 2000 years old, Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Litin words, consectetur, form a Lorem Ipsum passage, and going through the cites of the word in classical literature, Contrary to popular belife, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin 45 BC.</p>
+                                    </div>
+                                 </div>
+                                 <!-- Quote 3 -->
+                                 <div class="item">
+                                    <div class="col-sm-3 text-center">
+                                       <div class="imgtitle">Book Name</div>
+                                       <img src="images/friends.png">
+                                    </div>
+                                    <div class="col-sm-9">
+                                       <p>Contrary to popular belife, Lorem Ipsum is not simply random text, It has roots in a piece of classical Latin literature form 45 BC, making it over 2000 years old, Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Litin words, consectetur, form a Lorem Ipsum passage, and going through the cites of the word in classical literature, Contrary to popular belife, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin 45 BC.</p>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- Carousel Buttons Next/Prev -->
+                              <a data-slide="prev" href="#quote-carousel" class="left carousel-control">‹</a>
+                              <a data-slide="next" href="#quote-carousel" class="right carousel-control">›</a>
+                           </div>
+                           <div class="title">Friends</div>
+                           <div id="myCarousel" class="carousel slide friends">
+                              <div class="carousel-inner">
+                                 <div class="item active">
+                                    <div class="row-fluid">
+                                       <div class="friendslider col-md-3">
+                                          <a href="#"><img src="images/friends.png" alt="Image" style="max-width:100%;" /></a>
+                                          <div class="title">Lorem Ipsum</div>
+                                       </div>
+                                       <div class="friendslider col-md-3">
+                                          <a href="#"><img src="images/friends.png" alt="Image" style="max-width:100%;" /></a>
+                                          <div class="title">Lorem Ipsum</div>
+                                       </div>
+                                       <div class="friendslider col-md-3">
+                                          <a href="#"><img src="images/friends.png" alt="Image" style="max-width:100%;" /></a>
+                                          <div class="title">Lorem Ipsum</div>
+                                       </div>
+                                       <div class="friendslider col-md-3">
+                                          <a href="#"><img src="images/friends.png" alt="Image" style="max-width:100%;" /></a>
+                                          <div class="title">Lorem Ipsum</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="item">
+                                    <div class="row-fluid">
+                                       <div class="friendslider col-md-3">
+                                          <a href="#"><img src="images/friends.png" alt="Image" style="max-width:100%;" /></a>
+                                          <div class="title">Lorem Ipsum</div>
+                                       </div>
+                                       <div class="friendslider col-md-3">
+                                          <a href="#"><img src="images/friends.png" alt="Image" style="max-width:100%;" /></a>
+                                          <div class="title">Lorem Ipsum</div>
+                                       </div>
+                                       <div class="friendslider col-md-3">
+                                          <a href="#"><img src="images/friends.png" alt="Image" style="max-width:100%;" /></a>
+                                          <div class="title">Lorem Ipsum</div>
+                                       </div>
+                                       <div class="friendslider col-md-3">
+                                          <a href="#"><img src="images/friends.png" alt="Image" style="max-width:100%;" /></a>
+                                          <div class="title">Lorem Ipsum</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                              <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+                           </div>
+                           <div class="title">Services Taken</div>
+                           <div class="service">
+                              <div class="firstrightborder">
+                                 <p><strong>Service : </strong>CV</p>
+                                 <p><strong>Date : </strong>29-06-2016</p>
+                                 <p><strong>Cost : </strong>&#8377 500</p>
+                                 <p><strong>Description : </strong>It has survived not only five conturies, but also the leap into electronic typesetting. remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset</p>
+                              </div>
+                              <div class="secondrightborder">
+                                 <p><strong>Service : </strong>Cover Letter</p>
+                                 <p><strong>Date : </strong>30-01-2015</p>
+                                 <p><strong>Cost : </strong>&#8377 1000</p>
+                                 <p><strong>Description : </strong>It has survived not only five conturies, but also the leap into electronic typesetting. remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset</p>
+                              </div>
+                           </div>
+                           <strong>O*Net Test | DOWNLOAD REPORT <a href="#"><i class="fa fa-download" aria-hidden="true"></i></a></strong>
+                           <p>If you haven't taken the test. <a href="#">here's your chance</a></p>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="back"><a data-toggle="tab" class="secondpre" href="#education"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a></div>
+                     </div>
+                     <!-- Therd Tab -->
+                  </div>
+               </div>
+            </section>
+         </div>
+         <script>
+            $(document).ready(function () {
+                $("#all").click(function () {
+                    $(".popup").toggle();
+                });
+            });
+         </script> <!-- Categories Script -->
+         <script type="text/javascript">
+            $(document).ready(function () {
+                
+                $('#reviewsliderfirst').show();
+                $('#reviewslidersecond').hide();
+                
+                $('.reviewpgnext1').click(function () {
+                    $('#reviewsliderfirst').show();
+                    $('#reviewslidersecond').hide();
+                });
+                
+                $('.reviewpgnext2').click(function () {
+                    $('#reviewsliderfirst').hide();
+                    $('#reviewslidersecond').show();
+                });
+                
+            });
+         </script> <!-- Prepare For Greatness Book Next Prev Script -->
+         <script type="text/javascript">
+            $(document).ready(function () {
+                
+                $('#reviewcoachingsliderfirst').show();
+                $('#reviewcoachingslidersecond').hide();
+                
+                $('.reviewcoachingpgnext1').click(function () {
+                    $('#reviewcoachingsliderfirst').show();
+                    $('#reviewcoachingslidersecond').hide();
+                });
+                
+                $('.reviewcoachingpgnext2').click(function () {
+                    $('#reviewcoachingsliderfirst').hide();
+                    $('#reviewcoachingslidersecond').show();
+                });
+                
+            });
+         </script> <!-- Prepare For Greatness Coaching Classes Next Prev Script -->
+         <script type="text/javascript">
+            $(document).ready(function () {
+                
+                $('#reviewdigitalsliderfirst').show();
+                $('#reviewdigitalslidersecond').hide();
+                
+                $('.reviewdigitalgpgnext1').click(function () {
+                    $('#reviewdigitalsliderfirst').show();
+                    $('#reviewdigitalslidersecond').hide();
+                });
+                
+                $('.reviewdigitalgpgnext2').click(function () {
+                    $('#reviewdigitalsliderfirst').hide();
+                    $('#reviewdigitalslidersecond').show();
+                });
+                
+            });
+         </script> <!-- Prepare For Greatness Digital Tools Next Prev Script -->
+         <script type="text/javascript">
+            $(document).ready(function () {
+                
+                $('#review_books').show();
+                $('#review_coaching_classes').hide();
+                $('#review_digital_tools').hide();
+                
+                $('.reviewbookid').click(function () {
+                    $('#review_books').show();
+                    $('#review_coaching_classes').hide();
+                    $('#review_digital_tools').hide();
+                });
+                
+                $('.reviewcoachingid').click(function () {
+                    $('#review_books').hide();
+                    $('#review_coaching_classes').show();
+                    $('#review_digital_tools').hide();
+                });
+                
+                $('.reviewdigitalid').click(function () {
+                    $('#review_books').hide();
+                    $('#review_coaching_classes').hide();
+                    $('#review_digital_tools').show();
+                });
+                
+            });
+         </script> <!-- Review Page Books, Coaching Classes, Digital Tools Script -->
+         <script>
+            $(document).ready(function () {
+                $("#hidefeedback").click(function () {
+                    $(".forms").hide();
+                });
+                $("#showfeedback").click(function () {
+                    $(".forms").show();
+                });
+            });
+         </script> <!-- FeedBack Script -->
+         <script type="text/javascript">
+            $(function () {
+                var menuVisible = false;
+                $('#searchtips').css({'display': 'none'});
+                $('#tips').hover(function () {
+                    if (menuVisible) {
+                        $('#searchtips').css({'display': 'none'});
+                        menuVisible = false;
+                        return;
+                    }
+                    $('#searchtips').css({'display': 'block'});
+                    menuVisible = true;
+                });
+                $('#searchtips').hover(function () {
+                    $(this).css({'display': 'none'});
+                    menuVisible = true;
+                });
+            });
+         </script> <!-- Tool Trp-->
+         <script>
+            $(document).ready(function(){
+                $(".firstnext").click(function(){
+                    $(".secondtab").addClass("active");
+                    $(".firsttab").removeClass("active");
+                });
+                
+                $(".secondnext").click(function(){
+                    $(".therdtab").addClass("active");
+                    $(".firsttab").removeClass("active");
+                    $(".secondtab").removeClass("active");
+                });
+                
+                
+                $(".firstpre").click(function(){
+                    $(".firsttab").addClass("active");
+                    $(".secondtab").removeClass("active");
+                    $(".therdtab").removeClass("active");
+                });
+                
+                $(".secondpre").click(function(){
+                    $(".firsttab").removeClass("active");
+                    $(".secondtab").addClass("active");
+                    $(".therdtab").removeClass("active");
+                });
+            });
+         </script> <!-- Home page Tab Scripts -->
+         <script>
+            $(document).ready(function () {
+                $('#searchshow').click(function () {
+                    $('.hideshow').toggle("slide");
+                });
+            });
+         </script>
+         <script>
+            $(document).ready(function () {
+                $('#booktext').click(function () {
+                    $('#booktext').css({'height': '100px'});
+                    $('#searchbook').css({'top': '30px'});
+                    $('#searchclose ').css({'display': 'block'});
+                });
+                $('#searchbook').click(function () {
+                    $('#booktext').css({'height': '100px'});
+                    $('#searchbook').css({'top': '30px'});
+                    $('#searchclose ').css({'display': 'block'});
+                });
+                $('#searchclose').click(function () {
+                    $('#booktext').css({'height': '55px'});
+                    $('#searchbook').css({'top': '3px'});
+                    $('#searchclose ').css({'display': 'none'});
+                });
+            });
+         </script>
+         <script type="text/javascript">
+            $("#modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
+            $("#tack_a_break_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
+            $("#change_password_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
+            $("#header_user_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
+            $("#review_coaching_classes_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
+            $("#tab_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
+            $("#header_invite_friend_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
+         </script>
+         <script>
+            // jQuery('.slider4').lbSlider({
+            //     leftBtn: '.sa-left4',
+            //     rightBtn: '.sa-right4',
+            //     visible: 4,
+            //     autoPlay: true,
+            //     autoPlayDelay: 5
+            // });
+            
+            jQuery('.slider5').lbSlider({
+                leftBtn: '.sa-left5',
+                rightBtn: '.sa-right5',
+                visible: 4,
+                autoPlay: true,
+                autoPlayDelay: 5
+            });
+            
+            jQuery('.slider6').lbSlider({
+                leftBtn: '.sa-left6',
+                rightBtn: '.sa-right6',
+                visible: 4,
+                autoPlay: true,
+                autoPlayDelay: 5
+            });
+         </script> <!-- Slider -->
+      </body>
+   </html>

@@ -1,0 +1,216 @@
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+    opacity: 0 !important;
+}
+
+.popupContainer{
+	position:absolute;
+	width:90%;
+	height: auto;
+	left:5%;
+	top:80px;
+	background: #FFF;
+        opacity: 0.95;
+        background-color: #000;
+        margin-left: 0 !important;
+}
+.invitefriendsmodalcontainer,
+.loginregistercontainer{
+	top:80px !important;
+	left:5% !important;
+	opacity: 0.95 !important;
+	z-index: 999999 !important;
+}
+.changepasswordcontainer {
+  opacity: 0.95 !important;
+  top: 80px !important;
+  z-index: 999999 !important;
+}
+.coachingclassescontainer {
+  opacity: 0.95 !important;
+  top: 80px !important;
+  z-index: 999999 !important;
+}
+.tackabreakcontainer{
+	left: 17% !important;
+	width: 66%;
+	top:40px !important;
+	opacity: 0.95 !important;
+	z-index: 999999 !important;
+}
+
+.btn {padding:10px 20px; background: #F4F4F2;}
+.btn_red {background: #ED6347; color: #FFF;}
+
+.btn:hover {background: #E4E4E2;}
+.btn_red:hover {background: #C12B05;}
+
+a.btn {color:#666; text-align: center; text-decoration: none;}
+a.btn_red {color: #FFF;}
+
+.one_half {width:50%; display: block; float:left;margin-top: 15px;}
+
+/* Popup Styles*/
+.popupHeader {font-size:35px; text-align: center;}
+.popupHeader {position:relative; padding:20px 20px;color: #fff;    }
+.popupHeader .modal_close {position: absolute; right: 0; top:0; padding:10px 15px; cursor: pointer; color:#aaa; font-size:16px;}
+
+.popupBody {padding:20px;}
+.tackabreakbody {
+	padding:60px 80px 0px 80px;
+}
+
+
+/* Social Login Form */
+.social_login {}
+.social_login .icon {display:block; width:10px; padding:5px 10px; margin-right: 10px; float:left; color:#FFF; font-size:16px; text-align: center;} 
+.social_login .fb .icon {background:#3B5998;}
+.social_login .google .icon {background:#DD4B39;}
+.social_login .icon_title {display:block; padding:5px 0; float:left; font-weight: bold; font-size: 16px; color:#777;}
+.social_login .social_box:hover {background: #E4E4E2;}
+
+.centeredText {text-align: center; margin: 20px 0; clear: both; overflow: hidden; text-transform: uppercase;}
+
+.action_btns {clear:both; overflow: hidden;}
+.action_btns a {background-color: #DF1159;}
+
+/* User Login Form */
+.user_login label {display: block; margin-bottom:5px;}
+.user_login input[type="text"], .user_login input[type="email"], .user_login input[type="password"] {display: block; width:90%; padding: 10px; border:1px solid #DDD; color:#666;}
+.user_login input[type="checkbox"] {float:left; margin-right:5px;}
+.user_login input[type="checkbox"]+label {float:left;}
+
+.user_login .checkbox {margin-bottom: 10px; clear: both; overflow: hidden;}
+.forgot_password {display:block; margin: 20px 0 10px; clear: both; overflow: hidden; text-decoration: none; color:#ED6347;}
+
+/* User Register Form */
+.user_register label {display: block; margin-bottom:5px;}
+.user_register input[type="text"], .user_register input[type="email"], .user_register input[type="password"] {display: block; width:90%; padding: 10px; border:1px solid #DDD; color:#666;}
+.user_register input[type="checkbox"] {float:left; margin-right:5px;}
+.user_register input[type="checkbox"]+label {float:left;}
+
+.user_register .checkbox {margin-bottom: 10px; clear: both; overflow: hidden;}
+.user_register .checkbox label{
+    padding-left: 10px;
+}
+
+.social_login,
+.user_register,
+.user_login{
+    width: 33.33%;
+    float: left;
+    padding: 0 40px 0px;
+}
+.social_login {
+    padding: 0 60px 250px;
+}
+.social_login{
+    border-left: 1px solid #828282;
+    border-right: 1px solid #828282;
+}
+.popupBody input[type="text"],
+.popupBody input[type="email"],
+.popupBody input[type="password"]{
+    width: 100% !important;
+    background: none;
+    color: #838383;
+    font-size: 16px;
+    padding: 4px 10px;
+}
+.user_register input[type="checkbox"]{
+    position: inherit;
+    margin-left: 0;
+}
+.user_register label.title,
+.user_login  label.title{
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    padding-bottom: 50px;
+}
+.social_login  label.title{
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+}
+.social_login p{
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+}
+
+.checkbox label{
+    color: #838383;
+}
+.checkbox label a{
+    color: #838383;
+    text-decoration: underline;
+    font-size: 12px;
+}
+.action_btns a,
+.action_btns a:hover {
+  background-color: #df1159;
+  border-radius: 0;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  padding: 8px 25px;
+  color: #fff;
+}
+
+.social_icon li{
+    float: left;
+    text-align: center;
+    width: 25%;
+    list-style: none;
+}
+.social_icon{
+    float: left;
+    width: 100%;
+    padding-top: 20px;
+}
+.social_icon ul{
+    padding: 0;
+}
+.social_icon li i {
+  border-radius: 100%;
+  color: #fff;
+  font-size: 20px;
+  height: 40px;
+  padding: 10px;
+  width: 40px;
+}
+.social_icon li i.fa-facebook{
+    background-color: #3D5699;
+}
+.social_icon li i.fa-twitter{
+    background-color: #43B9F6;
+}
+.social_icon li i.fa-google-plus{
+    background-color: #E1494E;
+}
+.social_icon li i.fa-linkedin{
+    background-color: #1F78BC;
+}
+.modal_close img {
+  height: auto;
+  position: absolute;
+  right: 0;
+  top: 15px;
+  width: auto !important;
+}
+.tackabreakcontainer .modal_close img {
+  height: auto;
+  position: absolute;
+  right: 30px;
+  top: 50px;
+  width: auto !important;
+}

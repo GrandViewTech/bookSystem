@@ -1,0 +1,3218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title id='Description'>Discover</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!--<link rel="icon" href="favicon.png">-->
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="css/menu.css">
+        <link rel="stylesheet" href="css/popup.css">
+	<link rel="stylesheet" href="css/alert.css">
+	<link rel="stylesheet" href="css/ng-img-crop.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.js"></script>
+	<script src="js/bootbox.js"></script>
+      <script src="js/hello.js"></script>
+      <script src="js/commonServices.js"></script>
+      <script src="js/fileSaver.js"></script>
+	
+        <script src="js/discover.js?dummy=dummy"></script>
+  	
+	<script src="http://www.w3schools.com/lib/w3data.js"></script>
+	 <script src="js/ng-img-crop.js"></script>
+	
+	
+    </head>
+    
+    
+
+    <body ng-app="myApp" ng-controller="discoverController" id="bodyId">
+    
+   
+    
+    <script>
+		w3IncludeHTML();
+	</script>
+
+
+        <div class="header">
+            <div class="container">
+                <div class="logo col-md-3"> 
+                    <a href="index.html"><img src="images/colorlogo.png" /></a>
+                </div>
+
+            <div class="menu col-md-6">
+                    <div class="top topsearch">
+                        <div class="search">
+                            <div class="all"><a href="javascript:void(0);" id="all">All <i class="fa fa-caret-down" aria-hidden="true"></i></a> </div>
+                            <input type="text" name="search"/>
+							<!--<input type="text" class="hideshow" name="search" placeholder="Search"/>-->
+                            <a href="javascript:void(0);" id="searchshow"><i class="fa fa-search" aria-hidden="true"></i></a>
+							<div class="popup">
+                                <i class="fa fa-caret-up" aria-hidden="true"></i>
+                                <ul>
+                                    <li><a href="#">Management</a></li>
+                                    <li><a href="#">Engineering</a></li>
+                                    <li><a href="#">Medicine</a></li>
+                                    <li><a href="#">Law</a></li>
+                                    <li><a href="#">Unversities</a></li>
+                                    <li><a href="#">Pharmacy</a></li>
+                                    <li><a href="#">Computer Applications</a></li>
+                                    <li><a href="#">Finance & Accounts</a></li>
+                                    <li><a href="#">Hospitality & Tourism</a></li>
+                                    <li><a href="#">Media & Jourmalism</a></li>
+                                    <li><a href="#">Animation & Fashion</a></li>
+                                    <li><a href="#">School</a></li>
+                                    <li><a href="#">Competition</a></li>
+                                    <li><a href="#">Study Abroad</a></li>			
+                                </ul>
+                            </div>
+                        </div>
+					</div>
+				</div>
+				<div class="menu col-md-3">
+                    <div class="top">
+                        <div class="login-reg"> 
+                            
+				<div class="headeruser" ><a href="{{headeruser}}" id="header_user_trigger"><img src="images/user.png" /></a></div>
+							
+							<!--===================== Header User Popup Form =====================-->
+                            <div id="headeruser" class="popupContainer headerusercontainer" style="display:none;">
+                                
+                                <section class="popupBody">
+                                    <div class="headeruserpopup">
+					<i class="fa fa-caret-up" aria-hidden="true"></i>
+					<div class="tellusright" id="tellusright">
+						<div class="userimg"><img src="images/testimonials.png"></div>
+							<h4>User Name Loren</h4>
+							<p>14 Review, 38 Followers</p>
+							
+							
+			 
+							<strong><a id="tab_trigger" href="" ng-click="showInviteFriends()" >Invite Friends</a></strong>
+							<strong><a id="tab_trigger" href="" ng-click="showEditProfile()" >Edit Profile</a></strong>
+							<strong><a id="change_password_trigger" href="#changepassword">Change Password</a></strong>
+							
+							<strong><a href="" ng-click="signOff()">Log Out</a></strong>
+						</div>
+					</div>
+                                </section>
+                            </div>
+							
+							<!--===================== Change Password Popup Form =====================-->
+                            <div id="changepassword" class="popupContainer changepasswordcontainer" style="display:none;">
+                                <header class="popupHeader">
+                                    <span class="header_title">Change Password</span>
+                                    <span class="modal_close"><img src="images/x.png"></span>
+                                </header>
+                                <section class="popupBody">
+                                    <div class="change_password">
+                                        <form>
+                                            <fieldset class="form-group">
+                                                <input type="text" name="username" placeholder="User Name*" ng-model="loggedInUser.user" />
+                                            </fieldset>
+                                            <fieldset class="form-group">
+                                                <input type="password" name="oldpassword" placeholder="Old Password*" ng-model="loggedInUser.password" />
+                                            </fieldset>
+											<fieldset class="form-group">
+                                                <input type="password" name="newpassword" placeholder="New Password*" ng-model="loggedInUser.newPassword"/>
+                                            </fieldset>
+											<fieldset class="form-group">
+                                                <input type="password" name="reconfirm" placeholder="Reconfirm*" ng-model="repeatPassword" />
+                                            </fieldset>
+											<div class="action_btns">
+                                                <div class="submit_btn"><a href="" ng-click="checkPasswordValidations()" class="btn btn_red">SUBMIT</a></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </section>
+                            </div>
+							
+							
+                            <div class="logreg">
+                                <a id="modal_trigger" href="#{{profileDialog}}">{{profileText}}</a>
+                            </div>
+                            
+							
+                            <!--===================== Login & Register Popup Form =====================-->
+                            <div id="modal" class="popupContainer loginregistercontainer" style="display:none;">
+                                <header class="popupHeader">
+                                    <span class="header_title">Join the Network</span>
+                                    <span class="modal_close"><a href="" ng-click="closeRegDialog()"><img src="images/x.png"/> </a></span>
+                                </header>
+                                <section class="popupBody">
+                                    <!-- Register Form -->
+                                    <div class="user_register">
+                                        <label class="title">Sign Up</label>
+                                        <form id="formRegister" action="" ng-submit="signup(user)">
+						 <fieldset class="form-group">
+						    <input type="text" name="name" ng-model="user.firstName" placeholder="Name" style="width: 36% !important; float: left;" required /> <input type="text" name="lastname" ng-model="user.lastName" placeholder="Last Name" style="width: 60% !important; float: right;" required />
+						 </fieldset>
+						 <fieldset class="form-group">
+						    <input type="text" name="contact" ng-model="user.contact" placeholder="Contact Number" required />
+						 </fieldset>
+						 <fieldset class="form-group">
+						    <input type="email" ng-model="user.user" name="email" placeholder="Email ID" required />
+						 </fieldset>
+						 <fieldset class="form-group">
+						    <input type="password" name="password" ng-model="user.password" placeholder="Password" required />
+						 </fieldset>
+						 <div class="checkbox">
+						    <input id="send_updates" type="checkbox" ng-model="termCheck" ng-click="display()" /> <label for="send_updates">I agree to the <a href="">Terms & Conditions</a>,<a href="">Privacy Policy</a></label>
+						 </div>
+						 <div class="action_btns">
+						    <div class="one_half last">
+						       <input type="submit" name="button" class="btn btn_red" value="SIGNUP" ng-disabled="check()" />
+						    </div>
+						 </div>
+				      </form>
+                                    </div>
+                                    <!-- Social Login -->
+                                    <div class="social_login">
+				      <label class="title">Sign in With</label>
+				      <p>
+					 Just select your favorite social <br> network to get started
+				      </p>
+				     
+				      <!-- social login Div updated By sharmapuneet1510@gmail.com -->
+				      <div class="social_icon">
+					 <ul>
+					    <!-- Social Login  -->
+					    <!--<button onclick="hello('facebook').login({scope:'user_friends'})">Login</button>-->
+					    <li data-ng-click="socialLogin('facebook')"><a href=""><i class="fa fa-facebook"></i></a></li>
+					    <li data-ng-click="socialLogin('twitter')"><a href=""><i class="fa fa-twitter"></i></a></li>
+					    <li data-ng-click="socialLogin('google')"><a href=""><i class="fa fa-google-plus"></i></a></li>
+					    <!-- <li data-ng-click="socialLogin('linkedin')"><a href=""><i class="fa fa-linkedin"></i></a></li>  -->
+					    <li data-ng-click="socialLogin('instagram')"><a href=""><i class="fa fa-instagram"></i></a></li>
+					 </ul>
+					 <br>
+					 
+				      </div>
+				   </div>
+                                    <!-- Username & Password Login form -->
+                                    <div class="user_login">
+				      <label class="title">User Login</label>
+				      <form id="loginForm" action="" ng-submit="login(user1)">
+					 <fieldset class="form-group">
+					    <input type="text" name="email" placeholder="Username" ng-model="user1.user" required />
+					 </fieldset>
+					 <fieldset class="form-group">
+					    <input type="password" name="password" placeholder="Password" ng-model="user1.password" required />
+					 </fieldset>
+					 <div class="action_btns">
+					    <div class="one_half last">
+					       <input type="submit" name="submit" class="btn btn_red" value="SUBMIT" />
+					    </div>
+					 </div>
+				      </form>
+				   </div>
+                                </section>
+                            </div>
+                            
+                            <!--===================== Invite Friends Popup Form =====================-->
+                             <div id="invitefriendsmodal" class="popupContainer" style="display: none;">
+				 <header class="popupHeader invitefriendheader">
+				    <span class="header_title">Invite Your Friends</span> <span class="modal_close" ng-click=closeInvitefriendsmodal()><img src="images/x.png"></span>
+				 </header>
+				 <section class="popupBody invitefriendbody">
+				    <!-- Select Your Friends -->
+				    <div class="user_register select_your_friends">
+				       <label class="title">Select Your Friends</label>
+				       <div class="formbg">
+					  <form>
+					     <fieldset class="form-group friendborder" ng-repeat="friend in friendslist | orderBy:'displayName'">
+						<div class="hanuman">
+						   <img src="images/userfill.png" />
+						   <p>{{friend.displayName}}</p>
+						   <input value={{friend.email}} ng-checked="isSelected(friend.email)" ng-click="addFriendToInvitationList(friend.email)" type="checkbox" name="usercheckbox[]">
+						</div>
+					     </fieldset>
+					  </form>
+				       </div>
+				    </div>
+				    <!-- Your Message -->
+				    <div class="user_login your_message">
+				       <label class="title">Your Message</label>
+				       <div class="formbg">
+					  <form>
+					     <fieldset class="form-group">
+						<textarea cols="5" rows="5" placeholder="MESSAGE" ng-model="invitationMessage"></textarea>
+					     </fieldset>
+					     <div class="action_btns">
+						<div class="one_half last messageright">
+						   <a href="#" class="btn btn_red" ng-click="inviteFriends()">SEND</a><a href="#" class="btn btn_red" ng-click="closeInvitefriendsmodal()">CANCEL</a>
+						</div>
+					     </div>
+					  </form>
+				       </div>
+				    </div>
+				 </section>
+			      </div>
+
+                        </div>
+                    </div>
+                </div>
+				<div class="menu main_menu col-md-12">
+					 <div id='cssmenu'>
+                        <ul>
+                            <li><a href="Discover.html" class="menulink">discover</a></li>
+                            <li ><a href="prepare_for_greatness.html" class="menulink">prepare for greatness</a></li>
+                            <li><a href="be_job_ready.html" class="menulink">be job ready</a></li>
+                            <li id="last"><a href="write_review.html" class="menulink">write a review</a></li>
+                        </ul>
+                    </div>
+				</div>
+            </div>
+        </div> <!-- Header -->
+	
+	<div class="inviteFriends" id="inviteFriendsLogin" style="display:none;">
+		<header>
+		    <span class="header_title">Sign in With One of Below to invite friends</span>
+		   <span class="modal_close"><a href="" ng-click="hideInviteFriends()"><img src="images/smallX.png"/> </a></span>
+		</header>
+	 
+	      <div class="social_icon">
+		 <ul>
+		    <!-- Social Login  -->
+		 
+		    <li data-ng-click="socialLogin('facebook')"><a href=""><i class="fa fa-facebook"></i></a></li>
+		  
+		    <li data-ng-click="socialLogin('google')"><a href=""><i class="fa fa-google-plus"></i></a></li>
+		
+		 </ul>
+		 <br>
+		 
+	      </div>
+	   </div>
+
+        <div class="slides">
+            <div class="topbg">
+                <div class="logo"><img src="images/colorlogo.png" /></div>
+                <div class="desc">Your future is full of possibilities.<br>Find the right one here.</div>
+                <div class="stroll"><a href="javascript:void(0);" id="show">tack a stroll</a><a id="invite_friends" href="#invitefriendsmodal">get started</a></div>
+            </div>	
+            <div class="slidehover">
+                <!--<img src="images/topbg_hover.jpg" />-->
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/8vicEGLOEdw" frameborder="0" allowfullscreen> </iframe>
+                <div class="close" id="hide"><img src="images/close.png" /></div>
+            </div>
+        </div> <!-- Slide -->
+
+        <div class="feedback">
+            <div class="feedbacklink">
+                <a href="javascript:void(0);" id="showfeedback">feedback</a>
+            </div>
+            <div class="forms" ng-submit="submit(feedback)" id="fbForm">
+		<form>
+                <div class="closes" id="hidefeedback"><img src="images/close.png"></div>
+                <p>We'd love to hear from you. Drop us a note!</p>
+                <input type="text" name="name" placeholder="Name"  ng-model="feedback.name" required />
+                <input type="email" name="email" placeholder="Email" ng-model="feedback.email" required />
+                <textarea name="message" placeholder="Message" ng-model="feedback.message" required></textarea>
+                <input type="submit" name="submit" value="Submit" />
+		</form>
+            </div> <!-- Feedback -->
+			
+			<div class="tack_a_break">
+                <a id="tack_a_break_trigger" href="#tackabreak">tack a break</a>
+            </div>
+			
+			<!--===================== Login & Register Popup Form =====================-->
+			<div id="tackabreak" class="popupContainer tackabreakcontainer" style="display:none;">
+				<header class="popupHeader">						
+					<span class="modal_close"><img src="images/x.png"></span>
+                </header>
+                <section class="popupBody tackabreakbody">
+					<iframe width="100%" height="400px" src="https://www.youtube.com/embed/8vicEGLOEdw" frameborder="0" allowfullscreen> </iframe>
+					
+					<div class="like_video">
+						<i class="fa fa-thumbs-up" aria-hidden="true"></i>
+						<span>276 Likes</span>
+					</div>
+					<div class="dislike_video">
+						<i class="fa fa-thumbs-down" aria-hidden="true"></i>
+						<span>16 Dislikes</span>
+					</div>
+                </section>
+            </div> <!-- Tack a Break -->
+        </div> <!-- FeedBack And Tack A Break -->
+		
+		<div class="discover">
+			<div class="dispad">
+				<h1>Discover</h1>
+				<p>your future with Grovenue.</p>
+			</div>
+		</div> <!-- Discover -->
+		
+		<div class="career_indicators">
+			<div class="container">
+				<h3>Career Indicators</h3>
+				<div class="careerdesc">
+					<div class="firsrtit">How many times have you been asked -</div>
+					<div class="secondtit">"What's your plan for the future?"</div>
+					<div class="desc">Haven't found the answer yet? All you need is the right guidance, and <br>that's where we step in! Just answer some simple question and <br>we can help you discover the right career.</div>
+				</div>
+
+				<div class="profile_inventory col-md-6">
+					
+					<a href="" ng-click="show_discover_steps(true)"><img src="images/interest_profiler.png" /></a>
+					<div class="onet_strong">
+						<h4>The O*net<br>Interest Profile</h4>
+						<p>Based on your interests, discover<br>potential career options.</p>
+					</div>
+					<div class="free_paids">
+						<img src="images/free.png" />
+						<h3>free</h3>
+					</div>
+				</div>
+				<div class="profile_inventory col-md-6">
+					
+					<a href=""><img src="images/interest_inventory.png" /></a>
+					<div class="onet_strong">
+						<h4>The STRONG<bR>Interest Inventory</h4>
+						<p>Get an in-depth assessment and<br>discover the right career for you.</p>
+					</div>
+					<div class="free_paids">
+						<img src="images/paid.png" />
+						<h3>paid</h3>
+					</div>
+				</div>
+			</div>
+		</div> <!-- Career Indicators -->
+		
+		<div class="discover_steps" id="discover_steps">
+			<div class="container">
+				<div class="dis_step">
+					<i class="fa fa-caret-up" aria-hidden="true"></i>
+					<div class="steps col-md-3">
+						<a href="#"><img src="images/discover_step1.png" /></a>
+						<strong><a href="#">step 1</a></strong>
+						<p>Pick Your Interest</p>
+					</div>
+					<div class="steps col-md-3">
+						<a href="#"><img src="images/discover_step2.png" /></a>
+						<strong><a href="#">step 2</a></strong>
+						<p>Get Your Results</p>
+					</div>
+					<div class="steps col-md-3">
+						<a href="#"><img src="images/discover_step3.png" /></a>
+						<strong><a href="#">step 3</a></strong>
+						<p>Select a Job Zones</p>
+					</div>
+					<div class="steps col-md-3">
+						<a href="#"><img src="images/discover_step4.png" /></a>
+						<strong><a href="#">step 4</a></strong>
+						<p>Discover Potential Career</p>
+					</div>
+				</div> <!-- Steps -->
+				
+				<!--<div class="get_started"><a href="">get started1</a></div> -->
+
+				<div class="ipadair col-md-12">
+					
+					<div class="ipad">
+						<div class="ipadimg"><img src="images/ipadbg.png" /></div>
+						
+						<div class="discoverabsulate" id="step1">
+							<div class="topimage"><img src="images/onet_interest.png" /></div>
+							<div class="title">Welcome to the O*NET Interest Profiler!</div>
+							<div class="desc">The O*NET Interest Profiler will help you find out your interests, based on<br>which, you will discover careers that can be explored.</div>
+							<div class="desc">On each screen, click the Next button at the bottom to continue.<bR>You can use the Back button at the bottom to re-read<br>the instructions or change your answers.</div>
+							<div class="get_started"><a href="" id="getStartedId" onclick="getStarted()">get started</a></div>
+							<ul>
+								<li><label class="active">START</label><img src="images/right_arrow_pink.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+							</ul>
+							<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prev1"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="next1"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- Frist Steps -->
+						
+						<div class="discoverabsulate" id="step2">
+							<div class="topimage"><img src="images/onet_interest.png" /></div>
+							<div class="title">How Does It Work?</div>
+							<div class="desc">There are 60 questions related to activities that people do at work.<br>Read each question carefully and decide how you would<br>feel about doing each type of work:</div>
+							<div class="get_started">
+								<ul>
+									<li><img src="images/funicon1.png" /><label>Strongly Dislike</label></li>
+									<li><img src="images/funicon2.png" /><label>Dislike</label></li>
+									<li><img src="images/funicon3.png" /><label>Unsure</label></li>
+									<li><img src="images/funicon4.png" /><label>Like</label></li>
+									<li><img src="images/funicon5.png" /><label>Strongly Likes</label></li>
+								</ul>
+							</div>
+							<ul>
+								<li><label class="active">START</label><img src="images/right_arrow_pink.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+							</ul>
+							<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prev2"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="next2"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- Second Steps -->
+						
+						<div class="discoverabsulate" id="step3">
+							<div class="topimage"><img src="images/onet_interest.png" /></div>
+							<div class="title">
+								As you answer the questions...
+								<p>Try Not to think about:</p>
+							</div>
+							<div class="desc">* Whether you have enough education or training to do the work;<bR><strong>or</strong><br>* How much money you would make doing the work.</div>
+							<div class="desc">Just think about whether you would like or dislike doing the work.</div>
+							<div class="pad" style="padding:35px 0;float:left;width:100%;"></div>
+							<ul>
+								<li><label class="active">START</label><img src="images/right_arrow_pink.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+							</ul>
+							<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prev3"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="next3"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- Therd Steps -->
+										
+						<div class="discoverabsulate" id="step4">
+							<div class="topimage"><img src="images/onet_interest.png" /></div>
+							<div class="title">
+								This is not a test !
+								<p>There are no right or wrong answers!</p>
+							</div>
+							<div class="desc">* Whether you have enough education or training to do the work;<bR><strong>or</strong><br>* How much money you would make doing the work.</div>
+							<div class="desc">Just think about whether you would like or dislike doing the work.</div>
+							<div class="pad" style="padding:35px 0;float:left;width:100%;"></div>
+							<ul>
+								<li><label class="active">START</label><img src="images/right_arrow_pink.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+							</ul>
+							<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prev4"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="next4"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- Fourth Steps -->
+										
+						<div class="discoverabsulate discoverabsulatestep5" id="step5">
+							<div class="topimage">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="rightscroller"><img src="images/questionpage.png" /></div>
+							</div>
+							<div class="stepfivecontent">
+								<div class="overflowhidden">
+									<table>
+										<tr style="border:none;">
+											<th width="5%;">&nbsp;</th>
+											<th width="7%;"><img src="images/funicon1.png" /></th>
+											<th width="7%;"><img src="images/funicon2.png" /></th>
+											<th width="7%;"><img src="images/funicon3.png" /></th>
+											<th width="7%;"><img src="images/funicon4.png" /></th>
+											<th width="7%;"><img src="images/funicon5.png" /></th>
+											<th width="60%;">&nbsp;</th>
+										</tr>
+										<tr class="abc"><td colspan="7">&nbsp;</td></tr>
+										<tr ng-repeat="quest in questions1.question">
+											<td>{{ quest.index }}</td>
+											<td><input type="radio" name="{{ quest.text }}" value="1" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="2" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="3" ng-model="quest.answer"   /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="4"  ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}"  value="5" ng-model="quest.answer" /></td>
+											<td style="text-align:left; padding-left:20px;">{{ quest.text }}</td>
+										</tr>
+										
+										
+									</table>
+								</div>
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">INTEREST</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+								<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prev5"><img src="images/left_arrow_white.png" /></a></div>
+								<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="next5"><img src="images/right_arrow_white.png" /></a></div>
+							</div>
+						</div><!-- Five Steps -->
+						<!--end 5 -->
+						<!-- start 6-->
+						<div class="discoverabsulate discoverabsulatestep5" id="step6">
+						
+							<div class="topimage">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="rightscroller"><img src="images/questionpage.png" /></div>
+							</div>
+							<div class="stepfivecontent">
+								<div class="overflowhidden">
+									<table>
+										<tr style="border:none;">
+											<th width="5%;">&nbsp;</th>
+											<th width="7%;"><img src="images/funicon1.png" /></th>
+											<th width="7%;"><img src="images/funicon2.png" /></th>
+											<th width="7%;"><img src="images/funicon3.png" /></th>
+											<th width="7%;"><img src="images/funicon4.png" /></th>
+											<th width="7%;"><img src="images/funicon5.png" /></th>
+											<th width="60%;">&nbsp;</th>
+										</tr>
+										<tr class="abc"><td colspan="7">&nbsp;</td></tr>
+										<tr ng-repeat="quest in questions2.question">
+											<td>{{ quest.index }}</td>
+											<td><input type="radio" name="{{ quest.text }}" value="1" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="2" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="3" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="4"  ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}"  value="5" ng-model="quest.answer" /></td>
+											<td style="text-align:left; padding-left:20px;">{{ quest.text }}</td>
+										</tr>
+										
+										
+									</table>
+								</div>
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">INTEREST</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+								<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prev6"><img src="images/left_arrow_white.png" /></a></div>
+								<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="next6"><img src="images/right_arrow_white.png" /></a></div>
+							</div>
+						</div><!-- Five Steps -->
+						<!-- end 6 -->
+						<!-- start 7-->
+						<div class="discoverabsulate discoverabsulatestep5" id="step7">
+						
+							<div class="topimage">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="rightscroller"><img src="images/questionpage.png" /></div>
+							</div>
+							<div class="stepfivecontent">
+								<div class="overflowhidden">
+									<table>
+										<tr style="border:none;">
+											<th width="5%;">&nbsp;</th>
+											<th width="7%;"><img src="images/funicon1.png" /></th>
+											<th width="7%;"><img src="images/funicon2.png" /></th>
+											<th width="7%;"><img src="images/funicon3.png" /></th>
+											<th width="7%;"><img src="images/funicon4.png" /></th>
+											<th width="7%;"><img src="images/funicon5.png" /></th>
+											<th width="60%;">&nbsp;</th>
+										</tr>
+										<tr class="abc"><td colspan="7">&nbsp;</td></tr>
+										<tr ng-repeat="quest in questions3.question">
+											<td>{{ quest.index }}</td>
+											<td><input type="radio" name="{{ quest.text }}" value="1" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="2" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="3" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="4"  ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}"  value="5" ng-model="quest.answer" /></td>
+											<td style="text-align:left; padding-left:20px;">{{ quest.text }}</td>
+										</tr>
+										
+										
+									</table>
+								</div>
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">INTEREST</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+								<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prev7"><img src="images/left_arrow_white.png" /></a></div>
+								<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="next7"><img src="images/right_arrow_white.png" /></a></div>
+							</div>
+						</div><!-- Five Steps -->
+						<!-- end 7 -->
+						<!-- start 8-->
+						<div class="discoverabsulate discoverabsulatestep5" id="step8">
+						
+							<div class="topimage">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="rightscroller"><img src="images/questionpage.png" /></div>
+							</div>
+							<div class="stepfivecontent">
+								<div class="overflowhidden">
+									<table>
+										<tr style="border:none;">
+											<th width="5%;">&nbsp;</th>
+											<th width="7%;"><img src="images/funicon1.png" /></th>
+											<th width="7%;"><img src="images/funicon2.png" /></th>
+											<th width="7%;"><img src="images/funicon3.png" /></th>
+											<th width="7%;"><img src="images/funicon4.png" /></th>
+											<th width="7%;"><img src="images/funicon5.png" /></th>
+											<th width="60%;">&nbsp;</th>
+										</tr>
+										<tr class="abc"><td colspan="7">&nbsp;</td></tr>
+										<tr ng-repeat="quest in questions4.question">
+											<td>{{ quest.index }}</td>
+											<td><input type="radio" name="{{ quest.text }}" value="1" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="2" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="3" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="4"  ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}"  value="5" ng-model="quest.answer" /></td>
+											<td style="text-align:left; padding-left:20px;">{{ quest.text }}</td>
+										</tr>
+										
+										
+									</table>
+								</div>
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">INTEREST</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+								<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prev8"><img src="images/left_arrow_white.png" /></a></div>
+								<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="next8"><img src="images/right_arrow_white.png" /></a></div>
+							</div>
+						</div><!-- Five Steps -->
+						<!-- end 8 -->
+						<!-- start 9-->
+						<div class="discoverabsulate discoverabsulatestep5" id="step9">
+						
+							<div class="topimage">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="rightscroller"><img src="images/questionpage.png" /></div>
+							</div>
+							<div class="stepfivecontent">
+								<div class="overflowhidden">
+									<table>
+										<tr style="border:none;">
+											<th width="5%;">&nbsp;</th>
+											<th width="7%;"><img src="images/funicon1.png" /></th>
+											<th width="7%;"><img src="images/funicon2.png" /></th>
+											<th width="7%;"><img src="images/funicon3.png" /></th>
+											<th width="7%;"><img src="images/funicon4.png" /></th>
+											<th width="7%;"><img src="images/funicon5.png" /></th>
+											<th width="60%;">&nbsp;</th>
+										</tr>
+										<tr class="abc"><td colspan="7">&nbsp;</td></tr>
+										<tr ng-repeat="quest in questions5.question">
+											<td>{{ quest.index }}</td>
+											<td><input type="radio" name="{{ quest.text }}" value="1" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="2" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="3" ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}" value="4"  ng-model="quest.answer"  /></td>
+											<td><input type="radio" name="{{ quest.text }}"  value="5" ng-model="quest.answer" /></td>
+											<td style="text-align:left; padding-left:20px;">{{ quest.text }}</td>
+										</tr>
+										
+										
+									</table>
+								</div>
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">INTEREST</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+								<div class="alert alert-warning" id="alert">
+								  <strong>Warning!</strong> Please answer all Questions. You can't proceed further without answering them!
+								</div>
+								<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prev9"><img src="images/left_arrow_white.png" /></a></div>
+								<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="next9"><img src="images/right_arrow_white.png" /></a></div>
+							</div>
+						</div><!-- Five Steps -->
+						<!-- end 9 -->
+										
+						<div class="discoverabsulate sixstep" id="step10">
+							<div class="topimage"><img src="images/onet_interest.png" /></div>
+							<div class="title">
+								Great Job!
+								<p>You answered all the questions</p>
+							</div>
+							<div class="get_started"><a href="" onClick="goToQuestions()" >review your answers</a><input type="submit" name="submit" value="submit" ng-click="submitAnswers()" onClick="goToNext()"  /></div>
+							<div class="padlarge" style="padding:45px 0;float:left;width:100%;"></div>
+							<ul>
+								<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label class="active">INTEREST</label><img src="images/right_arrow_pink.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+							</ul>
+							<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prev10"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="next10" ng-click="submitAnswers()"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- Six Steps -->
+										
+						<div class="discoverabsulate sevenstep discoverabsulatesevenstep" id="step11">
+							<div class="topimage"><img src="images/onet_interest.png" /></div>
+							<div class="title">Here are your Interest Profiler Results</div>
+							<div class="left col-md-6">
+								<div class="desc">Your interests are indicative <br>of the kind of work you like doing.</div>
+								<div class="desc">They will help you find careers <br>you might want to explore. <br>The more a career meets your <br>interests, the more likely it will <br>be satisfying and rewarding to you</div>
+								<div class="desc">You can click on any interest below <br>to learn more. When you're ready, <br>click Next to continue.</div>
+								<ul>
+									<li><a href="" onClick="showDesc('Realistic')">Realistic</a></li>
+									<li><a href="" onClick="showDesc('Social')">Social</a></li>
+									<li><a href="" onClick="showDesc('Investigative')">Investigative</a></li>
+									<li><a href="" onClick="showDesc('Enterprising')">Enterprising</a></li>
+									<li><a href="" onClick="showDesc('Artistic')">Artistic</a></li>
+									<li><a href="" onClick="showDesc('Conventional')">Conventional</a></li>
+								</ul>
+							</div>
+							<div class="right col-md-6">
+								 <div id="chart">
+									<ul id="bars">
+										<li><div id="real" data-percentage="" class="bar"></div><span>R</span></li>
+										<li><div id="inv" data-percentage="" class="bar"></div><span>I</span></li>
+										<li><div id="art" data-percentage="" class="bar"></div><span>A</span></li>
+										<li><div id="soc" data-percentage="" class="bar"></div><span>S</span></li>
+										<li><div id="entp" data-percentage="" class="bar"></div><span>E</span></li>
+										<li><div id="conv" data-percentage="" class="bar"></div><span>C</span></li>
+									</ul>
+								</div>
+
+
+								<div class="rightartistic">
+									<ul>
+										<li>Realistic <strong>{{realisticScore}}</strong></li>
+										<li>Investigative <strong>{{investigativeScore}}</strong></li>
+										<li>Artistic <strong>{{artisticScore}}</strong></li>
+										<li>Social <strong>{{socialScore}}</strong></li>
+										<li>Enterprising <strong>{{enterprisingScore}}</strong></li>
+										<li>Conventional <strong>{{conventionalScore}}</strong></li>
+									</ul>
+								</div>
+							</div>
+							<ul>
+								<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label class="active">RESULTS</label><img src="images/right_arrow_pink.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+							</ul>
+							<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prev11"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="next11"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- Seven Steps -->				
+						
+						<div class="discoverabsulate sevenstep eightstep discoverabsulateeightstep" id="stepRealistic">
+							<div class="eightpad">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="title">Here are your Interest Profiler Results</div>
+								<div class="left col-md-6">
+									<div class="desc">Your interests are indicative <br>of the kind of work you like doing.</div>
+									<div class="desc">They will help you find careers <br>you might want to explore. <br>The more a career meets your <br>interests, the more likely it will <br>be satisfying and rewarding to you</div>
+									<div class="desc">You can click on any interest below <br>to learn more. When you're ready, <br>click Next to continue.</div>
+									<ul>
+										<li><a href="" onClick="showDesc('Realistic')">Realistic</a></li>
+										<li><a href="" onClick="showDesc('Social')">Social</a></li>
+										<li><a href="" onClick="showDesc('Investigative')">Investigative</a></li>
+										<li><a href="" onClick="showDesc('Enterprising')">Enterprising</a></li>
+										<li><a href="" onClick="showDesc('Artistic')">Artistic</a></li>
+										<li><a href="" onClick="showDesc('Conventional')">Conventional</a></li>
+									</ul>
+								</div>
+								<div class="right col-md-6">
+									<div class="colorriasec">
+										<ul>
+											<li><img src="images/tabriasec1.png" /></li>
+											<li><img src="images/tabriasec2.png" /></li>
+											<li><img src="images/tabriasec3.png" /></li>
+											<li><img src="images/tabriasec4.png" /></li>
+											<li><img src="images/tabriasec5.png" /></li>
+											<li><img src="images/tabriasec6.png" /></li>
+										</ul>
+									</div>
+									<div class="riasec">riasec</div>
+									<div class="rightartistic">
+										<ul>
+											<li>Realistic <strong>{{realisticScore}}</strong></li>
+											<li>Investigative <strong>{{investigativeScore}}</strong></li>
+											<li>Artistic <strong>{{artisticScore}}</strong></li>
+											<li>Social <strong>{{socialScore}}</strong></li>
+											<li>Enterprising <strong>{{enterprisingScore}}</strong></li>
+											<li>Conventional <strong>{{conventionalScore}}</strong></li>
+										</ul>
+									</div>
+								</div>
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">RESULTS</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+							</div>
+							<div class="overlay-bg"></div>
+							<div id="realisticStepmodal" class="popupContainer overlay-content" style="display:block;">
+								<header class="popupHeader">
+									<!--<span class="modal_close close-btn"><img src="images/x.png"></span> -->
+									<span class="modal_close close-btn">  </span>
+								</header>
+								<section class="popupBody">
+									<div class="eightstep_popup">
+									<div align="right"> <image src="images/closeSmall.png" onClick="hidePopup()" /> </div>
+										<div class="title">Realistic</div>
+										<div class="desc">People with Realistic interests like work that includes practical, hands-on problems and answers. Often people with Realistic interests do not like careers that involve paperwork or working closely with others.</div>
+										<div class="subtitle">They like:</div>
+										<ul>
+											<li>Working with plants and animals</li>
+											<li>Real-world materials like wood. tools. and machinery</li>
+											<li>Outside work</li>
+										</ul>
+										
+										<!--<img src="images/close.png" onclick="hidePopup()"> -->
+									</div>
+									
+								</section>
+								
+							</div>
+							<div class="ipadleftarrow ipadleftarrowstep8"><a href="javascript:void(0);" id="prev" class="realisticPrev"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow ipadrightarrowstep8"><a href="javascript:void(0);" id="next" class="realisticNext"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- Eight Steps -->	
+
+						<!-- 	Results desc -->
+						<div class="discoverabsulate sevenstep eightstep discoverabsulateeightstep" id="stepSocial">
+							<div class="eightpad">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="title">Here are your Interest Profiler Results</div>
+								<div class="left col-md-6">
+									<div class="desc">Your interests are indicative <br>of the kind of work you like doing.</div>
+									<div class="desc">They will help you find careers <br>you might want to explore. <br>The more a career meets your <br>interests, the more likely it will <br>be satisfying and rewarding to you</div>
+									<div class="desc">You can click on any interest below <br>to learn more. When you're ready, <br>click Next to continue.</div>
+									<ul>
+										<li><a href="" onClick="showDesc('Realistic')">Realistic</a></li>
+										<li><a href="" onClick="showDesc('Social')">Social</a></li>
+										<li><a href="" onClick="showDesc('Investigative')">Investigative</a></li>
+										<li><a href="" onClick="showDesc('Enterprising')">Enterprising</a></li>
+										<li><a href="" onClick="showDesc('Artistic')">Artistic</a></li>
+										<li><a href="" onClick="showDesc('Conventional')">Conventional</a></li>
+									</ul>
+								</div>
+								<div class="right col-md-6">
+									<div class="colorriasec">
+										<ul>
+											<li><img src="images/tabriasec1.png" /></li>
+											<li><img src="images/tabriasec2.png" /></li>
+											<li><img src="images/tabriasec3.png" /></li>
+											<li><img src="images/tabriasec4.png" /></li>
+											<li><img src="images/tabriasec5.png" /></li>
+											<li><img src="images/tabriasec6.png" /></li>
+										</ul>
+									</div>
+									<div class="riasec">riasec</div>
+									<div class="rightartistic">
+										<ul>
+											<li>Realistic <strong>{{realisticScore}}</strong></li>
+											<li>Investigative <strong>{{investigativeScore}}</strong></li>
+											<li>Artistic <strong>{{artisticScore}}</strong></li>
+											<li>Social <strong>{{socialScore}}</strong></li>
+											<li>Enterprising <strong>{{enterprisingScore}}</strong></li>
+											<li>Conventional <strong>{{conventionalScore}}</strong></li>
+										</ul>
+									</div>
+								</div>
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">RESULTS</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+							</div>
+							<div class="overlay-bg"></div>
+							<div id="socialStepModal" class="popupContainer overlay-content" style="display:block;">
+								<header class="popupHeader">
+									<!--<span class="modal_close close-btn"><img src="images/x.png"></span> -->
+									<span class="modal_close close-btn">  </span>
+								</header>
+								<section class="popupBody">
+									<div class="eightstep_popup">
+									<div align="right"> <image src="images/closeSmall.png" onClick="hidePopup()" /> </div>
+										<div class="title">Social</div>
+										<div class="desc">People with Social interests like working with others to help them learn and grow. They like working with people more than working with objects, machines, or information.</div>
+										<div class="subtitle">They like:</div>
+										<ul>
+											<li>Teaching</li>
+											<li>Giving advice</li>
+											<li>Helping and being of service to people</li>
+										</ul>
+										
+									</div>
+								</section>
+							</div>
+							<div class="ipadleftarrow ipadleftarrowstep8"><a href="javascript:void(0);" id="prev" class="socialPrev"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow ipadrightarrowstep8"><a href="javascript:void(0);" id="next" class="socialNext"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- Eight Steps -->	
+						
+						<div class="discoverabsulate sevenstep eightstep discoverabsulateeightstep" id="stepInvestigative">
+							<div class="eightpad">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="title">Here are your Interest Profiler Results</div>
+								<div class="left col-md-6">
+									<div class="desc">Your interests are indicative <br>of the kind of work you like doing.</div>
+									<div class="desc">They will help you find careers <br>you might want to explore. <br>The more a career meets your <br>interests, the more likely it will <br>be satisfying and rewarding to you</div>
+									<div class="desc">You can click on any interest below <br>to learn more. When you're ready, <br>click Next to continue.</div>
+									<ul>
+										<li><a href="" onClick="showDesc('Realistic')">Realistic</a></li>
+										<li><a href="" onClick="showDesc('Social')">Social</a></li>
+										<li><a href="" onClick="showDesc('Investigative')">Investigative</a></li>
+										<li><a href="" onClick="showDesc('Enterprising')">Enterprising</a></li>
+										<li><a href="" onClick="showDesc('Artistic')">Artistic</a></li>
+										<li><a href="" onClick="showDesc('Conventional')">Conventional</a></li>
+									</ul>
+								</div>
+								<div class="right col-md-6">
+									<div class="colorriasec">
+										<ul>
+											<li><img src="images/tabriasec1.png" /></li>
+											<li><img src="images/tabriasec2.png" /></li>
+											<li><img src="images/tabriasec3.png" /></li>
+											<li><img src="images/tabriasec4.png" /></li>
+											<li><img src="images/tabriasec5.png" /></li>
+											<li><img src="images/tabriasec6.png" /></li>
+										</ul>
+									</div>
+									<div class="riasec">riasec</div>
+									<div class="rightartistic">
+										<ul>
+											<li>Realistic <strong>{{realisticScore}}</strong></li>
+											<li>Investigative <strong>{{investigativeScore}}</strong></li>
+											<li>Artistic <strong>{{artisticScore}}</strong></li>
+											<li>Social <strong>{{socialScore}}</strong></li>
+											<li>Enterprising <strong>{{enterprisingScore}}</strong></li>
+											<li>Conventional <strong>{{conventionalScore}}</strong></li>
+										</ul>
+									</div>
+								</div>
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">RESULTS</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+							</div>
+							<div class="overlay-bg"></div>
+							<div id="eightstepmodal" class="popupContainer overlay-content" style="display:block;">
+								<header class="popupHeader">
+									<!--<span class="modal_close close-btn"><img src="images/x.png"></span> -->
+									<span class="modal_close close-btn">  </span>
+								</header>
+								<section class="popupBody">
+									<div class="eightstep_popup">
+									<div align="right"> <image src="images/closeSmall.png" onClick="hidePopup()" /> </div>
+										<div class="title">Investigative</div>
+										<div class="desc">People with Investigative interests like work that has to do with ideas and thinking rather than physical activity or leading people.</div>
+										<div class="subtitle">They like:</div>
+										<ul>
+											<li>Searching for facts</li>
+											<li>Figuring out problems</li>
+											
+										</ul>
+										
+									</div>
+								</section>
+							</div>
+							<div class="ipadleftarrow ipadleftarrowstep8"><a href="javascript:void(0);" id="prev" class="investigativePrev"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow ipadrightarrowstep8"><a href="javascript:void(0);" id="next" class="investigativeNext"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- Eight Steps -->
+						
+						<div class="discoverabsulate sevenstep eightstep discoverabsulateeightstep" id="stepEnterprising">
+							<div class="eightpad">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="title">Here are your Interest Profiler Results</div>
+								<div class="left col-md-6">
+									<div class="desc">Your interests are indicative <br>of the kind of work you like doing.</div>
+									<div class="desc">They will help you find careers <br>you might want to explore. <br>The more a career meets your <br>interests, the more likely it will <br>be satisfying and rewarding to you</div>
+									<div class="desc">You can click on any interest below <br>to learn more. When you're ready, <br>click Next to continue.</div>
+									<ul>
+										<li><a href="" onClick="showDesc('Realistic')">Realistic</a></li>
+										<li><a href="" onClick="showDesc('Social')">Social</a></li>
+										<li><a href="" onClick="showDesc('Investigative')">Investigative</a></li>
+										<li><a href="" onClick="showDesc('Enterprising')">Enterprising</a></li>
+										<li><a href="" onClick="showDesc('Artistic')">Artistic</a></li>
+										<li><a href="" onClick="showDesc('Conventional')">Conventional</a></li>
+									</ul>
+								</div>
+								<div class="right col-md-6">
+									<div class="colorriasec">
+										<ul>
+											<li><img src="images/tabriasec1.png" /></li>
+											<li><img src="images/tabriasec2.png" /></li>
+											<li><img src="images/tabriasec3.png" /></li>
+											<li><img src="images/tabriasec4.png" /></li>
+											<li><img src="images/tabriasec5.png" /></li>
+											<li><img src="images/tabriasec6.png" /></li>
+										</ul>
+									</div>
+									<div class="riasec">riasec</div>
+									<div class="rightartistic">
+										<ul>
+											<li>Realistic <strong>{{realisticScore}}</strong></li>
+											<li>Investigative <strong>{{investigativeScore}}</strong></li>
+											<li>Artistic <strong>{{artisticScore}}</strong></li>
+											<li>Social <strong>{{socialScore}}</strong></li>
+											<li>Enterprising <strong>{{enterprisingScore}}</strong></li>
+											<li>Conventional <strong>{{conventionalScore}}</strong></li>
+										</ul>
+									</div>
+								</div>
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">RESULTS</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+							</div>
+							<div class="overlay-bg"></div>
+							<div id="eightstepmodal" class="popupContainer overlay-content" style="display:block;">
+								<header class="popupHeader">
+									<!--<span class="modal_close close-btn"><img src="images/x.png"></span> -->
+									<span class="modal_close close-btn"> </span>
+								</header>
+								<section class="popupBody">
+									<div class="eightstep_popup">
+									<div align="right"> <image src="images/closeSmall.png" onClick="hidePopup()" /> </div>
+										<div class="title">Enterprising</div>
+										<div class="desc">People with Enterprising interests like work that has to do with starting up and carrying out business projects. These people like taking action rather than thinking about things.</div>
+										<div class="subtitle">They like:</div>
+										<ul>
+											<li>Persuading and leading people</li>
+											<li>Making decisions</li>
+											<li>Taking risks for profits</li>
+											
+										</ul>
+										
+									</div>
+								</section>
+							</div>
+							<div class="ipadleftarrow ipadleftarrowstep8"><a href="javascript:void(0);" id="prev" class="enterprisingPrev"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow ipadrightarrowstep8"><a href="javascript:void(0);" id="next" class="enterprisingNext"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- Eight Steps -->
+						
+						<div class="discoverabsulate sevenstep eightstep discoverabsulateeightstep" id="stepArtistic">
+							<div class="eightpad">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="title">Here are your Interest Profiler Results</div>
+								<div class="left col-md-6">
+									<div class="desc">Your interests are indicative <br>of the kind of work you like doing.</div>
+									<div class="desc">They will help you find careers <br>you might want to explore. <br>The more a career meets your <br>interests, the more likely it will <br>be satisfying and rewarding to you</div>
+									<div class="desc">You can click on any interest below <br>to learn more. When you're ready, <br>click Next to continue.</div>
+									<ul>
+										<li><a href="" onClick="showDesc('Realistic')">Realistic</a></li>
+										<li><a href="" onClick="showDesc('Social')">Social</a></li>
+										<li><a href="" onClick="showDesc('Investigative')">Investigative</a></li>
+										<li><a href="" onClick="showDesc('Enterprising')">Enterprising</a></li>
+										<li><a href="" onClick="showDesc('Artistic')">Artistic</a></li>
+										<li><a href="" onClick="showDesc('Conventional')">Conventional</a></li>
+									</ul>
+								</div>
+								<div class="right col-md-6">
+									<div class="colorriasec">
+										<ul>
+											<li><img src="images/tabriasec1.png" /></li>
+											<li><img src="images/tabriasec2.png" /></li>
+											<li><img src="images/tabriasec3.png" /></li>
+											<li><img src="images/tabriasec4.png" /></li>
+											<li><img src="images/tabriasec5.png" /></li>
+											<li><img src="images/tabriasec6.png" /></li>
+										</ul>
+									</div>
+									<div class="riasec">riasec</div>
+									<div class="rightartistic">
+										<ul>
+											<li>Realistic <strong>{{realisticScore}}</strong></li>
+											<li>Investigative <strong>{{investigativeScore}}</strong></li>
+											<li>Artistic <strong>{{artisticScore}}</strong></li>
+											<li>Social <strong>{{socialScore}}</strong></li>
+											<li>Enterprising <strong>{{enterprisingScore}}</strong></li>
+											<li>Conventional <strong>{{conventionalScore}}</strong></li>
+										</ul>
+									</div>
+								</div>
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">RESULTS</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+							</div>
+							<div class="overlay-bg"></div>
+							<div id="eightstepmodal" class="popupContainer overlay-content" style="display:block;">
+								<header class="popupHeader">
+									<!--<span class="modal_close close-btn"><img src="images/x.png"></span> -->
+									<span class="modal_close close-btn"> </span>
+								</header>
+								<section class="popupBody">
+									<div class="eightstep_popup">
+									<div align="right"> <image src="images/closeSmall.png" onClick="hidePopup()" /> </div>
+										<div class="title">Artistic</div>
+										<div class="desc">People with Artistic interests like work that deals with the artistic side of things, such as acting, music, art, and design.</div>
+										<div class="subtitle">They like:</div>
+										<ul>
+											<li>Creativity in their work</li>
+											<li>Work that can be done without following a set of rules</li>
+											
+											
+										</ul>
+										
+									</div>
+								</section>
+							</div>
+							<div class="ipadleftarrow ipadleftarrowstep8"><a href="javascript:void(0);" id="prev" class="artisticPrev"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow ipadrightarrowstep8"><a href="javascript:void(0);" id="next" class="artisticNext"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- Eight Steps -->
+						
+						<div class="discoverabsulate sevenstep eightstep discoverabsulateeightstep" id="stepConventional">
+							<div class="eightpad">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="title">Here are your Interest Profiler Results</div>
+								<div class="left col-md-6">
+									<div class="desc">Your interests are indicative <br>of the kind of work you like doing.</div>
+									<div class="desc">They will help you find careers <br>you might want to explore. <br>The more a career meets your <br>interests, the more likely it will <br>be satisfying and rewarding to you</div>
+									<div class="desc">You can click on any interest below <br>to learn more. When you're ready, <br>click Next to continue.</div>
+									<ul>
+										<li><a href="" onClick="showDesc('Realistic')">Realistic</a></li>
+										<li><a href="" onClick="showDesc('Social')">Social</a></li>
+										<li><a href="" onClick="showDesc('Investigative')">Investigative</a></li>
+										<li><a href="" onClick="showDesc('Enterprising')">Enterprising</a></li>
+										<li><a href="" onClick="showDesc('Artistic')">Artistic</a></li>
+										<li><a href="" onClick="showDesc('Conventional')">Conventional</a></li>
+									</ul>
+								</div>
+								<div class="right col-md-6">
+									<div class="colorriasec">
+										<ul>
+											<li><img src="images/tabriasec1.png" /></li>
+											<li><img src="images/tabriasec2.png" /></li>
+											<li><img src="images/tabriasec3.png" /></li>
+											<li><img src="images/tabriasec4.png" /></li>
+											<li><img src="images/tabriasec5.png" /></li>
+											<li><img src="images/tabriasec6.png" /></li>
+										</ul>
+									</div>
+									<div class="riasec">riasec</div>
+									<div class="rightartistic">
+										<ul>
+											<li>Realistic <strong>{{realisticScore}}</strong></li>
+											<li>Investigative <strong>{{investigativeScore}}</strong></li>
+											<li>Artistic <strong>{{artisticScore}}</strong></li>
+											<li>Social <strong>{{socialScore}}</strong></li>
+											<li>Enterprising <strong>{{enterprisingScore}}</strong></li>
+											<li>Conventional <strong>{{conventionalScore}}</strong></li>
+										</ul>
+									</div>
+								</div>
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">RESULTS</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+							</div>
+							<div class="overlay-bg"></div>
+							<div id="eightstepmodal" class="popupContainer overlay-content" style="display:block;">
+								<header class="popupHeader">
+									<!--<span class="modal_close close-btn"><img src="images/x.png"></span> -->
+									<span class="modal_close close-btn">  </span>
+								</header>
+								<section class="popupBody">
+									<div class="eightstep_popup">
+									<div align="right"> <image src="images/closeSmall.png" onClick="hidePopup()" /> </div>
+										<div class="title">Conventional</div>
+										<div class="desc">People with Conventional interests like work that follows set procedures and routines. They prefer working with information and paying attention to details rather than working with ideas.</div>
+										<div class="subtitle">They like:</div>
+										<ul>
+											<li>Working with clear rules</li>
+											<li>Following a strong leader</li>
+											
+											
+										</ul>
+										
+									</div>
+								</section>
+							</div>
+							<div class="ipadleftarrow ipadleftarrowstep8"><a href="javascript:void(0);" id="prev" class="conventionalPrev"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow ipadrightarrowstep8"><a href="javascript:void(0);" id="next" class="conventionalNext"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- Eight Steps -->
+						
+						<!-- End Results desc -->
+							
+						<div class="discoverabsulate sevenstep eightstep ninestep discoverabsulateninestep" id="step13">
+							<div class="eightpad">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="title">
+								Interests + Job Zones = Future Careers
+								<p>To focus on your job search, think about:</p>
+								
+							</div>
+							{{showLoadingMessage}}
+								<div class="left col-md-6">
+									<div class="desc">How much education, training and experience do I need to do the job?</div>
+									<div class="desc">Each 0.NET career is in one of five Job Zones - groups of carrers that need the same level of experience, education and tarining.</div>
+									<div class="desc">Different careers need different amountsof preperation. Based on your choice of Job Zone and your interests, the Interest Profiler will help you identify and explore careers that might be right for you.</div>									
+								</div>
+								<div class="right col-md-6">
+									<ul>
+										<li>1. <a href="" onClick="showJobPrepDesc('NoJob')" >Little or no job preperation</a></li>
+										<li>2. <a href="" onClick="showJobPrepDesc('SomeJob')" >Some job preperation</a></li>
+										<li>3. <a href="" onClick="showJobPrepDesc('MediumJob')">Medium job preperation</a></li>
+										<li>4. <a href="" onClick="showJobPrepDesc('HighJob')">High job preperation</a></li>
+										<li>5. <a href="" onClick="showJobPrepDesc('ExtensiveJob')">Extensive job preperation</a></li>
+									</ul>
+								</div>
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">JOB ZONE</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+							</div>
+							<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prev13"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="next13" ng-click="goToCareers(3)"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- nine Steps -->
+						
+						
+						<!-- job prep links begin earlier it was step 14 -->
+						<div class="discoverabsulate sevenstep eightstep ninestep tenstep" id="stepNoJobPrep">
+							<div class="eightpad">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="title">
+								Interests + Job Zones = Future Careers
+								<p>To focus on your job search, think about:</p>
+							</div>
+								<div class="left col-md-6">
+									<div class="desc">How much education, training and experience do I need to do the job?</div>
+									<div class="desc">Each 0.NET career is in one of five Job Zones - groups of carrers that need the same level of experience, education and tarining.</div>
+									<div class="desc">Different careers need different amountsof preperation. Based on your choice of Job Zone and your interests, the Interest Profiler will help you identify and explore careers that might be right for you.</div>									
+								</div>
+								<div class="right col-md-6">
+									<ul>
+										<li>1. <a href="#">Little or no job preperation</a></li>
+										<li>2. <a href="#">Some job preperation</a></li>
+										<li>3. <a href="#">Medium job preperation</a></li>
+										<li>4. <a href="#">High job preperation</a></li>
+										<li>5. <a href="#">Extensive job preperation</a></li>
+									</ul>
+								</div>
+								<div class="overlay-bg1"></div>
+								<div id="tentepmodal" class="popupContainer overlay-content1" style="display:block;">
+								<header class="popupHeader">
+									<span class="modal_close close-btn1"></span>
+								</header>
+								<section class="popupBody">
+									<div class="eightstep_popup">
+									
+										<div align="right"><image src="images/closeSmall.png" alt="Click to Close" onclick="hideJobPrepPopup()" /></div>	
+										
+										
+										<div class="toptitle">Job Zone One: Little or No Preparation Needed</div>
+										<div class="experience col-md-6">
+											<div class="title">Experience</div>
+											<div class="desc">Little or no previous work-related skill. knowledge. or experience Is needed for these careers. For example. a person can become a waiter or waitress even if he/she has never worked before.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Education</div>
+											<div class="desc">Some of these careers may need a high school diploma or GED certificate.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Training</div>
+											<div class="desc">Employees in these careers need from a few days to a few months of training. worker can Yuo= do the Job.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Examples</div>
+											<div class="desc">These careers involve following instructions and helping others. Examples include taxi drivers. amusement and recreation attendants. counter and rental clerks. construction laborers. continuous mining machine operators. and waiters/waitresses.</div>											
+										</div>
+										
+									
+									</div>
+									
+								</section>
+							</div>
+								
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">JOB ZONE</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+							</div>
+							<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prevNoJob"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="nextNoJob" ng-click="goToCareers(3)"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- ten Steps -->
+						
+						
+						<div class="discoverabsulate sevenstep eightstep ninestep tenstep" id="stepSomeJobPrep">
+							<div class="eightpad">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="title">
+								Interests + Job Zones = Future Careers
+								<p>To focus on your job search, think about:</p>
+							</div>
+								<div class="left col-md-6">
+									<div class="desc">How much education, training and experience do I need to do the job?</div>
+									<div class="desc">Each 0.NET career is in one of five Job Zones - groups of carrers that need the same level of experience, education and tarining.</div>
+									<div class="desc">Different careers need different amountsof preperation. Based on your choice of Job Zone and your interests, the Interest Profiler will help you identify and explore careers that might be right for you.</div>									
+								</div>
+								<div class="right col-md-6">
+									<ul>
+										<li>1. <a href="#">Little or no job preperation</a></li>
+										<li>2. <a href="#">Some job preperation</a></li>
+										<li>3. <a href="#">Medium job preperation</a></li>
+										<li>4. <a href="#">High job preperation</a></li>
+										<li>5. <a href="#">Extensive job preperation</a></li>
+									</ul>
+								</div>
+								<div class="overlay-bg1"></div>
+								<div id="tentepmodal" class="popupContainer overlay-content1" style="display:block;">
+								<header class="popupHeader">
+									<span class="modal_close close-btn1"></span>
+								</header>
+								<section class="popupBody">
+									<div class="eightstep_popup">
+									<div align="right"><image src="images/closeSmall.png" alt="Click to Close" onclick="hideJobPrepPopup()" /></div>	
+										<div class="toptitle">Job Zone One: Some Preparation Needed</div>
+										<div class="experience col-md-6">
+											<div class="title">Experience</div>
+											<div class="desc">Some previous work-related skill, knowledge, or experience is usually needed. For example, it would help a teller to have experience working with the public.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Education</div>
+											<div class="desc">These careers usually need a high school diploma.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Training</div>
+											<div class="desc">Employees in these careers need from a few months to one year of working with experienced employees. An apprenticeship program may be available for these careers.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Examples</div>
+											<div class="desc">These careers often involve using your knowledge and skills to help others. Examples include sheet metal workers, forest fire fighters, customer service representatives, physical therapist aides, salespersons (retail), and tellers.</div>											
+										</div>
+									</div>
+									
+								</section>
+							</div>
+								
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">JOB ZONE</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+							</div>
+							<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prevSomeJob"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="nextSomeJob" ng-click="goToCareers(3)"><img src="images/right_arrow_white.png" /></a></div>
+						</div>
+						
+						<div class="discoverabsulate sevenstep eightstep ninestep tenstep" id="stepMediumJobPrep">
+							<div class="eightpad">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="title">
+								Interests + Job Zones = Future Careers
+								<p>To focus on your job search, think about:</p>
+							</div>
+								<div class="left col-md-6">
+									<div class="desc">How much education, training and experience do I need to do the job?</div>
+									<div class="desc">Each 0.NET career is in one of five Job Zones - groups of carrers that need the same level of experience, education and tarining.</div>
+									<div class="desc">Different careers need different amountsof preperation. Based on your choice of Job Zone and your interests, the Interest Profiler will help you identify and explore careers that might be right for you.</div>									
+								</div>
+								<div class="right col-md-6">
+									<ul>
+										<li>1. <a href="#">Little or no job preperation</a></li>
+										<li>2. <a href="#">Some job preperation</a></li>
+										<li>3. <a href="#">Medium job preperation</a></li>
+										<li>4. <a href="#">High job preperation</a></li>
+										<li>5. <a href="#">Extensive job preperation</a></li>
+									</ul>
+								</div>
+								<div class="overlay-bg1"></div>
+								<div id="tentepmodal" class="popupContainer overlay-content1" style="display:block;">
+								<header class="popupHeader">
+									<span class="modal_close close-btn1"></span>
+								</header>
+								<section class="popupBody">
+									<div class="eightstep_popup">
+									<div align="right"><image src="images/closeSmall.png" alt="Click to Close" onclick="hideJobPrepPopup()" /></div>	
+										<div class="toptitle">Job Zone One: Medium Preparation Needed</div>
+										<div class="experience col-md-6">
+											<div class="title">Experience</div>
+											<div class="desc">Previous work-related skill, knowledge, or experience is needed for these careers. For example, an electrician must be in an apprenticeship for three to four years or have several years of job training. You may need to pass a test to get a license to do the job.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Education</div>
+											<div class="desc">Most of these careers need vocational school training, on-the-job experience, or an associate's degree.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Training</div>
+											<div class="desc">Employees in these careers need one or two years of training. Both on-the-job experience and informal training with experienced workers may be needed. An apprenticeship program may be a good choice for these careers.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Examples</div>
+											<div class="desc">These careers usually involve using communication and organizational skills to coordinate, supervise, manage, or train others to accomplish goals. Examples include food service managers, electricians, agricultural technicians, legal secretaries, interviewers, and insurance sales agents.</div>											
+										</div>
+									</div>
+									
+								</section>
+							</div>
+								
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">JOB ZONE</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+							</div>
+							<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prevMediumJob"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="nextMediumJob" ng-click="goToCareers(3)"><img src="images/right_arrow_white.png" /></a></div>
+						</div>
+						
+						<div class="discoverabsulate sevenstep eightstep ninestep tenstep" id="stepHighJobPrep">
+							<div class="eightpad">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="title">
+								Interests + Job Zones = Future Careers
+								<p>To focus on your job search, think about:</p>
+							</div>
+								<div class="left col-md-6">
+									<div class="desc">How much education, training and experience do I need to do the job?</div>
+									<div class="desc">Each 0.NET career is in one of five Job Zones - groups of carrers that need the same level of experience, education and tarining.</div>
+									<div class="desc">Different careers need different amountsof preperation. Based on your choice of Job Zone and your interests, the Interest Profiler will help you identify and explore careers that might be right for you.</div>									
+								</div>
+								<div class="right col-md-6">
+									<ul>
+										<li>1. <a href="#">Little or no job preperation</a></li>
+										<li>2. <a href="#">Some job preperation</a></li>
+										<li>3. <a href="#">Medium job preperation</a></li>
+										<li>4. <a href="#">High job preperation</a></li>
+										<li>5. <a href="#">Extensive job preperation</a></li>
+									</ul>
+								</div>
+								<div class="overlay-bg1"></div>
+								<div id="tentepmodal" class="popupContainer overlay-content1" style="display:block;">
+								<header class="popupHeader">
+									<span class="modal_close close-btn1"></span>
+								</header>
+								<section class="popupBody">
+									<div class="eightstep_popup">
+									<div align="right"><image src="images/closeSmall.png" alt="Click to Close" onclick="hideJobPrepPopup()" /></div>	
+										<div class="toptitle">Job Zone One: High Preparation Needed</div>
+										<div class="experience col-md-6">
+											<div class="title">Experience</div>
+											<div class="desc">Long term work-related skill, knowledge, or experience is needed for these careers. For example, an accountant must complete four years of college and work several years in the field to be qualified for the job.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Education</div>
+											<div class="desc">Most of these careers need a four-year bachelor's degree, but some do not.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Training</div>
+											<div class="desc">Employees in these careers need several years of work-related experience and training. Both on-the-job and classroom job training may be needed.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Examples</div>
+											<div class="desc">Many of these careers involve coordinating, supervising, managing, or training others. Examples include accountants, sales managers, database administrators, teachers, chemists, environmental engineers, criminal investigators, and special agents.</div>											
+										</div>
+									</div>
+									
+								</section>
+							</div>
+								
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">JOB ZONE</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+							</div>
+							<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prevHighJob"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="nextHighJob" ng-click="goToCareers(3)"><img src="images/right_arrow_white.png" /></a></div>
+						</div>
+						
+						
+						<div class="discoverabsulate sevenstep eightstep ninestep tenstep" id="stepExtensiveJobPrep">
+							<div class="eightpad">
+								<div class="topimage"><img src="images/onet_interest.png" /></div>
+								<div class="title">
+								Interests + Job Zones = Future Careers
+								<p>To focus on your job search, think about:</p>
+							</div>
+								<div class="left col-md-6">
+									<div class="desc">How much education, training and experience do I need to do the job?</div>
+									<div class="desc">Each 0.NET career is in one of five Job Zones - groups of carrers that need the same level of experience, education and tarining.</div>
+									<div class="desc">Different careers need different amountsof preperation. Based on your choice of Job Zone and your interests, the Interest Profiler will help you identify and explore careers that might be right for you.</div>									
+								</div>
+								<div class="right col-md-6">
+									<ul>
+										<li>1. <a href="#">Little or no job preperation</a></li>
+										<li>2. <a href="#">Some job preperation</a></li>
+										<li>3. <a href="#">Medium job preperation</a></li>
+										<li>4. <a href="#">High job preperation</a></li>
+										<li>5. <a href="#">Extensive job preperation</a></li>
+									</ul>
+								</div>
+								<div class="overlay-bg1"></div>
+								<div id="tentepmodal" class="popupContainer overlay-content1" style="display:block;">
+								<header class="popupHeader">
+									<span class="modal_close close-btn1"></span>
+								</header>
+								<section class="popupBody">
+									<div class="eightstep_popup">
+									<div align="right"><image src="images/closeSmall.png" alt="Click to Close" onclick="hideJobPrepPopup()" /></div>	
+										<div class="toptitle">Job Zone One: Extensive Preparation Needed</div>
+										<div class="experience col-md-6">
+											<div class="title">Experience</div>
+											<div class="desc">Extensive skill, knowledge, and experience are needed for these careers. Many require more than five years of experience. For example, surgeons must complete four years of college and an additional five to seven years of specialized medical training to be able to do their job.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Education</div>
+											<div class="desc">Most of these careers need a graduate school education. For example, they may require a master's degree, and some require a Ph.D., M.D., or J.D. (law degree).</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Training</div>
+											<div class="desc">Employees may need some on-the-job training. However, the person will usually have the needed skills, knowledge, work-related experience, and training before starting the job.</div>
+										</div>
+										<div class="experience col-md-6">
+											<div class="title">Examples</div>
+											<div class="desc">These careers often involve coordinating, training, supervising, or managing the activities of others to accomplish goals. Very advanced communication and organizational skills are required. Examples include librarians, lawyers, aerospace engineers, wildlife biologists, school psychologists, surgeons, treasurers, and controllers.</div>											
+										</div>
+									</div>
+									
+								</section>
+							</div>
+								
+								<ul>
+									<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label class="active">JOB ZONE</label><img src="images/right_arrow_pink.png" /></li>
+									<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+									<li><label>CAREERS</label><img src="images/right_arrow_blue.png" /></li>
+								</ul>
+							</div>
+							<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prevExtensiveJob"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow"><a href="javascript:void(0);" id="next" class="nextExtensiveJob" ng-click="goToCareers(3)"><img src="images/right_arrow_white.png" /></a></div>
+						</div>
+						
+						<!--  end job prep links -->
+					
+						<div class="discoverabsulate elevenstep" id="step15">
+							<div class="topimage">
+								<div class="leftlogo col-md-2"><img src="images/colorlogo.png" /></div>
+								<div class="barchart col-md-4">
+									<div id="chart">
+										<ul id="bars1">
+											<li><div id="real1" data-percentage="" class="bar"></div><span>R</span></li>
+											<li><div id="inv1" data-percentage="" class="bar"></div><span>I</span></li>
+											<li><div id="art1" data-percentage="" class="bar"></div><span>A</span></li>
+											<li><div id="soc1" data-percentage="" class="bar"></div><span>S</span></li>
+											<li><div id="entp1" data-percentage="" class="bar"></div><span>E</span></li>
+											<li><div id="conv1" data-percentage="" class="bar"></div><span>C</span></li>
+										</ul>
+									</div>
+								</div>
+
+								
+								
+								<div class="rightpreparation col-md-4">
+									<p>Click to change your Job Zone</p>
+									
+									<div class="changeyourjobzone">
+									<!--<i class="fa fa-caret-down" aria-hidden="true"></i> -->
+										<ul>
+											<li><a href="" ng-click="fetchCareersByJobZone(1)">1</a></li>
+											<li><a href="" ng-click="fetchCareersByJobZone(2)">2</a></li>
+											<li ><a href="" ng-click="fetchCareersByJobZone(3)">3</a></li>
+											<li ><a href="" ng-click="fetchCareersByJobZone(4)">4</a></li>
+											<li><a href="" ng-click="fetchCareersByJobZone(5)">5</a></li>
+										</ul>
+									</div>
+									<p>{{jobPreparationText}}</p>
+								</div>
+								<div class="rightonet col-md-2"><img src="images/onet.png" /></div>
+
+							</div>
+							{{showLoadingMessage}}
+							<div class="title">Careers that fit your interests and preperation level</div>
+							<div class="preparationlevel preparationhead">
+								<table>
+									<tr style="border:none;">
+										<th width="5%;">&nbsp;</th>
+										<th width="60%;"><i class="fa fa-star-o pinkstar" aria-hidden="true"></i> Best Fit <i class="fa fa-star-o bluestar" aria-hidden="true"></i> Great Fit</th>
+										<th width="15%;" style="text-align:center;">Bright Outlook</th>
+										<th width="15%;" style="text-align:center;">Green</th>
+																	
+									</tr>
+									<tr class="abc"><td colspan="5">&nbsp;</td></tr>
+								</table>
+							</div>
+							<div class="preparationlevel">
+								<table>
+									<tr style="border:none;float: left; height: 1px !important;">
+										<th width="5%;">&nbsp;</th>
+										<th width="60%;">&nbsp;</th>
+										<th width="15%;" style="text-align:right;">&nbsp;</th>
+										<th width="15%;" style="text-align:right;">&nbsp;</th>
+												
+																			
+									</tr>
+									<tr class="abc"><td colspan="5">&nbsp;</td></tr>
+									<tr ng-repeat="career in careersJobZone.career">
+											
+										<td width="5%;"><i class="fa fa-star-o {{career.star}}" aria-hidden="true"></i></td>
+										<td width="60%;" style="text-align:left;"><a href="" ng-click="fetchCareerDetails(career.code)" >{{career.title}}</a></td>
+										<td width="15%;" style="text-align:center;">{{career.tags.showBright}}</td>
+										<td width="15%;" style="text-align:center;">{{career.tags.showGreen}}</td>
+										
+									</tr>
+									
+								</table>
+							</div>
+							<div class="padzero" style="padding:15px 0;float:left;width:100%;"></div>
+							<ul>
+								<li><label>START</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>INTEREST</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>RESULTS</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label>JOB ZONE</label><img src="images/right_arrow_blue.png" /></li>
+								<li><div class="underdoted"><img src="images/underdoted.png" /></div></li>
+								<li><label class="active">CAREERS</label><img src="images/right_arrow_pink.png" /></li>
+							</ul>
+							<div class="ipadleftarrow"><a href="javascript:void(0);" id="prev" class="prev15"><img src="images/left_arrow_white.png" /></a></div>
+							<div class="ipadrightarrow"><a href="" id="next" class="next15" ng-click="endDiscover()"><img src="images/right_arrow_white.png" /></a></div>
+						</div><!-- eleven Steps -->
+					</div>
+				</div> <!-- Ipad Air -->
+			</div>
+		</div> <!-- Get Started -->
+		
+		<div class="results" id="results">
+			<div class="container">
+				<div class="subresults">
+					<i class="fa fa-caret-up" aria-hidden="true"></i>
+					<h3>Results</h3>
+					<div class="result_bg">
+						
+						
+						
+						<h4>{{careerDetails.occupation.title}}</h4>
+						<p>{{alsoCalled}}</p>
+						
+						
+						<div class="theydo col-md-6">
+							<div class="title">What they do:</div>
+							<div class="desc">{{careerDetails.occupation.description}}</div>
+						</div>
+						<div class="youwould col-md-6">
+							<div class="title">On the job, you would:</div>
+							<ul>
+								<li ng-repeat="job in steps"> {{job}} </li>
+								
+							</ul>
+						</div>
+						
+						
+						<div class="knowledge col-md-4">
+							<div class="title">knowledge</div>
+							<div class="desc">
+							<ul>
+								<li style="list-style-type: none;" ng-repeat="ele in knowledgeElements"> {{ele}} </li>
+								
+							</ul>
+							
+							</div>
+						</div>
+						<div class="skills col-md-4">
+							<div class="title">skills</div>
+							<div class="desc">
+							<ul>
+								<li style="list-style-type: none;" ng-repeat="skill in skillsElements"> {{skill}} </li>
+								
+							</ul>
+							</div>
+						</div>
+						<div class="abilities col-md-4">
+							<div class="title">abilities</div>
+							<div class="desc">
+							<ul>
+								<li style="list-style-type: none;" ng-repeat="ele in abilitiesElements"> {{ele}} </li>
+								
+							</ul>
+							</div>
+						</div>
+						
+						
+						<div class="personality col-md-6">
+							<div class="title">personality</div>
+							<div class="desc">People interested in this work like activities that<br>include practical, hands-on problems and solutions.</div>
+							<div class="desc">They do well at jobs that need:</div>
+							<ul>
+								<li ng-repeat="ele in workStylesElements"> {{ele}} </li>
+								
+							</ul>
+						</div>
+						<div class="technoogy col-md-6">
+							<div class="title">technoogy</div>
+							<div class="desc">You might use software like this on the job:</div>
+							<div class="desc">
+								<ul>
+									<li ng-repeat="ele in technologies"> {{ele}} </li>
+									
+								</ul>
+							</div>
+						</div>
+
+						
+					</div>
+					<div class="backnext col-md-6">
+						<div class="buttons"><a href="" ng-click="disableResultsSection()" >Close this</a></div>
+					</div>
+					<!-- <div class="backnext col-md-6">
+						<div class="buttons"><a href="" >Print</a>
+					</div> -->
+				</div>
+			</div>
+		</div> <!-- Results -->
+		
+        <div class="footer">
+            <div class="container">
+                <div class="logo"><a href="index.html"><img src="images/colorlogo.png" /></a></div>
+                <div class="menu partners col-md-3">
+                    <div class="title">About Us</div>
+                    <ul>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="partners col-md-3">
+                    <div class="title">Partners</div>
+                    <ul>
+                        <li><a href="#">Advertise With Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="others col-md-3">
+                    <div class="title">Others</div>
+                    <ul>
+                        <li><a href="#">FAQS</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <!--<div class="experience">
+                    <div class="title">For Mobile Experience</div>
+                    <img src="images/googleplay.png" />
+                </div>-->
+                <div class="followus col-md-3">
+                    <div class="title">Follow Us On</div>
+                    <ul>
+                        <li><a href="#"><img src="images/facebook.png" /></a></li>
+                        <li><a href="#"><img src="images/twitter.png" /></a></li>
+                        <li><a href="#"><img src="images/instra.jpg" /></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- Footer -->
+
+        <div class="horizonral"></div>
+	
+	<!--===================== Personal Information, Education, Services Tab Popup Form =====================-->
+		<div id="tab" class="popupContainer tabcontainer" style="display:none;">
+			<header class="popupHeader">
+				<span class="modal_close"><a href="" ng-click="hideTab()"><img src="images/x.png"/> </a></span>
+				<ul class="nav nav-tabs">
+					<li class="firsttab active"><a data-toggle="tab" href="#personal_information">Personal Information</a></li>
+					<li class="secondtab firstpre"><a data-toggle="tab" href="#education">Education</a></li>
+					<li class="therdtab secondpre"><a data-toggle="tab" href="#services">Services</a></li>
+				</ul>
+			</header>
+			<section class="popupBody">
+				<div class="tabpopup">
+					<div class="tab-content">
+						<div id="personal_information" class="tab-pane fade in active">
+							<div class="col-md-1"></div>
+							<div class="col-md-5">
+								<form>
+									 <fieldset class="form-group">
+										<input type="text" name="name" placeholder="Name*" style="width: 36% !important;float: left;" ng-model="loggedInUser.firstName" required/>
+										<input type="text" name="lastname" placeholder="Last Name*" style="width: 60% !important;float: right;"  ng-model="loggedInUser.lastName" required />
+									</fieldset>								
+									<fieldset class="form-group">
+										<input type="text" name="contactno" placeholder="Contact Number*" ng-model="loggedInUser.contact" />
+									</fieldset>
+									<fieldset class="form-group">
+										<input type="date" name="birthDate" placeholder="Date of Birth*" style="width: 36% !important;float: left;" ng-model="loggedInUser.birthDate" required/>
+									</fieldset>
+									<fieldset class="form-group">
+										<input type="text" name="state" placeholder="State*" ng-model="loggedInUser.state" required />
+									</fieldset>
+									<fieldset class="form-group">
+										<input type="text" name="city" placeholder="City*" ng-model="loggedInUser.city" required />
+									</fieldset>
+									<fieldset class="form-group">
+										<textarea rows="4" name="hobbies/interest" placeholder="Hobbies/Interest*" ng-model="loggedInUser.hobbies" ></textarea>
+									</fieldset>
+								</form>
+							</div>
+
+							<div class="col-md-5">
+								<div class="userimg">
+									<!--<img src="images/testimonials.png">-->
+								  <!--  Added by Sagar -->
+										  <img ng-src="{{defImage}}"/>
+
+													    <span ng-show="editOption" ng-click="editPhotoBegin()"><a href="">{{photoStatus}}</a></span>
+
+										    <div class="cropArea" ng-show="showImagePreview">
+										      <input type="file" id="fileInput" />
+										      <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+										    </div>
+
+								  <!-- Added by Sagar -->
+								</div>
+								<textarea rows="9" ng-show="!showImagePreview" name="introduction" placeholder="Introduction*" ng-model="loggedInUser.introduction"></textarea>
+							</div>
+
+							<div class="col-md-1"></div>
+							
+							<div class="next"><a data-toggle="tab" class="firstnext" href="#education" ng-click="updateUserProfile()">Next <i class="fa fa-chevron-right" aria-hidden="true"></i></a></div>
+						</div> <!-- First Tab -->
+										
+						<div id="education" class="tab-pane fade">							
+							<div class="col-md-1"></div>
+							<div class="col-md-5">
+								<form>
+									<fieldset class="form-group">
+										<select>
+											<option value="basic_graduation">Basic Graduation*</option>
+										</select>
+									</fieldset>
+									<fieldset class="form-group">
+										<select>
+											<option value="specialization">Specialization*</option>
+										</select>
+									</fieldset> 							
+									<fieldset class="form-group">
+										<input type="text" name="institute_name" placeholder="Institute Name*" ng-model="loggedInUser.institution"/>
+									</fieldset>
+									<fieldset class="form-group">
+										<input type="text" name="university_name" placeholder="University Name*" ng-model="loggedInUser.university"/>
+									</fieldset>
+									<fieldset class="form-group">
+										<select ng-model="loggedInUser.courseCompletionYear" ng-options="o as o for o in courseCompletionYear">
+											<option value="" disabled selected> Course Completion Year</option>
+										</select>
+									</fieldset>					
+								</form>
+							</div>
+								
+							<div class="col-md-5">
+								<form>
+									<fieldset class="form-group">
+										<input type="text" name="dream_job" placeholder="Dream Job" ng-model="loggedInUser.dreamOccupation"/>
+									</fieldset>
+									
+									 <fieldset class="form-group">
+									<!-- <span class="input-label" ng-if="!loggedInUser.expectedDateOfExams" style="color: #aaa;">Expected Date of Exams</span> -->
+										<span class="input-label"  style="color: #aaa;">Expected Date of Exams</span>
+										<input type="date" name="expectedDateOfExams"  style="width: 50% !important;float: left;" ng-model="loggedInUser.expectedDateOfExams"/>
+										
+									</fieldset>	
+								</form>
+							</div>
+								
+							<div class="col-md-1"></div>
+							<div class="back"><a data-toggle="tab" class="firstpre" href="#personal_information" ng-click="updateUserProfile()"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a></div>
+							<div class="next"><a data-toggle="tab" class="secondnext" href="#services" ng-click="updateUserProfile()">Next <i class="fa fa-chevron-right" aria-hidden="true"></i></a></div>
+						</div> <!-- Second Tab -->
+										
+						<div id="services" class="tab-pane fade">
+						
+							<div class="col-md-1"></div>
+							<div class="review col-md-10">
+								
+									
+								<div class="title">Services Taken</div>
+								<div class="service">
+									 {{noServicesAvailedYet }}
+									
+									<div class="secondrightborder" ng-repeat="order in orders">
+									
+										<p><strong>Service : </strong>{{order.serviceType}}</p>
+										<p><strong>Date : </strong>{{order.createDate}}</p>
+										<p><strong>Cost : </strong>{{order.totalPrice}}</p>
+										<p><strong>Description : </strong>{{order.packageDetails}}</p>
+									</div>
+								</div>
+								 
+								<strong>Be Job Ready | DOWNLOAD Cover Letter <a href="" ng-click="downloadCoverLetter()"><i class="fa fa-download" aria-hidden="true"></i></a></strong>
+								<strong>Be Job Ready | DOWNLOAD CV <a href="" ng-click="downloadCV()"><i class="fa fa-download" aria-hidden="true"></i></a></strong>
+								<p>To avail CV/Cover letter generation features <a href="be_job_ready"> Please check this out</a></p>
+							</div>
+							
+							<div class="col-md-1"></div>
+							<div class="back"><a data-toggle="tab" class="secondpre" href="#education"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a></div>
+						</div> <!-- Therd Tab -->
+					</div>
+				</div>
+			</section>
+		</div>
+
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/placeholders.min.js"></script>
+        <script src="js/custom-scripts.js"></script>
+        <script src="js/menu.js"></script>
+		<script src="js/custom.js"></script>
+        <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $("#all").click(function () {
+                    $(".popup").toggle();
+                });
+            });
+        </script> <!-- Categories Script -->
+
+        <script>
+            $(document).ready(function () {
+                $("#hidefeedback").click(function () {
+                    $(".forms").hide();
+                });
+                $("#showfeedback").click(function () {
+                    $(".forms").show();
+                });
+            });
+        </script> <!-- FeedBack Script -->
+
+        <script type="text/javascript">
+            $(function () {
+                var menuVisible = false;
+                $('#searchtips').css({'display': 'none'});
+                $('#tips').hover(function () {
+                    if (menuVisible) {
+                        $('#searchtips').css({'display': 'none'});
+                        menuVisible = false;
+                        return;
+                    }
+                    $('#searchtips').css({'display': 'block'});
+                    menuVisible = true;
+                });
+                $('#searchtips').hover(function () {
+                    $(this).css({'display': 'none'});
+                    menuVisible = true;
+                });
+            });
+        </script> <!-- Tool Trp-->
+
+        <script>
+            $(document).ready(function () {
+                $('#searchshow').click(function () {
+                    $('.hideshow').toggle("slide");
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $('#booktext').click(function () {
+                    $('#booktext').css({'height': '100px'});
+                    $('#searchbook').css({'top': '30px'});
+                    $('#searchclose ').css({'display': 'block'});
+                });
+                $('#searchbook').click(function () {
+                    $('#booktext').css({'height': '100px'});
+                    $('#searchbook').css({'top': '30px'});
+                    $('#searchclose ').css({'display': 'block'});
+                });
+                $('#searchclose').click(function () {
+                    $('#booktext').css({'height': '55px'});
+                    $('#searchbook').css({'top': '3px'});
+                    $('#searchclose ').css({'display': 'none'});
+                });
+            });
+	    
+	  
+	    
+	    function showDesc(step){
+		$('#step11').hide();
+		
+			if(step == 'Realistic'){
+				$('#stepSocial').hide();
+				$('#stepInvestigative').hide();
+				$('#stepEnterprising').hide();
+				$('#stepArtistic').hide();
+				$('#stepConventional').hide();
+				$('#stepRealistic').show();
+				
+			}
+			else if(step == 'Social'){
+				$('#stepRealistic').hide();
+				
+				$('#stepInvestigative').hide();
+				$('#stepEnterprising').hide();
+				$('#stepArtistic').hide();
+				$('#stepConventional').hide();
+				$('#stepSocial').show();
+			}
+			else if(step == 'Investigative'){
+				$('#stepRealistic').hide();
+				$('#stepSocial').hide();
+				
+				$('#stepEnterprising').hide();
+				$('#stepArtistic').hide();
+				$('#stepConventional').hide();
+				$('#stepInvestigative').show();
+			}
+			else if(step == 'Enterprising'){
+				$('#stepRealistic').hide();
+				$('#stepSocial').hide();
+				$('#stepInvestigative').hide();
+				
+				$('#stepArtistic').hide();
+				$('#stepConventional').hide();
+				$('#stepEnterprising').show();
+			}
+			else if(step == 'Artistic'){
+				$('#stepRealistic').hide();
+				$('#stepSocial').hide();
+				$('#stepInvestigative').hide();
+				$('#stepEnterprising').hide();
+				
+				$('#stepConventional').hide();
+				$('#stepArtistic').show();
+			}
+			else if(step == 'Conventional'){
+				$('#stepRealistic').hide();
+				$('#stepSocial').hide();
+				$('#stepInvestigative').hide();
+				$('#stepEnterprising').hide();
+				$('#stepArtistic').hide();
+				$('#stepConventional').show();
+			}
+		
+	    }
+	    
+	    
+	    function hidePopup(){
+	    //document.getElementById('realisticStepmodal').style.display = "none";
+			$('#stepRealistic').hide();
+			$('#stepSocial').hide();
+			$('#stepInvestigative').hide();
+			$('#stepEnterprising').hide();
+			$('#stepArtistic').hide();
+			$('#stepConventional').hide();
+			$('#step11').show();
+	    }
+	    
+	    
+	    function goToQuestions(){
+	    $('#step10').hide();
+	    $('#step5').show();
+	    }
+	    
+	  
+	    
+	    
+	    function hideJobPrepPopup(){
+		$('#stepNoJobPrep').hide();
+		$('#stepSomeJobPrep').hide();
+		$('#stepMediumJobPrep').hide();
+		$('#stepHighJobPrep').hide();
+		$('#stepExtensiveJobPrep').hide();
+		$('#step13').show();
+	    }
+	    
+	    
+	    function showJobPrepDesc(desc){
+	    $('#step13').hide();
+		if(desc == 'NoJob'){
+			$('#stepNoJobPrep').show();
+			$('#stepSomeJobPrep').hide();
+			$('#stepMediumJobPrep').hide();
+			$('#stepHighJobPrep').hide();
+			$('#stepExtensiveJobPrep').hide();
+		}
+		else if(desc == 'SomeJob'){
+			$('#stepNoJobPrep').hide();
+			$('#stepSomeJobPrep').show();
+			$('#stepMediumJobPrep').hide();
+			$('#stepHighJobPrep').hide();
+			$('#stepExtensiveJobPrep').hide();
+		}
+		else if(desc == 'MediumJob'){
+			$('#stepNoJobPrep').hide();
+			$('#stepSomeJobPrep').hide();
+			$('#stepMediumJobPrep').show();
+			$('#stepHighJobPrep').hide();
+			$('#stepExtensiveJobPrep').hide();
+		}
+		else if(desc == 'HighJob'){
+			$('#stepNoJobPrep').hide();
+			$('#stepSomeJobPrep').hide();
+			$('#stepMediumJobPrep').hide();
+			$('#stepHighJobPrep').show();
+			$('#stepExtensiveJobPrep').hide();
+		}
+		else if(desc == 'ExtensiveJob'){
+			$('#stepNoJobPrep').hide();
+			$('#stepSomeJobPrep').hide();
+			$('#stepMediumJobPrep').hide();
+			$('#stepHighJobPrep').hide();
+			$('#stepExtensiveJobPrep').show();
+		}
+	    }
+	   
+        </script>
+	
+	<script type="text/javascript">
+			$(function(){
+				$("#bars li .bar").each(function(key, bar){
+				  var percentage = $(this).data('percentage');
+
+				  $(this).animate({
+					'height':percentage+'%'
+				  }, 1000);
+				});
+			  });
+			  
+			  
+			  
+			   function loadBars(){
+				  var r = angular.element(document.querySelector('[ng-controller="discoverController"]')).scope().realisticScore;
+				  var i = angular.element(document.querySelector('[ng-controller="discoverController"]')).scope().investigativeScore;
+				  var a = angular.element(document.querySelector('[ng-controller="discoverController"]')).scope().artisticScore;
+				  var s = angular.element(document.querySelector('[ng-controller="discoverController"]')).scope().socialScore;
+				  var e = angular.element(document.querySelector('[ng-controller="discoverController"]')).scope().enterprisingScore; 
+				  var c = angular.element(document.querySelector('[ng-controller="discoverController"]')).scope().conventionalScore;
+				
+				  
+				  
+				  
+				 $('#real').animate({
+						'height':r+'%'
+					  }, 1000);real
+				 
+				 $('#inv').animate({
+						'height':i+'%'
+					  }, 1000);
+					  
+				 $('#art').animate({
+						'height':a+'%'
+					  }, 1000);
+				 
+				 $('#soc').animate({
+						'height':s+'%'
+					  }, 1000);
+					  
+				 $('#entp').animate({
+						'height':e+'%'
+					  }, 1000);
+				 
+				 $('#conv').animate({
+						'height':c+'%'
+					  }, 1000);
+			 }
+			 
+			  function loadBars1(){
+				  var r = angular.element(document.querySelector('[ng-controller="discoverController"]')).scope().realisticScore;
+				  var i = angular.element(document.querySelector('[ng-controller="discoverController"]')).scope().investigativeScore;
+				  var a = angular.element(document.querySelector('[ng-controller="discoverController"]')).scope().artisticScore;
+				  var s = angular.element(document.querySelector('[ng-controller="discoverController"]')).scope().socialScore;
+				  var e = angular.element(document.querySelector('[ng-controller="discoverController"]')).scope().enterprisingScore; 
+				  var c = angular.element(document.querySelector('[ng-controller="discoverController"]')).scope().conventionalScore;
+				
+				  
+				  
+				  
+				 $('#real1').animate({
+						'height':r+'%'
+					  }, 1000);real
+				 
+				 $('#inv1').animate({
+						'height':i+'%'
+					  }, 1000);
+					  
+				 $('#art1').animate({
+						'height':a+'%'
+					  }, 1000);
+				 
+				 $('#soc1').animate({
+						'height':s+'%'
+					  }, 1000);
+					  
+				 $('#entp1').animate({
+						'height':e+'%'
+					  }, 1000);
+				 
+				 $('#conv1').animate({
+						'height':c+'%'
+					  }, 1000);
+			 }
+		</script> <!-- Bar Chart Script -->
+		
+		
+		<script>
+			function getStarted(){
+				
+					$('#step1').hide();
+					$('#step2').show();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+					$('#stepRealistic').hide();
+				    $('#stepSocial').hide();
+				    $('#stepInvestigative').hide();
+				    $('#stepEnterprising').hide();
+				    $('#stepArtistic').hide();
+				    $('#stepConventional').hide();
+				
+				
+			}
+			
+			// $('#getStartedId').click(getStarted);
+		
+		</script>
+
+	
+        
+		
+		<script type="text/javascript">
+            $(document).ready(function () {
+	    
+	 	$('#step1').show();
+                $('#step2').hide();
+				$('#step3').hide();
+				$('#step4').hide();
+				$('#step5').hide();
+				
+				$('#step6').hide();
+				$('#step7').hide();
+				$('#step8').hide();
+				$('#step9').hide();
+				
+				
+				$('#step10').hide();
+				$('#step11').hide();
+				//$('#step12').hide();
+				$('#step13').hide();
+				//$('#step14').hide();
+				$('#step15').hide();
+				
+				$('#stepRealistic').hide();
+			    $('#stepSocial').hide();
+			    $('#stepInvestigative').hide();
+			    $('#stepEnterprising').hide();
+			    $('#stepArtistic').hide();
+			    $('#stepConventional').hide();
+			    $('#stepNoJobPrep').hide();
+				$('#stepSomeJobPrep').hide();
+				$('#stepMediumJobPrep').hide();
+				$('#stepHighJobPrep').hide();
+				$('#stepExtensiveJobPrep').hide();
+			    
+		$('.realisticNext').click(function () {
+				$('#stepRealistic').hide();
+				
+				$('#step13').show();
+				
+                });
+		
+		$('.realisticPrev').click(function () {
+				$('#stepRealistic').hide();
+				
+				$('#step11').show();
+				
+                });
+		
+		$('.socialNext').click(function () {
+				$('#stepSocial').hide();
+				
+				$('#step13').show();
+				
+                });
+		
+		$('.socialPrev').click(function () {
+				$('#stepSocial').hide();
+				
+				$('#step11').show();
+				
+                });
+		
+		$('.enterprisingNext').click(function () {
+				$('#stepEnterprising').hide();
+				
+				$('#step13').show();
+				
+                });
+		
+		$('.enterprisingPrev').click(function () {
+				$('#stepEnterprising').hide();
+				
+				$('#step11').show();
+				
+                });
+		
+		$('.artisticNext').click(function () {
+				$('#stepArtistic').hide();
+				
+				$('#step13').show();
+				
+                });
+		
+		$('.artisticPrev').click(function () {
+				$('#stepArtistic').hide();
+				
+				$('#step11').show();
+				
+                });
+		
+		$('.conventionalNext').click(function () {
+				$('#stepConventional').hide();
+				
+				$('#step13').show();
+				
+                });
+		
+		$('.conventionalPrev').click(function () {
+				$('#stepConventional').hide();
+				
+				$('#step11').show();
+				
+                });
+		
+		$('.investigativeNext').click(function () {
+				$('#stepInvestigative').hide();
+				
+				$('#step13').show();
+				
+                });
+		
+		$('.investigativePrev').click(function () {
+				$('#stepInvestigative').hide();
+				
+				$('#step11').show();
+				
+                });
+		
+		$('.prevNoJob').click(function () {
+				$('#stepNoJobPrep').hide();
+				
+				$('#step13').show();
+				
+                });
+		
+		$('.nextNoJob').click(function () {
+				$('#stepNoJobPrep').hide();
+				
+				$('#step15').show();
+				
+                });
+		
+		$('.prevSomeJob').click(function () {
+				$('#stepSomeJobPrep').hide();
+				
+				$('#step13').show();
+				
+                });
+		
+		$('.nextSomeJob').click(function () {
+				$('#stepSomeJobPrep').hide();
+				
+				$('#step15').show();
+				
+                });
+		
+		$('.prevMediumJob').click(function () {
+				$('#stepMediumJobPrep').hide();
+				
+				$('#step13').show();
+				
+                });
+		
+		$('.nextMediumJob').click(function () {
+				$('#stepMediumJobPrep').hide();
+				
+				$('#step15').show();
+				
+                });
+		
+		$('.prevHighJob').click(function () {
+				$('#stepHighJobPrep').hide();
+				
+				$('#step13').show();
+				
+                });
+		
+		$('.nextHighJob').click(function () {
+				$('#stepHighJobPrep').hide();
+				
+				$('#step15').show();
+				
+                });
+		
+		$('.prevExtensiveJob').click(function () {
+				$('#stepExtensiveJobPrep').hide();
+				
+				$('#step13').show();
+				
+                });
+		
+		$('.nextExtensiveJob').click(function () {
+				$('#stepExtensiveJobPrep').hide();
+				
+				$('#step15').show();
+				
+                });
+			    
+				
+                $('.next1').click(function () {
+                    $('#step1').hide();
+                    $('#step2').show();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+					$('#stepRealistic').hide();
+				    $('#stepSocial').hide();
+				    $('#stepInvestigative').hide();
+				    $('#stepEnterprising').hide();
+				    $('#stepArtistic').hide();
+				    $('#stepConventional').hide();
+                });
+				$('.prev2').click(function () {
+                    $('#step1').show();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+					$('#stepRealistic').hide();
+				    $('#stepSocial').hide();
+				    $('#stepInvestigative').hide();
+				    $('#stepEnterprising').hide();
+				    $('#stepArtistic').hide();
+				    $('#stepConventional').hide();
+                });
+				
+				$('.next2').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').show();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+					$('#stepRealistic').hide();
+				    $('#stepSocial').hide();
+				    $('#stepInvestigative').hide();
+				    $('#stepEnterprising').hide();
+				    $('#stepArtistic').hide();
+				    $('#stepConventional').hide();
+                });
+				$('.prev3').click(function () {
+                    $('#step1').hide();
+                    $('#step2').show();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+					$('#stepRealistic').hide();
+				    $('#stepSocial').hide();
+				    $('#stepInvestigative').hide();
+				    $('#stepEnterprising').hide();
+				    $('#stepArtistic').hide();
+				    $('#stepConventional').hide();
+                });
+				
+				$('.next3').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').show();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+					$('#stepRealistic').hide();
+				    $('#stepSocial').hide();
+				    $('#stepInvestigative').hide();
+				    $('#stepEnterprising').hide();
+				    $('#stepArtistic').hide();
+				    $('#stepConventional').hide();
+                });
+				$('.prev4').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').show();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				
+				$('.next4').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').show();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				$('.prev5').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').show();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				
+				$('.next5').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').show();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				$('.prev6').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').show();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				
+				$('.next6').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').show();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				$('.prev7').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').show();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				
+				$('.next7').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').show();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				$('.prev8').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').show();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				
+				$('.next8').click(function () {
+				document.getElementById('alert').style.display = "none";
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').show();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				
+				$('.prev9').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').show();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				$('.next9').click(function () {
+				
+			var filled = angular.element(document.getElementById('bodyId')).scope().check();
+					if(!filled){
+						document.getElementById('alert').style.display = "";
+						return;
+					}
+				
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').show();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				
+				$('.prev10').click(function () {
+				document.getElementById('alert').style.display = "none";
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').show();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				$('.next10').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').show();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				
+				$('.prev11').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').show();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				$('.next11').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#stepRealistic').show();
+					$('#step13').show();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				$('.prevRealistic').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').show();
+					//$('#step12').hide();
+					$('#stepRealistic').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				$('.next12').click(function () {//will ot be used since that step is not around any longer
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').show();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				$('.prev13').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').show();
+					////$('#step12').show();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').hide();
+					 $('#stepSocial').hide();
+				    $('#stepInvestigative').hide();
+				    $('#stepEnterprising').hide();
+				    $('#stepArtistic').hide();
+				    $('#stepConventional').hide();
+                });
+				$('.next13').click(function () {
+					// $('#step1').hide();
+					//$('#step2').hide();
+					//$('#step3').hide();
+					//$('#step4').hide();
+					//$('#step5').hide();
+					
+					//$('#step6').hide();
+					//$('#step7').hide();
+					//$('#step8').hide();
+					//$('#step9').hide();
+					
+					
+					//$('#step10').hide();
+					//$('#step11').hide();
+					////$('#step12').hide();
+					//$('#step13').hide();
+					////$('#step14').show();
+					//$('#step15').show(); 
+                });
+				$('.prev14').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').show();
+					$('#step14').hide();
+					$('#step15').hide();
+                });
+				$('.next14').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').hide();
+					$('#step14').hide();
+					$('#step15').show();
+                });
+				$('.prev15').click(function () {
+                    $('#step1').hide();
+                    $('#step2').hide();
+					$('#step3').hide();
+					$('#step4').hide();
+					$('#step5').hide();
+					
+					$('#step6').hide();
+					$('#step7').hide();
+					$('#step8').hide();
+					$('#step9').hide();
+					
+					
+					$('#step10').hide();
+					$('#step11').hide();
+					//$('#step12').hide();
+					$('#step13').show();
+					//$('#step14').show();
+					$('#step15').hide();
+                });
+            });
+        </script> <!-- Discover Tablate Next Prev Script -->
+	
+	
+		
+		<script type="text/javascript">
+            $("#modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
+			$("#tack_a_break_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
+			$("#change_password_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
+			$("#header_user_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
+        </script>
+	
+	
+        
+    </body>
+</html>

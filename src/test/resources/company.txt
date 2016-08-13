@@ -1,0 +1,18 @@
+<table  style="width: 100%;margin-left: none; margin-right: auto; margin-top: 4px; margin-bottom: none;" cellspacing="0" cellpadding="0" border="0">
+      <tbody>
+        <tr  cellspacing="0" cellpadding="0">
+          <td  style="text-align: left; margin-top: none; margin-bottom: none;" cellspacing="0" cellpadding="0">  <span  style="text-align: left; font-family: Garamond;font-size:${font_size};margin-top: none; margin-bottom: none;"><b>${Company}</b></span>
+            
+          </td>
+          <td  style="text-align: right; margin-top: none; margin-bottom: none;" cellspacing="0" cellpadding="0" width="250px">  <span  width="250px"  style="text-align: left; font-family: Garamond;font-size:${font_size};margin-top: none; margin-bottom: none;">${Company_Location}</span>
+            
+          </td>
+        </tr>
+        <tr  cellspacing="0" cellpadding="0">
+          <td  style="text-align: left; margin-top: none; margin-bottom: none;" cellspacing="0" cellpadding="0"><span  style="text-align: left; font-family: Garamond;font-size:${font_size};margin-top: 2px; margin-bottom: none;">     <b>${Role}</b></span></td>
+          <td  style="text-align: right; margin-top: none; margin-bottom: none;" cellspacing="0" cellpadding="0"  width="250px"> <span  width="250px" style="text-align: left; font-family: Garamond;font-size:${font_size};margin-top: none; margin-bottom: none;">${Duration}
+            </span></td>
+        </tr>
+         ${Repeat_Company_Comments}
+      </tbody>
+    </table>

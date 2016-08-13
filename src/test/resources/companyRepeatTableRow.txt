@@ -1,0 +1,5 @@
+<tr cellspacing="0" cellpadding="0">
+   <td  style="text-left: right; margin-top: none; margin-bottom: none;" cellspacing="0" cellpadding="0" colspan="2" > 
+	${Repeat_Company_Comment}
+      </td>
+ </tr>

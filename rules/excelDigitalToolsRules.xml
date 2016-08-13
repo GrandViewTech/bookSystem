@@ -1,0 +1,31 @@
+<workbook>
+  <worksheet name="DigitalTools">
+    <section startRow="0" endRow="0" />
+    <loop startRow="1" endRow="1" items="result" var="digitalTool" varType="com.v2tech.domain.DigitalTool">
+      <section startRow="1" endRow="1">
+        <mapping row="1" col="0">digitalTool.name</mapping>
+        <mapping row="1" col="1">digitalTool.careerStreams</mapping>
+        <mapping row="1" col="2">digitalTool.exams</mapping>
+        <mapping row="1" col="3">digitalTool.yearFounded</mapping>
+	
+        <mapping row="1" col="4">digitalTool.whatDoesItDo</mapping>
+	<mapping row="1" col="5">digitalTool.features</mapping>
+	<mapping row="1" col="6">digitalTool.yesNo</mapping>
+	<mapping row="1" col="7">digitalTool.freeServices</mapping>
+	<mapping row="1" col="8">digitalTool.webSite</mapping>
+	<mapping row="1" col="9">digitalTool.app</mapping>
+	<mapping row="1" col="10">digitalTool.totalUsers</mapping>
+	<mapping row="1" col="11">digitalTool.otherComments</mapping>
+	<mapping row="1" col="12">digitalTool.sources</mapping>
+	<mapping row="1" col="13">digitalTool.questions</mapping>
+	
+         
+      </section>
+      <loopbreakcondition>
+        <rowcheck offset="0">
+          <cellcheck offset="0" >End Rows:</cellcheck>
+        </rowcheck>
+      </loopbreakcondition>
+    </loop>
+  </worksheet>
+</workbook>

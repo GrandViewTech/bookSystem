@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+li:before {
+ content:"${bullet}"; 
+ font-size:15px; 
+ vertical-align:center; 
+
+
+padding-right:13px;
+}
+</style>
+
+</head>
+  <body>
+    <table  style="width: 100%;margin-bottom: none;"  border="0" >
+      <tbody>
+        <tr>
+          <td style="text-align: center;">
+            <strong><span  style="font-family: Garamond;font-size:16px">${Name}</span></strong>
+          </td>
+        </tr>
+        <tr>
+          <td  style="text-align: center;"><span  style="font-family: Garamond;font-size:${font_size}">${Address}<strong> . </strong>${Mobile}<strong> . </strong>${Email}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+     <hr  style="width: 100%; border: none; border-bottom: 1px solid black; margin-left: auto; margin-right: auto;margin-top: 2 px; margin-bottom: 2px;"></hr>
+    <h2  style="font-family: Garamond;font-size:${font_size};margin-top: 6px; margin-bottom: 4px;">EDUCATION</h2>
+    <hr  style="width: 100%; border: none; border-bottom: 1px solid black; margin-left: auto; margin-right: auto;margin-top: 2 px; margin-bottom: 2px;"></hr>
+    ${Repeat_School_Comment}
+    <hr  style="width: 100%; border: none; border-bottom: 1px solid black; margin-left: auto; margin-right: auto;margin-top: 2 px; margin-bottom: 2px;"></hr>
+    <h2  style="font-family: Garamond;font-size:${font_size};margin-top: 6px; margin-bottom: 4px;">WORK
+      EXPERIENCE</h2>
+    <hr  style="width: 100%; border: none; border-bottom: 1px solid black; margin-left: auto; margin-right: auto;margin-top: 2 px; margin-bottom: 2px;"></hr>
+    ${Repeat_Company_Role_Comment}
+     <hr  style="width: 100%; border: none; border-bottom: 1px solid black; margin-left: auto; margin-right: auto;margin-top: 2 px; margin-bottom: 2 px;"></hr>
+    <h2  style="font-family: Garamond;font-size:${font_size};margin-top: 2px; margin-bottom: 4px">LEADERSHIP,
+      ACTIVITIES AND AWARDS</h2>
+    <hr  style="width: 100%; border: none; border-bottom: 1px solid black; margin-left: auto; margin-right: auto;margin-top: 2 px; margin-bottom: 2px;"></hr>
+
+    <div> ${Repeat_Source_Misc_Comment} </div>
+  </body>
+</html>

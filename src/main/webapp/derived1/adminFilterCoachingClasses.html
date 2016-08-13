@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> Home </title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/socialicious.css"> 
+  <link rel="stylesheet" href="css/pagination.css"> 
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.js"></script>
+   <script src="js/coachingClassSearchManagement.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+ </head>
+
+ <body>
+ <header>
+	<!----menu bar start---->
+	<nav class="navbar navbar-inverse" role="navigation">
+	  <div class="login-sec pull-right">
+			<ul>
+			<br><a href="AdminShortCuts.html" >Go Back</a>
+			</ul>
+		</div>
+	 
+	</nav>
+	<!----menu bar End---->
+</header>
+
+<section>
+ <div class="container" ng-app="myApp" ng-controller="coachingClassSearchManagementController">
+    <div class="row col-md-14 col-md-offset-0 custyle">
+    <table class="table table-striped custab">
+    <thead>
+
+
+        <tr>
+            <th width="15%">Coaching Class Name</th>
+            <th width="25%">City - Branch - Zip</th>
+            <th width="25%">Keyword</th>
+            <th width="20%">Type of Courses Offered</th>
+            
+            <th width="10%" >Searchable</th>
+	  <th width="5%"> Update</th>
+          
+        </tr>
+    </thead>
+            <tr ng-repeat="coach in searchResponse.classes">
+                <td  width="25%">{{ coach.name }}</td>
+                <td  width="25%">{{ coach.city }} - {{ coach.branch }} - {{ coach.zip }}</td>
+                <td  width="25%"><input type="text" ng-model="coach.keyword" /></td>
+                <td  width="10%">{{ coach.typesOfCoursesOffered }}</td>
+                <td  width="10%">
+                <label> Yes <input type="radio" name="{{ coach.name }}-{{ coach.city }}-{{ coach.branch }}-{{ coach.zip }}" value="yes" ng-model="coach.searchable"></label>
+                <label> No  <input type="radio" name="{{ coach.name }}-{{ coach.city }}-{{ coach.branch }}-{{ coach.zip }}"  value="no" ng-model="coach.searchable"> </label>
+                </td>
+               <td  width="5%"> <a class='btn btn-info btn-xs' ng-click="updateCoachingClass(coach)" href="#"><span class="glyphicon glyphicon-edit"></span> Update</a> </td>
+             </tr>
+            
+    </table>
+    </div>
+    <div class="container">
+<ul class="pagination">
+              <li class="disabled"><a href="#">«</a></li>
+              <li class="active"><a  ng-click="fetchCoachingClassss('A')"  href="#">A <span class="sr-only">(current)</span></a></li>
+              <li><a ng-click="fetchCoachingClassss('B')" href="#">B</a></li>
+              <li><a ng-click="fetchCoachingClassss('C')" href="#">C</a></li>
+              <li><a ng-click="fetchCoachingClassss('D')" href="#">D</a></li>
+              <li><a ng-click="fetchCoachingClassss('E')" href="#">E</a></li>
+               <li><a ng-click="fetchCoachingClassss('F')" href="#">F</a></li> 
+               <li><a ng-click="fetchCoachingClassss('G')" href="#">G</a></li>
+              <li><a ng-click="fetchCoachingClassss('H')" href="#">H</a></li>
+              <li><a ng-click="fetchCoachingClassss('I')" href="#">I</a></li>
+              <li><a ng-click="fetchCoachingClassss('J')" href="#">J</a></li>
+              <li><a ng-click="fetchCoachingClassss('K')" href="#">K</a></li>
+              <li><a ng-click="fetchCoachingClassss('L')" href="#">L</a></li>
+              <li><a ng-click="fetchCoachingClassss('M')" href="#">M</a></li>
+              
+              <li><a ng-click="fetchCoachingClassss('N')" href="#">N</a></li>
+              <li><a ng-click="fetchCoachingClassss('O')" href="#">O</a></li>
+              <li><a ng-click="fetchCoachingClassss('P')" href="#">P</a></li>
+              <li><a ng-click="fetchCoachingClassss('Q')" href="#">Q</a></li>
+              <li><a ng-click="fetchCoachingClassss('R')" href="#">R</a></li>
+              <li><a ng-click="fetchCoachingClassss('S')" href="#">S</a></li>
+              <li><a ng-click="fetchCoachingClassss('T')" href="#">T</a></li>
+              <li><a ng-click="fetchCoachingClassss('U')" href="#">U</a></li>
+              <li><a ng-click="fetchCoachingClassss('V')" href="#">V</a></li>
+              <li><a ng-click="fetchCoachingClassss('W')" href="#">W</a></li>
+              <li><a ng-click="fetchCoachingClassss('X')" href="#">X</a></li>
+              <li><a ng-click="fetchCoachingClassss('Y')" href="#">Y</a></li>
+              <li><a ng-click="fetchCoachingClassss('Z')" href="#">Z</a></li>
+              <li><a ng-click="fetchCoachingClassss('A')" href="#">»</a></li>
+            </ul>
+</div>
+</section>
+
+
+ </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>GroVenue Admin</title>
+ <head>
+ 
+	 <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="css/menu.css">
+        <link rel="stylesheet" href="css/popup.css">
+	<link rel="stylesheet" href="css/alert.css">
+	
+	
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.js"></script>
+
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		
+  	<script src="js/bootstrap.min.js"></script>
+	<script src="js/AdminShortCuts.js"></script>
+	<link href="css/bootstrap.css" rel="stylesheet">
+	
+  	<link href="css/bootstrap-social.css" rel="stylesheet">
+  	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script src="js/bootbox.js"></script>
+ <body ng-app="myApp" ng-controller="adminShortCutsController"> 	
+<div class="container"  align="center">
+    <div class="row">
+        <div class="col-md-14">
+	 <a href="" class="btn btn-primary btn-xs pull-right"  style="background-color: white" ng-click="signOff()"><b>+</b> Sign Off and Go Back</a>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-bookmark"></span> GroVenue Admin Dashboard</h3>
+                </div>
+		
+		<div class="stepfivecontent">
+			<div class="overflowhidden">
+				<table>
+					<tr style="border:none;">
+						
+						<th width="25%;">Books Management</th>
+						<th width="25%;">Coaching Classes Management</th>
+						<th width="25%;">Digital Resources Management</th>
+						<th width="25%;">Other Utilities Management</th>
+					</tr>
+					
+					<tr >
+						
+						<td> <a href="#" class="btn btn-danger btn-lg" role="button" onclick="window.location.href='booksFileUpload.html'"><span class="glyphicon glyphicon-list-alt"></span> <br/>Upload Books</a></td>
+						<td><a href="#" class="btn btn-warning btn-lg" role="button" onclick="window.location.href='coacingClassesUpload.html'"><span class="glyphicon glyphicon-bookmark"></span> <br/>Upload Coaching Classes</a></td>
+						<td><a href="#" class="btn btn-primary btn-lg" role="button" onclick="window.location.href='toolsFileUpload.html'"><span class="glyphicon glyphicon-signal"></span> <br/>Upload Digital Resources</a></td>
+						<td><a href="#" class="btn btn-success btn-lg" role="button" onclick="window.location.href='adminBeJobReady.html'"><span class="glyphicon glyphicon-user"></span> <br/>Be Job Ready Management</a></td>
+						
+					</tr>
+					<tr >
+						
+						<td>  <a href="#" class="btn btn-danger btn-lg" role="button" onclick="window.location.href='adminFilterBooks.html'"><span class="glyphicon glyphicon-comment"></span> <br/>Book Search Management</a></td>
+						<td><a href="#" class="btn btn-warning btn-lg" role="button" onclick="window.location.href='adminFilterCoachingClasses.html'"><span class="glyphicon glyphicon-comment"></span> <br/>CoachingClass Search Management</a></td>
+						<td><a href="#" class="btn btn-primary btn-lg" role="button" onclick="window.location.href='adminFilterTools.html'"><span class="glyphicon glyphicon-comment"></span> <br/>Digital Tools Search Management</a></td>
+						
+						
+					</tr>
+					
+					
+				</table>
+			</div>
+		</div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+		
+</body>
+</html>
