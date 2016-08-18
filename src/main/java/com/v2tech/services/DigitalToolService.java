@@ -73,7 +73,12 @@ public class DigitalToolService
 					{
 						//create
 						digitalTool.setKeyword(digitalTool.getName() + "," + digitalTool.getCareerStreams() + "," + digitalTool.getExams() + "," + digitalTool.getYearFounded());
-						digitalToolRepository.save(digitalTool);
+						Double averageRating = digitalTool.getAverageRating();
+						Integer rateCount = digitalTool.getRateCount();
+						digitalTool.setAverageRating((averageRating == null) ? 2.5 : averageRating);
+						digitalTool.setRateCount((rateCount == null) ? 1 : rateCount);
+						digitalTool = digitalToolRepository.save(digitalTool);
+						digitalTool2 = digitalTool;
 					}
 				else
 					{
@@ -82,7 +87,11 @@ public class DigitalToolService
 						digitalTool.setKeyword(digitalTool.getName() + "," + digitalTool.getCareerStreams() + "," + digitalTool.getExams() + "," + digitalTool.getYearFounded());
 						DozerBeanMapper beanMapper = new DozerBeanMapper();
 						beanMapper.map(digitalTool, digitalTool2);
-						digitalToolRepository.save(digitalTool2);
+						Double averageRating = digitalTool2.getAverageRating();
+						Integer rateCount = digitalTool2.getRateCount();
+						digitalTool2.setAverageRating((averageRating == null) ? 2.5 : averageRating);
+						digitalTool2.setRateCount((rateCount == null) ? 1 : rateCount);
+						digitalTool2 = digitalToolRepository.save(digitalTool2);
 					}
 				return digitalTool2;
 			}

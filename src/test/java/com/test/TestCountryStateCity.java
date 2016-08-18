@@ -33,7 +33,7 @@ public class TestCountryStateCity
 				countryStateCity.setCountryCode("IN");
 				countryStateCity.setCity("Mumbai");
 				countryStateCity.setState("Maharashtra");
-				countryStateCity.setZipcode(new Integer(RandomStringUtils.randomNumeric(6)));
+				countryStateCity.setZipcode((RandomStringUtils.randomNumeric(6)));
 				countryStateCityService.saveCountryStateCity(countryStateCity);
 			}
 
@@ -55,7 +55,7 @@ public class TestCountryStateCity
 							countryStateCity.setCountryCode("IN");
 							countryStateCity.setCity(state+"_City " + new Integer(RandomStringUtils.randomNumeric(2)));
 							countryStateCity.setState(state);
-							countryStateCity.setZipcode(new Integer(RandomStringUtils.randomNumeric(6)));
+							countryStateCity.setZipcode((RandomStringUtils.randomNumeric(6)));
 							countryStateCities.add(countryStateCity);
 							counter++;
 						}

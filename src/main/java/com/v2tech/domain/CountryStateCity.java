@@ -20,7 +20,7 @@ public class CountryStateCity
 		@Indexed
 		private String	region;
 		@Indexed
-		private Integer	zipcode;
+		private String	zipcode;
 		@Indexed
 		private String	countryCode;
 		
@@ -64,13 +64,17 @@ public class CountryStateCity
 				this.city = city;
 			}
 			
-		public Integer getZipcode()
+		public String getZipcode()
 			{
 				return zipcode;
 			}
 			
-		public void setZipcode(Integer zipcode)
+		public void setZipcode(String zipcode)
 			{
+				if (zipcode == null || zipcode.trim().length() == 0)
+					{
+						zipcode = "NA";
+					}
 				this.zipcode = zipcode;
 			}
 			

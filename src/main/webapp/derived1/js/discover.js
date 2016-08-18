@@ -481,7 +481,8 @@ app.controller( 'discoverController',  function($scope, $http, $window) {
 		{
 			$("#invitefriendsmodal").hide();
 		}
-	
+	var redirectUrl = "http://www.grovenue.co/";
+	// redirectUrl="index.html";
 	$scope.socialLogin = function(network)
 		{
 			clientNetwork = network;
@@ -489,7 +490,7 @@ app.controller( 'discoverController',  function($scope, $http, $window) {
 				{
 					hello.init({
 						'google' : '37695017955-fdprjmfel4mtmful1tfc1rpmtc955kpm.apps.googleusercontent.com'					}, {
-						redirect_uri : 'index.html',
+						redirect_uri : redirectUrl,
 						scope : [ 'basic', 'email', 'friends' ]
 					});
 				}
@@ -498,7 +499,7 @@ app.controller( 'discoverController',  function($scope, $http, $window) {
 					hello.init({
 						'facebook' : '617188258436797'
 					}, {
-						redirect_uri : 'index.html'
+						redirect_uri : redirectUrl
 					});
 				}
 			else if (network == 'linkedin')
@@ -506,7 +507,7 @@ app.controller( 'discoverController',  function($scope, $http, $window) {
 					hello.init({
 						'linkedin' : '75aycy8klwf70r'
 					}, {
-						redirect_uri : 'index.html',
+						redirect_uri : redirectUrl,
 						scope : [ 'friends', 'email' ]
 					});
 				}
@@ -515,7 +516,7 @@ app.controller( 'discoverController',  function($scope, $http, $window) {
 					hello.init({
 						'twitter' : 'NftcrZDlBGbPmhIX5vPMKSyPb'
 					}, {
-						redirect_uri : 'index.html'
+						redirect_uri : redirectUrl
 					});
 				}
 			else if (network == 'instagram')
@@ -523,7 +524,7 @@ app.controller( 'discoverController',  function($scope, $http, $window) {
 					hello.init({
 						'instagram' : '517d3cc4879f4e7385491b4352abcdc5'
 					}, {
-						redirect_uri : 'index.html'
+						redirect_uri : redirectUrl
 					});
 				}
 			var socail = hello(network);

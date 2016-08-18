@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta  content="text/html; charset=UTF-8"  http-equiv="content-type">
+    <title></title>
+  </head>
+  <body>
+    <table  border="0"  cellpadding="0"  cellspacing="0">
+      <tbody>
+        <tr>
+          <td  style="COLOR: rgb(82,92,101)">
+            <div  style="FONT-SIZE: 18px; FONT-WEIGHT: bold; COLOR: rgb(16,34,49); MARGIN: 0px; LINE-HEIGHT: 23px"><b>Hi
+                $Name$,</b></div>
+          </td>
+        </tr>
+        <tr>
+          <td  style="COLOR: rgb(82,92,101)">To complete your sign up, please
+            verify your email:<span  class="Apple-converted-space">&nbsp;</span></td>
+        </tr>
+        <tr>
+          <td  style="BORDER-BOTTOM: rgb(243,246,249) 1px solid; COLOR: rgb(82,92,101); PADDING-BOTTOM: 40px; PADDING-TOP: 15px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px"
+
+             align="center">
+            <table  style="WIDTH: 210px; BORDER-COLLAPSE: separate !important; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px"
+
+               border="0"  cellpadding="0"  cellspacing="0">
+              <tbody>
+                <tr>
+                  <td  style="COLOR: rgb(82,92,101)"  align="center"  valign="top"><a
+
+                       style="FONT-SIZE: 13px; TEXT-DECORATION: none; BORDER-TOP: rgb(1,179,227) 10px solid; FONT-FAMILY: 'Open+Sans', 'Open Sans', Helvetica, Arial, sans-serif; BORDER-RIGHT: rgb(1,179,227) 45px solid; BORDER-COLLAPSE: separate !important; BORDER-BOTTOM: rgb(1,179,227) 10px solid; FONT-WEIGHT: bold; COLOR: rgb(255,255,255); TEXT-ALIGN: center; BORDER-LEFT: rgb(1,179,227) 45px solid; DISPLAY: inline-block; LETTER-SPACING: 2px; BACKGROUND-COLOR: rgb(1,179,227); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px"
+
+                       href="$Ver_Link$">VERIFY
+                      EMAIL</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td  style="COLOR: rgb(82,92,101); PADDING-TOP: 30px">
+          
+            <p  style="MARGIN: 20px 0px">Or paste this link and paste in your
+              web browser</p>
+              $Ver_Link$
+            <p  style="WORD-WRAP: break-word; FONT-SIZE: 12px; WORD-BREAK: break-all; MARGIN: 20px 0px; LINE-HEIGHT: 17px"><a
+
+                 style="TEXT-DECORATION: underline; COLOR: rgb(88,133,255)"  href="$Ver_Link$"</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td  style="FONT-SIZE: 14px; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-WEIGHT: normal; COLOR: rgb(54,54,54); PADDING-BOTTOM: 14px; FONT-STYLE: normal; PADDING-TOP: 0px; PADDING-LEFT: 0px; LINE-HEIGHT: 16px; PADDING-RIGHT: 0px; font-variant-caps: normal">Cheers,</td>
+        </tr>
+        <tr>
+          <td  style="FONT-SIZE: 14px; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-WEIGHT: bold; COLOR: rgb(54,54,54); PADDING-BOTTOM: 7px; FONT-STYLE: normal; PADDING-TOP: 0px; PADDING-LEFT: 0px; LINE-HEIGHT: 16px; PADDING-RIGHT: 0px; font-variant-caps: normal">The
+            Grovenue Team</td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </body>
+</html>

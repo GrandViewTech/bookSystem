@@ -28,7 +28,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 
 	
 
-	
+	var redirectUrl = "http://www.grovenue.co/";
 	$scope.feedback = {};	
 	$scope.submitted = "";
 	$scope.user = {};
@@ -504,7 +504,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 				{
 					hello.init({
 						'google' : '37695017955-fdprjmfel4mtmful1tfc1rpmtc955kpm.apps.googleusercontent.com'					}, {
-						redirect_uri : 'index.html',
+						redirect_uri : redirectUrl,
 						scope : [ 'basic', 'email', 'friends' ]
 					});
 				}
@@ -513,7 +513,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 					hello.init({
 						'facebook' : '617188258436797'
 					}, {
-						redirect_uri : 'index.html'
+						redirect_uri : redirectUrl
 					});
 				}
 			else if (network == 'linkedin')
@@ -521,7 +521,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 					hello.init({
 						'linkedin' : '75aycy8klwf70r'
 					}, {
-						redirect_uri : 'index.html',
+						redirect_uri : redirectUrl,
 						scope : [ 'friends', 'email' ]
 					});
 				}
@@ -530,7 +530,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 					hello.init({
 						'twitter' : 'NftcrZDlBGbPmhIX5vPMKSyPb'
 					}, {
-						redirect_uri : 'index.html'
+						redirect_uri : redirectUrl
 					});
 				}
 			else if (network == 'instagram')
@@ -538,7 +538,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 					hello.init({
 						'instagram' : '517d3cc4879f4e7385491b4352abcdc5'
 					}, {
-						redirect_uri : 'index.html'
+						redirect_uri : redirectUrl
 					});
 				}
 			var socail = hello(network);

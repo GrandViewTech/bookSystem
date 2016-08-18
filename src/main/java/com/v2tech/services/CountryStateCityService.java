@@ -22,7 +22,7 @@ public class CountryStateCityService
 	{
 		@Autowired
 		private CountryStateCityRepository countryStateCityRepository;
-
+		
 		public void saveCountryStateCity(CountryStateCity countryStateCity)
 			{
 				countryStateCity = validateCountryStateCity(countryStateCity);
@@ -38,23 +38,30 @@ public class CountryStateCityService
 						countryStateCityRepository.save(existing);
 					}
 			}
-
+			
 		public void saveCountryStateCity(List<CountryStateCity> countryStateCities)
 			{
 				List<CountryStateCity> udpatedCountryStateCities = new ArrayList<CountryStateCity>();
 				for (CountryStateCity countryStateCity : countryStateCities)
 					{
-						countryStateCity = validateCountryStateCity(countryStateCity);
-						CountryStateCity existing = countryStateCityRepository.findByCountryNameStateNameAndCityNameAndRegionNameAndZipCode(countryStateCity.getCountry(), countryStateCity.getState(), countryStateCity.getCity(), countryStateCity.getRegion(), countryStateCity.getZipcode());
-						if (existing == null)
+						try
 							{
-								countryStateCity.setReferenceId(UUID.randomUUID().toString());
-								udpatedCountryStateCities.add(countryStateCity);
+								countryStateCity = validateCountryStateCity(countryStateCity);
+								CountryStateCity existing = countryStateCityRepository.findByCountryNameStateNameAndCityNameAndRegionNameAndZipCode(countryStateCity.getCountry(), countryStateCity.getState(), countryStateCity.getCity(), countryStateCity.getRegion(), countryStateCity.getZipcode());
+								if (existing == null)
+									{
+										countryStateCity.setReferenceId(UUID.randomUUID().toString());
+										udpatedCountryStateCities.add(countryStateCity);
+									}
+								else
+									{
+										existing.setCountryCode(countryStateCity.getCountryCode());
+										udpatedCountryStateCities.add(existing);
+									}
 							}
-						else
+						catch (Exception exception)
 							{
-								existing.setCountryCode(countryStateCity.getCountryCode());
-								udpatedCountryStateCities.add(existing);
+								exception.printStackTrace();
 							}
 					}
 				if (udpatedCountryStateCities.size() > 0)
@@ -62,22 +69,22 @@ public class CountryStateCityService
 						countryStateCityRepository.save(udpatedCountryStateCities);
 					}
 			}
-
+			
 		public Set<String> findDistinctCountry()
 			{
 				return countryStateCityRepository.findByDistinctCountry();
 			}
-
+			
 		public Set<String> findByDistinctState()
 			{
 				return countryStateCityRepository.findByDistinctState();
 			}
-
+			
 		public Set<String> findByDistinctCity()
 			{
 				return countryStateCityRepository.findByDistinctCity();
 			}
-
+			
 		public Map<String, List<String>> findByDistinctStateAndCityForGivenCountry(String country)
 			{
 				List<CountryStateResult> countryStateResults = countryStateCityRepository.findByDistinctStateForGivenCountry(country);
@@ -104,20 +111,20 @@ public class CountryStateCityService
 					}
 				return result;
 			}
-
+			
 		public Set<String> findByDistinctCityForGivenCountryAndState(String country, String state)
 			{
 				return countryStateCityRepository.findByDistinctCityForGivenCountryAndState(country, state);
 			}
-
+			
 		private CountryStateCity validateCountryStateCity(CountryStateCity countryStateCity)
 			{
 				String cityName = countryStateCity.getCity();
 				String stateName = countryStateCity.getState();
 				String countryName = countryStateCity.getCountry();
 				String regionName = countryStateCity.getRegion();
-				Integer zipcode = countryStateCity.getZipcode();
-				if ((cityName == null) || (stateName == null) || (countryName == null) || (regionName == null) || (zipcode == null) || (cityName.trim().length() == 0) || (cityName.trim().length() == 0) || (stateName.trim().length() == 0) || (zipcode == 0) || (regionName.trim().length() == 0))
+				String zipcode = countryStateCity.getZipcode();
+				if ((cityName == null) || (stateName == null) || (countryName == null) || (regionName == null) || (zipcode == null) || (cityName.trim().length() == 0) || (cityName.trim().length() == 0) || (stateName.trim().length() == 0) || (zipcode.trim().length() == 0) || (regionName.trim().length() == 0))
 					{
 						throw new V2GenericException("cityName : " + cityName + " | stateName : " + stateName + " | countryName : " + countryName + " | regionName : " + regionName + " | zipcode : " + zipcode + " cannot be null or empty or zero");
 					}

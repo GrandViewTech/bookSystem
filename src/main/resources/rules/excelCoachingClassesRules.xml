@@ -1,0 +1,37 @@
+<workbook>
+	<worksheet name="CoachingClasses">
+		<section startRow="0" endRow="0" />
+		<loop startRow="1" endRow="1" items="result" var="coachingClass" varType="com.v2tech.domain.CoachingClass">
+			<section startRow="1" endRow="1">
+				<mapping row="1" col="1">coachingClass.name</mapping>
+				<mapping row="1" col="2">coachingClass.cStreams</mapping>
+				<mapping row="1" col="3">coachingClass.state</mapping>
+				<mapping row="1" col="4">coachingClass.city</mapping>
+				<mapping row="1" col="5">coachingClass.branch</mapping>
+				<mapping row="1" col="6">coachingClass.zip</mapping>
+				<mapping row="1" col="7">coachingClass.phoneNumber</mapping>
+				<mapping row="1" col="8">coachingClass.courses</mapping>
+				<mapping row="1" col="9">coachingClass.rExams</mapping>
+				<mapping row="1" col="10">coachingClass.targetStudents</mapping>
+				<mapping row="1" col="11">coachingClass.duration</mapping>
+				<mapping row="1" col="12">coachingClass.medium</mapping>
+				<mapping row="1" col="13">coachingClass.description</mapping>
+				<mapping row="1" col="14">coachingClass.yearFounded</mapping>
+				<mapping row="1" col="15">coachingClass.typesOfCoursesOffered</mapping>
+				<mapping row="1" col="16">coachingClass.typeOfProgram</mapping>
+				<mapping row="1" col="17">coachingClass.website</mapping>
+				<mapping row="1" col="18">coachingClass.addedBy</mapping>
+				<mapping row="1" col="19">coachingClass.photoDetail</mapping>
+				<mapping row="1" col="20">coachingClass.questions</mapping>
+				<mapping row="1" col="21">coachingClass.bSize</mapping>
+				<mapping row="1" col="22">coachingClass.schedule</mapping>
+				<mapping row="1" col="23">coachingClass.courseMaterial</mapping>
+			</section>
+			<loopbreakcondition>
+				<rowcheck offset="0">
+					<cellcheck offset="0">End Rows:</cellcheck>
+				</rowcheck>
+			</loopbreakcondition>
+		</loop>
+	</worksheet>
+</workbook>

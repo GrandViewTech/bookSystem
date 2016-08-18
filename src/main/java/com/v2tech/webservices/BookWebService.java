@@ -1,13 +1,12 @@
 package com.v2tech.webservices;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.activation.DataHandler;
@@ -21,15 +20,18 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
-import org.apache.cxf.jaxrs.impl.ResponseBuilderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.v2.booksys.common.util.ExcelReader;
 import com.v2tech.base.V2GenericException;
 import com.v2tech.domain.Book;
@@ -40,13 +42,13 @@ import com.v2tech.domain.Source;
 import com.v2tech.domain.Subject;
 import com.v2tech.repository.BookRepository;
 import com.v2tech.services.BookService;
-import com.v2tech.services.OrderService;
 import com.v2tech.services.UserKeywordRelationService;
 
 @Path("/bookService")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Transactional
+@PropertySource("classpath:bookSys.properties")
 public class BookWebService
 	{
 		@Autowired
@@ -58,7 +60,26 @@ public class BookWebService
 		@Autowired
 		private UserKeywordRelationService	userKeywordRelationService;
 		
+		@Value("${resourceLocation}")
+		private String						resourceLocation;
 		
+		private static ObjectMapper			objectMapper;
+		private static ObjectWriter			objectWriter;
+		static
+			{
+				try
+					{
+						objectMapper = new ObjectMapper();
+						objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
+					}
+				catch (Exception exception)
+					{
+						objectMapper = null;
+						objectWriter = null;
+						exception.printStackTrace();
+					}
+			}
+			
 		private List<Book> convertToBooks(Iterable<Book> books)
 			{
 				List<Book> booksToBeReturned = new ArrayList<Book>();
@@ -718,9 +739,25 @@ public class BookWebService
 						
 						MultivaluedMap<String, String> map = attachment.getHeaders();
 						System.out.println("fileName Here" + getFileName(map));
-						
-						File excelRules = new File("rules" + File.separator + "excelBookRules.xml");
-						List<Book> books = ExcelReader.parseExcelFileToBeans(stream, excelRules);
+						Resource resource = new ClassPathResource("rules" + File.separator + "excelBookRules.xml");
+						List<Book> books = ExcelReader.parseExcelFileToBeans(stream, resource.getFile());
+						String resourceDir = null;
+						if (resourceLocation != null && resourceLocation.trim().length() > 0)
+							{
+								try
+									{
+										resourceDir = resourceLocation + File.separator + "books";
+										File file = new File(resourceDir);
+										if (file.isDirectory() == false)
+											{
+												FileUtils.forceMkdir(file);
+											}
+									}
+								catch (Exception exception)
+									{
+										exception.printStackTrace();
+									}
+							}
 						for (Book book : books)
 							{
 								
@@ -776,8 +813,32 @@ public class BookWebService
 								//					book.setSources(sourcesList);
 								//					}
 								book.setSources(sourcesList);
-								
-								bookService.saveOrUpdate(book);
+								String name = book.getISBN();
+								book = bookService.saveOrUpdate(book);
+								if (objectWriter != null)
+									{
+										if (resourceDir != null && resourceDir.trim().length() > 0)
+											{
+												try
+													{
+														File file = new File(resourceDir + File.separator + name + ".json");
+														if (file.exists())
+															{
+																file.delete();
+															}
+															
+														file.createNewFile();
+														FileWriter fileWriter = new FileWriter(file);
+														fileWriter.write(objectWriter.writeValueAsString(book));
+														fileWriter.flush();
+														fileWriter.close();
+													}
+												catch (Exception exception)
+													{
+														exception.printStackTrace();
+													}
+											}
+									}
 							}
 						return true;
 					}

@@ -57,7 +57,7 @@ public class ReviewService
 				review.setReviewedBy(review.getReviewedBy().trim());
 				review.setResourceReviewedType(review.getResourceReviewedType());
 				String reviewedBy = review.getReviewedBy().trim();
-				String resourceReviewedType = review.getResourceReviewedType().trim();	
+				String resourceReviewedType = review.getResourceReviewedType().trim();
 				String resourceIdentity = review.getResourceIdentity().trim();
 				Review existingReview = null;
 				
@@ -148,7 +148,10 @@ public class ReviewService
 					}
 				Integer rateCount = ((book.getRateCount() == null) ? 0 : book.getRateCount());
 				Double averageRating = ((book.getAverageRating() == null) ? 0 : book.getAverageRating()) * rateCount + reviewScore;
-				rateCount = rateCount + 1;
+				if (rateCount > 1 || rateCount < 1)
+					{
+						rateCount=rateCount+1;
+					}
 				book.setAverageRating(averageRating / rateCount);
 				book.setRateCount(rateCount);
 				bookRepository.save(book);
@@ -202,7 +205,10 @@ public class ReviewService
 					}
 				Integer rateCount = ((coachingClass.getRateCount() == null) ? 0 : coachingClass.getRateCount());
 				Double averageRating = ((coachingClass.getAverageRating() == null) ? 0 : coachingClass.getAverageRating()) * rateCount + reviewScore;
-				rateCount = rateCount + 1;
+				if (rateCount > 1 || rateCount < 1)
+					{
+						rateCount=rateCount+1;
+					}
 				coachingClass.setAverageRating(averageRating / rateCount);
 				coachingClass.setRateCount(rateCount);
 				coachingClassRepository.save(coachingClass);
@@ -254,7 +260,10 @@ public class ReviewService
 					}
 				Integer rateCount = ((digitalTool.getRateCount() == null) ? 0 : digitalTool.getRateCount());
 				Double averageRating = ((digitalTool.getAverageRating() == null) ? 0 : digitalTool.getAverageRating()) * rateCount + reviewScore;
-				rateCount = rateCount + 1;
+				if (rateCount > 1 || rateCount < 1)
+					{
+						rateCount=rateCount+1;
+					}
 				digitalTool.setAverageRating(averageRating / rateCount);
 				digitalTool.setRateCount(rateCount);
 				digitalToolRepository.save(digitalTool);

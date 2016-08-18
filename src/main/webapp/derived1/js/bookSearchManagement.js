@@ -2,6 +2,7 @@
 var app = angular.module('myApp', []);
 app.controller( 'bookSearchManagementController',  function($scope, $http, $window) {
 	
+	var redirectUrl = "http://www.grovenue.co/";
 	$scope.user = {};
 	
 	var user = $window.localStorage.getItem('loggedInUser');

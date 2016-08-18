@@ -23,6 +23,8 @@ public class CoachingClass
 		 */
 		String			rExams						= "";
 		
+		String			state						= "";
+		
 		String			city						= "";
 		
 		String			yearFounded					= "";
@@ -86,7 +88,7 @@ public class CoachingClass
 		
 		String			searchable					= "yes";
 		
-		private Double	averageRating				= 1.0;
+		private Double	averageRating				= 2.5;
 		
 		private Integer	rateCount					= 1;
 		
@@ -449,7 +451,10 @@ public class CoachingClass
 			
 		public void setAverageRating(Double averageRating)
 			{
-				averageRating = averageRating % 5;
+				if (averageRating.intValue() > 5)
+					{
+						averageRating = averageRating % 5;
+					}
 				this.averageRating = averageRating;
 			}
 			
@@ -461,6 +466,16 @@ public class CoachingClass
 		public void setRateCount(Integer rateCount)
 			{
 				this.rateCount = rateCount;
+			}
+			
+		public String getState()
+			{
+				return state;
+			}
+			
+		public void setState(String state)
+			{
+				this.state = state;
 			}
 			
 	}

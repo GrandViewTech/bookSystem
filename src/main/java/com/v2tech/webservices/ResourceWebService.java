@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -41,6 +42,7 @@ import com.v2tech.domain.RESOURCE_TYPE;
 import com.v2tech.domain.Review;
 import com.v2tech.domain.SocialMediaType;
 import com.v2tech.domain.User;
+import com.v2tech.domain.UserType;
 import com.v2tech.domain.util.ResourceEntity;
 import com.v2tech.domain.util.ServiceResponse;
 import com.v2tech.services.BookService;
@@ -59,40 +61,56 @@ import com.v2tech.services.UserService;
 public class ResourceWebService
 	{
 		@Autowired
-		UserService													userService;
+		UserService					userService;
 		
 		@Autowired
-		ReviewService												reviewService;
+		ReviewService				reviewService;
 		
 		@Autowired
-		KeywordService												keywordService;
+		KeywordService				keywordService;
 		
 		@Autowired
-		BookService													bookService;
+		BookService					bookService;
 		
 		@Autowired
-		CoachingClassService1										coachingClassService;
+		CoachingClassService1		coachingClassService;
 		
 		@Autowired
-		UserKeywordRelationService									userKeywordRelationService;
+		UserKeywordRelationService	userKeywordRelationService;
 		
 		@Autowired
-		CountryStateCityService										countryStateCityService;
+		CountryStateCityService		countryStateCityService;
 		
-		DateFormat													dateFormat	= new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-		
-		@Autowired
-		DigitalToolService											digitalToolService;
-		
-		//		@Bean(name = "inviteFriendsEmailService")
-		//		public void InviteFriendsEmailService()
-		//			{
-		//				new com.v2.booksys.common.util.InviteFriendsEmailService();
-		//			}
+		DateFormat					dateFormat	= new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		
 		@Autowired
-		public com.v2.booksys.common.util.InviteFriendsEmailService	inviteFriendsEmailService;
+		DigitalToolService			digitalToolService;
 		
+		@PostConstruct
+		public void init()
+			{
+				User user = new User();
+				user.setUserType(UserType.ADMIN);
+				user.setUser("grovenue.user@gmail.com");
+				user.setPassword("grovenue@123");
+				user.setValidated(true);
+				userService.saveOrUpdate(user);
+			}
+			
+		@Autowired
+		public com.v2.booksys.common.util.InviteFriendsEmailService inviteFriendsEmailService;
+		
+		@GET
+		@Path("/deleteUser")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response deleteUser(@QueryParam("userId") String userId)
+			{
+				System.out.println("userId " + userId);
+				userService.deleteUser(userId);
+				return Response.ok().build();
+			}
+			
 		@POST
 		@Path("/updatePassword/token/{token}")
 		@Produces(MediaType.APPLICATION_JSON)
@@ -169,22 +187,15 @@ public class ResourceWebService
 					{
 						boolean isSocialMediaUser = user.isSocialMedia();
 						Date createdDate = new Date();
-						String dateTime = dateFormat.format(createdDate);
 						user.setCreatedDate(createdDate);
 						user.setValidated((isSocialMediaUser == true) ? true : false);
 						userService.saveOrUpdate(user);
 						if (isSocialMediaUser == false)
 							{
-								String sentMail = UtilService.getValue("sentMail");
-								if ((sentMail != null) && sentMail.equalsIgnoreCase("true"))
-									{
-										//Thread thread = new Thread(new EmailThread(user.getUser(), dateTime, false, null, user.getSocialMediaType().getType()));
-										Thread thread = new Thread(new EmailHtmlThread(user));
-										thread.start();
-									}
+								Thread thread = new Thread(new EmailHtmlThread(user));
+								thread.start();
 							}
 					}
-					
 				response.setRequestType("User_Save_Request");
 				response.setResponseStatus("User_Saved");
 				//Response.ok().e
@@ -601,7 +612,7 @@ public class ResourceWebService
 					}
 				if (resourceEntities.size() > resourceLimit)
 					{
-						return resourceEntities.subList(0, resourceLimit );
+						return resourceEntities.subList(0, resourceLimit);
 					}
 				return resourceEntities;
 			}

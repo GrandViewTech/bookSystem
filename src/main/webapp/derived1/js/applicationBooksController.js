@@ -23,9 +23,10 @@ app.controller( 'reviewsController',  function($scope, $http, $window, $filter, 
 });
 
 
-app.controller( 'indexController',  function($scope, $http, $window, $filter, $sce, Feedback) {
-$scope.booksCount = 0;
-
+app.controller( 'indexController',  function($scope, $http, $window, $filter, $sce, Feedback) 
+		{
+			$scope.booksCount = 0;
+			var redirectUrl = "http://www.grovenue.co/";
 	var url = '../ws/rest/bookService/search/criteria/JEE/startFrom/1/maxResults/5/token/test';
 		$http.get(url).
 			success(function(data) {
@@ -684,7 +685,7 @@ var searchD = window.encodeURIComponent('(?i).*A.*');
 					hello.init({
 						'google' : '37695017955-fdprjmfel4mtmful1tfc1rpmtc955kpm.apps.googleusercontent.com'
 					}, {
-						redirect_uri : 'index.html',
+						redirect_uri : redirectUrl,
 						scope : [ 'basic', 'email', 'friends' ]
 					});
 				}
@@ -693,7 +694,7 @@ var searchD = window.encodeURIComponent('(?i).*A.*');
 					hello.init({
 						'facebook' : '617188258436797'
 					}, {
-						redirect_uri : 'index.html'
+						redirect_uri : redirectUrl
 					});
 				}
 			else if (network == 'linkedin')
@@ -701,7 +702,7 @@ var searchD = window.encodeURIComponent('(?i).*A.*');
 					hello.init({
 						'linkedin' : '75aycy8klwf70r'
 					}, {
-						redirect_uri : 'index.html',
+						redirect_uri : redirectUrl,
 						scope : [ 'friends', 'email' ]
 					});
 				}
@@ -710,7 +711,7 @@ var searchD = window.encodeURIComponent('(?i).*A.*');
 					hello.init({
 						'twitter' : 'NftcrZDlBGbPmhIX5vPMKSyPb'
 					}, {
-						redirect_uri : 'index.html'
+						redirect_uri : redirectUrl
 					});
 				}
 			else if (network == 'instagram')
@@ -718,7 +719,7 @@ var searchD = window.encodeURIComponent('(?i).*A.*');
 					hello.init({
 						'instagram' : '517d3cc4879f4e7385491b4352abcdc5'
 					}, {
-						redirect_uri : 'index.html'
+						redirect_uri : redirectUrl
 					});
 				}
 			var socail = hello(network);

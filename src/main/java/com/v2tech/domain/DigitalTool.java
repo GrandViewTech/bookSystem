@@ -42,7 +42,7 @@ public class DigitalTool
 		
 		String			otherComments	= "";
 		
-		private Double	averageRating	= 1.0;
+		private Double	averageRating	= 2.5;
 		
 		private Integer	rateCount		= 1;
 		
@@ -223,7 +223,10 @@ public class DigitalTool
 			
 		public void setAverageRating(Double averageRating)
 			{
-				averageRating=averageRating%5;
+				if (averageRating.intValue() > 5)
+					{
+						averageRating = averageRating % 5;
+					}
 				this.averageRating = averageRating;
 			}
 			

@@ -24,33 +24,35 @@ public class UserService
 	{
 		@Autowired
 		UserRepository		userRepository;
-
+		
 		@Autowired
 		RatingRepository	ratingRepository;
-
+		
 		@Autowired
 		BookRepository		bookRepository;
-
+		
 		@Autowired
 		BookService			bookService;
-
+		
 		@Autowired
 		Neo4jTemplate		template;
 		
-		
-		public void updatePassword(User user){
-			java.util.Set<User> users = userRepository.findUserByNameAndSocialMediaType(user.getUser(), user.getSocialMediaType().getType());
-			if (users.size() == 0){
-				
+		public void updatePassword(User user)
+			{
+				java.util.Set<User> users = userRepository.findUserByNameAndSocialMediaType(user.getUser(), user.getSocialMediaType().getType());
+				if (users.size() == 0)
+					{
+						
+					}
+				else if (users.size() == 1)
+					{
+						User usrs[] = new User[users.size()];
+						User existingUser = (users.toArray(usrs))[0];
+						existingUser.setPassword(user.getNewPassword());
+						userRepository.save(existingUser);
+					}
 			}
-			else if(users.size() == 1){
-				User usrs[] = new User[users.size()];
-				User existingUser = (users.toArray(usrs))[0];
-				existingUser.setPassword(user.getNewPassword());
-				userRepository.save(existingUser);
-			}
-		}
-
+			
 		/**
 		 * This method will do following - a. In create mode - Will update the primary attributes of User object and save only those friends that already exist in the system as users b. In the update mode - Will update only the primary attributes of
 		 * User object. So no Rating/Friend collections will be updated.
@@ -83,7 +85,7 @@ public class UserService
 					{
 						throw new V2GenericException("Too small User Name");
 					}
-
+					
 				java.util.Set<User> users = userRepository.findUserByNameAndSocialMediaType(user.getUser(), user.getSocialMediaType().getType());
 				if (users.size() == 0)
 					{
@@ -104,7 +106,6 @@ public class UserService
 						//update mode
 						User usrs[] = new User[users.size()];
 						User existingUser = (users.toArray(usrs))[0];
-						
 						
 						existingUser.setBase64Image(user.getBase64Image());
 						existingUser.setPassword(user.getPassword());
@@ -142,7 +143,7 @@ public class UserService
 						return existingUser;
 					}
 			}
-
+			
 		private Set<User> findFriendsExistingInSystem(java.util.Set<User> users)
 			{
 				Set<User> existingFriends = new HashSet<>();
@@ -157,11 +158,11 @@ public class UserService
 							{
 								existingFriends.add(user);
 							}
-
+							
 					}
 				return existingFriends;
 			}
-
+			
 		public User getSingleUser(User user)
 			{
 				java.util.Set<User> users = userRepository.findUserByUserName(user.getUser());
@@ -179,9 +180,9 @@ public class UserService
 						users.toArray(usrs);
 						return usrs[0];
 					}
-
+					
 			}
-
+			
 		public User getSingleUserBySocialMediaType(User user)
 			{
 				java.util.Set<User> users = userRepository.findUserByNameAndSocialMediaType(user.getUser(), user.getSocialMediaType().getType());
@@ -199,9 +200,9 @@ public class UserService
 						users.toArray(usrs);
 						return usrs[0];
 					}
-
+					
 			}
-
+			
 		public boolean markUserAsValidated(User user)
 			{
 				user = getSingleUserBySocialMediaType(user);
@@ -213,33 +214,33 @@ public class UserService
 				saveOrUpdate(user);
 				return true;
 			}
-
+			
 		public void addUserRatingToBook(Rating rating)
 			{
 				if ((rating.getStars() == null) || (rating.getStars() < 0) || (rating.getStars() > 5))
 					{
 						throw new V2GenericException("Invalid Rating Stars ");
 					}
-
+					
 				User user = rating.getUser();
 				user = getSingleUserBySocialMediaType(user);
 				if (user == null)
 					{
 						throw new V2GenericException("No user exists ");
 					}
-
+					
 				Book book = rating.getBook();
 				if ((book == null) || (book.getISBN() == null))
 					{
 						throw new V2GenericException("No book exists ");
 					}
 				book = bookService.getSingleBook(book.getISBN());
-
+				
 				rating.setUser(user);
 				rating.setBook(book);
 				ratingRepository.save(rating);
 			}
-
+			
 		/**
 		 * The method adds only those users as friends that exist in the system as users.
 		 *
@@ -252,14 +253,14 @@ public class UserService
 					{
 						throw new V2GenericException("User name can not be null ");
 					}
-
+					
 				users = findFriendsExistingInSystem(users);
 				user = getSingleUserBySocialMediaType(user);
 				if (user == null)
 					{
 						throw new V2GenericException("User is null");
 					}
-
+					
 				if (user.getFriends() == null)
 					{
 						user.setFriends(new HashSet());
@@ -270,7 +271,7 @@ public class UserService
 				userRepository.save(user);
 				return true;
 			}
-
+			
 		public User getUserByUserNameAndSocialMediaType(String user, String socialMediaType)
 			{
 				user = "(?i)" + user.trim();
@@ -282,11 +283,20 @@ public class UserService
 					}
 				return null;
 			}
-
+			
 		public Set<User> findUsersByUserName(String user)
 			{
 				user = "(?i)" + user.trim();
 				Set<User> users = userRepository.findUserByUserName(user);
 				return users;
+			}
+			
+		public void deleteUser(String userId)
+			{
+				Set<User> users = userRepository.findUserByUserName(userId);
+				if (users != null && users.size() > 0)
+					{
+						userRepository.delete(users);
+					}
 			}
 	}

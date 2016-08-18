@@ -23,28 +23,36 @@ import org.springframework.stereotype.Service;
  * @Description : Used to Send Email In Order To Invite Peoples <br>
  */
 @EnableAsync
-//@PropertySource("classpath:bookSys.properties")
+@PropertySource("classpath:bookSys.properties")
 @Service("inviteFriendsEmailService")
 public class InviteFriendsEmailService
 	{
 		private final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(InviteFriendsEmailService.class);
-
+		
 		@Bean
 		public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer()
 			{
 				return new PropertySourcesPlaceholderConfigurer();
 			}
-
+			
 		private String	charset	= "UTF-8";
 		
-		private String	hostName = UtilService.getValue("hostName");
-		private String	sendFrom  = UtilService.getValue("sendFrom");;
-		private String	sendFromName = UtilService.getValue("sendFromName");
-		private String	sendFromPwd = UtilService.getValue("sendFromPwd");
-		private String	smtpPort = UtilService.getValue("smtpPort");
-		private String	sentMail = UtilService.getValue("sentMail");
-		private String	baseUrl = UtilService.getValue("baseUrl");
-
+		@Value("${hostName}")
+		
+		private String	hostName;
+		@Value("${sendFrom}")
+		private String	sendFrom;
+		@Value("${sendFromName}")
+		private String	sendFromName;
+		@Value("${sendFromPwd}")
+		private String	sendFromPwd;
+		@Value("${smtpPort}")
+		private String	smtpPort;
+		@Value("${sentMail}")
+		private String	sentMail;
+		@Value("${baseUrl}")
+		private String	baseUrl;
+		
 		@Async
 		public void inviteFriendsViaEmail(String user, String message, List<String> friendList)
 			{
@@ -72,7 +80,7 @@ public class InviteFriendsEmailService
 					{
 						logger.error("Error Sending Message for User " + user + " Cause :" + exception.getLocalizedMessage(), exception);
 					}
-
+					
 			}
-
+			
 	}

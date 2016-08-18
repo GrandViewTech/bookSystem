@@ -113,6 +113,8 @@ public class CoachingClassService1
 							{
 								coachingClass.setTypesOfCoursesOffered(coachingClass.getTypesOfCoursesOffered() + "," + coachngClass.getTypesOfCoursesOffered());
 							}
+						coachingClass.setCity(coachngClass.getCity());
+						coachingClass.setState(coachngClass.getState());
 						coachingClass.setAddedBy(coachngClass.getAddedBy());
 						coachingClass.setAddress(coachngClass.getAddress());
 						coachingClass.setAverageBatchSize(coachngClass.getAverageBatchSize());
@@ -125,9 +127,12 @@ public class CoachingClassService1
 						coachingClass.setTypeOfProgram(coachngClass.getTypeOfProgram());
 						coachingClass.setWebsite(coachngClass.getWebsite());
 						coachingClass.setYearFounded(coachngClass.getYearFounded());
-						
-						//coachingClass.setKeyword(coachngClass.getZip()+","+coachngClass.getBranch()+","+coachngClass.getCity()+","+coachngClass.getName()+","+coachngClass.getcStreams()+","+coachngClass.getAverageBatchSize()+","+coachngClass.getrExams()+","+coachngClass.getCourses());
-						
+						coachingClass.setKeyword(coachngClass.getState() + "," + coachngClass.getZip() + "," + coachngClass.getBranch() + "," + coachngClass.getCity() + "," + coachngClass.getName() + "," + coachngClass.getcStreams() + "," + coachngClass.getAverageBatchSize() + "," + coachngClass.getrExams() + "," + coachngClass.getCourses());
+						// Update Rating if not found
+						Double averageRating = coachingClass.getAverageRating();
+						Integer rateCount = coachingClass.getRateCount();
+						coachingClass.setAverageRating((averageRating == null) ? 2.5 : averageRating);
+						coachingClass.setRateCount((rateCount == null) ? 1 : rateCount);
 						coachingClass = coachingClassRepository.save(coachingClass);
 						return coachingClass;
 					}

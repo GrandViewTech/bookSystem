@@ -261,7 +261,7 @@ public class BookService
 				// Update Rating if not found
 				Double averageRating = bookToBeSaved.getAverageRating();
 				Integer rateCount = bookToBeSaved.getRateCount();
-				bookToBeSaved.setAverageRating((averageRating == null) ? 1.0 : averageRating);
+				bookToBeSaved.setAverageRating((averageRating == null) ? 2.5 : averageRating);
 				bookToBeSaved.setRateCount((rateCount == null) ? 1 : rateCount);
 				bookToBeSaved = bookRepository.save(bookToBeSaved);
 				return bookToBeSaved;
@@ -381,7 +381,7 @@ public class BookService
 			
 		public Set<Book> searchBooksByISBN(String isbn, Integer limit)
 			{
-				isbn=("(?i)"+isbn).trim();
+				isbn = ("(?i)" + isbn).trim();
 				return bookRepository.findBookByISBN(isbn);
 			}
 			

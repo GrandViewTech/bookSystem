@@ -1,405 +1,513 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title id='Description'>Grovenue</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <!--<link rel="icon" href="favicon.png">-->
-	<link rel="stylesheet" href="css/custom_v2.css">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/responsive.css">
-        <link rel="stylesheet" href="css/menu.css">
-        <link rel="stylesheet" href="css/popup.css">
-	<link rel="stylesheet" href="css/ng-img-crop.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-resource.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-      <script src="js/bootbox.js"></script>
-      <script src="js/hello.js"></script>
-      <script src="js/commonServices.js"></script>
-      <script src="js/fileSaver.js"></script>
-      <script src="js/beJobReadyController.js?dummy=dummy"></script>
-       <script src="js/ng-img-crop.js"></script>
-    </head>
+<head>
+<meta charset="utf-8">
+<title id='Description'>Grovenue</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<!--<link rel="icon" href="favicon.png">-->
+<link rel="stylesheet" href="css/custom_v2.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/menu.css">
+<link rel="stylesheet" href="css/popup.css">
+<link rel="stylesheet" href="css/ng-img-crop.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-resource.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+	crossorigin="anonymous"></script>
+<script src="js/bootbox.js"></script>
+<script src="js/hello.js"></script>
+<script src="js/commonServices.js"></script>
+<script src="js/fileSaver.js"></script>
+<script src="js/beJobReadyController.js?dummy=dummy"></script>
+<script src="js/ng-img-crop.js"></script>
+</head>
 
-    <body ng-app="myApp" ng-controller="beJobReadyController">
-        <div class="header">
-            <div class="container">
-                <div class="logo col-md-3"> 
-                    <a href="index.html"><img src="images/colorlogo.png" /></a>
-                </div>
-
-                <div class="menu col-md-6">
-                    <div class="top topsearch">
-                        <div class="search">
-                            <div class="all"><a href="javascript:void(0);" id="all">All <i class="fa fa-caret-down" aria-hidden="true"></i></a> </div>
-                            <input type="text" name="search"/>
-							<!--<input type="text" class="hideshow" name="search" placeholder="Search"/>-->
-                            <a href="javascript:void(0);" id="searchshow"><i class="fa fa-search" aria-hidden="true"></i></a>
-							<div class="popup">
-                                <i class="fa fa-caret-up" aria-hidden="true"></i>
-                                <ul>
-                                    <li><a href="#">Management</a></li>
-                                    <li><a href="#">Engineering</a></li>
-                                    <li><a href="#">Medicine</a></li>
-                                    <li><a href="#">Law</a></li>
-                                    <li><a href="#">Unversities</a></li>
-                                    <li><a href="#">Pharmacy</a></li>
-                                    <li><a href="#">Computer Applications</a></li>
-                                    <li><a href="#">Finance & Accounts</a></li>
-                                    <li><a href="#">Hospitality & Tourism</a></li>
-                                    <li><a href="#">Media & Jourmalism</a></li>
-                                    <li><a href="#">Animation & Fashion</a></li>
-                                    <li><a href="#">School</a></li>
-                                    <li><a href="#">Competition</a></li>
-                                    <li><a href="#">Study Abroad</a></li>			
-                                </ul>
-                            </div>
-                        </div>
-					</div>
-				</div>
-				<div class="menu col-md-3">
-                    <div class="top">
-                        <div class="login-reg"> 
-                            
-				<div class="headeruser" ><a href="{{headeruser}}" id="header_user_trigger"><img src="images/user.png" /></a></div>
-							
-							<!--===================== Header User Popup Form =====================-->
-                            <div id="headeruser" class="popupContainer headerusercontainer" style="display:none;">
-                                
-                                <section class="popupBody">
-                                    <div class="headeruserpopup">
-					<i class="fa fa-caret-up" aria-hidden="true"></i>
-					<div class="tellusright" id="tellusright">
-						<div class="userimg"><img src="images/testimonials.png"></div>
-							<h4>User Name Loren</h4>
-							<p>14 Review, 38 Followers</p>
-							
-							
-			 
-							<strong><a id="tab_trigger" href="" ng-click="showInviteFriends()" >Invite Friends</a></strong>
-							<strong><a id="tab_trigger" href="" ng-click="showEditProfile()" >Edit Profile</a></strong>
-							<strong><a id="change_password_trigger" href="#changepassword">Change Password</a></strong>
-							
-							<strong><a href="" ng-click="signOff()">Log Out</a></strong>
-						</div>
-					</div>
-                                </section>
-                            </div>
-							
-							<!--===================== Change Password Popup Form =====================-->
-                            <div id="changepassword" class="popupContainer changepasswordcontainer" style="display:none;">
-                                <header class="popupHeader">
-                                    <span class="header_title">Change Password</span>
-                                    <span class="modal_close"><img src="images/x.png"></span>
-                                </header>
-                                <section class="popupBody">
-                                    <div class="change_password">
-                                        <form>
-                                            <fieldset class="form-group">
-                                                <input type="text" name="username" placeholder="User Name*" ng-model="loggedInUser.user" />
-                                            </fieldset>
-                                            <fieldset class="form-group">
-                                                <input type="password" name="oldpassword" placeholder="Old Password*" ng-model="loggedInUser.password" />
-                                            </fieldset>
-											<fieldset class="form-group">
-                                                <input type="password" name="newpassword" placeholder="New Password*" ng-model="loggedInUser.newPassword"/>
-                                            </fieldset>
-											<fieldset class="form-group">
-                                                <input type="password" name="reconfirm" placeholder="Reconfirm*" ng-model="repeatPassword" />
-                                            </fieldset>
-											<div class="action_btns">
-                                                <div class="submit_btn"><a href="" ng-click="checkPasswordValidations()" class="btn btn_red">SUBMIT</a></div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </section>
-                            </div>
-							
-							
-                            <div class="logreg">
-                                <a id="modal_trigger" href="#{{profileDialog}}">{{profileText}}</a>
-                            </div>
-                            
-							
-                            <!--===================== Login & Register Popup Form =====================-->
-                            <div id="modal" class="popupContainer loginregistercontainer" style="display:none;">
-                                <header class="popupHeader">
-                                    <span class="header_title">Join the Network</span>
-                                    <span class="modal_close"><a href="" ng-click="closeRegDialog()"><img src="images/x.png"/> </a></span>
-                                </header>
-                                <section class="popupBody">
-                                    <!-- Register Form -->
-                                    <div class="user_register">
-                                        <label class="title">Sign Up</label>
-                                        <form id="formRegister" action="" ng-submit="signup(user)">
-						 <fieldset class="form-group">
-						    <input type="text" name="name" ng-model="user.firstName" placeholder="Name" style="width: 36% !important; float: left;" required /> <input type="text" name="lastname" ng-model="user.lastName" placeholder="Last Name" style="width: 60% !important; float: right;" required />
-						 </fieldset>
-						 <fieldset class="form-group">
-						    <input type="text" name="contact" ng-model="user.contact" placeholder="Contact Number" required />
-						 </fieldset>
-						 <fieldset class="form-group">
-						    <input type="email" ng-model="user.user" name="email" placeholder="Email ID" required />
-						 </fieldset>
-						 <fieldset class="form-group">
-						    <input type="password" name="password" ng-model="user.password" placeholder="Password" required />
-						 </fieldset>
-						 <div class="checkbox">
-						    <input id="send_updates" type="checkbox" ng-model="termCheck" ng-click="display()" /> <label for="send_updates">I agree to the <a href="">Terms & Conditions</a>,<a href="">Privacy Policy</a></label>
-						 </div>
-						 <div class="action_btns">
-						    <div class="one_half last">
-						       <input type="submit" name="button" class="btn btn_red" value="SIGNUP" ng-disabled="check()" />
-						    </div>
-						 </div>
-				      </form>
-                                    </div>
-                                    <!-- Social Login -->
-                                    <div class="social_login">
-				      <label class="title">Sign in With</label>
-				      <p>
-					 Just select your favorite social <br> network to get started
-				      </p>
-				     
-				      <!-- social login Div updated By sharmapuneet1510@gmail.com -->
-				      <div class="social_icon">
-					 <ul>
-					    <!-- Social Login  -->
-					    <!--<button onclick="hello('facebook').login({scope:'user_friends'})">Login</button>-->
-					    <li data-ng-click="socialLogin('facebook')"><a href=""><i class="fa fa-facebook"></i></a></li>
-					    <li data-ng-click="socialLogin('twitter')"><a href=""><i class="fa fa-twitter"></i></a></li>
-					    <li data-ng-click="socialLogin('google')"><a href=""><i class="fa fa-google-plus"></i></a></li>
-					    <!-- <li data-ng-click="socialLogin('linkedin')"><a href=""><i class="fa fa-linkedin"></i></a></li>  -->
-					    <li data-ng-click="socialLogin('instagram')"><a href=""><i class="fa fa-instagram"></i></a></li>
-					 </ul>
-					 <br>
-					 
-				      </div>
-				   </div>
-                                    <!-- Username & Password Login form -->
-                                    <div class="user_login">
-				      <label class="title">User Login</label>
-				      <form id="loginForm" action="" ng-submit="login(user1)">
-					 <fieldset class="form-group">
-					    <input type="text" name="email" placeholder="Username" ng-model="user1.user" required />
-					 </fieldset>
-					 <fieldset class="form-group">
-					    <input type="password" name="password" placeholder="Password" ng-model="user1.password" required />
-					 </fieldset>
-					 <div class="action_btns">
-					    <div class="one_half last">
-					       <input type="submit" name="submit" class="btn btn_red" value="SUBMIT" />
-					    </div>
-					 </div>
-				      </form>
-				   </div>
-                                </section>
-                            </div>
-                            
-                            <!--===================== Invite Friends Popup Form =====================-->
-                             <div id="invitefriendsmodal" class="popupContainer" style="display: none;">
-				 <header class="popupHeader invitefriendheader">
-				    <span class="header_title">Invite Your Friends</span> <span class="modal_close" ng-click=closeInvitefriendsmodal()><img src="images/x.png"></span>
-				 </header>
-				 <section class="popupBody invitefriendbody">
-				    <!-- Select Your Friends -->
-				    <div class="user_register select_your_friends">
-				       <label class="title">Select Your Friends</label>
-				       <div class="formbg">
-					  <form>
-					     <fieldset class="form-group friendborder" ng-repeat="friend in friendslist | orderBy:'displayName'">
-						<div class="hanuman">
-						   <img src="images/userfill.png" />
-						   <p>{{friend.displayName}}</p>
-						   <input value={{friend.email}} ng-checked="isSelected(friend.email)" ng-click="addFriendToInvitationList(friend.email)" type="checkbox" name="usercheckbox[]">
-						</div>
-					     </fieldset>
-					  </form>
-				       </div>
-				    </div>
-				    <!-- Your Message -->
-				    <div class="user_login your_message">
-				       <label class="title">Your Message</label>
-				       <div class="formbg">
-					  <form>
-					     <fieldset class="form-group">
-						<textarea cols="5" rows="5" placeholder="MESSAGE" ng-model="invitationMessage"></textarea>
-					     </fieldset>
-					     <div class="action_btns">
-						<div class="one_half last messageright">
-						   <a href="#" class="btn btn_red" ng-click="inviteFriends()">SEND</a><a href="#" class="btn btn_red" ng-click="closeInvitefriendsmodal()">CANCEL</a>
-						</div>
-					     </div>
-					  </form>
-				       </div>
-				    </div>
-				 </section>
-			      </div>
-
-                        </div>
-                    </div>
-                </div>
-				<div class="menu main_menu col-md-12">
-					 <div id='cssmenu'>
-                        <ul>
-                            <li><a href="Discover.html" class="menulink">discover</a></li>
-                            <li ><a href="prepare_for_greatness.html" class="menulink">prepare for greatness</a></li>
-                            <!-- <li class='active'><a href="" class="menulink">prepare for greatness</a></li> -->
-                            <li><a href="be_job_ready.html" class="menulink">be job ready</a></li>
-                            <li id="last"><a href="write_review.html" class="menulink">write a review</a></li>
-                        </ul>
-                    </div>
-				</div>
-            </div>
-        </div> <!-- Header -->
-	
-	<div class="inviteFriends" id="inviteFriendsLogin" style="display:none;">
-		<header>
-		    <span class="header_title">Sign in With One of Below to invite friends</span>
-		   <span class="modal_close"><a href="" ng-click="hideInviteFriends()"><img src="images/smallX.png"/> </a></span>
-		</header>
-	 
-	      <div class="social_icon">
-		 <ul>
-		    <!-- Social Login  -->
-		 
-		    <li data-ng-click="socialLogin('facebook')"><a href=""><i class="fa fa-facebook"></i></a></li>
-		  
-		    <li data-ng-click="socialLogin('google')"><a href=""><i class="fa fa-google-plus"></i></a></li>
-		
-		 </ul>
-		 <br>
-		 
-	      </div>
-	   </div>
-
-        <div class="slides">
-            <div class="topbg">
-                <div class="logo"><img src="images/colorlogo.png" /></div>
-                <div class="desc">Your future is full of possibilities.<br>Find the right one here.</div>
-                <div class="stroll"><a href="javascript:void(0);" id="show">tack a stroll</a><a id="invite_friends" href="#invitefriendsmodal">get started</a></div>
-            </div>	
-            <div class="slidehover">
-                <!--<img src="images/topbg_hover.jpg" />-->
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/8vicEGLOEdw" frameborder="0" allowfullscreen> </iframe>
-                <div class="close" id="hide"><img src="images/close.png" /></div>
-            </div>
-        </div> <!-- Slide -->
-
-        <div class="feedback">
-            <div class="feedbacklink">
-                <a href="javascript:void(0);" id="showfeedback">feedback</a>
-            </div>
-            <div class="forms" ng-submit="submit(feedback)" id="fbForm">
-		<form>
-                <div class="closes" id="hidefeedback"><img src="images/close.png"></div>
-                <p>We'd love to hear from you. Drop us a note!</p>
-                <input type="text" name="name" placeholder="Name"  ng-model="feedback.name" required />
-                <input type="email" name="email" placeholder="Email" ng-model="feedback.email" required />
-                <textarea name="message" placeholder="Message" ng-model="feedback.message" required></textarea>
-                <input type="submit" name="submit" value="Submit" />
-		</form>
-            </div> <!-- Feedback -->
-			
-			<div class="tack_a_break">
-                <a id="tack_a_break_trigger" href="#tackabreak">tack a break</a>
-            </div>
-			
-			<!--===================== Login & Register Popup Form =====================-->
-			<div id="tackabreak" class="popupContainer tackabreakcontainer" style="display:none;">
-				<header class="popupHeader">						
-					<span class="modal_close"><img src="images/x.png"></span>
-                </header>
-                <section class="popupBody tackabreakbody">
-					<iframe width="100%" height="400px" src="https://www.youtube.com/embed/8vicEGLOEdw" frameborder="0" allowfullscreen> </iframe>
-					
-					<div class="like_video">
-						<i class="fa fa-thumbs-up" aria-hidden="true"></i>
-						<span>276 Likes</span>
-					</div>
-					<div class="dislike_video">
-						<i class="fa fa-thumbs-down" aria-hidden="true"></i>
-						<span>16 Dislikes</span>
-					</div>
-                </section>
-            </div> <!-- Tack a Break -->
-        </div> <!-- FeedBack And Tack A Break -->
-		
-		<div class="be_job_ready">
-			<h1>Be Job Ready</h1>
-		</div> <!-- be job ready -->
-		
-		<div class="bejobready_steps">
-			<div class="container">
-				<div class="first">
-					<div class="firstposition">
-						<a href="javascript:void(0);" class="cvprev1 cvnext1"><img src="images/step1.png" />
-						<div class="steppostion">step 1</div></a>
-					</div>
-					<div class="name">Build your CV</div>
-				</div>
-				<div class="second">
-					<img src="images/right_arrow_pink.png" />
-				</div>
-				<div class="first">
-					<div class="firstposition">
-						<a href="javascript:void(0);" class="cvprev2 cvnext2"><img src="images/step2.png" />
-						<div class="steppostion">step 2</div></a>
-					</div>
-					<div class="name">Build your cover letter</div>
-				</div>
-				<div class="second">
-					<img src="images/right_arrow_pink.png" />
-				</div>
-				<div class="first">
-					<div class="firstposition">
-						<a href="javascript:void(0);" class="cvprev3 cvnext3"><img src="images/step3.png" />
-						<div class="steppostion">step 3</div></a>
-					</div>
-					<div class="name">Interview Preparation</div>
-				</div>				
+<body ng-app="myApp" ng-controller="beJobReadyController">
+	<div class="header">
+		<div class="container">
+			<div class="logo col-md-3">
+				<a href="index.html"><img src="images/colorlogo.png" /></a>
 			</div>
-		</div> <!-- Steps -->
-		
-		
-		
-		<div class="build_your_cv" id="cv">
-			<div class="buildposition">
-				<div class="container">
-					<div class="skips">Skip</div>
-					<i class="fa fa-caret-up" aria-hidden="true"></i>
-					<h3>Let us Build your CV</h3>
-					<div class="years col-md-4">
-						<img src="images/0-1years.png" />
-						<div class="yearoption"><a id="zerotoone_modal_trigger" href="#buildYourCV_zerotoonemodal"><strong>0-1</strong><span>Years</span></a></div>
-					</div>
-					<div class="years col-md-4">
-						<img src="images/1-3years.png" />
-						<div class="yearoption"><a id="onetothree_modal_trigger" href="#buildYourCV_onetothreemodal"><strong>1-3</strong><span>Years</span></a></div>
-					</div>
-					<div class="years col-md-4">
-						<img src="images/3-5years.png" />
-						<div class="yearoption"><a id="threetofive_modal_trigger" href="#buildYourCV_threetofivemodal"><strong>3-5</strong><span>Years</span></a></div>
+
+			<div class="menu col-md-6">
+				<div class="top topsearch">
+					<div class="search">
+						<div class="all">
+							<a href="javascript:void(0);" id="all">All <i
+								class="fa fa-caret-down" aria-hidden="true"></i></a>
+						</div>
+						<input type="text" name="search" />
+						<!--<input type="text" class="hideshow" name="search" placeholder="Search"/>-->
+						<a href="javascript:void(0);" id="searchshow"><i
+							class="fa fa-search" aria-hidden="true"></i></a>
+						<div class="popup">
+							<i class="fa fa-caret-up" aria-hidden="true"></i>
+							<ul>
+								<li><a href="#">Management</a></li>
+								<li><a href="#">Engineering</a></li>
+								<li><a href="#">Medicine</a></li>
+								<li><a href="#">Law</a></li>
+								<li><a href="#">Unversities</a></li>
+								<li><a href="#">Pharmacy</a></li>
+								<li><a href="#">Computer Applications</a></li>
+								<li><a href="#">Finance & Accounts</a></li>
+								<li><a href="#">Hospitality & Tourism</a></li>
+								<li><a href="#">Media & Jourmalism</a></li>
+								<li><a href="#">Animation & Fashion</a></li>
+								<li><a href="#">School</a></li>
+								<li><a href="#">Competition</a></li>
+								<li><a href="#">Study Abroad</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
-				
-				<!--===================== Zero to One Popup Form =====================-->
-                <div id="buildYourCV_zerotoonemodal" class="popupContainer zero_to_one_popup" style="display:none;">
-					<i class="fa fa-caret-up" aria-hidden="true"></i>
-                    <header class="popupHeader">
-						<span class="modal_close model_left_close"><img src="images/left_arrow_white.png"><p>Back</p></span>
-						<span class="modal_close model_right_close"><p>Close</p> <span>X</span></span>
-					</header>
-					<div class="title">0-1 Years of Experience</div>
-					<section class="popupBody">
-						<div class="container">
+			</div>
+			<div class="menu col-md-3">
+				<div class="top">
+					<div class="login-reg">
+
+						<div class="headeruser">
+							<a href="{{headeruser}}" id="header_user_trigger"><img
+								src="images/user.png" /></a>
+						</div>
+
+						<!--===================== Header User Popup Form =====================-->
+						<div id="headeruser" class="popupContainer headerusercontainer"
+							style="display: none;">
+
+							<section class="popupBody">
+								<div class="headeruserpopup">
+									<i class="fa fa-caret-up" aria-hidden="true"></i>
+									<div class="tellusright" id="tellusright">
+										<div class="userimg">
+											<img src="images/testimonials.png">
+										</div>
+										<h4>User Name Loren</h4>
+										<p>14 Review, 38 Followers</p>
+
+
+
+										<strong><a id="tab_trigger" href=""
+											ng-click="showInviteFriends()">Invite Friends</a></strong> <strong><a
+											id="tab_trigger" href="" ng-click="showEditProfile()">Edit
+												Profile</a></strong> <strong><a id="change_password_trigger"
+											href="#changepassword">Change Password</a></strong> <strong><a
+											href="" ng-click="signOff()">Log Out</a></strong>
+									</div>
+								</div>
+							</section>
+						</div>
+
+						<!--===================== Change Password Popup Form =====================-->
+						<div id="changepassword"
+							class="popupContainer changepasswordcontainer"
+							style="display: none;">
+							<header class="popupHeader">
+								<span class="header_title">Change Password</span> <span
+									class="modal_close"><img src="images/x.png"></span>
+							</header>
+							<section class="popupBody">
+								<div class="change_password">
+									<form>
+										<fieldset class="form-group">
+											<input type="text" name="username" placeholder="User Name*"
+												ng-model="loggedInUser.user" />
+										</fieldset>
+										<fieldset class="form-group">
+											<input type="password" name="oldpassword"
+												placeholder="Old Password*" ng-model="loggedInUser.password" />
+										</fieldset>
+										<fieldset class="form-group">
+											<input type="password" name="newpassword"
+												placeholder="New Password*"
+												ng-model="loggedInUser.newPassword" />
+										</fieldset>
+										<fieldset class="form-group">
+											<input type="password" name="reconfirm"
+												placeholder="Reconfirm*" ng-model="repeatPassword" />
+										</fieldset>
+										<div class="action_btns">
+											<div class="submit_btn">
+												<a href="" ng-click="checkPasswordValidations()"
+													class="btn btn_red">SUBMIT</a>
+											</div>
+										</div>
+									</form>
+								</div>
+							</section>
+						</div>
+
+
+						<div class="logreg">
+							<a id="modal_trigger" href="#{{profileDialog}}">{{profileText}}</a>
+						</div>
+
+
+						<!--===================== Login & Register Popup Form =====================-->
+						<div id="modal" class="popupContainer loginregistercontainer"
+							style="display: none;">
+							<header class="popupHeader">
+								<span class="header_title">Join the Network</span> <span
+									class="modal_close"><a href=""
+									ng-click="closeRegDialog()"><img src="images/x.png" /> </a></span>
+							</header>
+							<section class="popupBody">
+								<!-- Register Form -->
+								<div class="user_register">
+									<label class="title">Sign Up</label>
+									<form id="formRegister" action="" ng-submit="signup(user)">
+										<fieldset class="form-group">
+											<input type="text" name="name" ng-model="user.firstName"
+												placeholder="Name"
+												style="width: 36% !important; float: left;" required /> <input
+												type="text" name="lastname" ng-model="user.lastName"
+												placeholder="Last Name"
+												style="width: 60% !important; float: right;" required />
+										</fieldset>
+										<fieldset class="form-group">
+											<input type="text" name="contact" ng-model="user.contact"
+												placeholder="Contact Number" required />
+										</fieldset>
+										<fieldset class="form-group">
+											<input type="email" ng-model="user.user" name="email"
+												placeholder="Email ID" required />
+										</fieldset>
+										<fieldset class="form-group">
+											<input type="password" name="password"
+												ng-model="user.password" placeholder="Password" required />
+										</fieldset>
+										<div class="checkbox">
+											<input id="send_updates" type="checkbox" ng-model="termCheck"
+												ng-click="display()" /> <label for="send_updates">I
+												agree to the <a href="">Terms & Conditions</a>,<a href="">Privacy
+													Policy</a>
+											</label>
+										</div>
+										<div class="action_btns">
+											<div class="one_half last">
+												<input type="submit" name="button" class="btn btn_red"
+													value="SIGNUP" ng-disabled="check()" />
+											</div>
+										</div>
+									</form>
+								</div>
+								<!-- Social Login -->
+								<div class="social_login">
+									<label class="title">Sign in With</label>
+									<p>
+										Just select your favorite social <br> network to get
+										started
+									</p>
+
+									<!-- social login Div updated By sharmapuneet1510@gmail.com -->
+									<div class="social_icon">
+										<ul>
+											<!-- Social Login  -->
+											<!--<button onclick="hello('facebook').login({scope:'user_friends'})">Login</button>-->
+											<li data-ng-click="socialLogin('facebook')"><a href=""><i
+													class="fa fa-facebook"></i></a></li>
+											<li data-ng-click="socialLogin('twitter')"><a href=""><i
+													class="fa fa-twitter"></i></a></li>
+											<li data-ng-click="socialLogin('google')"><a href=""><i
+													class="fa fa-google-plus"></i></a></li>
+											<!-- <li data-ng-click="socialLogin('linkedin')"><a href=""><i class="fa fa-linkedin"></i></a></li>  -->
+											<li data-ng-click="socialLogin('instagram')"><a href=""><i
+													class="fa fa-instagram"></i></a></li>
+										</ul>
+										<br>
+
+									</div>
+								</div>
+								<!-- Username & Password Login form -->
+								<div class="user_login">
+									<label class="title">User Login</label>
+									<form id="loginForm" action="" ng-submit="login(user1)">
+										<fieldset class="form-group">
+											<input type="text" name="email" placeholder="Username"
+												ng-model="user1.user" required />
+										</fieldset>
+										<fieldset class="form-group">
+											<input type="password" name="password" placeholder="Password"
+												ng-model="user1.password" required />
+										</fieldset>
+										<div class="action_btns">
+											<div class="one_half last">
+												<input type="submit" name="submit" class="btn btn_red"
+													value="SUBMIT" />
+											</div>
+										</div>
+									</form>
+								</div>
+							</section>
+						</div>
+
+						<!--===================== Invite Friends Popup Form =====================-->
+						<div id="invitefriendsmodal" class="popupContainer"
+							style="display: none;">
+							<header class="popupHeader invitefriendheader">
+								<span class="header_title">Invite Your Friends</span> <span
+									class="modal_close" ng-click=closeInvitefriendsmodal()><img
+									src="images/x.png"></span>
+							</header>
+							<section class="popupBody invitefriendbody">
+								<!-- Select Your Friends -->
+								<div class="user_register select_your_friends">
+									<label class="title">Select Your Friends</label>
+									<div class="formbg">
+										<form>
+											<fieldset class="form-group friendborder"
+												ng-repeat="friend in friendslist | orderBy:'displayName'">
+												<div class="hanuman">
+													<img src="images/userfill.png" />
+													<p>{{friend.displayName}}</p>
+													<input value={{friend.email}}
+														ng-checked="isSelected(friend.email)"
+														ng-click="addFriendToInvitationList(friend.email)"
+														type="checkbox" name="usercheckbox[]">
+												</div>
+											</fieldset>
+										</form>
+									</div>
+								</div>
+								<!-- Your Message -->
+								<div class="user_login your_message">
+									<label class="title">Your Message</label>
+									<div class="formbg">
+										<form>
+											<fieldset class="form-group">
+												<textarea cols="5" rows="5" placeholder="MESSAGE"
+													ng-model="invitationMessage"></textarea>
+											</fieldset>
+											<div class="action_btns">
+												<div class="one_half last messageright">
+													<a href="#" class="btn btn_red" ng-click="inviteFriends()">SEND</a><a
+														href="#" class="btn btn_red"
+														ng-click="closeInvitefriendsmodal()">CANCEL</a>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</section>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="menu main_menu col-md-12">
+				<div id='cssmenu'>
+					<ul>
+						<li><a href="Discover.html" class="menulink">discover</a></li>
+						<li><a href="prepare_for_greatness.html" class="menulink">prepare
+								for greatness</a></li>
+						<!-- <li class='active'><a href="" class="menulink">prepare for greatness</a></li> -->
+						<li><a href="be_job_ready.html" class="menulink">be job
+								ready</a></li>
+						<li id="last"><a href="write_review.html" class="menulink">write
+								a review</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Header -->
+
+	<div class="inviteFriends" id="inviteFriendsLogin"
+		style="display: none;">
+		<header>
+			<span class="header_title">Sign in With One of Below to invite
+				friends</span> <span class="modal_close"><a href=""
+				ng-click="hideInviteFriends()"><img src="images/smallX.png" /> </a></span>
+		</header>
+
+		<div class="social_icon">
+			<ul>
+				<!-- Social Login  -->
+
+				<li data-ng-click="socialLogin('facebook')"><a href=""><i
+						class="fa fa-facebook"></i></a></li>
+
+				<li data-ng-click="socialLogin('google')"><a href=""><i
+						class="fa fa-google-plus"></i></a></li>
+
+			</ul>
+			<br>
+
+		</div>
+	</div>
+
+	<div class="slides">
+		<div class="topbg">
+			<div class="logo">
+				<img src="images/colorlogo.png" />
+			</div>
+			<div class="desc">
+				Your future is full of possibilities.<br>Find the right one
+				here.
+			</div>
+			<div class="stroll">
+				<a href="javascript:void(0);" id="show">tack a stroll</a><a
+					id="invite_friends" href="#invitefriendsmodal">get started</a>
+			</div>
+		</div>
+		<div class="slidehover">
+			<!--<img src="images/topbg_hover.jpg" />-->
+			<iframe width="100%" height="100%"
+				src="https://www.youtube.com/embed/8vicEGLOEdw" frameborder="0"
+				allowfullscreen> </iframe>
+			<div class="close" id="hide">
+				<img src="images/close.png" />
+			</div>
+		</div>
+	</div>
+	<!-- Slide -->
+
+	<div class="feedback">
+		<div class="feedbacklink">
+			<a href="javascript:void(0);" id="showfeedback">feedback</a>
+		</div>
+		<div class="forms" ng-submit="submit(feedback)" id="fbForm">
+			<form>
+				<div class="closes" id="hidefeedback">
+					<img src="images/close.png">
+				</div>
+				<p>We'd love to hear from you. Drop us a note!</p>
+				<input type="text" name="name" placeholder="Name"
+					ng-model="feedback.name" required /> <input type="email"
+					name="email" placeholder="Email" ng-model="feedback.email" required />
+				<textarea name="message" placeholder="Message"
+					ng-model="feedback.message" required></textarea>
+				<input type="submit" name="submit" value="Submit" />
+			</form>
+		</div>
+		<!-- Feedback -->
+
+		<div class="tack_a_break">
+			<a id="tack_a_break_trigger" href="#tackabreak">tack a break</a>
+		</div>
+
+		<!--===================== Login & Register Popup Form =====================-->
+		<div id="tackabreak" class="popupContainer tackabreakcontainer"
+			style="display: none;">
+			<header class="popupHeader">
+				<span class="modal_close"><img src="images/x.png"></span>
+			</header>
+			<section class="popupBody tackabreakbody">
+				<iframe width="100%" height="400px"
+					src="https://www.youtube.com/embed/8vicEGLOEdw" frameborder="0"
+					allowfullscreen> </iframe>
+
+				<div class="like_video">
+					<i class="fa fa-thumbs-up" aria-hidden="true"></i> <span>276
+						Likes</span>
+				</div>
+				<div class="dislike_video">
+					<i class="fa fa-thumbs-down" aria-hidden="true"></i> <span>16
+						Dislikes</span>
+				</div>
+			</section>
+		</div>
+		<!-- Tack a Break -->
+	</div>
+	<!-- FeedBack And Tack A Break -->
+
+	<div class="be_job_ready">
+		<h1>Be Job Ready</h1>
+	</div>
+	<!-- be job ready -->
+
+	<div class="bejobready_steps">
+		<div class="container">
+			<div class="first">
+				<div class="firstposition">
+					<a href="javascript:void(0);" class="cvprev1 cvnext1"><img
+						src="images/step1.png" />
+						<div class="steppostion">step 1</div></a>
+				</div>
+				<div class="name">Build your CV</div>
+			</div>
+			<div class="second">
+				<img src="images/right_arrow_pink.png" />
+			</div>
+			<div class="first">
+				<div class="firstposition">
+					<a href="javascript:void(0);" class="cvprev2 cvnext2"><img
+						src="images/step2.png" />
+						<div class="steppostion">step 2</div></a>
+				</div>
+				<div class="name">Build your cover letter</div>
+			</div>
+			<div class="second">
+				<img src="images/right_arrow_pink.png" />
+			</div>
+			<div class="first">
+				<div class="firstposition">
+					<a href="javascript:void(0);" class="cvprev3 cvnext3"><img
+						src="images/step3.png" />
+						<div class="steppostion">step 3</div></a>
+				</div>
+				<div class="name">Interview Preparation</div>
+			</div>
+		</div>
+	</div>
+	<!-- Steps -->
+
+
+
+	<div class="build_your_cv" id="cv">
+		<div class="buildposition">
+			<div class="container">
+				<div class="skips">Skip</div>
+				<i class="fa fa-caret-up" aria-hidden="true"></i>
+				<h3>Let us Build your CV</h3>
+				<div class="years col-md-4">
+					<img src="images/0-1years.png" />
+					<div class="yearoption">
+						<a id="zerotoone_modal_trigger" href="#buildYourCV_zerotoonemodal"><strong>0-1</strong><span>Years</span></a>
+					</div>
+				</div>
+				<div class="years col-md-4">
+					<img src="images/1-3years.png" />
+					<div class="yearoption">
+						<a id="onetothree_modal_trigger"
+							href="#buildYourCV_onetothreemodal"><strong>1-3</strong><span>Years</span></a>
+					</div>
+				</div>
+				<div class="years col-md-4">
+					<img src="images/3-5years.png" />
+					<div class="yearoption">
+						<a id="threetofive_modal_trigger"
+							href="#buildYourCV_threetofivemodal"><strong>3-5</strong><span>Years</span></a>
+					</div>
+				</div>
+			</div>
+
+			<!--===================== Zero to One Popup Form =====================-->
+			<div id="buildYourCV_zerotoonemodal"
+				class="popupContainer zero_to_one_popup" style="display: none;">
+				<i class="fa fa-caret-up" aria-hidden="true"></i>
+				<header class="popupHeader">
+					<span class="modal_close model_left_close"><img
+						src="images/left_arrow_white.png">
+					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<span>X</span></span>
+				</header>
+				<div class="title">0-1 Years of Experience</div>
+				<section class="popupBody">
+					<div class="container">
 						<!-- Basic Form -->
-						<div class="basic_pro_elite col-md-4"  tabindex="-1"   ng-click="displayAlaCarteForCV('Basic- 0 to 1 Exp', 'CV', 1500)">
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCV('Basic- 0 to 1 Exp', 'CV', 1500)">
 							<img src="images/basic.png" />
 							<div class="bpe">
 								<div class="title">basic</div>
@@ -408,9 +516,10 @@
 								<div class="price">inr 1,500</div>
 							</div>
 						</div>
-									
+
 						<!-- Pro Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCV('Pro- 0 to 1 Exp', 'CV', 2500)">
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCV('Pro- 0 to 1 Exp', 'CV', 2500)">
 							<img src="images/pro.png" />
 							<div class="bpe">
 								<div class="title">pro</div>
@@ -419,33 +528,40 @@
 								<div class="price">inr 2,050</div>
 							</div>
 						</div>
-									
+
 						<!-- Elite Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCV('Elite- 0 to 1 Exp', 'CV', 4200)">
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCV('Elite- 0 to 1 Exp', 'CV', 4200)">
 							<img src="images/elite.png" />
 							<div class="bpe bpslast">
 								<div class="title">elite</div>
 								<hr>
-								<div class="desc">Template, 3 additional iteration <br>+ Cover letter</div>
+								<div class="desc">
+									Template, 3 additional iteration <br>+ Cover letter
+								</div>
 								<div class="price">inr 4,200</div>
 							</div>
 						</div>
-						</div>
-					</section>
-				</div>
-				
-				<!--===================== One to Three Popup Form =====================-->
-                <div id="buildYourCV_onetothreemodal" class="popupContainer zero_to_one_popup" style="display:none;">
-					<i class="fa fa-caret-up" aria-hidden="true"></i>
-                    <header class="popupHeader">
-						<span class="modal_close model_left_close"><img src="images/left_arrow_white.png"><p>Back</p></span>
-						<span class="modal_close model_right_close"><p>Close</p> <span>X</span></span>
-					</header>
-					<div class="title">1-3 Years of Experience</div>
-					<section class="popupBody">
-						<div class="container">
+					</div>
+				</section>
+			</div>
+
+			<!--===================== One to Three Popup Form =====================-->
+			<div id="buildYourCV_onetothreemodal"
+				class="popupContainer zero_to_one_popup" style="display: none;">
+				<i class="fa fa-caret-up" aria-hidden="true"></i>
+				<header class="popupHeader">
+					<span class="modal_close model_left_close"><img
+						src="images/left_arrow_white.png">
+					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<span>X</span></span>
+				</header>
+				<div class="title">1-3 Years of Experience</div>
+				<section class="popupBody">
+					<div class="container">
 						<!-- Basic Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCV('Basic- 1 to 3 Exp', 'CV', 2500)">
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCV('Basic- 1 to 3 Exp', 'CV', 2500)">
 							<img src="images/basic.png" />
 							<div class="bpe">
 								<div class="title">basic</div>
@@ -454,44 +570,55 @@
 								<div class="price">inr 2,500</div>
 							</div>
 						</div>
-									
+
 						<!-- Pro Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCV('Pro- 1 to 3 Exp', 'CV', 3700)">
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCV('Pro- 1 to 3 Exp', 'CV', 3700)">
 							<img src="images/pro.png" />
 							<div class="bpe">
 								<div class="title">pro</div>
 								<hr>
-								<div class="desc">Template, centent research for target<br> toles, 2 additional iteration</div>
+								<div class="desc">
+									Template, centent research for target<br> toles, 2
+									additional iteration
+								</div>
 								<div class="price">inr 3,700</div>
 							</div>
 						</div>
-									
+
 						<!-- Elite Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCV('Elite- 1 to 3 Exp', 'CV', 6000)">
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCV('Elite- 1 to 3 Exp', 'CV', 6000)">
 							<img src="images/elite.png" />
 							<div class="bpe bpslast">
 								<div class="title">elite</div>
 								<hr>
-								<div class="desc">Template, 5 additional iteration, <br>Cover letter</div>
+								<div class="desc">
+									Template, 5 additional iteration, <br>Cover letter
+								</div>
 								<div class="price">inr 6,000</div>
 							</div>
 						</div>
-						</div>
-					</section>
-				</div>
-				
-				<!--===================== Three to Five Popup Form =====================-->
-                <div id="buildYourCV_threetofivemodal" class="popupContainer zero_to_one_popup" style="display:none;">
-					<i class="fa fa-caret-up" aria-hidden="true"></i>
-                    <header class="popupHeader">
-						<span class="modal_close model_left_close"><img src="images/left_arrow_white.png"><p>Back</p></span>
-						<span class="modal_close model_right_close"><p>Close</p> <span>X</span></span>
-					</header>
-					<div class="title">3-5 Years of Experience</div>
-					<section class="popupBody">
-						<div class="container">
+					</div>
+				</section>
+			</div>
+
+			<!--===================== Three to Five Popup Form =====================-->
+			<div id="buildYourCV_threetofivemodal"
+				class="popupContainer zero_to_one_popup" style="display: none;">
+				<i class="fa fa-caret-up" aria-hidden="true"></i>
+				<header class="popupHeader">
+					<span class="modal_close model_left_close"><img
+						src="images/left_arrow_white.png">
+					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<span>X</span></span>
+				</header>
+				<div class="title">3-5 Years of Experience</div>
+				<section class="popupBody">
+					<div class="container">
 						<!-- Basic Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCV('Basic- 3 to 5 Exp', 'CV', 3700)">
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCV('Basic- 3 to 5 Exp', 'CV', 3700)">
 							<img src="images/basic.png" />
 							<div class="bpe">
 								<div class="title">basic</div>
@@ -500,109 +627,189 @@
 								<div class="price">inr 3,700</div>
 							</div>
 						</div>
-									
+
 						<!-- Pro Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCV('Pro- 3 to 5 Exp', 'CV', 5300)">
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCV('Pro- 3 to 5 Exp', 'CV', 5300)">
 							<img src="images/pro.png" />
 							<div class="bpe">
 								<div class="title">pro</div>
 								<hr>
-								<div class="desc">Template, centent research for target<br> toles, 2 additional iteration</div>
+								<div class="desc">
+									Template, centent research for target<br> toles, 2
+									additional iteration
+								</div>
 								<div class="price">inr 5,300</div>
 							</div>
 						</div>
-									
+
 						<!-- Elite Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCV('Elite- 3 to 5 Exp', 'CV', 10000)">
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCV('Elite- 3 to 5 Exp', 'CV', 10000)">
 							<img src="images/elite.png" />
 							<div class="bpe bpslast">
 								<div class="title">elite</div>
 								<hr>
-								<div class="desc">Template, 5 additional iteration, <br>Cover letter</div>
+								<div class="desc">
+									Template, 5 additional iteration, <br>Cover letter
+								</div>
 								<div class="price">inr 10,000</div>
 							</div>
 						</div>
-						</div>
-					</section>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<div class="carte_options" id="carte_options" style="display: none;">
+			<div class="container">
+				<div class="alacon">
+					<div class="title">Base Price - {{serviceCosting.price}}.</div>
+					<div class="title">Package Chosen -
+						{{serviceCosting.package}}. Service Type -
+						{{serviceCosting.serviceType}}.</div>
+					<div class="title">A la carte options</div>
+					<ul>
+						<li><label>Template use only: INR 500</label> <input
+							type="checkbox" name="checkbox"
+							ng-model="serviceCosting.templateUseOnly" /></li>
+						<li><label>Express service (48 hours): INR 300 (only
+								for basic and pro services)</label> <input type="checkbox"
+							name="checkbox" ng-model="serviceCosting.expressService" /></li>
+						<li><label>Super Express service (24 hours): INR 750
+								(only for basic service)</label> <input type="checkbox" name="checkbox"
+							ng-model="serviceCosting.superExpressService" /></li>
+						<li><label>Each additional iteration: INR 1,000</label> <input
+							type="checkbox" name="checkbox"
+							ng-model="serviceCosting.eachAdditionIteration" /></li>
+						<li><label>Cover letter: INR 1,000</label> <input
+							type="checkbox" name="checkbox"
+							ng-model="serviceCosting.coverLetter" /></li>
+						<li><input type="submit" name="submit" value="submit"
+							ng-click="confirmCosting()" />
+							<div id="payButton" style="display: none;">
+								<a
+									ng-href="https://www.instamojo.com/jswordfisdh/grovenue-career-services/?embed=form&data_Field_65046=readonly&data_readonly=data_email&data_readonly=data_amount&data_readonly=data_phone&data_readonly=data_name&data_name={{loggedInUser.firstName}}&data_email={{loggedInUser.user}}&data_phone={{loggedInUser.contact}}&data_amount=10&data_Field_65046={{loggedInUser.socialMediaType}}&data_Field_53399={{orderType}}&data_hidden=data_Field_65046&data_hidden=data_Field_53399"
+									rel="im-checkout" data-behaviour="remote" data-style="light"
+									data-text="Pay" data-token="15ba5e078297952c2c2614bbfd0ce4c6"></a>
+								<script
+									src="https://d2xwmjc4uy2hr5.cloudfront.net/im-embed/im-embed.min.js"></script>
+							</div></li>
+					</ul>
 				</div>
 			</div>
-			
-			<div class="carte_options" id="carte_options" style="display:none;">
-				<div class="container">
-					<div class="alacon">
-						<div class="title">Base Price - {{serviceCosting.price}}.</div>
-						<div class="title">Package Chosen - {{serviceCosting.package}}. Service Type - {{serviceCosting.serviceType}}.</div>
-						<div class="title">A la carte options</div>
-						<ul>
-							<li>
-								<label>Template use only: INR 500</label>
-								<input type="checkbox" name="checkbox" ng-model="serviceCosting.templateUseOnly" />
-							</li>
-							<li>
-								<label>Express service (48 hours): INR 300 (only for basic and pro services)</label>
-								<input type="checkbox" name="checkbox"  ng-model="serviceCosting.expressService"/>
-							</li>
-							<li>
-								<label>Super Express service (24 hours): INR 750 (only for basic service)</label>
-								<input type="checkbox" name="checkbox" ng-model="serviceCosting.superExpressService" />
-							</li>
-							<li>
-								<label>Each additional iteration: INR 1,000</label>
-								<input type="checkbox" name="checkbox" ng-model="serviceCosting.eachAdditionIteration"/>
-							</li>
-							<li>
-								<label>Cover letter: INR 1,000</label>
-								<input type="checkbox" name="checkbox" ng-model="serviceCosting.coverLetter" />
-							</li>
-							<li>
-								<input type="submit" name="submit" value="submit" ng-click="confirmCosting()" />
-								<div id="payButton" style="display:none;">
-								<a ng-href="https://www.instamojo.com/jswordfisdh/grovenue-career-services/?embed=form&data_Field_65046=readonly&data_readonly=data_email&data_readonly=data_amount&data_readonly=data_phone&data_readonly=data_name&data_name={{loggedInUser.firstName}}&data_email={{loggedInUser.user}}&data_phone={{loggedInUser.contact}}&data_amount=10&data_Field_65046={{loggedInUser.socialMediaType}}&data_Field_53399={{orderType}}&data_hidden=data_Field_65046&data_hidden=data_Field_53399" rel="im-checkout" data-behaviour="remote" data-style="light" data-text="Pay" data-token="15ba5e078297952c2c2614bbfd0ce4c6" ></a>
-<script src="https://d2xwmjc4uy2hr5.cloudfront.net/im-embed/im-embed.min.js"></script>
+		</div>
+	</div>
+	<!-- Build Your CV -->
+
+
+
+
+
+	<div class="build_your_cv build_your_cover_letter" id="coverletter">
+		<div class="buildposition">
+			<div class="container">
+				<div class="skips">Skip</div>
+				<i class="fa fa-caret-up" aria-hidden="true"></i>
+				<h3>Let us Build your Cover Letter</h3>
+				<div class="years col-md-4">
+					<img src="images/0-1years.png" />
+					<div class="yearoption">
+						<a id="zerotooneletter_modal_trigger" href="#zerotoonemodalletter"><strong>0-1</strong><span>Years</span><span>of
+								experience</span></a>
+						<h2>inr 1,000</h2>
+					</div>
+				</div>
+				<div class="years col-md-4">
+					<img src="images/1-3years.png" />
+					<div class="yearoption">
+						<a id="onetothreeletter_modal_trigger"
+							href="#onetothreemodalletter"><strong>1-3</strong><span>Years</span><span>of
+								experience</span></a>
+						<h2>inr 1,500</h2>
+					</div>
+				</div>
+				<div class="years col-md-4">
+					<img src="images/3-5years.png" />
+					<div class="yearoption">
+						<a id="threetofiveletter_modal_trigger"
+							href="#threetofivemodalletter"><strong>3-5</strong><span>Years</span><span>of
+								experience</span></a>
+						<h2>inr 2,000</h2>
+					</div>
+				</div>
+			</div>
+
+			<!--===================== Zero to One Popup Form =====================-->
+			<div id="zerotoonemodalletter"
+				class="popupContainer zero_to_one_popup" style="display: none;">
+				<i class="fa fa-caret-up" aria-hidden="true"></i>
+				<header class="popupHeader">
+					<span class="modal_close model_left_close"><img
+						src="images/left_arrow_white.png">
+					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<span>X</span></span>
+				</header>
+				<div class="title">0-1 Years of Experience</div>
+				<section class="popupBody">
+					<div class="container">
+						<!-- Basic Form -->
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCOVER('Basic- 0 to 1 Exp', 'COVER', 2500)">
+							<img src="images/basic.png" />
+							<div class="bpe">
+								<div class="title">basic</div>
+								<hr>
+								<div class="desc">Template, 1 additional iteration</div>
+								<div class="price">inr 1,500</div>
+							</div>
+						</div>
+
+						<!-- Pro Form -->
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCOVER('Pro- 0 to 1 Exp', 'COVER', 2500)">
+							<img src="images/pro.png" />
+							<div class="bpe">
+								<div class="title">pro</div>
+								<hr>
+								<div class="desc">Template, 2 additional iteration</div>
+								<div class="price">inr 2,050</div>
+							</div>
+						</div>
+
+						<!-- Elite Form -->
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCOVER('Elite- 0 to 1 Exp', 'COVER', 2500)">
+							<img src="images/elite.png" />
+							<div class="bpe bpslast">
+								<div class="title">elite</div>
+								<hr>
+								<div class="desc">
+									Template, 3 additional iteration <br>+ Cover letter
 								</div>
-							</li>
-						</ul>
+								<div class="price">inr 4,200</div>
+							</div>
+						</div>
 					</div>
-				</div>
+				</section>
 			</div>
-		</div> <!-- Build Your CV -->
-		
-		
-		
-		
-		
-		<div class="build_your_cv build_your_cover_letter" id="coverletter">
-			<div class="buildposition">
-				<div class="container">
-					<div class="skips">Skip</div>
-					<i class="fa fa-caret-up" aria-hidden="true"></i>
-					<h3>Let us Build your Cover Letter</h3>
-					<div class="years col-md-4">
-						<img src="images/0-1years.png" />
-						<div class="yearoption"><a id="zerotooneletter_modal_trigger" href="#zerotoonemodalletter"><strong>0-1</strong><span>Years</span><span>of experience</span></a><h2>inr 1,000</h2></div>
-					</div>
-					<div class="years col-md-4">
-						<img src="images/1-3years.png" />
-						<div class="yearoption"><a id="onetothreeletter_modal_trigger" href="#onetothreemodalletter"><strong>1-3</strong><span>Years</span><span>of experience</span></a><h2>inr 1,500</h2></div>
-					</div>
-					<div class="years col-md-4">
-						<img src="images/3-5years.png" />
-						<div class="yearoption"><a id="threetofiveletter_modal_trigger" href="#threetofivemodalletter"><strong>3-5</strong><span>Years</span><span>of experience</span></a><h2>inr 2,000</h2></div>
-					</div>
-				</div>
-				
-				<!--===================== Zero to One Popup Form =====================-->
-                <div id="zerotoonemodalletter" class="popupContainer zero_to_one_popup" style="display:none;">
-					<i class="fa fa-caret-up" aria-hidden="true"></i>
-                    <header class="popupHeader">
-						<span class="modal_close model_left_close"><img src="images/left_arrow_white.png"><p>Back</p></span>
-						<span class="modal_close model_right_close"><p>Close</p> <span>X</span></span>
-					</header>
-					<div class="title">0-1 Years of Experience</div>
-					<section class="popupBody">
-						<div class="container">
+
+			<!--===================== One to Three Popup Form =====================-->
+			<div id="onetothreemodalletter"
+				class="popupContainer zero_to_one_popup" style="display: none;">
+				<i class="fa fa-caret-up" aria-hidden="true"></i>
+				<header class="popupHeader">
+					<span class="modal_close model_left_close"><img
+						src="images/left_arrow_white.png">
+					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<span>X</span></span>
+				</header>
+				<div class="title">1-3 Years of Experience</div>
+				<section class="popupBody">
+					<div class="container">
 						<!-- Basic Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCOVER('Basic- 0 to 1 Exp', 'COVER', 2500)">
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCOVER('Basic- 1 to 3 Exp', 'COVER', 2500)">
 							<img src="images/basic.png" />
 							<div class="bpe">
 								<div class="title">basic</div>
@@ -611,9 +818,10 @@
 								<div class="price">inr 1,500</div>
 							</div>
 						</div>
-									
+
 						<!-- Pro Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCOVER('Pro- 0 to 1 Exp', 'COVER', 2500)">
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCOVER('Pro- 1 to 3 Exp', 'COVER', 2500)">
 							<img src="images/pro.png" />
 							<div class="bpe">
 								<div class="title">pro</div>
@@ -622,511 +830,647 @@
 								<div class="price">inr 2,050</div>
 							</div>
 						</div>
-									
+
 						<!-- Elite Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCOVER('Elite- 0 to 1 Exp', 'COVER', 2500)">
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCOVER('Elite- 1 to 3 Exp', 'COVER', 2500)">
 							<img src="images/elite.png" />
 							<div class="bpe bpslast">
 								<div class="title">elite</div>
 								<hr>
-								<div class="desc">Template, 3 additional iteration <br>+ Cover letter</div>
+								<div class="desc">
+									Template, 3 additional iteration <br>+ Cover letter
+								</div>
 								<div class="price">inr 4,200</div>
 							</div>
 						</div>
-						</div>
-					</section>
-				</div>
-				
-				<!--===================== One to Three Popup Form =====================-->
-                <div id="onetothreemodalletter" class="popupContainer zero_to_one_popup" style="display:none;">
-					<i class="fa fa-caret-up" aria-hidden="true"></i>
-                    <header class="popupHeader">
-						<span class="modal_close model_left_close"><img src="images/left_arrow_white.png"><p>Back</p></span>
-						<span class="modal_close model_right_close"><p>Close</p> <span>X</span></span>
-					</header>
-					<div class="title">1-3 Years of Experience</div>
-					<section class="popupBody">
-						<div class="container">
-						<!-- Basic Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCOVER('Basic- 1 to 3 Exp', 'COVER', 2500)">
-							<img src="images/basic.png" />
-							<div class="bpe">
-								<div class="title">basic</div>
-								<hr>
-								<div class="desc">Template, 1 additional iteration</div>
-								<div class="price">inr 1,500</div>
-							</div>
-						</div>
-									
-						<!-- Pro Form -->
-						<div class="basic_pro_elite col-md-4"  tabindex="-1"  ng-click="displayAlaCarteForCOVER('Pro- 1 to 3 Exp', 'COVER', 2500)">
-							<img src="images/pro.png" />
-							<div class="bpe">
-								<div class="title">pro</div>
-								<hr>
-								<div class="desc">Template, 2 additional iteration</div>
-								<div class="price">inr 2,050</div>
-							</div>
-						</div>
-									
-						<!-- Elite Form -->
-						<div class="basic_pro_elite col-md-4"  tabindex="-1"  ng-click="displayAlaCarteForCOVER('Elite- 1 to 3 Exp', 'COVER', 2500)">
-							<img src="images/elite.png" />
-							<div class="bpe bpslast">
-								<div class="title">elite</div>
-								<hr>
-								<div class="desc">Template, 3 additional iteration <br>+ Cover letter</div>
-								<div class="price">inr 4,200</div>
-							</div>
-						</div>
-						</div>
-					</section>
-				</div>
-				
-				<!--===================== Three to Five Popup Form =====================-->
-                <div id="threetofivemodalletter" class="popupContainer zero_to_one_popup" style="display:none;">
-					<i class="fa fa-caret-up" aria-hidden="true"></i>
-                    <header class="popupHeader">
-						<span class="modal_close model_left_close"><img src="images/left_arrow_white.png"><p>Back</p></span>
-						<span class="modal_close model_right_close"><p>Close</p> <span>X</span></span>
-					</header>
-					<div class="title">3-5 Years of Experience</div>
-					<section class="popupBody">
-						<div class="container">
-						<!-- Basic Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCOVER('Basic- 3 to 5 Exp', 'COVER', 2500)">
-							<img src="images/basic.png" />
-							<div class="bpe">
-								<div class="title">basic</div>
-								<hr>
-								<div class="desc">Template, 1 additional iteration</div>
-								<div class="price">inr 1,500</div>
-							</div>
-						</div>
-									
-						<!-- Pro Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCOVER('Pro- 3 to 5 Exp', 'COVER', 2500)">
-							<img src="images/pro.png" />
-							<div class="bpe">
-								<div class="title">pro</div>
-								<hr>
-								<div class="desc">Template, 2 additional iteration</div>
-								<div class="price">inr 2,050</div>
-							</div>
-						</div>
-									
-						<!-- Elite Form -->
-						<div class="basic_pro_elite col-md-4" tabindex="-1"  ng-click="displayAlaCarteForCOVER('Elite- 3 to 5 Exp', 'COVER', 2500)">
-							<img src="images/elite.png" />
-							<div class="bpe bpslast">
-								<div class="title">elite</div>
-								<hr>
-								<div class="desc">Template, 3 additional iteration <br>+ Cover letter</div>
-								<div class="price">inr 4,200</div>
-							</div>
-						</div>
-						</div>
-					</section>
-				</div>
+					</div>
+				</section>
 			</div>
-		</div> <!-- Build Your Cover Letter -->
-		
-		
-		
-		
-		<div class="build_your_cv interview_preparation" id="interview">
-			<div class="buildposition">
-				<div class="container">
-					<div class="skips">Skip</div>
-					<i class="fa fa-caret-up" aria-hidden="true"></i>
-					<h3>Let us prepare for your interview</h3>
-					<div class="col-md-2"></div>
-					<div class="years col-md-4">
-						<img src="images/0-1years.png" />
-						<div class="yearoption"><a id="zerotooneinterview_modal_trigger" href="#zerotoonemodalinterview"><span>Basic behavioural</span><span>interview</span><span>questions</span></a><h2>inr 5,000</h2></div>
-					</div>
-					<div class="years col-md-4">
-						<img src="images/1-3years.png" />
-						<div class="yearoption"><a id="onetothreeinterview_modal_trigger" href="#onetothreemodalinterview"><span>Basic informational</span><span>interview</span><span>questions</span></a><h2>inr 2,500</h2></div>
-					</div>
-					<div class="col-md-2"></div>
-				</div>
-				
-				<!--===================== Zero to One Popup Form =====================-->
-                <div id="zerotoonemodalinterview" class="popupContainer zero_to_one_popup" style="display:none;">
-					<i class="fa fa-caret-up" aria-hidden="true"></i>
-                    <header class="popupHeader">
-						<span class="modal_close model_left_close"><img src="images/left_arrow_white.png"><p>Back</p></span>
-						<span class="modal_close model_right_close"><p>Close</p> <span>X</span></span>
-					</header>
-					<div class="title">Basic behavioural interview questions</div>
-					<section class="popupBody">
-						<div class="container">
-							
-							<div class="behavioural_interview_questions">
-								<ul>
-									<li>Basic behavioural interview questions: INR 5,000</li>
-									<li>Student will get help in crafting responses to 5 key interview questions such as "tell me about yourself"."why this....</li>
-									<li>job"."strengths and weaknesses"</li>
-									<li>Includes a list of interview tips and tricks</li>
-									<li>Does not include industry-specific questions</li>
-									<li>Includes 3 telephonic conversations / mock interview</li>
-								</ul>
-								<div class="buttons"><input type="submit" name="submit" value="buy" ng-click="buyInterviewServices()" /></div>
+
+			<!--===================== Three to Five Popup Form =====================-->
+			<div id="threetofivemodalletter"
+				class="popupContainer zero_to_one_popup" style="display: none;">
+				<i class="fa fa-caret-up" aria-hidden="true"></i>
+				<header class="popupHeader">
+					<span class="modal_close model_left_close"><img
+						src="images/left_arrow_white.png">
+					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<span>X</span></span>
+				</header>
+				<div class="title">3-5 Years of Experience</div>
+				<section class="popupBody">
+					<div class="container">
+						<!-- Basic Form -->
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCOVER('Basic- 3 to 5 Exp', 'COVER', 2500)">
+							<img src="images/basic.png" />
+							<div class="bpe">
+								<div class="title">basic</div>
+								<hr>
+								<div class="desc">Template, 1 additional iteration</div>
+								<div class="price">inr 1,500</div>
 							</div>
-							
 						</div>
-					</section>
+
+						<!-- Pro Form -->
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCOVER('Pro- 3 to 5 Exp', 'COVER', 2500)">
+							<img src="images/pro.png" />
+							<div class="bpe">
+								<div class="title">pro</div>
+								<hr>
+								<div class="desc">Template, 2 additional iteration</div>
+								<div class="price">inr 2,050</div>
+							</div>
+						</div>
+
+						<!-- Elite Form -->
+						<div class="basic_pro_elite col-md-4" tabindex="-1"
+							ng-click="displayAlaCarteForCOVER('Elite- 3 to 5 Exp', 'COVER', 2500)">
+							<img src="images/elite.png" />
+							<div class="bpe bpslast">
+								<div class="title">elite</div>
+								<hr>
+								<div class="desc">
+									Template, 3 additional iteration <br>+ Cover letter
+								</div>
+								<div class="price">inr 4,200</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+	<!-- Build Your Cover Letter -->
+
+
+
+
+	<div class="build_your_cv interview_preparation" id="interview">
+		<div class="buildposition">
+			<div class="container">
+				<div class="skips">Skip</div>
+				<i class="fa fa-caret-up" aria-hidden="true"></i>
+				<h3>Let us prepare for your interview</h3>
+				<div class="col-md-2"></div>
+				<div class="years col-md-4">
+					<img src="images/0-1years.png" />
+					<div class="yearoption">
+						<a id="zerotooneinterview_modal_trigger"
+							href="#zerotoonemodalinterview"><span>Basic
+								behavioural</span><span>interview</span><span>questions</span></a>
+						<h2>inr 5,000</h2>
+					</div>
 				</div>
-				
-				<!--===================== One to Three Popup Form =====================-->
-                <div id="onetothreemodalinterview" class="popupContainer zero_to_one_popup" style="display:none;">
-					<i class="fa fa-caret-up" aria-hidden="true"></i>
-                    <header class="popupHeader">
-						<span class="modal_close model_left_close"><img src="images/left_arrow_white.png"><p>Back</p></span>
-						<span class="modal_close model_right_close"><p>Close</p> <span>X</span></span>
-					</header>
-					<div class="title">Basic informational interview questions</div>
-					<section class="popupBody">
-						<div class="container">
-						
+				<div class="years col-md-4">
+					<img src="images/1-3years.png" />
+					<div class="yearoption">
+						<a id="onetothreeinterview_modal_trigger"
+							href="#onetothreemodalinterview"><span>Basic
+								informational</span><span>interview</span><span>questions</span></a>
+						<h2>inr 2,500</h2>
+					</div>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+
+			<!--===================== Zero to One Popup Form =====================-->
+			<div id="zerotoonemodalinterview"
+				class="popupContainer zero_to_one_popup" style="display: none;">
+				<i class="fa fa-caret-up" aria-hidden="true"></i>
+				<header class="popupHeader">
+					<span class="modal_close model_left_close"><img
+						src="images/left_arrow_white.png">
+					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<span>X</span></span>
+				</header>
+				<div class="title">Basic behavioural interview questions</div>
+				<section class="popupBody">
+					<div class="container">
+
 						<div class="behavioural_interview_questions">
-								<ul>
-									<li>Student will get a list of 5 common questions asked in informational interview,</li>
-									<li>including potential responses based on the student's resume</li>
-									<li>includes 5 questions to ask in informational interview</li>
-									<li>includes 1 telephonic conversations / mock interview</li>
-								</ul>
-								<div class="buttons"><input type="submit" name="submit" value="buy" ng-click="buyInterviewServices()" /></div>
+							<ul>
+								<li>Basic behavioural interview questions: INR 5,000</li>
+								<li>Student will get help in crafting responses to 5 key
+									interview questions such as "tell me about yourself"."why
+									this....</li>
+								<li>job"."strengths and weaknesses"</li>
+								<li>Includes a list of interview tips and tricks</li>
+								<li>Does not include industry-specific questions</li>
+								<li>Includes 3 telephonic conversations / mock interview</li>
+							</ul>
+							<div class="buttons">
+								<input type="submit" name="submit" value="buy"
+									ng-click="buyInterviewServices()" />
 							</div>
-						
 						</div>
-					</section>
-				</div>				
+
+					</div>
+				</section>
 			</div>
-		</div> <!-- Interview Preparation -->
-		
-		
-        <div class="footer" id="footer">
-            <div class="container">
-                <div class="logo"><a href="index.html"><img src="images/colorlogo.png" /></a></div>
-                <div class="menu partners col-md-3">
-                    <div class="title">About Us</div>
-                    <ul>
-                        <li><a href="#">Team</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="partners col-md-3">
-                    <div class="title">Partners</div>
-                    <ul>
-                        <li><a href="#">Advertise With Us</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="others col-md-3">
-                    <div class="title">Others</div>
-                    <ul>
-                        <li><a href="#">FAQS</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                    </ul>
-                </div>
-                <!--<div class="experience">
+
+			<!--===================== One to Three Popup Form =====================-->
+			<div id="onetothreemodalinterview"
+				class="popupContainer zero_to_one_popup" style="display: none;">
+				<i class="fa fa-caret-up" aria-hidden="true"></i>
+				<header class="popupHeader">
+					<span class="modal_close model_left_close"><img
+						src="images/left_arrow_white.png">
+					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<span>X</span></span>
+				</header>
+				<div class="title">Basic informational interview questions</div>
+				<section class="popupBody">
+					<div class="container">
+
+						<div class="behavioural_interview_questions">
+							<ul>
+								<li>Student will get a list of 5 common questions asked in
+									informational interview,</li>
+								<li>including potential responses based on the student's
+									resume</li>
+								<li>includes 5 questions to ask in informational interview</li>
+								<li>includes 1 telephonic conversations / mock interview</li>
+							</ul>
+							<div class="buttons">
+								<input type="submit" name="submit" value="buy"
+									ng-click="buyInterviewServices()" />
+							</div>
+						</div>
+
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+	<!-- Interview Preparation -->
+
+
+	<div class="footer">
+		<div class="container">
+			<div class="logo">
+				<a href="index.html"><img src="images/colorlogo.png" /></a>
+			</div>
+			<div class="menu partners col-md-3">
+				<div class="title">About Us</div>
+				<ul>
+					<li><a href="team.html">Team</a></li>
+					<li><a href="careers.html">Careers</a></li>
+					<li><a href="blog.html">Blog</a></li>
+				</ul>
+			</div>
+			<div class="partners col-md-3">
+				<div class="title">Partners</div>
+				<ul>
+					<li><a href="advertise_with_us.html">Advertise With Us</a></li>
+					<li><a href="contact_us.html">Contact Us</a></li>
+				</ul>
+			</div>
+			<div class="others col-md-3">
+				<div class="title">Others</div>
+				<ul>
+					<li><a href="faqs.html">FAQS</a></li>
+					<li><a href="privacy_policy.html">Privacy Policy</a></li>
+					<li><a href="terms_conditions.html">Terms & Conditions</a></li>
+				</ul>
+			</div>
+			<!--<div class="experience">
                     <div class="title">For Mobile Experience</div>
                     <img src="images/googleplay.png" />
                 </div>-->
-                <div class="followus col-md-3">
-                    <div class="title">Follow Us On</div>
-                    <ul>
-                        <li><a href="#"><img src="images/facebook.png" /></a></li>
-                        <li><a href="#"><img src="images/twitter.png" /></a></li>
-                        <li><a href="#"><img src="images/instra.jpg" /></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div> <!-- Footer -->
-
-        <div class="horizonral"></div>
-
-		
-	<!--===================== Personal Information, Education, Services Tab Popup Form =====================-->
-		<div id="tab" class="popupContainer tabcontainer" style="display:none;">
-			<header class="popupHeader">
-				<span class="modal_close"><a href="" ng-click="hideTab()"><img src="images/x.png"/> </a></span>
-				<ul class="nav nav-tabs">
-					<li class="firsttab active"><a data-toggle="tab" href="#personal_information">Personal Information</a></li>
-					<li class="secondtab firstpre"><a data-toggle="tab" href="#education">Education</a></li>
-					<li class="therdtab secondpre"><a data-toggle="tab" href="#services">Services</a></li>
+			<div class="followus col-md-3">
+				<div class="title">Follow Us On</div>
+				<ul>
+					<li><a href="#"><img src="images/facebook.png" /></a></li>
+					<li><a href="#"><img src="images/twitter.png" /></a></li>
+					<li><a href="#"><img src="images/instra.jpg" /></a></li>
 				</ul>
-			</header>
-			<section class="popupBody">
-				<div class="tabpopup">
-					<div class="tab-content">
-						<div id="personal_information" class="tab-pane fade in active">
-							<div class="col-md-1"></div>
-							<div class="col-md-5">
-								<form>
-									 <fieldset class="form-group">
-										<input type="text" name="name" placeholder="Name*" style="width: 36% !important;float: left;" ng-model="loggedInUser.firstName" required/>
-										<input type="text" name="lastname" placeholder="Last Name*" style="width: 60% !important;float: right;"  ng-model="loggedInUser.lastName" required />
-									</fieldset>								
-									<fieldset class="form-group">
-										<input type="text" name="contactno" placeholder="Contact Number*" ng-model="loggedInUser.contact" />
-									</fieldset>
-									<fieldset class="form-group">
-										<input type="date" name="birthDate" placeholder="Date of Birth*" style="width: 36% !important;float: left;" ng-model="loggedInUser.birthDate" required/>
-									</fieldset>
-									<fieldset class="form-group">
-										<input type="text" name="state" placeholder="State*" ng-model="loggedInUser.state" required />
-									</fieldset>
-									<fieldset class="form-group">
-										<input type="text" name="city" placeholder="City*" ng-model="loggedInUser.city" required />
-									</fieldset>
-									<fieldset class="form-group">
-										<textarea rows="4" name="hobbies/interest" placeholder="Hobbies/Interest*" ng-model="loggedInUser.hobbies" ></textarea>
-									</fieldset>
-								</form>
-							</div>
-
-							<div class="col-md-5">
-								<div class="userimg">
-									<!--<img src="images/testimonials.png">-->
-								  <!--  Added by Sagar -->
-										  <img ng-src="{{defImage}}"/>
-
-													    <span ng-show="editOption" ng-click="editPhotoBegin()"><a href="">{{photoStatus}}</a></span>
-
-										    <div class="cropArea" ng-show="showImagePreview">
-										      <input type="file" id="fileInput" />
-										      <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
-										    </div>
-
-								  <!-- Added by Sagar -->
-								</div>
-								<textarea rows="9" ng-show="!showImagePreview" name="introduction" placeholder="Introduction*" ng-model="loggedInUser.introduction"></textarea>
-							</div>
-
-							<div class="col-md-1"></div>
-							
-							<div class="next"><a data-toggle="tab" class="firstnext" href="#education" ng-click="updateUserProfile()">Next <i class="fa fa-chevron-right" aria-hidden="true"></i></a></div>
-						</div> <!-- First Tab -->
-										
-						<div id="education" class="tab-pane fade">							
-							<div class="col-md-1"></div>
-							<div class="col-md-5">
-								<form>
-									<fieldset class="form-group">
-										<select>
-											<option value="basic_graduation">Basic Graduation*</option>
-										</select>
-									</fieldset>
-									<fieldset class="form-group">
-										<select>
-											<option value="specialization">Specialization*</option>
-										</select>
-									</fieldset> 							
-									<fieldset class="form-group">
-										<input type="text" name="institute_name" placeholder="Institute Name*" ng-model="loggedInUser.institution"/>
-									</fieldset>
-									<fieldset class="form-group">
-										<input type="text" name="university_name" placeholder="University Name*" ng-model="loggedInUser.university"/>
-									</fieldset>
-									<fieldset class="form-group">
-										<select ng-model="loggedInUser.courseCompletionYear" ng-options="o as o for o in courseCompletionYear">
-											<option value="" disabled selected> Course Completion Year</option>
-										</select>
-									</fieldset>					
-								</form>
-							</div>
-								
-							<div class="col-md-5">
-								<form>
-									<fieldset class="form-group">
-										<input type="text" name="dream_job" placeholder="Dream Job" ng-model="loggedInUser.dreamOccupation"/>
-									</fieldset>
-									
-									 <fieldset class="form-group">
-									<!-- <span class="input-label" ng-if="!loggedInUser.expectedDateOfExams" style="color: #aaa;">Expected Date of Exams</span> -->
-										<span class="input-label"  style="color: #aaa;">Expected Date of Exams</span>
-										<input type="date" name="expectedDateOfExams"  style="width: 50% !important;float: left;" ng-model="loggedInUser.expectedDateOfExams"/>
-										
-									</fieldset>	
-								</form>
-							</div>
-								
-							<div class="col-md-1"></div>
-							<div class="back"><a data-toggle="tab" class="firstpre" href="#personal_information" ng-click="updateUserProfile()"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a></div>
-							<div class="next"><a data-toggle="tab" class="secondnext" href="#services" ng-click="updateUserProfile()">Next <i class="fa fa-chevron-right" aria-hidden="true"></i></a></div>
-						</div> <!-- Second Tab -->
-										
-						<div id="services" class="tab-pane fade">
-						
-							<div class="col-md-1"></div>
-							<div class="review col-md-10">
-								
-									
-								<div class="title">Services Taken</div>
-								<div class="service">
-									 {{noServicesAvailedYet }}
-									
-									<div class="secondrightborder" ng-repeat="order in orders">
-									
-										<p><strong>Service : </strong>{{order.serviceType}}</p>
-										<p><strong>Date : </strong>{{order.createDate}}</p>
-										<p><strong>Cost : </strong>{{order.totalPrice}}</p>
-										<p><strong>Description : </strong>{{order.packageDetails}}</p>
-									</div>
-								</div>
-								 
-								<strong>Be Job Ready | DOWNLOAD Cover Letter <a href="" ng-click="downloadCoverLetter()"><i class="fa fa-download" aria-hidden="true"></i></a></strong>
-								<strong>Be Job Ready | DOWNLOAD CV <a href="" ng-click="downloadCV()"><i class="fa fa-download" aria-hidden="true"></i></a></strong>
-								<p>To avail CV/Cover letter generation features <a href="be_job_ready"> Please check this out</a></p>
-							</div>
-							
-							<div class="col-md-1"></div>
-							<div class="back"><a data-toggle="tab" class="secondpre" href="#education"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a></div>
-						</div> <!-- Therd Tab -->
-					</div>
-				</div>
-			</section>
+			</div>
 		</div>
-		
-		
-		
-		
-        <script src="js/jquery-1.9.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/placeholders.min.js"></script>
-        <script src="js/custom-scripts.js"></script>
-        <script src="js/menu.js"></script>
-        <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
+	</div>
+	<!-- Footer -->
 
-		<script type="text/javascript">
-            $(document).ready(function () {
-				
-				$('#cv').show();
-                $('#coverletter').hide();
-				$('#interview').hide();
-				
-				$('.cvnext1').click(function () {
-                    $('#cv').show();
-                    $('#coverletter').hide();
-					$('#interview').hide();
-                });
-				
-                $('.cvnext2').click(function () {
-                    $('#cv').hide();
-                    $('#coverletter').show();
-					$('#interview').hide();
-                });
-				
-				$('.cvnext3').click(function () {
-                    $('#cv').hide();
-                    $('#coverletter').hide();
-					$('#interview').show();
-                });
-				
-            });
-        </script> <!-- Next Prev Script -->
-		
-		
-        <script>
-            $(document).ready(function () {
-                $("#all").click(function () {
-                    $(".popup").toggle();
-                });
-            });
-        </script> <!-- Categories Script -->
+	<div class="horizonral"></div>
 
-        <script>
-            $(document).ready(function () {
-                $("#hidefeedback").click(function () {
-                    $(".forms").hide();
-                });
-                $("#showfeedback").click(function () {
-                    $(".forms").show();
-                });
-            });
-        </script> <!-- FeedBack Script -->
 
-        <script type="text/javascript">
-            $(function () {
-                var menuVisible = false;
-                $('#searchtips').css({'display': 'none'});
-                $('#tips').hover(function () {
-                    if (menuVisible) {
-                        $('#searchtips').css({'display': 'none'});
-                        menuVisible = false;
-                        return;
-                    }
-                    $('#searchtips').css({'display': 'block'});
-                    menuVisible = true;
-                });
-                $('#searchtips').hover(function () {
-                    $(this).css({'display': 'none'});
-                    menuVisible = true;
-                });
-            });
-        </script> <!-- Tool Trp-->
+	<!--===================== Personal Information, Education, Services Tab Popup Form =====================-->
+	<div id="tab" class="popupContainer tabcontainer"
+		style="display: none;">
+		<header class="popupHeader">
+			<span class="modal_close"><a href="" ng-click="hideTab()"><img
+					src="images/x.png" /> </a></span>
+			<ul class="nav nav-tabs">
+				<li class="firsttab active"><a data-toggle="tab"
+					href="#personal_information">Personal Information</a></li>
+				<li class="secondtab firstpre"><a data-toggle="tab"
+					href="#education">Education</a></li>
+				<li class="therdtab secondpre"><a data-toggle="tab"
+					href="#services">Services</a></li>
+			</ul>
+		</header>
+		<section class="popupBody">
+			<div class="tabpopup">
+				<div class="tab-content">
+					<div id="personal_information" class="tab-pane fade in active">
+						<div class="col-md-1"></div>
+						<div class="col-md-5">
+							<form>
+								<fieldset class="form-group">
+									<input type="text" name="name" placeholder="Name*"
+										style="width: 36% !important; float: left;"
+										ng-model="loggedInUser.firstName" required /> <input
+										type="text" name="lastname" placeholder="Last Name*"
+										style="width: 60% !important; float: right;"
+										ng-model="loggedInUser.lastName" required />
+								</fieldset>
+								<fieldset class="form-group">
+									<input type="text" name="contactno"
+										placeholder="Contact Number*" ng-model="loggedInUser.contact" />
+								</fieldset>
+								<fieldset class="form-group">
+									<input type="date" name="birthDate"
+										placeholder="Date of Birth*"
+										style="width: 36% !important; float: left;"
+										ng-model="loggedInUser.birthDate" required />
+								</fieldset>
+								<fieldset class="form-group">
+									<input type="text" name="state" placeholder="State*"
+										ng-model="loggedInUser.state" required />
+								</fieldset>
+								<fieldset class="form-group">
+									<input type="text" name="city" placeholder="City*"
+										ng-model="loggedInUser.city" required />
+								</fieldset>
+								<fieldset class="form-group">
+									<textarea rows="4" name="hobbies/interest"
+										placeholder="Hobbies/Interest*"
+										ng-model="loggedInUser.hobbies"></textarea>
+								</fieldset>
+							</form>
+						</div>
 
-        <script>
-            $(document).ready(function () {
-                $('#searchshow').click(function () {
-                    $('.hideshow').toggle("slide");
-                });
-            });
-        </script>
+						<div class="col-md-5">
+							<div class="userimg">
+								<!--<img src="images/testimonials.png">-->
+								<!--  Added by Sagar -->
+								<img ng-src="{{defImage}}" /> <span ng-show="editOption"
+									ng-click="editPhotoBegin()"><a href="">{{photoStatus}}</a></span>
 
-        <script>
-            $(document).ready(function () {
-                $('#booktext').click(function () {
-                    $('#booktext').css({'height': '100px'});
-                    $('#searchbook').css({'top': '30px'});
-                    $('#searchclose ').css({'display': 'block'});
-                });
-                $('#searchbook').click(function () {
-                    $('#booktext').css({'height': '100px'});
-                    $('#searchbook').css({'top': '30px'});
-                    $('#searchclose ').css({'display': 'block'});
-                });
-                $('#searchclose').click(function () {
-                    $('#booktext').css({'height': '55px'});
-                    $('#searchbook').css({'top': '3px'});
-                    $('#searchclose ').css({'display': 'none'});
-                });
-            });
-        </script>
-        <script type="text/javascript">
-            $("#modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
-			$("#tack_a_break_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
-			
-			$("#zerotoone_modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
-			$("#onetothree_modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
-			$("#threetofive_modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
-			
-			$("#zerotooneletter_modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
-			$("#onetothreeletter_modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
-			$("#threetofiveletter_modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
-			
-			$("#zerotooneinterview_modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
-			$("#onetothreeinterview_modal_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
-			
-			$("#change_password_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
-			$("#header_user_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
-			
-			$("#tab_trigger").leanModal({top: 200, overlay: 0.6, closeButton: ".modal_close"});
-			
-			
-        </script>
-	
+								<div class="cropArea" ng-show="showImagePreview">
+									<input type="file" id="fileInput" />
+									<img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+								</div>
+
+								<!-- Added by Sagar -->
+							</div>
+							<textarea rows="9" ng-show="!showImagePreview"
+								name="introduction" placeholder="Introduction*"
+								ng-model="loggedInUser.introduction"></textarea>
+						</div>
+
+						<div class="col-md-1"></div>
+
+						<div class="next">
+							<a data-toggle="tab" class="firstnext" href="#education"
+								ng-click="updateUserProfile()">Next <i
+								class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						</div>
+					</div>
+					<!-- First Tab -->
+
+					<div id="education" class="tab-pane fade">
+						<div class="col-md-1"></div>
+						<div class="col-md-5">
+							<form>
+								<fieldset class="form-group">
+									<select>
+										<option value="basic_graduation">Basic Graduation*</option>
+									</select>
+								</fieldset>
+								<fieldset class="form-group">
+									<select>
+										<option value="specialization">Specialization*</option>
+									</select>
+								</fieldset>
+								<fieldset class="form-group">
+									<input type="text" name="institute_name"
+										placeholder="Institute Name*"
+										ng-model="loggedInUser.institution" />
+								</fieldset>
+								<fieldset class="form-group">
+									<input type="text" name="university_name"
+										placeholder="University Name*"
+										ng-model="loggedInUser.university" />
+								</fieldset>
+								<fieldset class="form-group">
+									<select ng-model="loggedInUser.courseCompletionYear"
+										ng-options="o as o for o in courseCompletionYear">
+										<option value="" disabled selected>Course Completion
+											Year</option>
+									</select>
+								</fieldset>
+							</form>
+						</div>
+
+						<div class="col-md-5">
+							<form>
+								<fieldset class="form-group">
+									<input type="text" name="dream_job" placeholder="Dream Job"
+										ng-model="loggedInUser.dreamOccupation" />
+								</fieldset>
+
+								<fieldset class="form-group">
+									<!-- <span class="input-label" ng-if="!loggedInUser.expectedDateOfExams" style="color: #aaa;">Expected Date of Exams</span> -->
+									<span class="input-label" style="color: #aaa;">Expected
+										Date of Exams</span> <input type="date" name="expectedDateOfExams"
+										style="width: 50% !important; float: left;"
+										ng-model="loggedInUser.expectedDateOfExams" />
+
+								</fieldset>
+							</form>
+						</div>
+
+						<div class="col-md-1"></div>
+						<div class="back">
+							<a data-toggle="tab" class="firstpre"
+								href="#personal_information" ng-click="updateUserProfile()"><i
+								class="fa fa-chevron-left" aria-hidden="true"></i> Back</a>
+						</div>
+						<div class="next">
+							<a data-toggle="tab" class="secondnext" href="#services"
+								ng-click="updateUserProfile()">Next <i
+								class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						</div>
+					</div>
+					<!-- Second Tab -->
+
+					<div id="services" class="tab-pane fade">
+
+						<div class="col-md-1"></div>
+						<div class="review col-md-10">
+
+
+							<div class="title">Services Taken</div>
+							<div class="service">
+								{{noServicesAvailedYet }}
+
+								<div class="secondrightborder" ng-repeat="order in orders">
+
+									<p>
+										<strong>Service : </strong>{{order.serviceType}}
+									</p>
+									<p>
+										<strong>Date : </strong>{{order.createDate}}
+									</p>
+									<p>
+										<strong>Cost : </strong>{{order.totalPrice}}
+									</p>
+									<p>
+										<strong>Description : </strong>{{order.packageDetails}}
+									</p>
+								</div>
+							</div>
+
+							<strong>Be Job Ready | DOWNLOAD Cover Letter <a href=""
+								ng-click="downloadCoverLetter()"><i class="fa fa-download"
+									aria-hidden="true"></i></a></strong> <strong>Be Job Ready |
+								DOWNLOAD CV <a href="" ng-click="downloadCV()"><i
+									class="fa fa-download" aria-hidden="true"></i></a>
+							</strong>
+							<p>
+								To avail CV/Cover letter generation features <a
+									href="be_job_ready"> Please check this out</a>
+							</p>
+						</div>
+
+						<div class="col-md-1"></div>
+						<div class="back">
+							<a data-toggle="tab" class="secondpre" href="#education"><i
+								class="fa fa-chevron-left" aria-hidden="true"></i> Back</a>
+						</div>
+					</div>
+					<!-- Therd Tab -->
+				</div>
+			</div>
+		</section>
+	</div>
+
+
+
+
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/placeholders.min.js"></script>
+	<script src="js/custom-scripts.js"></script>
+	<script src="js/menu.js"></script>
+	<script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
+
 	<script type="text/javascript">
-		    function selectText( containerid ) {
-			console.log(' in select text '+containerid);
-			document.getElementById(containerid).focus();
-		    }
+		$(document).ready(function() {
+
+			$('#cv').show();
+			$('#coverletter').hide();
+			$('#interview').hide();
+
+			$('.cvnext1').click(function() {
+				$('#cv').show();
+				$('#coverletter').hide();
+				$('#interview').hide();
+			});
+
+			$('.cvnext2').click(function() {
+				$('#cv').hide();
+				$('#coverletter').show();
+				$('#interview').hide();
+			});
+
+			$('.cvnext3').click(function() {
+				$('#cv').hide();
+				$('#coverletter').hide();
+				$('#interview').show();
+			});
+
+		});
 	</script>
-        
-    </body>
+	<!-- Next Prev Script -->
+
+
+	<script>
+		$(document).ready(function() {
+			$("#all").click(function() {
+				$(".popup").toggle();
+			});
+		});
+	</script>
+	<!-- Categories Script -->
+
+	<script>
+		$(document).ready(function() {
+			$("#hidefeedback").click(function() {
+				$(".forms").hide();
+			});
+			$("#showfeedback").click(function() {
+				$(".forms").show();
+			});
+		});
+	</script>
+	<!-- FeedBack Script -->
+
+	<script type="text/javascript">
+		$(function() {
+			var menuVisible = false;
+			$('#searchtips').css({
+				'display' : 'none'
+			});
+			$('#tips').hover(function() {
+				if (menuVisible) {
+					$('#searchtips').css({
+						'display' : 'none'
+					});
+					menuVisible = false;
+					return;
+				}
+				$('#searchtips').css({
+					'display' : 'block'
+				});
+				menuVisible = true;
+			});
+			$('#searchtips').hover(function() {
+				$(this).css({
+					'display' : 'none'
+				});
+				menuVisible = true;
+			});
+		});
+	</script>
+	<!-- Tool Trp-->
+
+	<script>
+		$(document).ready(function() {
+			$('#searchshow').click(function() {
+				$('.hideshow').toggle("slide");
+			});
+		});
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$('#booktext').click(function() {
+				$('#booktext').css({
+					'height' : '100px'
+				});
+				$('#searchbook').css({
+					'top' : '30px'
+				});
+				$('#searchclose ').css({
+					'display' : 'block'
+				});
+			});
+			$('#searchbook').click(function() {
+				$('#booktext').css({
+					'height' : '100px'
+				});
+				$('#searchbook').css({
+					'top' : '30px'
+				});
+				$('#searchclose ').css({
+					'display' : 'block'
+				});
+			});
+			$('#searchclose').click(function() {
+				$('#booktext').css({
+					'height' : '55px'
+				});
+				$('#searchbook').css({
+					'top' : '3px'
+				});
+				$('#searchclose ').css({
+					'display' : 'none'
+				});
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		$("#modal_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+		$("#tack_a_break_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+
+		$("#zerotoone_modal_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+		$("#onetothree_modal_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+		$("#threetofive_modal_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+
+		$("#zerotooneletter_modal_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+		$("#onetothreeletter_modal_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+		$("#threetofiveletter_modal_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+
+		$("#zerotooneinterview_modal_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+		$("#onetothreeinterview_modal_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+
+		$("#change_password_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+		$("#header_user_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+
+		$("#tab_trigger").leanModal({
+			top : 200,
+			overlay : 0.6,
+			closeButton : ".modal_close"
+		});
+	</script>
+
+	<script type="text/javascript">
+		function selectText(containerid) {
+			console.log(' in select text ' + containerid);
+			document.getElementById(containerid).focus();
+		}
+	</script>
+
+</body>
 </html>
