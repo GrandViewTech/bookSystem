@@ -26,7 +26,7 @@ public class Template1
 		
 		String					sequencingOfSections	= "123";
 		
-		String					header1					= "EDUCATION";
+		String					header1					= "EDUCATION";	
 		String					header2					= "WORK EXPERIENCE";
 		String					header3					= "LEADERSHIP, ACTIVITIES AND AWARDS";
 		

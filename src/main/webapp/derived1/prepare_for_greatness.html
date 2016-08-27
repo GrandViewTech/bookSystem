@@ -5,26 +5,33 @@
 <title id='Description'>Prepare For Greatness</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width">
-<!--<link rel="icon" href="favicon.png">-->
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/responsive.css">
-<link rel="stylesheet" href="css/menu.css">
-<link rel="stylesheet" href="css/popup.css">
-<script src="js/jquery-1.11.2.min.js"></script>
-<!-- <script src="js/jquery-1.9.1.min.js"></script> -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/placeholders.min.js"></script>
-<script src="js/custom-scripts.js"></script>
-<script src="js/menu.js"></script>
-<script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
-<script type="text/javascript" src="js/jquery.lbslider.js"></script>
-<script src="js/angular-1.0.7.min.js"></script>
-<script src="js/angular-resource-1.0.7.js"></script>
-<script src="js/bootbox.js"></script>
-<script src="js/hello.js"></script>
-<script src="js/prepare4greatnesstController.js"></script>
+			<link rel="stylesheet" href="css/bootstrap.min.css">
+            <link rel="stylesheet" href="css/custom_v2.css?dummy=dummy">
+            <link rel="stylesheet" href="css/style.css">
+            <link rel="stylesheet" href="css/bootstrap.min.css">
+            <link rel="stylesheet" href="css/font-awesome.min.css">
+            <link rel="stylesheet" href="css/responsive.css">
+            <link rel="stylesheet" href="css/menu.css">
+            <link rel="stylesheet" href="css/popup.css">
+            <link rel="stylesheet" href="css/ng-img-crop.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-resource.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+            <script src="js/bootbox.js"></script>
+            <script src="js/hello.js"></script>
+            <script src="js/commonServices.js"></script>
+            <script src="js/fileSaver.js"></script>
+            <!-- <script src="js/applicationBooksController.js?dummy=dummy"></script> -->
+            <script src="js/ng-img-crop.js"></script>
+            <!-- Login Section -->
+            <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+            <script type="text/javascript" src="js/bootstrap.min.js"></script> 
+            <script type="text/javascript" src="js/placeholders.min.js"></script>
+            <script type="text/javascript" src="js/custom-scripts.js"></script>
+            <script type="text/javascript" src="js/menu.js"></script>
+            <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
+            <script src="js/prepare4greatnesstController.js"></script>
 </head>
 
 <body ng-app="myApp" ng-controller="prepare4greatnesstController"
@@ -36,7 +43,7 @@
 				<a href="index.html"><img src="images/colorlogo.png" /></a>
 			</div>
 
-			<div class="menu col-md-6">
+			<div class="menu col-md-6" style="visibility:hidden">
 				<div class="top topsearch">
 					<div class="search">
 						<div class="all">
@@ -87,10 +94,10 @@
 									<i class="fa fa-caret-up" aria-hidden="true"></i>
 									<div class="tellusright" id="tellusright">
 										<div class="userimg">
-											<img src="images/testimonials.png">
+											<img ng-src="{{profilePic}}">
 										</div>
-										<h4>User Name Loren</h4>
-										<p>14 Review, 38 Followers</p>
+										<h4>{{profileText}}</h4>
+										<!-- <p>14 Review, 38 Followers</p> -->
 
 
 
@@ -106,7 +113,7 @@
 						</div>
 
 						<!--===================== Change Password Popup Form =====================-->
-						<div id="changepassword"
+						<div id="	changepassword"
 							class="popupContainer changepasswordcontainer"
 							style="display: none;">
 							<header class="popupHeader">
@@ -361,7 +368,7 @@
 		<!-- Feedback -->
 
 		<div class="tack_a_break">
-			<a id="tack_a_break_trigger" href="#tackabreak">tack a break</a>
+			<a id="tack_a_break_trigger" href="#tackabreak">take a break</a>
 		</div>
 
 		<!--===================== Login & Register Popup Form =====================-->
@@ -437,14 +444,15 @@
             </div>
         </div>  -->
 	<!-- Search -->
-	<div class="container auto-search">
-		<div class="col-md-12">
+	<!-- @Puneet -->
+	<div class="container auto-search" >
+		<div class="col-md-12" style="padding:25px">
 			<div class="col-md-10 preparesearchbox">
 				<form name="search" action="javascript:void(0);" id="booksearch">
 					<input type="text" ng-model="searchkeyword" name="autosearch"
 						list="autosearch" placeholder="SEARCH GROVENUE" />
-					{{searchkeyword}} <input type="submit" name="submit"
-						id="searchbook" ng-click="searchBar()" />
+					   <!-- <input type="submit" name="submit"
+						id="searchbook" ng-click="searchBar()" /> -->
 					<!-- <datalist id="autosearch">
                             <option
                                 value="Big Vision, medium Business : The Four Keys to Finding Success & Satisfaction as a Lifestyle Entrepreneur">
@@ -465,11 +473,12 @@
 				</form>
 			</div>
 			<div class="searchbutton col-md-2">
-				<a href="#"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+				<!-- <a href="#"><i class="fa fa-caret-down" aria-hidden="true"></i></a> -->
 				<input type="submit" name="submit" value="submit"
 					ng-click="searchBar()" />
 			</div>
 		</div>
+
 	</div>
 
 	<div class="book_coaching_digital" id="sliderfirst">
@@ -533,7 +542,13 @@
 
 
 	<div class="greatnessfor" id="books">
-		<div class="topbookarrow">
+		<div class="topbookarrow" id="bookCaretDown">
+			<i class="fa fa-caret-down" aria-hidden="true"></i>
+		</div>
+		<div class="topcoachingarrow" id="classCaretDown">
+			<i class="fa fa-caret-down" aria-hidden="true"></i>
+		</div>
+		<div class="topdigitalarrow" id="digitalCaretDown">
 			<i class="fa fa-caret-down" aria-hidden="true"></i>
 		</div>
 		<div class="container">
@@ -605,9 +620,16 @@
 
 		<div class="book_details">
 			<div class="container">
-				<div class="booktoparrow">
+				<div class="booktoparrow" id="bookCaret">
 					<i class="fa fa-caret-up" aria-hidden="true"></i>
 				</div>
+				<div class="classTopArrow" id="classCaret">
+					<i class="fa fa-caret-up" aria-hidden="true"></i>
+				</div>
+				<div class="digitalTopArrow" id="digitalCaret">
+					<i class="fa fa-caret-up" aria-hidden="true"></i>
+				</div>
+
 				<div class="leftbooks col-md-4">
 					<div class="books">
 						<img ng-src="{{resource.bigUrl}}" />

@@ -48,7 +48,7 @@ public class TestUtil {
 	public void testGetResourceReviewWithSpecialChar(){
 		String name = "Title-15 JEE (Main) Physics/Chemistry/Maths Practice Sets (Practice Work Book)";
 		name = "Title-15 JEE (Main) Physics/Chemistry/Maths Practice Sets (Practice Work Book)";
-		name = ReviewService.escapeSpecialCharacters(name);
+		//name = ReviewService.escapeSpecialCharacters(name);
 		
 		//String n = "Title-15 JEE \\(Main\\) Physics/Chemistry/Maths Practice Sets \\(Practice Work Book\\).*";
 		ResourceUnderReview resourceUnderReview = resourceUnderReviewRepository.getResourceUnderReviewByResourceName(name);

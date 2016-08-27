@@ -14,7 +14,10 @@ public class CoachingClassService1
 	{
 		
 		@Autowired
-		CoachingClassRepository coachingClassRepository;
+		private CoachingClassRepository	coachingClassRepository;
+		
+		@Autowired
+		private CountryStateCityService	countryStateCityService;
 		
 		public CoachingClass findByNameAndBranchAndZipCode(String name, String branch, String zipCode)
 			{
@@ -117,6 +120,7 @@ public class CoachingClassService1
 						coachingClass.setState(coachngClass.getState());
 						coachingClass.setAddedBy(coachngClass.getAddedBy());
 						coachingClass.setAddress(coachngClass.getAddress());
+						coachingClass.setZip(coachngClass.getZip());
 						coachingClass.setAverageBatchSize(coachngClass.getAverageBatchSize());
 						coachingClass.setCourseMaterial(coachngClass.getCourseMaterial());
 						coachingClass.setDescription(coachngClass.getDescription());
@@ -133,6 +137,13 @@ public class CoachingClassService1
 						Integer rateCount = coachingClass.getRateCount();
 						coachingClass.setAverageRating((averageRating == null) ? 2.5 : averageRating);
 						coachingClass.setRateCount((rateCount == null) ? 1 : rateCount);
+						String pincode = coachingClass.getZip();
+						com.v2tech.domain.util.GoogleApiResponse googleApiResponse = countryStateCityService.findGeoLocationByPinCode(pincode);
+						if (googleApiResponse != null)
+							{
+								coachingClass.setLat(googleApiResponse.getlatitude());
+								coachingClass.setLon(googleApiResponse.getLongitude());
+							}
 						coachingClass = coachingClassRepository.save(coachingClass);
 						return coachingClass;
 					}

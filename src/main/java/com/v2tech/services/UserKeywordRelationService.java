@@ -100,6 +100,11 @@ public class UserKeywordRelationService
 					{
 						terms.add(keywordResult.getSearchedTerm());
 					}
+				Set<User> users = userService.findUsersByUserName(user);
+				for (User usr : users)
+					{
+						
+					}
 				if (terms.size() == 0)
 					{
 						if (keywordEntity.equalsIgnoreCase(KeywordEntity.DIGITAL_RESOURCES.getEntity()))

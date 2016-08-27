@@ -32,7 +32,7 @@ public class ExcelReader {
 	  final Map<String, Object> beans = new HashMap<>();
 	  beans.put("result", result);
 		  try {
-				  xlsReader.read(xlsFile, beans);
+						xlsReader.read(xlsFile, beans);
 		  }
 		  catch(Exception r){
 			  r.printStackTrace();

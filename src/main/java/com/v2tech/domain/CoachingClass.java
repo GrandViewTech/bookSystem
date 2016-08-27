@@ -92,6 +92,10 @@ public class CoachingClass
 		
 		private Integer	rateCount					= 1;
 		
+		private Double	lat							= 0.0;
+		
+		private Double	lon							= 0.0;
+		
 		public Long getId()
 			{
 				return id;
@@ -477,5 +481,27 @@ public class CoachingClass
 			{
 				this.state = state;
 			}
+
+		public Double getLat()
+			{
+				return lat;
+			}
+
+		public void setLat(Double lat)
+			{
+				this.lat = lat;
+			}
+
+		public Double getLon()
+			{
+				return lon;
+			}
+
+		public void setLon(Double lon)
+			{
+				this.lon = lon;
+			}
+		
+		
 			
 	}

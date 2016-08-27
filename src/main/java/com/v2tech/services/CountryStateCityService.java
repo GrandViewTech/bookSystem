@@ -1,5 +1,7 @@
 package com.v2tech.services;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -7,22 +9,50 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.plutext.jaxb.svg11.G;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.v2tech.base.V2GenericException;
 import com.v2tech.domain.CountryStateCity;
 import com.v2tech.domain.util.CountryStateResult;
+import com.v2tech.domain.util.GoogleApiResponse;
 import com.v2tech.repository.CountryStateCityRepository;
 
 @Service
 @Transactional
+@PropertySource("classpath:bookSys.properties")
 public class CountryStateCityService
 	{
-		@Autowired
-		private CountryStateCityRepository countryStateCityRepository;
 		
+		@Value("${googleMapApiKey}")
+		
+		private String						googleMapApiKey;
+		@Autowired
+		private CountryStateCityRepository	countryStateCityRepository;
+		
+		private static ObjectMapper			objectMapper			= null;
+		private static ObjectReader			googleApiResponseReader	= null;
+		
+		static
+			{
+				try
+					{
+						objectMapper = new ObjectMapper();
+						googleApiResponseReader = objectMapper.readerFor(GoogleApiResponse.class);
+					}
+					
+				catch (Exception exception)
+					{
+						exception.printStackTrace();
+					}
+			}
+			
 		public void saveCountryStateCity(CountryStateCity countryStateCity)
 			{
 				countryStateCity = validateCountryStateCity(countryStateCity);
@@ -51,6 +81,13 @@ public class CountryStateCityService
 								if (existing == null)
 									{
 										countryStateCity.setReferenceId(UUID.randomUUID().toString());
+										String pincode = countryStateCity.getZipcode();
+										GoogleApiResponse googleApiResponse = findGeoLocationByPinCode(pincode);
+										if (googleApiResponse != null)
+											{
+												countryStateCity.setLongitude(googleApiResponse.getLongitude());
+												countryStateCity.setLatitude(googleApiResponse.getlatitude());
+											}
 										udpatedCountryStateCities.add(countryStateCity);
 									}
 								else
@@ -130,5 +167,28 @@ public class CountryStateCityService
 					}
 				countryStateCity.setCity(cityName.trim());
 				return countryStateCity;
+			}
+			
+		public GoogleApiResponse findGeoLocationByPinCode(String pincode)
+			{
+				try
+					{
+						String url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + pincode + "&key=" + googleMapApiKey;
+						URL obj = new URL(url);
+						HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+						con.setRequestMethod("GET");
+						con.setRequestProperty("Content-Type", "application/json");
+						int responseCode = con.getResponseCode();
+						GoogleApiResponse response = null;
+						if (responseCode == 200)
+							{
+								response = googleApiResponseReader.readValue(con.getInputStream());
+							}
+						return response;
+					}
+				catch (Exception exception)
+					{
+						throw new RuntimeException(exception.getLocalizedMessage(), exception);
+					}
 			}
 	}
