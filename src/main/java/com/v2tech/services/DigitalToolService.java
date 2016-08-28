@@ -46,7 +46,10 @@ public class DigitalToolService
 					}
 					
 			}
-			
+			/**
+			 * also set subject in this.
+			 * @param digitalTool
+			 */
 		public void markKeywordAndSearchParams(DigitalTool digitalTool)
 			{
 				DigitalTool digitalTool2 = getDigitalToolByName(digitalTool.getName());
@@ -58,6 +61,7 @@ public class DigitalToolService
 					
 				digitalTool2.setKeyword(digitalTool.getKeyword());
 				digitalTool2.setSearchable(digitalTool.getSearchable());
+				digitalTool2.setSubject(digitalTool.getSubject());
 				digitalToolRepository.save(digitalTool2);
 			}
 			

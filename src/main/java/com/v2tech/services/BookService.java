@@ -44,7 +44,12 @@ public class BookService
 						return true;
 					}
 			}
-			
+		
+		/**
+		 * Also update the subject param
+		 * @param book
+		 * @return
+		 */
 		public Book updateKeywordAndSearchableParam(Book book)
 			{
 				java.util.Set<Book> books = bookRepository.findBookByISBN(book.getISBN());
@@ -62,6 +67,7 @@ public class BookService
 						Book book2 = (books.toArray(bookArray))[0];
 						book2.setKeyword(book.getKeyword());
 						book2.setSearchable(book.getSearchable());
+						book2.setSubject(book.getSubject());
 						bookRepository.save(book2);
 					}
 				return book;

@@ -33,6 +33,8 @@ public class Book
 				return id;
 			}
 			
+		private String subject = "";
+		
 		private String		bookTitle					= "";
 		//private Author author; // TODO : multi table task
 		
@@ -452,4 +454,14 @@ public class Book
 			{
 				this.rateCount = rateCount;
 			}
+
+		public String getSubject() {
+			return subject;
+		}
+
+		public void setSubject(String subject) {
+			this.subject = subject;
+		}
+		
+		
 	}

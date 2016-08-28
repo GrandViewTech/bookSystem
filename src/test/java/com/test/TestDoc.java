@@ -17,9 +17,9 @@ String url = "intent=buy&data_readonly=data_email&data_readonly=data_amount&data
 	@Test
 	public void testUrlEncode(){
 		String authString = user + ":" + pwd;
-		String authStringEnc = java.util.Base64.getEncoder().encodeToString(authString.getBytes());
-		System.out.println(authStringEnc);
-		
+		//String authStringEnc = java.util.Base64.getEncoder().encodeToString(authString.getBytes());
+		//System.out.println(authStringEnc);
+		//
 	}
 
 }

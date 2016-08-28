@@ -29,7 +29,14 @@
 	<script src="http://www.w3schools.com/lib/w3data.js"></script>
 	 <script src="js/ng-img-crop.js"></script>
 	
-	
+	   
+       <script>
+       
+       function changeFocus(){
+       document.getElementById("freeOnetInterestProfilerImg").scrollIntoView();
+       
+       }
+       </script>
     </head>
     
     
@@ -297,7 +304,7 @@
             <div class="topbg">
                 <div class="logo"><img src="images/colorlogo.png" /></div>
                 <div class="desc">Your future is full of possibilities.<br>Find the right one here.</div>
-                <div class="stroll"><a href="javascript:void(0);" id="show">tack a stroll</a><a id="invite_friends" href="#invitefriendsmodal">get started</a></div>
+                <div class="stroll"><a href="" onClick="changeFocus()" id="show">take a stroll</a><a id="invite_friends" href="" onClick="changeFocus()">get started</a></div>
             </div>	
             <div class="slidehover">
                 <!--<img src="images/topbg_hover.jpg" />-->
@@ -322,7 +329,7 @@
             </div> <!-- Feedback -->
 			
 			<div class="tack_a_break">
-                <a id="tack_a_break_trigger" href="#tackabreak">tack a break</a>
+                <a id="tack_a_break_trigger" href="#tackabreak">take a break</a>
             </div>
 			
 			<!--===================== Login & Register Popup Form =====================-->
@@ -369,7 +376,7 @@
 						<p>Based on your interests, discover<br>potential career options.</p>
 					</div>
 					<div class="free_paids">
-						<img src="images/free.png" />
+						<img src="images/free.png"  id="freeOnetInterestProfilerImg"/>
 						<h3>free</h3>
 					</div>
 				</div>

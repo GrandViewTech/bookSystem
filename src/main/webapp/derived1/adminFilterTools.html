@@ -44,9 +44,10 @@
 
         <tr>
             <th width="15%">Digital Tool Name</th>
-            <th width="25%">Career Streams</th>
-            <th width="25%">Keyword</th>
-            <th width="20%">Exams</th>
+            <th width="20%">Career Streams</th>
+            <th width="20%">Keyword</th>
+            <th width="15%">Subject</th>
+            <th width="15%">Exams</th>
             
             <th width="10%" >Searchable</th>
 	  <th width="5%"> Update</th>
@@ -54,10 +55,11 @@
         </tr>
     </thead>
             <tr ng-repeat="tool in searchResponse.tools">
-                <td  width="25%">{{ tool.name }}</td>
-                <td  width="25%">{{ tool.careerStreams}}</td>
-                <td  width="25%"><input type="text" ng-model="tool.keyword" /></td>
-                <td  width="10%">{{ tool.exams }}</td>
+                <td  width="15%">{{ tool.name }}</td>
+                <td  width="20%">{{ tool.careerStreams}}</td>
+                <td  width="20%"><input type="text" ng-model="tool.keyword" /></td>
+                <td  width="15%"><input type="text" ng-model="tool.subject" /></td>
+                <td  width="15%">{{ tool.exams }}</td>
                 <td  width="10%">
                 <label> Yes <input type="radio" name="{{ tool.name}}" value="yes" ng-model="tool.searchable"></label>
                 <label> No  <input type="radio" name="{{ tool.name}}"  value="no" ng-model="tool.searchable"> </label>
@@ -69,7 +71,7 @@
     </div>
     <div class="container">
 <ul class="pagination">
-              <li class="disabled"><a href="#">«</a></li>
+              <li class="disabled"><a href="#">ï¿½</a></li>
               <li class="active"><a  ng-click="fetchDigitalTools('A')"  href="#">A <span class="sr-only">(current)</span></a></li>
               <li><a ng-click="fetchDigitalTools('B')" href="#">B</a></li>
               <li><a ng-click="fetchDigitalTools('C')" href="#">C</a></li>
@@ -97,7 +99,7 @@
               <li><a ng-click="fetchDigitalTools('X')" href="#">X</a></li>
               <li><a ng-click="fetchDigitalTools('Y')" href="#">Y</a></li>
               <li><a ng-click="fetchDigitalTools('Z')" href="#">Z</a></li>
-              <li><a ng-click="fetchDigitalTools('A')" href="#">»</a></li>
+              <li><a ng-click="fetchDigitalTools('A')" href="#">ï¿½</a></li>
             </ul>
 </div>
 </section>

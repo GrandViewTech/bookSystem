@@ -1,5 +1,6 @@
 package com.test;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.ws.rs.core.Response;
@@ -43,6 +44,14 @@ public class TestUtil {
 	
 	@Autowired
 	ResourceUnderReviewRepository resourceUnderReviewRepository;
+	
+	@Test
+	public void testTopicsBySubject(){
+		List<String> topics = (List<String>) utilWebService.getTopicsForSubject("maths", "").getEntity();
+		for(String topic: topics){
+			System.out.println(topic);
+		}
+	}
 	
 	@Test
 	public void testGetResourceReviewWithSpecialChar(){

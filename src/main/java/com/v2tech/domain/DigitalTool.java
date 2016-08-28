@@ -10,6 +10,8 @@ public class DigitalTool
 		@GraphId
 		private Long	id;
 		
+		String subject = "";
+		
 		String			name			= "";
 		
 		String			careerStreams	= "";
@@ -223,6 +225,9 @@ public class DigitalTool
 			
 		public void setAverageRating(Double averageRating)
 			{
+				if(averageRating == null){
+					averageRating = 2.5;
+				}
 				if (averageRating.intValue() > 5)
 					{
 						averageRating = averageRating % 5;
@@ -239,5 +244,15 @@ public class DigitalTool
 			{
 				this.rateCount = rateCount;
 			}
+
+		public String getSubject() {
+			return subject;
+		}
+
+		public void setSubject(String subject) {
+			this.subject = subject;
+		}
+		
+		
 			
 	}

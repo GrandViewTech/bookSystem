@@ -1,10 +1,10 @@
 package com.v2tech.webservices;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,7 +13,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +36,22 @@ public class UtilWebService {
 	
 	@Autowired
 	CourseRepository  coucourseRepository;
+	
+	@GET
+	@Path("/topics/subject/{subject}/token/{token}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTopicsForSubject(@PathParam("subject") String subject, @PathParam("token") String token){
+		try {
+			//java.io.InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(subject+".txt");
+			String path = "subjects"+File.separator+subject+".txt";
+			List<String> topics = FileUtils.readLines(new File(path));
+			return Response.ok().entity(topics).build();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.status(Status.SERVICE_UNAVAILABLE).build();
+		}
+	}
 	
 	@POST
 	@Path("/feedbackEmail/email/{email}/name/{name}/token/{token}")
