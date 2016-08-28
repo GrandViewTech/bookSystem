@@ -33,7 +33,12 @@
             <script type="text/javascript" src="js/custom-scripts.js"></script>
             <script type="text/javascript" src="js/menu.js"></script>
             <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
-            <script src="js/prepare4greatnesstController.js"></script>
+	       <script src="js/commonServices.js"></script>
+	     
+	     <script src="http://www.w3schools.com/lib/w3data.js"></script>
+	 <script src="js/ng-img-crop.js"></script>
+	 
+            <script src="js/prepare4greatnesstController.js?dummy=dummy"></script>
       </head>
       <body ng-app="myApp" ng-controller="prepare4greatnesstController" ng-init="init('write_a_review',false)">
          <div class="header">
@@ -323,15 +328,21 @@
             <div class="feedbacklink">
                <a href="javascript:void(0);" id="showfeedback">feedback</a>
             </div>
-            <div class="forms">
-               <div class="closes" id="hidefeedback"><img src="images/close.png"></div>
-               <p>We'd love to hear from you. Drop us a note!</p>
-               <input type="text" name="name" placeholder="Name" />
-               <input type="email" name="email" placeholder="Email" />
-               <textarea name="message" placeholder="Message"></textarea>
-               <input type="submit" name="submit" value="Submit" />
-            </div>
-            <!-- Feedback -->
+            <div class="forms" ng-submit="submit(feedback)" id="fbForm">
+			<form>
+				<div class="closes" id="hidefeedback">
+					<img src="images/close.png">
+				</div>
+				<p>We'd love to hear from you. Drop us a note!</p>
+				<input type="text" name="name" placeholder="Name"
+					ng-model="feedback.name" required /> <input type="email"
+					name="email" placeholder="Email" ng-model="feedback.email" required />
+				<textarea name="message" placeholder="Message"
+					ng-model="feedback.message" required></textarea>
+				<input type="submit" name="submit" value="Submit" />
+			</form>
+		</div>
+		<!-- Feedback -->
             <div class="tack_a_break">
                <a id="tack_a_break_trigger" href="#tackabreak">take a break</a>
             </div>

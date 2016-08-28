@@ -87,14 +87,18 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 	
 	console.log('termscheck is '+$scope.termCheck );
 	
-	$scope.submit=function(feed){
-		console.log(feed.email);
-		$scope.submitted = Feedback.feedbacksubmit($scope.feedback);
-		$scope.feedback.name = "";
-		$scope.feedback.email="";
-		$scope.feedback.message = "";
-		return $scope.submitted;
-	}
+	$scope.submit = function(feed) {
+			console.log(feed.email);
+			$scope.submitted = Feedback
+					.feedbacksubmit($scope.feedback);
+			$scope.feedback.name = "";
+			$scope.feedback.email = "";
+			$scope.feedback.message = "";
+
+			document.getElementById('fbForm').style.display = "none";
+			bootbox.alert("Your feedback is submitted. Thanks");
+			return $scope.submitted;
+		}
 	
 	
 	$scope.downloadCoverLetter = function(){

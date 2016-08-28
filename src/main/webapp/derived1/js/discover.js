@@ -1,6 +1,6 @@
 
 var app = angular.module('myApp', ['FeedbackService', 'UserService', 'ngImgCrop']);
-app.controller( 'discoverController',  function($scope, $http, $window) {
+app.controller( 'discoverController',  function($scope, $http, $window, Feedback) {
 	<!-- Begin user sign/profile/social/etc related stuff
 	
 	$scope.feedback = {};	
@@ -61,12 +61,16 @@ app.controller( 'discoverController',  function($scope, $http, $window) {
 	
 	console.log('termscheck is '+$scope.termCheck );
 	
-	$scope.submit=function(feed){
+	$scope.submit = function(feed) {
 		console.log(feed.email);
-		$scope.submitted = Feedback.feedbacksubmit($scope.feedback);
+		$scope.submitted = Feedback
+				.feedbacksubmit($scope.feedback);
 		$scope.feedback.name = "";
-		$scope.feedback.email="";
+		$scope.feedback.email = "";
 		$scope.feedback.message = "";
+
+		document.getElementById('fbForm').style.display = "none";
+		bootbox.alert("Your feedback is submitted. Thanks");
 		return $scope.submitted;
 	}
 	

@@ -21,7 +21,7 @@ function generateToken()
 
 var searchEntity = 'coachingClass';
 
-var register = angular.module('myApp', []);
+var register = angular.module('myApp', ['FeedbackService', 'UserService', 'ngImgCrop']);
 register.directive('myPostRepeatDirective', function()
 	{
 		return function(scope, element, attrs)
@@ -32,7 +32,7 @@ register.directive('myPostRepeatDirective', function()
 					}
 			};
 	});
-register.controller("prepare4greatnesstController", function($scope, $http, $window, $filter, $sce)
+register.controller("prepare4greatnesstController", function($scope, $http, $window, $filter, $sce, Feedback)
 	{
 		
 		var baseUrl="..";
@@ -68,6 +68,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 		$scope.showBook=true;
 		$scope.showCoachingClass=false;
 		$scope.showDigitalResource=false;
+		$scope.submitted = "";
 		//#scope.sort=[{"key" : ""},{}];
 		
 		//var slider=	 jQuery('.slider4').lbSlider({leftBtn: '.sa-left4',rightBtn: '.sa-right4',visible: 4,autoPlay: true,autoPlayDelay: 5});
@@ -75,6 +76,19 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 		{
 			//alert("findByDistinctStateAndCityForGivenCountry");
 			//$scope.apply();
+		}
+		
+		$scope.submit = function(feed) {
+			console.log(feed.email);
+			$scope.submitted = Feedback
+					.feedbacksubmit($scope.feedback);
+			$scope.feedback.name = "";
+			$scope.feedback.email = "";
+			$scope.feedback.message = "";
+
+			document.getElementById('fbForm').style.display = "none";
+			bootbox.alert("Your feedback is submitted. Thanks");
+			return $scope.submitted;
 		}
 
 		$scope.updateCity = function()
@@ -93,7 +107,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 			}
 		$scope.getstates = function()
 			{
-				var statesUrl = baseUrl+"/ws/rest/resourceService/findByDistinctStateAndCityForGivenCountry/token/" + generateToken() + "?country=India";
+				var statesUrl = "../ws/rest/resourceService/findByDistinctStateAndCityForGivenCountry/token/" + generateToken() + "?country=India";
 				$http.get(statesUrl).success(function(stateCitiesResponse)
 					{
 						//console.log("stateCitiesResponse : " + JSON.stringify(stateCitiesResponse))
@@ -125,7 +139,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 					}).error(function(errorResponse)
 					{
 						console.log(JSON.stringify(errorResponse));
-						alert("Error While Searching the Result for States " + JSON.stringify(errorResponse));
+						//alert("Error While Searching the Result for States " + JSON.stringify(errorResponse));
 					});
 			};
 
@@ -156,7 +170,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 						resourceLimit=10;
 					}
 					//alert($scope.page +" "+resourceLimit);
-				var searchUrl = baseUrl+"/ws/rest/resourceService/getResourceEntityBasedByUponSearchCriteria/token/" + generateToken() + "?searchType=" + $scope.searchType + "&userId=" + $scope.userId + "&keyword=None&searchEntity=" + $scope.searchEntity+"&location="+$scope.location+"&resourceLimit="+resourceLimit ;
+				var searchUrl = "../ws/rest/resourceService/getResourceEntityBasedByUponSearchCriteria/token/" + generateToken() + "?searchType=" + $scope.searchType + "&userId=" + $scope.userId + "&keyword=None&searchEntity=" + $scope.searchEntity+"&location="+$scope.location+"&resourceLimit="+resourceLimit ;
 				console.log("searchUrl " + searchUrl);
 				//alert('url ' +searchUrl);
 				$http.get(searchUrl).success(function(resourceEntities)
@@ -180,7 +194,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 					}).error(function(errorResponse)
 					{
 						console.log(JSON.stringify(errorResponse));
-						alert("Error While Searching the Result for Books");
+						//alert("Error While Searching the Result for Books");
 					});
 
 			};
@@ -278,7 +292,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 				var keyword=($scope.searchkeyword === null || $scope.searchkeyword === "null" || $scope.searchkeyword === 'null' ) ? "None" : $scope.searchkeyword ;
 				$scope.searchType = ($scope.isUserLoggedIn === true) ? "user" : "generic";
 				var applyFilter=true;
-				var searchUrl = baseUrl+"/ws/rest/resourceService/getResourceEntityBasedByUponSearchCriteria/token/" + generateToken() + "?searchType=" + $scope.searchType + "&userId=" + $scope.userId + "&keyword=" + keyword + "&searchEntity=" + $scope.searchEntity+"&location="+$scope.location+"&resourceLimit="+resourceLimit ;
+				var searchUrl = "../ws/rest/resourceService/getResourceEntityBasedByUponSearchCriteria/token/" + generateToken() + "?searchType=" + $scope.searchType + "&userId=" + $scope.userId + "&keyword=" + keyword + "&searchEntity=" + $scope.searchEntity+"&location="+$scope.location+"&resourceLimit="+resourceLimit ;
 				console.log("searchUrl " + searchUrl);
 				//alert('url' +searchUrl);
 				$http.get(searchUrl).success(function(resourceEntities)
@@ -293,7 +307,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 					}).error(function(errorResponse)
 					{
 						console.log(JSON.stringify(errorResponse));
-						alert("Error While Searching the Result for Books");
+						//alert("Error While Searching the Result for Books");
 					});
 		};
 		
@@ -474,7 +488,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 					$scope.review.location= "anonymous";
 				}
 				
-				var reviewUrl=baseUrl+"/ws/rest/reviewRelatedService/saveOrUpdateReview/token/"+generateToken();
+				var reviewUrl="../ws/rest/reviewRelatedService/saveOrUpdateReview/token/"+generateToken();
 				//alert(JSON.stringify($scope.review));
 				$http.post(reviewUrl, $scope.review).success(function(data)
 					{
@@ -520,7 +534,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 			{
 				var usr = window.encodeURIComponent(user.user);
 				var password = window.encodeURIComponent(user.password);
-				var url = baseUrl+'/ws/rest/resourceService/authenticate/user/' + usr + '/password/' + password + '/socialMediaType/NONE';
+				var url = '../ws/rest/resourceService/authenticate/user/' + usr + '/password/' + password + '/socialMediaType/NONE';
 				$http.post(url, null).success(function(data)
 					{
 						$scope.headeruser = '#headeruser';
@@ -595,7 +609,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 					}
 				else
 					{
-						$http.post(baseUrl+	'/ws/rest/resourceService/updatePassword/token/test', $scope.loggedInUser).success(function(data)
+						$http.post('../ws/rest/resourceService/updatePassword/token/test', $scope.loggedInUser).success(function(data)
 							{
 								console.log('user password updated');
 								$window.localStorage.setItem("loggedInUser", JSON.stringify($scope.loggedInUser));
@@ -637,7 +651,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 				console.log('first name is ' + $scope.loggedInUser.firstName);
 				console.log('birth date is ' + $scope.loggedInUser.birthDate);
 				console.log(JSON.stringify($scope.loggedInUser));
-				$http.post(baseUrl+'/ws/rest/resourceService/saveOrUpdateUser/token/test', $scope.loggedInUser).success(function(data)
+				$http.post('../ws/rest/resourceService/saveOrUpdateUser/token/test', $scope.loggedInUser).success(function(data)
 					{
 						console.log('user profile updated');
 						$window.localStorage.setItem("loggedInUser", JSON.stringify($scope.loggedInUser));
@@ -729,7 +743,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 
 		$scope.inviteFriends = function()
 			{
-				var url = baseUrl+'/ws/rest/resourceService/inviteFriendThroughSocialMedia/socialMediaType/' + clientNetwork + '/token/test?userId=' + userId;
+				var url = '../ws/rest/resourceService/inviteFriendThroughSocialMedia/socialMediaType/' + clientNetwork + '/token/test?userId=' + userId;
 				$scope.invitation = {};
 				$scope.invitation.emailAddresses = $scope.inviteFriendLists;
 				$scope.invitation.invitationMessage = $scope.invitationMessage;
@@ -776,7 +790,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 									}
 								if (response.data.length > 0)
 									{
-										$http.post(baseUrl+'/ws/rest/resourceService/addFriendsFromSocialMedia/socialMediaType/' + clientNetwork + '/token/test?userId=' + userId, $scope.friendslistTemp).success(function(response)
+										$http.post('../ws/rest/resourceService/addFriendsFromSocialMedia/socialMediaType/' + clientNetwork + '/token/test?userId=' + userId, $scope.friendslistTemp).success(function(response)
 											{
 												for (var i = 0; i < response.length; i++)
 													{
@@ -861,7 +875,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 					{
 						socialMedialogin = true;
 						console.log(JSON.stringify(response));
-						var url = baseUrl+'/ws/rest/resourceService/getUserByEmailAddressAndSocialMediaType/socialMediaType/' + network + '/token/'+generateToken();
+						var url = '../ws/rest/resourceService/getUserByEmailAddressAndSocialMediaType/socialMediaType/' + network + '/token/'+generateToken();
 						if (network == 'google')
 							{
 								// userId=response.email;
@@ -925,7 +939,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 										$scope.user.user = userId;
 										$scope.user.socialMedia = true;
 										$scope.user.socialMediaType = network.toUpperCase();
-										$http.post(baseUrl+'/ws/rest/resourceService/saveOrUpdateUser/token/test', $scope.user).success(function(data)
+										$http.post('../ws/rest/resourceService/saveOrUpdateUser/token/test', $scope.user).success(function(data)
 											{
 												$http.get(url + "?emailAddress=" + userId).success(function(userResponse)
 													{
@@ -980,7 +994,7 @@ register.controller("prepare4greatnesstController", function($scope, $http, $win
 			$scope.signup = function(user) {
 						console.log(user.email);
 
-						var url = baseUrl+'/ws/rest/resourceService/saveOrUpdateUser/token/'+generateToken();
+						var url = '../ws/rest/resourceService/saveOrUpdateUser/token/'+generateToken();
 						$http
 								.post(url, user)
 								.success(
