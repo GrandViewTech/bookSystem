@@ -23,7 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.v2.booksys.common.util.EmailFeedbackThread;
 import com.v2tech.domain.Course;
 import com.v2tech.domain.CourseType;
+import com.v2tech.domain.TempUser;
 import com.v2tech.repository.CourseRepository;
+import com.v2tech.repository.TempUserRepository;
 import com.v2tech.services.CourseService;
 
 @Path("/utilService")
@@ -36,6 +38,9 @@ public class UtilWebService {
 	
 	@Autowired
 	CourseRepository  coucourseRepository;
+	
+	@Autowired
+	TempUserRepository tempUserRepository;
 	
 	@GET
 	@Path("/topics/subject/{subject}/token/{token}")
@@ -62,6 +67,21 @@ public class UtilWebService {
 		t.start();
 		return Response.ok().build();
 	}
+	
+	
+	@POST
+	@Path("/tempUser/email/{email}/token/{token}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response sendTempUser(@PathParam("email") String email,  @PathParam("token") String token){
+		if(email != null || email.trim().length() != 0){
+			TempUser tempUser = new TempUser();
+			tempUser.setEmail(email);
+			tempUserRepository.save(tempUser);
+		}
+		//tempUserRepository.save(arg0)
+		return Response.ok().build();
+	}
+	
 	
 	@GET
 	@Path("/courseTypes")

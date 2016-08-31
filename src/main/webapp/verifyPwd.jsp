@@ -4,16 +4,25 @@
 
 <html lang="en">
       <head>
+         <link rel="stylesheet" href="derived/css/bootstrap.min.css">
+            <link rel="stylesheet" href="derived/css/custom_v2.css?dummy=dummy">
+            <link rel="stylesheet" href="derived/css/style.css">
+            <link rel="stylesheet" href="derived/css/bootstrap.min.css">
+            <link rel="stylesheet" href="derived/css/font-awesome.min.css">
+            <link rel="stylesheet" href="derived/css/responsive.css">
+            <link rel="stylesheet" href="derived/css/menu.css">
+            <link rel="stylesheet" href="derived/css/popup.css">
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-resource.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	      <script src="http://www.w3schools.com/lib/w3data.js"></script>
             <script src="derived1/js/bootbox.js"></script>
             
             <script src="derived1/js/commonServices.js"></script>
 	     <script src="derived1/js/verifyController.js?dummy=dummy"></script>
           
-            <script src="http://www.w3schools.com/lib/w3data.js"></script>
+          
 	
       </head>
       <body id="verify" ng-app="myApp" ng-controller="verifyController" >
