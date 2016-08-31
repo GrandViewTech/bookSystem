@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.v2tech.domain.SocialMediaType;
 import com.v2tech.domain.User;
 import com.v2tech.services.UserService;
@@ -42,8 +43,10 @@ public class UserVerficationClient {
 			}
 		usr.setValidated(true);
 		userService.saveOrUpdate(usr);
+		ObjectMapper mapper = new ObjectMapper();
+		String u = mapper.writeValueAsString(usr);
 		//boolean res = userService.markUserAsValidated(actualUser, mediaType);
-		return "Msg-Success";
+		return "Msg-Success-"+u;
 		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
