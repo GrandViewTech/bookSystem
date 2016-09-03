@@ -42,32 +42,15 @@
 			<div class="menu col-md-6">
 				<div class="top topsearch">
 					<div class="search">
-						<div class="all">
-							<a href="javascript:void(0);" id="all">All <i
-								class="fa fa-caret-down" aria-hidden="true"></i></a>
-						</div>
-						<input type="text" name="search" />
+						<div class="all"></div>
+						<input type="text" name="search" ng-model="searchText" />
 						<!--<input type="text" class="hideshow" name="search" placeholder="Search"/>-->
 						<a href="javascript:void(0);" id="searchshow"><i
-							class="fa fa-search" aria-hidden="true"></i></a>
+							class="fa fa-search" aria-hidden="true"
+							ng-click="redirectAndSearch()"></i></a>
 						<div class="popup">
 							<i class="fa fa-caret-up" aria-hidden="true"></i>
-							<ul>
-								<li><a href="#">Management</a></li>
-								<li><a href="#">Engineering</a></li>
-								<li><a href="#">Medicine</a></li>
-								<li><a href="#">Law</a></li>
-								<li><a href="#">Unversities</a></li>
-								<li><a href="#">Pharmacy</a></li>
-								<li><a href="#">Computer Applications</a></li>
-								<li><a href="#">Finance & Accounts</a></li>
-								<li><a href="#">Hospitality & Tourism</a></li>
-								<li><a href="#">Media & Jourmalism</a></li>
-								<li><a href="#">Animation & Fashion</a></li>
-								<li><a href="#">School</a></li>
-								<li><a href="#">Competition</a></li>
-								<li><a href="#">Study Abroad</a></li>
-							</ul>
+
 						</div>
 					</div>
 				</div>
@@ -89,12 +72,7 @@
 								<div class="headeruserpopup">
 									<i class="fa fa-caret-up" aria-hidden="true"></i>
 									<div class="tellusright" id="tellusright">
-										
 										<h4>{{profileText}}</h4>
-										
-
-
-
 										<strong><a id="tab_trigger" href=""
 											ng-click="showInviteFriends()">Invite Friends</a></strong> <strong><a
 											id="tab_trigger" href="" ng-click="showEditProfile()">Edit
@@ -325,7 +303,8 @@
 		<header>
 			<span class="header_title">Sign in With One of Below to invite
 				friends</span> <span class="modal_close"><a href=""
-				ng-click="hideInviteFriends()"><img src="images/smallX.png" /> </a></span>
+				ng-click="hideInviteFriends()"><img src="images/smallX.png" />
+			</a></span>
 		</header>
 
 		<div class="social_icon">
@@ -497,7 +476,7 @@
 				<header class="popupHeader">
 					<span class="modal_close model_left_close"><img
 						src="images/left_arrow_white.png">
-					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
 						<span>X</span></span>
 				</header>
 				<div class="title">0-1 Years of Experience</div>
@@ -551,7 +530,7 @@
 				<header class="popupHeader">
 					<span class="modal_close model_left_close"><img
 						src="images/left_arrow_white.png">
-					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
 						<span>X</span></span>
 				</header>
 				<div class="title">1-3 Years of Experience</div>
@@ -608,7 +587,7 @@
 				<header class="popupHeader">
 					<span class="modal_close model_left_close"><img
 						src="images/left_arrow_white.png">
-					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
 						<span>X</span></span>
 				</header>
 				<div class="title">3-5 Years of Experience</div>
@@ -745,7 +724,7 @@
 				<header class="popupHeader">
 					<span class="modal_close model_left_close"><img
 						src="images/left_arrow_white.png">
-					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
 						<span>X</span></span>
 				</header>
 				<div class="title">0-1 Years of Experience</div>
@@ -799,7 +778,7 @@
 				<header class="popupHeader">
 					<span class="modal_close model_left_close"><img
 						src="images/left_arrow_white.png">
-					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
 						<span>X</span></span>
 				</header>
 				<div class="title">1-3 Years of Experience</div>
@@ -853,7 +832,7 @@
 				<header class="popupHeader">
 					<span class="modal_close model_left_close"><img
 						src="images/left_arrow_white.png">
-					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
 						<span>X</span></span>
 				</header>
 				<div class="title">3-5 Years of Experience</div>
@@ -941,7 +920,7 @@
 				<header class="popupHeader">
 					<span class="modal_close model_left_close"><img
 						src="images/left_arrow_white.png">
-					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
 						<span>X</span></span>
 				</header>
 				<div class="title">Basic behavioural interview questions</div>
@@ -976,7 +955,7 @@
 				<header class="popupHeader">
 					<span class="modal_close model_left_close"><img
 						src="images/left_arrow_white.png">
-					<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
+						<p>Back</p></span> <span class="modal_close model_right_close"><p>Close</p>
 						<span>X</span></span>
 				</header>
 				<div class="title">Basic informational interview questions</div>
@@ -1267,29 +1246,24 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-
 			$('#cv').show();
 			$('#coverletter').hide();
 			$('#interview').hide();
-
 			$('.cvnext1').click(function() {
 				$('#cv').show();
 				$('#coverletter').hide();
 				$('#interview').hide();
 			});
-
 			$('.cvnext2').click(function() {
 				$('#cv').hide();
 				$('#coverletter').show();
 				$('#interview').hide();
 			});
-
 			$('.cvnext3').click(function() {
 				$('#cv').hide();
 				$('#coverletter').hide();
 				$('#interview').show();
 			});
-
 		});
 	</script>
 	<!-- Next Prev Script -->
@@ -1401,7 +1375,6 @@
 			overlay : 0.6,
 			closeButton : ".modal_close"
 		});
-
 		$("#zerotoone_modal_trigger").leanModal({
 			top : 200,
 			overlay : 0.6,
@@ -1417,7 +1390,6 @@
 			overlay : 0.6,
 			closeButton : ".modal_close"
 		});
-
 		$("#zerotooneletter_modal_trigger").leanModal({
 			top : 200,
 			overlay : 0.6,
@@ -1433,7 +1405,6 @@
 			overlay : 0.6,
 			closeButton : ".modal_close"
 		});
-
 		$("#zerotooneinterview_modal_trigger").leanModal({
 			top : 200,
 			overlay : 0.6,
@@ -1444,7 +1415,6 @@
 			overlay : 0.6,
 			closeButton : ".modal_close"
 		});
-
 		$("#change_password_trigger").leanModal({
 			top : 200,
 			overlay : 0.6,
@@ -1455,7 +1425,6 @@
 			overlay : 0.6,
 			closeButton : ".modal_close"
 		});
-
 		$("#tab_trigger").leanModal({
 			top : 200,
 			overlay : 0.6,
@@ -1469,7 +1438,7 @@
 			document.getElementById(containerid).focus();
 		}
 	</script>
-	
+
 
 
 

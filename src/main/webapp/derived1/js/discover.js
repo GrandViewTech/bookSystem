@@ -1,3 +1,13 @@
+function generateToken() {
+	var d = new Date().getTime();
+	var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+			function(c) {
+				var r = (d + Math.random() * 16) % 16 | 0;
+				d = Math.floor(d / 16);
+				return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+			});
+	return uuid;
+};
 
 var app = angular.module('myApp', ['FeedbackService', 'UserService', 'ngImgCrop']);
 app.controller( 'discoverController',  function($scope, $http, $window, Feedback) {
@@ -485,157 +495,224 @@ app.controller( 'discoverController',  function($scope, $http, $window, Feedback
 		{
 			$("#invitefriendsmodal").hide();
 		}
-	var redirectUrl = "http://www.grovenue.co/";
-	// redirectUrl="index.html";
+	var  redirectUrl="index.html";
 	$scope.socialLogin = function(network)
 		{
-			clientNetwork = network;
-			if (network == 'google')
-				{
-					hello.init({
-						'google' : '37695017955-fdprjmfel4mtmful1tfc1rpmtc955kpm.apps.googleusercontent.com'					}, {
-						redirect_uri : redirectUrl,
-						scope : [ 'basic', 'email', 'friends' ]
-					});
-				}
-			else if (network == 'facebook')
-				{
-					hello.init({
-						'facebook' : '617188258436797'
-					}, {
-						redirect_uri : redirectUrl
-					});
-				}
-			else if (network == 'linkedin')
-				{
-					hello.init({
-						'linkedin' : '75aycy8klwf70r'
-					}, {
-						redirect_uri : redirectUrl,
-						scope : [ 'friends', 'email' ]
-					});
-				}
-			else if (network == 'twitter')
-				{
-					hello.init({
-						'twitter' : 'NftcrZDlBGbPmhIX5vPMKSyPb'
-					}, {
-						redirect_uri : redirectUrl
-					});
-				}
-			else if (network == 'instagram')
-				{
-					hello.init({
-						'instagram' : '517d3cc4879f4e7385491b4352abcdc5'
-					}, {
-						redirect_uri : redirectUrl
-					});
-				}
-			var socail = hello(network);
-			socail.login().then(function(r)
-				{
+		clientNetwork = network;
+		if (network == 'google') {
+			hello
+					.init(
+							{
+								'google' : '37695017955-fdprjmfel4mtmful1tfc1rpmtc955kpm.apps.googleusercontent.com'
+							}, {
+								redirect_uri : 'index.html',
+								scope : [ 'basic', 'email',
+										'friends' ]
+							});
+		} else if (network == 'facebook') {
+			hello.init({
+				'facebook' : '617188258436797'
+			}, {
+				redirect_uri : 'index.html'
+			});
+		} else if (network == 'linkedin') {
+			hello.init({
+				'linkedin' : '75aycy8klwf70r'
+			}, {
+				redirect_uri : 'index.html',
+				scope : [ 'friends', 'email' ]
+			});
+		} else if (network == 'twitter') {
+			hello.init({
+				'twitter' : 'NftcrZDlBGbPmhIX5vPMKSyPb'
+			}, {
+				redirect_uri : 'index.html'
+			});
+		} else if (network == 'instagram') {
+			hello
+					.init(
+							{
+								'instagram' : '517d3cc4879f4e7385491b4352abcdc5'
+							}, {
+								redirect_uri : 'index.html'
+							});
+		}
+		var socail = hello(network);
+		socail
+				.login()
+				.then(function(r) {
 					socialMedialogin = true;
 					// alert('You are signed in to '+network);
 					return socail.api('me');
-				}, function()
-				{
+				}, function() {
 					console.log(JSON.stringify(arguments))
-				}).then(function(response)
-				{
-					socialMedialogin = true;
-					console.log(JSON.stringify(response));
-					var url = '../ws/rest/resourceService/getUserByEmailAddressAndSocialMediaType/socialMediaType/' + network + '/token/token';
-					if (network == 'google')
-						{
-							// userId=response.email;
-							for (var i = 0; i < response.emails.length; i++)
-								{
-									if (response.emails[i].type === 'account')
-										{
-											userId = response.emails[i].value
-										}
+				})
+				.then(
+						function(response) {
+							socialMedialogin = true;
+							console.log(JSON
+									.stringify(response));
+							var url = '../ws/rest/resourceService/getUserByEmailAddressAndSocialMediaType/socialMediaType/'
+									+ network
+									+ '/token/'
+									+ generateToken();
+							if (network == 'google') {
+								// userId=response.email;
+								$scope.profilePic = response.picture;
+								for (var i = 0; i < response.emails.length; i++) {
+									if (response.emails[i].type === 'account') {
+										userId = response.emails[i].value
+									}
 								}
-						}
-					else if (network == 'facebook')
-						{
-							userId = response.email;
+							} else if (network == 'facebook') {
+								$scope.profilePic = response.picture;
+								userId = response.email;
+							} else if (network == 'linkedin') {
+								$scope.profilePic = response.picture;
+								userId = response.data.username
+										+ "@linkedin.com";
+							} else if (network == 'twitter') {
+								$scope.profilePic = response.picture;
+								userId = response.screen_name
+										+ "@twitter.com";
+							} else if (network == 'instagram') {
+								userId = response.data.username
+										+ "@instagram.com";
+								$scope.profilePic = response.data.profile_picture;
+							}
 
-						}
-					else if (network == 'linkedin')
-						{
-							userId = response.data.username + "@linkedin.com";
-						}
-					else if (network == 'twitter')
-						{
-							userId = response.screen_name + "@twitter.com";
-						}
-					else if (network == 'instagram')
-						{
-							userId = response.data.username + "@instagram.com";
-						}
+							$http
+									.get(
+											url
+													+ "?emailAddress="
+													+ userId)
+									.success(
+											function(
+													userResponse) {
+												if (userResponse != null
+														&& userResponse == "") {
+													$scope.user = {};
+													if (network == 'google'
+															|| network == 'facebook'
+															|| network == 'twitter'
+															|| network == 'linkedin') {
+														$scope.user.firstName = response.first_name;
+														$scope.user.lastName = response.last_name;
+														$scope.user.validated = response.verified;
+													} else if (network == 'instagram') {
+														var fullName = response.data.full_name;
+														$scope.user.fullName = fullName;
+														var names = fullName
+																.split(" ");
+														if (names.length === 1) {
+															$scope.user.firstName = names[0];
+														} else if (names.length === 2) {
+															$scope.user.firstName = names[0];
+															$scope.user.lastName = names[1];
+														}
 
-					$http.get(url + "?emailAddress=" + userId).success(function(userResponse)
-						{
-							if (userResponse == "")
-								{
-									if (network == 'google' || network == 'facebook' || network == 'twitter')
-										{
-											$scope.user.firstName = response.first_name;
-											$scope.user.lastName = response.last_name;
-											$scope.user.validated = response.verified;
-										}
-									else if (network == 'linkedin')
-										{
-											$scope.user.firstName = response.first_name;
-											$scope.user.lastName = response.last_name;
-											$scope.user.validated = response.verified;
-										}
-									else if (network == 'instagram')
-										{
-											var fullName = response.data.full_name;
-											$scope.user.fullName = fullName;
-											var names = fullName.split(" ");
-											if (names.length === 1)
-												{
-													$scope.user.firstName = names[0];
+													}
+													$scope.user.user = userId;
+													$scope.user.socialMedia = true;
+													$scope.user.socialMediaType = network
+															.toUpperCase();
+													$http
+															.post(
+																	'../ws/rest/resourceService/saveOrUpdateUser/token/test',
+																	$scope.user)
+															.success(
+																	function(
+																			data) {
+																		$http
+																				.get(
+																						url
+																								+ "?emailAddress="
+																								+ userId)
+																				.success(
+																						function(
+																								userResponse) {
+																							console
+																									.log('Create User User '
+																											+ JSON
+																													.stringify(userResponse));
+
+																							// Setting
+																							// Mapping
+																							// User
+																							// to
+																							// Normal
+																							// User
+																							$scope.loggedInUser = userResponse;
+
+																							$scope.headeruser = '#headeruser';
+																							$scope.profileDialog = '';
+																							// $scope.profileDialog
+																							// =
+																							// 'signoff';
+																							$scope.profileText = $scope.loggedInUser.firstName+ ' '+ $scope.loggedInUser.lastName;
+																							$scope.userId = $scope.loggedInUser.user;
+																							console.log('profileDialog is '+ $scope.profileDialog+ ' User Id '+ $scope.userId);
+																							$window.localStorage.setItem("loggedInUser", JSON.stringify($scope.loggedInUser));
+																						});
+																		$(
+																				"#modal")
+																				.hide();
+																		$(
+																				"#inviteFriends")
+																				.show();
+																		if ($scope.page === 'write_a_review') {
+																			$(
+																					"#submitReview")
+																					.show();
+																		}
+																		console
+																				.log('Create User');
+
+																	})
+															.error(
+																	function(
+																			errorResponse) {
+																		$scope.profilePic = "images/testimonials.png"
+																		bootbox
+																				.alert("Error Registering User From Social Media");
+																	});
+												} else {
+													console
+															.log('Create User User '
+																	+ JSON
+																			.stringify(userResponse));
+													$(
+															"inviteFriendsLogin")
+															.hide();
+													$("#modal")
+															.hide();
+													$(
+															"#inviteFriends")
+															.show();
+													$(
+															"#submitReview")
+															.show();
+													// Setting
+													// Mapping
+													// User to
+													// Normal
+													// User
+													$scope.loggedInUser = userResponse;
+													$scope.headeruser = '#headeruser';
+													$scope.profileDialog = '';
+													// $scope.profileDialog
+													// =
+													// 'signoff';
+													$scope.userId = $scope.loggedInUser.user;
+													$scope.profileText = $scope.loggedInUser.firstName
+															+ ' '
+															+ $scope.loggedInUser.lastName;
+													console.log('profileDialog is '+ $scope.profileDialog+ ' User Id '+ $scope.userId);
+													$window.localStorage.setItem("loggedInUser", JSON.stringify($scope.loggedInUser));
 												}
-											else if (names.length > 2)
-												{
-													$scope.user.firstName = names[0];
-													$scope.user.lastName = names[1];
-												}
-
-										}
-									$scope.user.user = userId;
-									$scope.user.socialMedia = true;
-									$scope.user.socialMediaType = network.toUpperCase();
-									$http.post('../ws/rest/resourceService/saveOrUpdateUser/token/test', $scope.user).success
-
-										(function(data)
-										{
-											$http.get(url + "?emailAddress=" + userId).success(function(userResponse)
-												{
-													console.log('Create User User ' + JSON.stringify
-
-															(userResponse.data));
-													$scope.user = userResponse.data;
-												});
-											$("#modal").hide();
-											$("#inviteFriends").show();
-											console.log('Create User');
-
-										});
-								}
-							else
-								{
-									console.log('Create User User ' + JSON.stringify(userResponse.data));
-									$("inviteFriendsLogin").hide();
-									$scope.user = userResponse.data;
-									$("#modal").hide();
-									$("#inviteFriends").show();
-								}
+											});
 						});
-				});
+		
 		}
 	
 	
@@ -1054,4 +1131,10 @@ app.controller( 'discoverController',  function($scope, $http, $window, Feedback
 		}); 
 	}
 	
+	$scope.redirectAndSearch = function() {
+		window.localStorage.setItem("isRedirectedSearch", true);
+		window.localStorage.setItem("redirectSearchKeyword",
+				$scope.searchText);
+		$window.location.href = 'prepare_for_greatness.html';
+	}
 });

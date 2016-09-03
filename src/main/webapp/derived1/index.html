@@ -48,9 +48,9 @@
                     <div class="top topsearch">
                         <div class="search">
                             <div class="all"> </div>
-                            <input type="text" name="search"/>
+                            <input type="text" name="search" ng-model="searchText"/>
 							<!--<input type="text" class="hideshow" name="search" placeholder="Search"/>-->
-                            <a href="javascript:void(0);" id="searchshow"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            <a href="javascript:void(0);" id="searchshow"><i class="fa fa-search" aria-hidden="true" ng-click="redirectAndSearch()"></i></a>
 							<div class="popup">
                                 <i class="fa fa-caret-up" aria-hidden="true"></i>
                               
@@ -71,9 +71,14 @@
                                     <div class="headeruserpopup">
 					<i class="fa fa-caret-up" aria-hidden="true"></i>
 					<div class="tellusright" id="tellusright">
+<<<<<<< Updated upstream
 						
 							<h4>{{profileText}}</h4>
 							
+=======
+						<div class="userimg"><img src="images/testimonials.png"></div>
+							<h4>{{profileText}}</h4>
+>>>>>>> Stashed changes
 							
 							
 			 

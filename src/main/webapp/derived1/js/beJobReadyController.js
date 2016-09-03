@@ -1,4 +1,14 @@
 var app = angular.module('myApp', ['FeedbackService', 'UserService', 'ngImgCrop']);
+function generateToken() {
+	var d = new Date().getTime();
+	var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+			function(c) {
+				var r = (d + Math.random() * 16) % 16 | 0;
+				d = Math.floor(d / 16);
+				return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+			});
+	return uuid;
+};
 
 app.controller( 'reviewsController',  function($scope, $http, $window, $filter, $sce) {
 	
@@ -26,6 +36,12 @@ app.controller( 'reviewsController',  function($scope, $http, $window, $filter, 
 app.controller( 'beJobReadyController',  function($scope, $http, $window, $filter, $sce, Feedback) {
 
 
+$scope.redirectAndSearch = function() {
+						window.localStorage.setItem("isRedirectedSearch", true);
+						window.localStorage.setItem("redirectSearchKeyword",
+								$scope.searchText);
+						$window.location.href = 'prepare_for_greatness.html';
+					}
 	
 
 	var redirectUrl = "http://www.grovenue.co/";
@@ -67,7 +83,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 				$scope.loggedInUser = user;
 				$scope.headeruser = '#headeruser';
 				$scope.profileDialog = '';
-				//$scope.profileDialog = 'signoff';
+				// $scope.profileDialog = 'signoff';
 				$scope.profileText = user.firstName+' '+user.lastName;
 				console.log('profileDialog is '+$scope.profileDialog);
 				
@@ -178,23 +194,34 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 				if(serviceResponse.responseStatus == 'User_Saved'){
 					console.log('user saved');
 					$scope.loggedInUser = user.email;
-					//alert("Congratulations. You are registered. Please check your email for the activation link"); 
+					// alert("Congratulations. You are registered. Please check
+					// your email for the activation link");
 					bootbox.alert("Congratulations. You are registered. Please check your email for the activation link");
 					$scope.closeRegDialog();
 				}
 				else if(serviceResponse.responseStatus.startsWith("User_Exists_Social_Media_")){
 					var socialMedia = serviceResponse.responseStatus.substring("User_Exists_Social_Media_".length(), serviceResponse.responseStatus.length);
-					//$("<div title='Already logged in through '"+socialMedia+"'> Please use another email id for registration</div>").dialog();
-					//Feedback.showDialog('Already logged in through '+socialMedia, 'Please use another email id for registration');
-					//alert('You had logged in earlier through '+socialMedia+'. You can continue use  '+socialMedia +' to log in or else register using a different password.');
+					// $("<div title='Already logged in through
+					// '"+socialMedia+"'> Please use another email id for
+					// registration</div>").dialog();
+					// Feedback.showDialog('Already logged in through
+					// '+socialMedia, 'Please use another email id for
+					// registration');
+					// alert('You had logged in earlier through '+socialMedia+'.
+					// You can continue use '+socialMedia +' to log in or else
+					// register using a different password.');
 					bootbox.alert('You had logged in earlier through '+socialMedia+'. You can continue use  '+socialMedia +' to log in or else register using a different password.');
 					$scope.closeRegDialog();
 				}
 				else if(serviceResponse.responseStatus == 'User_Exists_Normal'){
-					//$("<div title='Basic dialog'>You are already registered. Just Log in</div>").dialog();
-					//Feedback.showDialog('Basic dialog', 'You are already registered. Just Log in');
+					// $("<div title='Basic dialog'>You are already registered.
+					// Just Log in</div>").dialog();
+					// Feedback.showDialog('Basic dialog', 'You are already
+					// registered. Just Log in');
 					
-					//alert('You are already registered. Just Log in using your email Id. In case you have forgotten your password, use the Forget Password link');
+					// alert('You are already registered. Just Log in using your
+					// email Id. In case you have forgotten your password, use
+					// the Forget Password link');
 					bootbox.alert('You are already registered. Just Log in using your email Id. In case you have forgotten your password, use the Forget Password link');
 					$scope.closeRegDialog();
 				}
@@ -266,7 +293,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 				$scope.$apply();
 			}
 			else{
-				//do nothing
+				// do nothing
 			}
 		}); 
 	}
@@ -285,7 +312,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 	}
 	
 	
-	//tab
+	// tab
 	
 	$scope.showEditProfile = function(){
 		document.getElementById('headeruser').style.display = "none";
@@ -311,7 +338,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 		
 	}
 	
-	/******* Added By Sagar ********/
+	/** ***** Added By Sagar ******* */
 	$scope.myImage='';
 	var usr = $.extend({},$scope.loggedInUser);
 	$scope.defImage = usr.base64Image;
@@ -348,7 +375,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 		reader.readAsDataURL(file);
 	};
 	angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
-	/******* Added By Sagar ********/
+	/** ***** Added By Sagar ******* */
 	
 	
 	$scope.updateUserProfile = function(){
@@ -503,153 +530,220 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 	
 	$scope.socialLogin = function(network)
 		{
-			clientNetwork = network;
-			if (network == 'google')
-				{
-					hello.init({
-						'google' : '37695017955-fdprjmfel4mtmful1tfc1rpmtc955kpm.apps.googleusercontent.com'					}, {
-						redirect_uri : redirectUrl,
-						scope : [ 'basic', 'email', 'friends' ]
-					});
-				}
-			else if (network == 'facebook')
-				{
-					hello.init({
-						'facebook' : '617188258436797'
-					}, {
-						redirect_uri : redirectUrl
-					});
-				}
-			else if (network == 'linkedin')
-				{
-					hello.init({
-						'linkedin' : '75aycy8klwf70r'
-					}, {
-						redirect_uri : redirectUrl,
-						scope : [ 'friends', 'email' ]
-					});
-				}
-			else if (network == 'twitter')
-				{
-					hello.init({
-						'twitter' : 'NftcrZDlBGbPmhIX5vPMKSyPb'
-					}, {
-						redirect_uri : redirectUrl
-					});
-				}
-			else if (network == 'instagram')
-				{
-					hello.init({
-						'instagram' : '517d3cc4879f4e7385491b4352abcdc5'
-					}, {
-						redirect_uri : redirectUrl
-					});
-				}
-			var socail = hello(network);
-			socail.login().then(function(r)
-				{
+		clientNetwork = network;
+		if (network == 'google') {
+			hello
+					.init(
+							{
+								'google' : '37695017955-fdprjmfel4mtmful1tfc1rpmtc955kpm.apps.googleusercontent.com'
+							}, {
+								redirect_uri : 'index.html',
+								scope : [ 'basic', 'email',
+										'friends' ]
+							});
+		} else if (network == 'facebook') {
+			hello.init({
+				'facebook' : '617188258436797'
+			}, {
+				redirect_uri : 'index.html'
+			});
+		} else if (network == 'linkedin') {
+			hello.init({
+				'linkedin' : '75aycy8klwf70r'
+			}, {
+				redirect_uri : 'index.html',
+				scope : [ 'friends', 'email' ]
+			});
+		} else if (network == 'twitter') {
+			hello.init({
+				'twitter' : 'NftcrZDlBGbPmhIX5vPMKSyPb'
+			}, {
+				redirect_uri : 'index.html'
+			});
+		} else if (network == 'instagram') {
+			hello
+					.init(
+							{
+								'instagram' : '517d3cc4879f4e7385491b4352abcdc5'
+							}, {
+								redirect_uri : 'index.html'
+							});
+		}
+		var socail = hello(network);
+		socail
+				.login()
+				.then(function(r) {
 					socialMedialogin = true;
 					// alert('You are signed in to '+network);
 					return socail.api('me');
-				}, function()
-				{
+				}, function() {
 					console.log(JSON.stringify(arguments))
-				}).then(function(response)
-				{
-					socialMedialogin = true;
-					console.log(JSON.stringify(response));
-					var url = '../ws/rest/resourceService/getUserByEmailAddressAndSocialMediaType/socialMediaType/' + network + '/token/token';
-					if (network == 'google')
-						{
-							// userId=response.email;
-							for (var i = 0; i < response.emails.length; i++)
-								{
-									if (response.emails[i].type === 'account')
-										{
-											userId = response.emails[i].value
-										}
+				})
+				.then(
+						function(response) {
+							socialMedialogin = true;
+							console.log(JSON
+									.stringify(response));
+							var url = '../ws/rest/resourceService/getUserByEmailAddressAndSocialMediaType/socialMediaType/'
+									+ network
+									+ '/token/'
+									+ generateToken();
+							if (network == 'google') {
+								// userId=response.email;
+								$scope.profilePic = response.picture;
+								for (var i = 0; i < response.emails.length; i++) {
+									if (response.emails[i].type === 'account') {
+										userId = response.emails[i].value
+									}
 								}
-						}
-					else if (network == 'facebook')
-						{
-							userId = response.email;
+							} else if (network == 'facebook') {
+								$scope.profilePic = response.picture;
+								userId = response.email;
+							} else if (network == 'linkedin') {
+								$scope.profilePic = response.picture;
+								userId = response.data.username
+										+ "@linkedin.com";
+							} else if (network == 'twitter') {
+								$scope.profilePic = response.picture;
+								userId = response.screen_name
+										+ "@twitter.com";
+							} else if (network == 'instagram') {
+								userId = response.data.username
+										+ "@instagram.com";
+								$scope.profilePic = response.data.profile_picture;
+							}
 
-						}
-					else if (network == 'linkedin')
-						{
-							userId = response.data.username + "@linkedin.com";
-						}
-					else if (network == 'twitter')
-						{
-							userId = response.screen_name + "@twitter.com";
-						}
-					else if (network == 'instagram')
-						{
-							userId = response.data.username + "@instagram.com";
-						}
+							$http
+									.get(
+											url
+													+ "?emailAddress="
+													+ userId)
+									.success(
+											function(
+													userResponse) {
+												if (userResponse != null
+														&& userResponse == "") {
+													$scope.user = {};
+													if (network == 'google'
+															|| network == 'facebook'
+															|| network == 'twitter'
+															|| network == 'linkedin') {
+														$scope.user.firstName = response.first_name;
+														$scope.user.lastName = response.last_name;
+														$scope.user.validated = response.verified;
+													} else if (network == 'instagram') {
+														var fullName = response.data.full_name;
+														$scope.user.fullName = fullName;
+														var names = fullName
+																.split(" ");
+														if (names.length === 1) {
+															$scope.user.firstName = names[0];
+														} else if (names.length === 2) {
+															$scope.user.firstName = names[0];
+															$scope.user.lastName = names[1];
+														}
 
-					$http.get(url + "?emailAddress=" + userId).success(function(userResponse)
-						{
-							if (userResponse == "")
-								{
-									if (network == 'google' || network == 'facebook' || network == 'twitter')
-										{
-											$scope.user.firstName = response.first_name;
-											$scope.user.lastName = response.last_name;
-											$scope.user.validated = response.verified;
-										}
-									else if (network == 'linkedin')
-										{
-											$scope.user.firstName = response.first_name;
-											$scope.user.lastName = response.last_name;
-											$scope.user.validated = response.verified;
-										}
-									else if (network == 'instagram')
-										{
-											var fullName = response.data.full_name;
-											$scope.user.fullName = fullName;
-											var names = fullName.split(" ");
-											if (names.length === 1)
-												{
-													$scope.user.firstName = names[0];
+													}
+													$scope.user.user = userId;
+													$scope.user.socialMedia = true;
+													$scope.user.socialMediaType = network
+															.toUpperCase();
+													$http
+															.post(
+																	'../ws/rest/resourceService/saveOrUpdateUser/token/test',
+																	$scope.user)
+															.success(
+																	function(
+																			data) {
+																		$http
+																				.get(
+																						url
+																								+ "?emailAddress="
+																								+ userId)
+																				.success(
+																						function(
+																								userResponse) {
+																							console
+																									.log('Create User User '
+																											+ JSON
+																													.stringify(userResponse));
+
+																							// Setting
+																							// Mapping
+																							// User
+																							// to
+																							// Normal
+																							// User
+																							$scope.loggedInUser = userResponse;
+
+																							$scope.headeruser = '#headeruser';
+																							$scope.profileDialog = '';
+																							// $scope.profileDialog
+																							// =
+																							// 'signoff';
+																							$scope.profileText = $scope.loggedInUser.firstName+ ' '+ $scope.loggedInUser.lastName;
+																							$scope.userId = $scope.loggedInUser.user;
+																							console.log('profileDialog is '+ $scope.profileDialog+ ' User Id '+ $scope.userId);
+																							$window.localStorage.setItem("loggedInUser", JSON.stringify($scope.loggedInUser));
+																						});
+																		$(
+																				"#modal")
+																				.hide();
+																		$(
+																				"#inviteFriends")
+																				.show();
+																		if ($scope.page === 'write_a_review') {
+																			$(
+																					"#submitReview")
+																					.show();
+																		}
+																		console
+																				.log('Create User');
+
+																	})
+															.error(
+																	function(
+																			errorResponse) {
+																		$scope.profilePic = "images/testimonials.png"
+																		bootbox
+																				.alert("Error Registering User From Social Media");
+																	});
+												} else {
+													console
+															.log('Create User User '
+																	+ JSON
+																			.stringify(userResponse));
+													$(
+															"inviteFriendsLogin")
+															.hide();
+													$("#modal")
+															.hide();
+													$(
+															"#inviteFriends")
+															.show();
+													$(
+															"#submitReview")
+															.show();
+													// Setting
+													// Mapping
+													// User to
+													// Normal
+													// User
+													$scope.loggedInUser = userResponse;
+													$scope.headeruser = '#headeruser';
+													$scope.profileDialog = '';
+													// $scope.profileDialog
+													// =
+													// 'signoff';
+													$scope.userId = $scope.loggedInUser.user;
+													$scope.profileText = $scope.loggedInUser.firstName
+															+ ' '
+															+ $scope.loggedInUser.lastName;
+													console.log('profileDialog is '+ $scope.profileDialog+ ' User Id '+ $scope.userId);
+													$window.localStorage.setItem("loggedInUser", JSON.stringify($scope.loggedInUser));
 												}
-											else if (names.length > 2)
-												{
-													$scope.user.firstName = names[0];
-													$scope.user.lastName = names[1];
-												}
-
-										}
-									$scope.user.user = userId;
-									$scope.user.socialMedia = true;
-									$scope.user.socialMediaType = network.toUpperCase();
-									$http.post('../ws/rest/resourceService/saveOrUpdateUser/token/test', $scope.user).success
-
-										(function(data)
-										{
-											$http.get(url + "?emailAddress=" + userId).success(function(userResponse)
-												{
-													console.log('Create User User ' + JSON.stringify
-
-															(userResponse.data));
-													$scope.user = userResponse.data;
-												});
-											$("#modal").hide();
-											$("#inviteFriends").show();
-											console.log('Create User');
-
-										});
-								}
-							else
-								{
-									console.log('Create User User ' + JSON.stringify(userResponse.data));
-									$("inviteFriendsLogin").hide();
-									$scope.user = userResponse.data;
-									$("#modal").hide();
-									$("#inviteFriends").show();
-								}
+											});
 						});
-				});
 		}
 	
 <!-- Begin Be job stuff.... -->
@@ -667,7 +761,7 @@ console.log(' ordermodeServiceCosting '+ordermodeServiceCosting);
 				$scope.serviceCosting = jQuery.parseJSON(ordermodeServiceCosting);
 				$scope.orderType = $window.localStorage.getItem('orderModeOrderType');
 				$scope.orderType = window.encodeURIComponent($scope.orderType);
-				//$scope.$apply();
+				// $scope.$apply();
 
 				bootbox.confirm("You had chosen some services to buy. Dow you wish to proceed to pay. If yes click the Pay button?", function(result) 	
 
@@ -676,8 +770,8 @@ console.log(' ordermodeServiceCosting '+ordermodeServiceCosting);
 						if(result == true){
 							
 							document.getElementById('payButton').style.display = "";
-							//window.scrollTo(0, document.height);
-							//window.location.hash = '#payButton';
+							// window.scrollTo(0, document.height);
+							// window.location.hash = '#payButton';
 							var body = document.body,
 						    html = document.documentElement;
 
@@ -716,7 +810,8 @@ console.log(' ordermodeServiceCosting '+ordermodeServiceCosting);
 		$scope.serviceCosting.serviceType=serviceType;
 		$scope.serviceCosting.package=package;
 		$scope.serviceCosting.price = price;
-		//document.getElementById('buildYourCV_zerotoonemodal').style.display = "none";
+		// document.getElementById('buildYourCV_zerotoonemodal').style.display =
+		// "none";
 		document.getElementById('coverletter').style.display = "none";
 		
 			document.getElementById('carte_options').style.display = "";
@@ -835,7 +930,8 @@ console.log(' ordermodeServiceCosting '+ordermodeServiceCosting);
 			"<tr><td>Cover Letter</td><td>"+$scope.serviceCosting.coverLetterAmount+"</td></tr>"+
 			"<tr><td>Total Price</td><td>"+$scope.serviceCosting.totalPrice+"</td></tr></table>";
 			
-			//bootbox.confirm("Total Price is "+totalPrice+". To proceed to pay, click on OK or else click Cancel", function(result) {
+			// bootbox.confirm("Total Price is "+totalPrice+". To proceed to
+			// pay, click on OK or else click Cancel", function(result) {
 			bootbox.confirm("Here are the order details - <br>"+tableHtml+"<br>. To confirm click OK or else click Cancel", function(result) {
 		 console.log('result is '+result);
 			if(result == true){
@@ -847,7 +943,7 @@ console.log(' ordermodeServiceCosting '+ordermodeServiceCosting);
 				window.location.reload();
 			}
 			else{
-				//do nothing
+				// do nothing
 			}
 		}); 
 			
