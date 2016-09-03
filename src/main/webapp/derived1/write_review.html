@@ -19,6 +19,7 @@
             <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-resource.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+            <script src="https://davidstutz.github.io/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
             <script src="js/bootbox.js"></script>
             <script src="js/hello.js"></script>
@@ -33,11 +34,11 @@
             <script type="text/javascript" src="js/custom-scripts.js"></script>
             <script type="text/javascript" src="js/menu.js"></script>
             <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
-	       <script src="js/commonServices.js"></script>
+	        <script src="js/commonServices.js"></script>
 	     
-	     <script src="http://www.w3schools.com/lib/w3data.js"></script>
-	 <script src="js/ng-img-crop.js"></script>
-	 
+	        <script src="http://www.w3schools.com/lib/w3data.js"></script>
+	        <script src="js/ng-img-crop.js"></script>
+	        
             <script src="js/prepare4greatnesstController.js?dummy=dummy"></script>
       </head>
       <body ng-app="myApp" ng-controller="prepare4greatnesstController" ng-init="init('write_a_review',false)">
@@ -47,35 +48,20 @@
                     <a href="index.html"><img src="images/colorlogo.png" /></a>
                 </div>
 
-                <div class="menu col-md-6" style="visibility:hidden">
-                    <div class="top topsearch">
-                        <div class="search">
-                            <div class="all"><a href="javascript:void(0);" id="all">All <i class="fa fa-caret-down" aria-hidden="true"></i></a> </div>
-                            <input type="text" name="search"/>
+                <div class="menu col-md-6"> 
+                <div class="top topsearch">
+                    <div class="search">
+                            <div class="all"> </div>
+                            <input type="text" name="search" ng-model="searchText"/>
                             <!--<input type="text" class="hideshow" name="search" placeholder="Search"/>-->
-                            <a href="javascript:void(0);" id="searchshow"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            <a href="javascript:void(0);" id="searchshow"><i class="fa fa-search" aria-hidden="true" ng-click="redirectAndSearch()"></i></a>
                             <div class="popup">
                                 <i class="fa fa-caret-up" aria-hidden="true"></i>
-                                <!-- <ul>
-                                    <li><a href="#">Management</a></li>
-                                    <li><a href="#">Engineering</a></li>
-                                    <li><a href="#">Medicine</a></li>
-                                    <li><a href="#">Law</a></li>
-                                    <li><a href="#">Unversities</a></li>
-                                    <li><a href="#">Pharmacy</a></li>
-                                    <li><a href="#">Computer Applications</a></li>
-                                    <li><a href="#">Finance & Accounts</a></li>
-                                    <li><a href="#">Hospitality & Tourism</a></li>
-                                    <li><a href="#">Media & Jourmalism</a></li>
-                                    <li><a href="#">Animation & Fashion</a></li>
-                                    <li><a href="#">School</a></li>
-                                    <li><a href="#">Competition</a></li>
-                                    <li><a href="#">Study Abroad</a></li>           
-                                </ul> -->
+                              
                             </div>
                         </div>
-                    </div>
                 </div>
+            </div>
                 <div class="menu col-md-3">
                     <div class="top">
                         <div class="login-reg"> 
@@ -368,7 +354,7 @@
         <div class="container auto-search">
                <div class="col-md-12" style="padding:25px">
                   <div class="col-md-10 preparesearchbox">
-                     <form name="search" action="javascript:void(0);" id="booksearch">
+                     <form name="search" action="javascript:void(0);" id="booksearch" ng-submit="searchBar()">
                         <input type="text" ng-model="searchkeyword" name="autosearch"
                         list="autosearch" placeholder="SEARCH GROVENUE" />
                     </form>
@@ -379,23 +365,29 @@
                   </div>
                </div>
             </div>
-
+        <!-- Loader -->
+        <div id="loadingDiv" class="loader" style="display:none"></div>
          <!-- FeedBack And Tack A Break -->
+         <div class="no_result_found" id="no_result_found" style="display:none">
+             <div align="center"> No Result Found</div>
+         </div>
          <div class="greatnessfor" id="review_books">
             <div class="prepare_for_greatness_slider">
                <div class="slider-wrap">
-                  <div id ="reviewSliderId" class="slider4 container" style="height:480px">
+                  <!-- <div id ="reviewSliderId" class="slider4 container" style="height:480px"> -->
+                  <div id ="reviewSliderId" class="slider4 container">
                   <!-- <div id ="reviewSliderId" class="container" style="height:800px"> -->
                      <ul >
                         <li ng-repeat="slide in resourceEntities">
-                           <div class="book_first_slide" style="width:245px ; height:460px " >
-                              <a href="javascript:void(0);" class="reviewpgnext1">
-                              <img ng-src="{{slide.bigUrl}}" ng-click="updateSelectedInstance(slide)" style="height:245px ; width:245px"/></a>
+                           <div class="book_first_slide" style="width:250px ; height:460px " >
+                              <a for="reviewId" href="javascript:void(0);" class="reviewpgnext1">
+                              <img ng-src="{{slide.bigUrl}}" ng-click="updateSelectedInstance(slide)" style="height:215px ; width:265px"/></a>
                               <div >{{slide.name}}</div>
-                              <div ng-show="showBook">Author : {{slide.author}}</div>
-                              <div ng-show="showCoachingClass">Branch : {{slide.branch}}</div>
-                              <div class="prepare_rateing" style="width :245px ;height:20px">
-                                 <fieldset class="rating">
+                              <!-- <div ng-show="showBook">Author : {{slide.author}}</div> -->
+                              <!-- <div ng-show="showCoachingClass">Branch : {{slide.branch}}</div> -->
+                              <!-- <div class="prepare_rateing" style="width :245px ;height:20px"> -->
+                              <div class="prepare_rateing" ">
+                                 <fieldset class="rating" style="margin:0px; display: inline-block;  text-align:center">
                                     <input type="radio" id={{'star5_'+slide.identity}}  ng-model="slide.rating"  ng-value=5  /><label class = "full" for={{'star5_'+slide.identity}} title="Awesome - 5 stars"></label>
                                     <input type="radio" id={{'star4_'+slide.identity}}  ng-model="slide.rating"  ng-value=4 /><label class = "full" for={{'star4_'+slide.identity}} title="Pretty good - 4 stars"></label>
                                     <input type="radio" id={{'star3_'+slide.identity}}   ng-model="slide.rating"  ng-value=3 /><label class = "full" for={{'star3_'+slide.identity}}  title="Meh - 3 stars"></label>
@@ -415,13 +407,13 @@
                </div>
             </div>
             <!--Carousel Slider -->
-            <div class="review_book_details" id="reviewsliderfirst">
+            <div id="reviewId" class="review_book_details" id="reviewsliderfirst">
                <div class="container reviewtoparrow">
-                  <h1>Review Book</h1>
+                  <h1>Review {{reviewEntity}}</h1>
                   <div class="booktoparrow"><i class="fa fa-caret-up" aria-hidden="true"></i></div>
                   <div class="containerpadding">
                      <div class="leftbooks col-md-4">
-                        <div class="books"><img ng-src="{{resource.bigUrl}}" /></div>
+                        <div class="books"><img ng-src="{{resource.bigUrl}}" style="height:245px ; width:245px"/></div>
                      </div>
                      <div class="rightdetails col-md-8">
                         <div class="bookname">Name : {{resource.name}}</div>
@@ -430,7 +422,7 @@
                         <div ng-show="showBook" id="publisher" class="publisher">Publisher: {{resource.publication}}</div>
                         <div ng-show="showBook" id="isbn" class="isbn">ISBN : {{resource.identity}}</div>
                         <div ng-show="showBook"  id="mrp" class="mrp">MRP : {{resource.priceTag}} </div>
-                        <div ng-show="showBook"  id="mrp" class="mrp">EDITION : {{resource.year}} </div>
+                        <div ng-show="showBook"  id="mrp" class="mrp">Edition : {{resource.year}} </div>
                         <div ng-show="showCoachingClass"  id="mrp" class="mrp">Series : {{resource.stream}} </div>
                         <div ng-show="showCoachingClass"  id="mrp" class="mrp">Year Founded : {{resource.year}} </div>
                         <div ng-show="showCoachingClass"  id="mrp" class="mrp">WebSite : {{resource.website}} </div>
@@ -447,7 +439,7 @@
                </div>
                <div  id="submitReview" class="container reviewtoparrow" style="display:none">
                   <div class="leftbooks leftratingbooks col-md-4">
-                     <div class="title">Rating</div>
+                     <div class="title">Overall Rating</div>
                      <fieldset class="rating">       
                         <input type="radio" id="star5" name="rating" value="5" ng-model="resource.rating" /><label for="star5" title="Rocks!">5 stars</label>
                         <input type="radio" id="star4" name="rating" value="4" ng-model="resource.rating" /><label for="star4" title="Pretty good">4 stars</label>
@@ -457,21 +449,19 @@
                         /><label for="star1" title="Sucks big time">1 star</label>
                      </fieldset>
                     <div class="reviewankar"><a href="#">view preview</a></div>
-                     <!-- <div class="title">Top 3 Topics</div>
-                     <div class="reviewankar">
-                        <select>
-                           <option value="select">Physic</option>
-                           <option value="select">Maths</option>
-                           <option value="select">Chemistry</option>
-                        </select>
-                     </div>
+                     <div class="title">Top 3 Topics</div>
+                     <div id="selectTopics" class="reviewankar">
+                            <!-- puneet -->
+                            <!-- ng-options="city for city in cities"></select> -->
+                            <select ng-model="selectTopics" ng-options="topic for topic in topics | orderBy "></select>
+                    </div>
                      <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
                      <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
-                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>  -->
+                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
                   </div> 
                   <div class="rightdetails reviewrightdetails col-md-8">
                      <div class="left_rating">
-                        <div class="rate_title">{{identity1}} {{ratingScope.identity1}}</div>
+                        <div class="rate_title">{{identity1}}{{ratingScope.identity1}}</div>
                         <div class="count-rating">                        
                            <div class="rate1" ng-click="updateIdentity1(1)"></div>
                            <div class="rate2" ng-click="updateIdentity1(2)"></div>
@@ -479,14 +469,9 @@
                            <div class="rate4" ng-click="updateIdentity1(4)"></div>
                            <div class="rate5" ng-click="updateIdentity1(5)"></div>
                            <div class="rate6" ng-click="updateIdentity1(6)"></div>
-                           <div class="rate7" ng-click="updateIdentity1(7)"></div>
-                           <div class="rate8" ng-click="updateIdentity1(8)"></div>
-                           <div class="rate9" ng-click="updateIdentity1(9)"></div>
-                           <div class="rate10" ng-click="updateIdentity1(10)"></div>
-                           <!-- <div>{{effectiveness}}</div> -->
-                           <span><a href="">i</a></span>
+                           <span data-toggle="tooltip" data-placement="top" title="{{toolTip1}}"><a href="#">i</a></span>
                         </div>
-                        <div class="rate_title">{{identity2}} {{ratingScope.identity2}}</div>
+                        <div class="rate_title">{{identity2}}{{ratingScope.identity2}}</div>
                         <div class="count-rating">
                            <div class="rate1" ng-click="updateIdentity2(1)"></div>
                            <div class="rate2" ng-click="updateIdentity2(2)"></div>
@@ -494,15 +479,11 @@
                            <div class="rate4" ng-click="updateIdentity2(4)"></div>
                            <div class="rate5" ng-click="updateIdentity2(5)"></div>
                            <div class="rate6" ng-click="updateIdentity2(6)"></div>
-                           <div class="rate7" ng-click="updateIdentity2(7)"></div>
-                           <div class="rate8" ng-click="updateIdentity2(8)"></div>
-                           <div class="rate9" ng-click="updateIdentity2(9)"></div>
-                           <div class="rate10" ng-click="updateIdentity2(10)"></div>
-                           <span><a href="#">i</a></span>
+                           <span data-toggle="tooltip" data-placement="top" title="{{toolTip2}}"><a href="#">i</a></span>
                         </div>
                      </div>
                      <div class="right_rating">
-                        <div class="rate_title">{{identity3}} {{ratingScope.identity3}}</div>
+                        <div class="rate_title">{{identity3}}{{ratingScope.identity3}}</div>
                         <div class="count-rating">
                            <div class="rate1" ng-click="updateIdentity3(1)"></div>
                            <div class="rate2" ng-click="updateIdentity3(2)"></div>
@@ -510,14 +491,9 @@
                            <div class="rate4" ng-click="updateIdentity3(4)"></div>
                            <div class="rate5" ng-click="updateIdentity3(5)"></div>
                            <div class="rate6" ng-click="updateIdentity3(6)"></div>
-                           <div class="rate7" ng-click="updateIdentity3(7)"></div>
-                           <div class="rate8" ng-click="updateIdentity3(8)"></div>
-                           <div class="rate9" ng-click="updateIdentity3(9)"></div>
-                           <div class="rate10" ng-click="updateIdentity3(10)"></div>
-                           <!-- <div>{{solution}}</div> -->
-                           <span><a href="#">i</a></span>
+                           <span data-toggle="tooltip" data-placement="bottom" title="{{toolTip3}}"><a href="#" >i</a></span>
                         </div>
-                        <div class="rate_title">{{identity4}} {{ratingScope.identity4}}</div>
+                        <div class="rate_title">{{identity4}}{{ratingScope.identity4}}</div>
                         <div class="count-rating">
                            <div class="rate1" ng-click="updateIdentity4(1)"></div>
                            <div class="rate2" ng-click="updateIdentity4(2)"></div>
@@ -525,12 +501,7 @@
                            <div class="rate4" ng-click="updateIdentity4(4)"></div>
                            <div class="rate5" ng-click="updateIdentity4(5)"></div>
                            <div class="rate6" ng-click="updateIdentity4(6)"></div>
-                           <div class="rate7" ng-click="updateIdentity4(7)"></div>
-                           <div class="rate8" ng-click="updateIdentity4(8)"></div>
-                           <div class="rate9" ng-click="updateIdentity4(9)"></div>
-                           <div class="rate10" ng-click="updateIdentity4(10)"></div>
-                           <!-- <div>{{example}}</div> -->
-                           <span><a href="#">i</a></span>
+                           <span data-toggle="tooltip" data-placement="bottom" title="{{toolTip4}}"><a href="#" >i</a></span>
                         </div>
                      </div>                  
                      <div class="customer_review"><textarea rows="5" ng-model="review.comment"placeholder="How to best use the book, overall comments, suggestions for improvement"></textarea></div>
@@ -1301,45 +1272,47 @@
          </div>
          <!--============ Digital Tools ============-->
          <div class="footer">
-            <div class="container">
-               <div class="logo"><a href="index.html"><img src="images/colorlogo.png" /></a></div>
-               <div class="menu partners col-md-3">
-                  <div class="title">About Us</div>
-                  <ul>
-                     <li><a href="#">Team</a></li>
-                     <li><a href="#">Careers</a></li>
-                     <li><a href="#">Blog</a></li>
-                  </ul>
-               </div>
-               <div class="partners col-md-3">
-                  <div class="title">Partners</div>
-                  <ul>
-                     <li><a href="#">Advertise With Us</a></li>
-                     <li><a href="#">Contact Us</a></li>
-                  </ul>
-               </div>
-               <div class="others col-md-3">
-                  <div class="title">Others</div>
-                  <ul>
-                     <li><a href="#">FAQS</a></li>
-                     <li><a href="#">Privacy Policy</a></li>
-                     <li><a href="#">Terms & Conditions</a></li>
-                  </ul>
-               </div>
-               <!--<div class="experience">
-                  <div class="title">For Mobile Experience</div>
-                  <img src="images/googleplay.png" />
-                  </div>-->
-               <div class="followus col-md-3">
-                  <div class="title">Follow Us On</div>
-                  <ul>
-                     <li><a href="#"><img src="images/facebook.png" /></a></li>
-                     <li><a href="#"><img src="images/twitter.png" /></a></li>
-                     <li><a href="#"><img src="images/instra.jpg" /></a></li>
-                  </ul>
-               </div>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="images/colorlogo.png" /></a>
             </div>
-         </div>
+            <div class="menu partners col-md-3">
+                <div class="title">About Us</div>
+                <ul>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="partners col-md-3">
+                <div class="title">Partners</div>
+                <ul>
+                    <li><a href="advertise_with_us.html">Advertise With Us</a></li>
+                    <li><a href="contact_us.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="others col-md-3">
+                <div class="title">Others</div>
+                <ul>
+                    <li><a href="faqs.html">FAQS</a></li>
+                    <li><a href="privacy_policy.html">Privacy Policy</a></li>
+                    <li><a href="terms_conditions.html">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <!--<div class="experience">
+                    <div class="title">For Mobile Experience</div>
+                    <img src="images/googleplay.png" />
+                </div>-->
+            <div class="followus col-md-3">
+                <div class="title">Follow Us On</div>
+                <ul>
+                    <li><a href="#"><img src="images/facebook.png" /></a></li>
+                    <li><a href="#"><img src="images/twitter.png" /></a></li>
+                    <li><a href="#"><img src="images/instra.jpg" /></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
          <!-- Footer -->
          <div class="horizonral"></div>
          <!--===================== Personal Information, Education, Services Tab Popup Form =====================-->
