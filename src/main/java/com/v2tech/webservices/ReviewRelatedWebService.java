@@ -1,5 +1,6 @@
 package com.v2tech.webservices;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.ws.rs.Consumes;
@@ -13,9 +14,12 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.v2tech.domain.BookMarkedResource;
 import com.v2tech.domain.ResourceUnderReview;
 import com.v2tech.domain.Review;
+import com.v2tech.repository.BookedMarkedResourceRepository;
 import com.v2tech.repository.ResourceUnderReviewRepository;
+import com.v2tech.services.BookedMarkedResourceService;
 import com.v2tech.services.ReviewService;
 
 @Path("/reviewRelatedService")
@@ -29,6 +33,28 @@ public class ReviewRelatedWebService
 		
 		@Autowired
 		ResourceUnderReviewRepository	resourceUnderReviewRepository;
+		
+		@Autowired
+		BookedMarkedResourceService bookedMarkedResourceService;
+		
+		@Autowired
+		BookedMarkedResourceRepository bookedMarkedResourceRepository;
+		
+		@POST
+		@Path("/createBookmark/token/{token}")
+		@Produces(MediaType.APPLICATION_JSON)
+		@Consumes(MediaType.APPLICATION_JSON)
+		public BookMarkedResource createBookmark(BookMarkedResource bookMarkedResource,  @PathParam("token") String token){
+			return bookedMarkedResourceService.saveOrUpdate(bookMarkedResource);
+		}
+		
+		@GET
+		@Path("/fetchBookMarks/user/{user}/token/{token}")
+		@Produces(MediaType.APPLICATION_JSON)
+		@Consumes(MediaType.APPLICATION_JSON)
+		public List<BookMarkedResource> fetchBookMarks(@PathParam("user") String user,  @PathParam("token") String token){
+			return bookedMarkedResourceRepository.fetchAllResourcesForUser(user);
+		}
 		
 		@POST
 		@Path("/saveOrUpdateReview/token/{token}")

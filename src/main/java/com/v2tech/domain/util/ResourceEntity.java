@@ -325,6 +325,7 @@ public class ResourceEntity implements Serializable
 			
 		public ResourceEntity(CoachingClass coachingClass, List<Review> reviews)
 			{
+			setResourceEntity(KeywordEntity.COACHING_CLASSES.getEntity());
 				setDescription(coachingClass.getDescription());
 				setName(coachingClass.getName());
 				setBranch(coachingClass.getBranch());
@@ -359,6 +360,7 @@ public class ResourceEntity implements Serializable
 		public ResourceEntity(ResultRow coachingClass, List<Review> reviews)
 			{
 				Object desc = coachingClass.getAdditionalProperties().get("description");
+				setResourceEntity(KeywordEntity.COACHING_CLASSES.getEntity());
 				setDescription((desc != null) ? (String) desc : null);
 				setName(coachingClass.getName());
 				setBranch(coachingClass.getBranch());
@@ -392,6 +394,7 @@ public class ResourceEntity implements Serializable
 			
 		public ResourceEntity(DigitalTool digitalTool, List<Review> reviews)
 			{
+			setResourceEntity(KeywordEntity.DIGITAL_RESOURCES.getEntity());
 				setDescription(digitalTool.getWhatDoesItDo());
 				setName(digitalTool.getName());
 				setBigUrl("images/digitalResource.png");

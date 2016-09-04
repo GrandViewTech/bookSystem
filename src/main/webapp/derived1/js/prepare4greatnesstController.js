@@ -76,6 +76,64 @@ register
 					$scope.showDigitalResource = false;
 					$scope.submitted = "";
 					$scope.reviewEntity = "Book";
+					
+					$scope.bookmarkedResources = {};
+					
+					
+					
+					$scope.bookMark = function(){
+					var bookmark = {};
+					bookmark.resourceId = $scope.resource.uniqueKey;
+					bookmark.resourceType = $scope.resource.resourceEntity;
+					bookmark.userId = $scope.loggedInUser.user;
+					bookmark.name = $scope.resource.name;
+					
+					
+					
+					var url = "../ws/rest/reviewRelatedService/createBookmark/token/test";
+					
+						$http
+								.post(url, bookmark)
+								.success(
+										function(response) {
+											bootbox.alert("Your resource has been bookmarked. You can check out your bookmarks by going to the 'Services' tab of your profile section. Thanks");
+										})
+								.error(
+									function(errorResponse) {
+									bootbox.alert("Sorry! We are facing some problems in bookmarking your resource right now. Please try later!");
+									console.log(JSON.stringify(errorResponse));
+								});
+					
+					}
+					
+					$scope.fetchBookmarks = function(){
+					
+					var user = $window.localStorage.getItem('loggedInUser');
+					var usr = '';
+						if (user === 'null' || user === "null") {
+							return;
+						}
+						else{
+							user = jQuery.parseJSON(user);
+							usr = user.user;
+						}
+						
+					
+						var url = "../ws/rest/reviewRelatedService/fetchBookMarks/user/"+usr+"/token/test";
+							$http
+								.get(url)
+								.success(
+										function(response) {
+											$scope.bookmarkedResources = response;
+										})
+								.error(
+									function(errorResponse) {
+									
+									console.log(JSON.stringify(errorResponse));
+								});
+					}
+					
+					$scope.fetchBookmarks();
 
 					$scope.bookToolTips = function() {
 						$scope.toolTip1 = "Does this book cover all fundamental concepts required to master the topics? Does the book succeed in making concepts crystal clear without much external help? Is the book easy to understand ?";
@@ -405,7 +463,10 @@ register
 					$scope.changeActive = function(entityName) {
 						console.log("entityName " + entityName)
 						if (entityName === 'coachingClass') {
-						document.getElementById('topicsContainer').style.display = "none";
+							if(document.getElementById('topicsContainer') != null){
+								document.getElementById('topicsContainer').style.display = "none";
+							}
+						
 						
 							$scope.reviewEntity = "coaching Class";
 							$scope.identity1 = "Faculty";
@@ -431,7 +492,9 @@ register
 							$scope.coachingclassesToolTips();
 
 						} else if (entityName === 'digitalResource') {
-							document.getElementById('topicsContainer').style.display = "";
+							if(document.getElementById('topicsContainer') != null){
+								document.getElementById('topicsContainer').style.display = "none";
+							}
 							$scope.review.resourceReviewedType = "DIGITAL_RESOURCE";
 							$scope.reviewEntity = "Digital Resource";
 							$scope.identity1 = "Personalization";
@@ -455,7 +518,9 @@ register
 							$scope.digitalResourceToolTips();
 
 						} else if (entityName === 'book') {
-							document.getElementById('topicsContainer').style.display = "";
+							if(document.getElementById('topicsContainer') != null){
+								document.getElementById('topicsContainer').style.display = "none";
+							}
 							$scope.review.resourceReviewedType = "BOOK";
 							$scope.reviewEntity = "Book";
 							$scope.identity1 = "Effectiveness";
@@ -695,6 +760,10 @@ register
 											if (u.userType == 'ADMIN') {
 												$window.location.href = 'AdminShortCuts.html';
 											}
+											
+											
+											//fetch bookmarks for profiles
+											$scope.fetchBookmarks();
 										})
 								.error(
 										function(data, status, headers, config) {
