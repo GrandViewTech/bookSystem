@@ -117,10 +117,11 @@ public class DigitalToolWebService
 										digitalTool = digitalToolService.saveOrUpdate(digitalTool);
 										if (objectWriter != null)
 											{
-												if (resourceDir != null && resourceDir.trim().length() > 0)
+												try
 													{
-														try
+														if (resourceDir != null && resourceDir.trim().length() > 0)
 															{
+																
 																File file = new File(resourceDir + File.separator + name + ".json");
 																if (file.exists())
 																	{
@@ -133,11 +134,12 @@ public class DigitalToolWebService
 																fileWriter.flush();
 																fileWriter.close();
 															}
-														catch (Exception exception)
-															{
-																exception.printStackTrace();
-															}
 													}
+												catch (Exception exception)
+													{
+														exception.printStackTrace();
+													}
+													
 											}
 									}
 									
