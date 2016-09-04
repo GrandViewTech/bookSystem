@@ -248,9 +248,5 @@ public class Review
 			this.score = score;
 		}
 			
-		
-<<<<<<< HEAD
-=======
-		
->>>>>>> c250b523a21269050dc6cd06578c4c33b34cb665
+
 	}

@@ -39,7 +39,7 @@ public class ResourceEntity implements Serializable
 		private List<Review>		reviews				= new LinkedList<Review>();
 		private String				identity			= "";
 		private String				detailUrl			= "";
-		private String				subject				= "";
+		
 		private String				website				= "";
 		private Integer				rateCount			= 0;
 		private String[]			indicatorArray1		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
@@ -320,10 +320,7 @@ public class ResourceEntity implements Serializable
 				setYear(book.getYear());
 				setUniqueKey(book.getISBN());
 				setSubject(book.getSubject());
-<<<<<<< HEAD
-				
-=======
->>>>>>> c250b523a21269050dc6cd06578c4c33b34cb665
+
 			}
 			
 		public ResourceEntity(CoachingClass coachingClass, List<Review> reviews)
@@ -494,13 +491,7 @@ public class ResourceEntity implements Serializable
 				this.website = website;
 			}
 
-		public String getSubject() {
-			return subject;
-		}
-
-		public void setSubject(String subject) {
-			this.subject = subject;
-		}
+		
 
 		public String getResultCriteria() {
 			return resultCriteria;
