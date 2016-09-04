@@ -2,6 +2,8 @@ package com.v2tech.services;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -22,6 +24,7 @@ import com.v2tech.base.V2GenericException;
 import com.v2tech.domain.CountryStateCity;
 import com.v2tech.domain.util.CountryStateResult;
 import com.v2tech.domain.util.GoogleApiResponse;
+import com.v2tech.domain.util.PinCodeApiResponse;
 import com.v2tech.repository.CountryStateCityRepository;
 
 @Service
@@ -36,8 +39,9 @@ public class CountryStateCityService
 		@Autowired
 		private CountryStateCityRepository	countryStateCityRepository;
 		
-		private static ObjectMapper			objectMapper			= null;
-		private static ObjectReader			googleApiResponseReader	= null;
+		private static ObjectMapper			objectMapper				= null;
+		private static ObjectReader			googleApiResponseReader		= null;
+		private static ObjectReader			pinCodeApiResponseReader	= null;
 		
 		static
 			{
@@ -45,6 +49,7 @@ public class CountryStateCityService
 					{
 						objectMapper = new ObjectMapper();
 						googleApiResponseReader = objectMapper.readerFor(GoogleApiResponse.class);
+						pinCodeApiResponseReader = objectMapper.readerFor(PinCodeApiResponse.class);
 					}
 					
 				catch (Exception exception)
@@ -82,7 +87,7 @@ public class CountryStateCityService
 									{
 										countryStateCity.setReferenceId(UUID.randomUUID().toString());
 										String pincode = countryStateCity.getZipcode();
-										GoogleApiResponse googleApiResponse = findGeoLocationByPinCode(pincode);
+										GoogleApiResponse googleApiResponse = findGeoLocationByPinCode(pincode, 1);
 										if (googleApiResponse != null)
 											{
 												countryStateCity.setLongitude(googleApiResponse.getLongitude());
@@ -128,8 +133,8 @@ public class CountryStateCityService
 				Map<String, List<String>> result = new LinkedHashMap<>();
 				for (CountryStateResult countryStateResult : countryStateResults)
 					{
-						String key = countryStateResult.getState();
-						String value = countryStateResult.getCity();
+						String key = countryStateResult.getCity();
+						String value = countryStateResult.getRegion();
 						if (result.containsKey(key))
 							{
 								List<String> values = result.get(key);
@@ -169,11 +174,34 @@ public class CountryStateCityService
 				return countryStateCity;
 			}
 			
-		public GoogleApiResponse findGeoLocationByPinCode(String pincode)
+		/*
+		 * type 1 for pincode
+		 * type 2 for address ( Branch Name)
+		 * 
+		 */
+		public GoogleApiResponse findGeoLocationByPinCode(String pincode, int type)
 			{
 				try
 					{
-						String url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + pincode + "&key=" + googleMapApiKey;
+						if (type == 3)
+							{
+								String url = "http://www.getpincode.info/api/pincode?q=" + URLEncoder.encode( pincode,StandardCharsets.UTF_8.name());
+								URL obj = new URL(url);
+								HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+								con.setRequestMethod("GET");
+								con.setRequestProperty("Content-Type", "application/json");
+								int responseCode = con.getResponseCode();
+								PinCodeApiResponse response = null;
+								if (responseCode == 200)
+									{
+										response = pinCodeApiResponseReader.readValue(con.getInputStream());
+									}
+								if (response != null)
+									{
+										pincode = response.getPincode();
+									}
+							}
+						String url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + URLEncoder.encode( pincode,StandardCharsets.UTF_8.name()) + "&key=" + googleMapApiKey;
 						URL obj = new URL(url);
 						HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 						con.setRequestMethod("GET");

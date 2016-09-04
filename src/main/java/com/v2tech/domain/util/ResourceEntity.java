@@ -39,7 +39,8 @@ public class ResourceEntity implements Serializable
 		private List<Review>		reviews				= new LinkedList<Review>();
 		private String				identity			= "";
 		private String				detailUrl			= "";
-		private String website="";
+		private String				subject				= "";
+		private String				website				= "";
 		private Integer				rateCount			= 0;
 		private String[]			indicatorArray1		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
 		private String[]			indicatorArray2		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
@@ -314,6 +315,7 @@ public class ResourceEntity implements Serializable
 				setReviews(reviews);
 				setYear(book.getYear());
 				setUniqueKey(book.getISBN());
+				setSubject(book.getSubject());
 			}
 			
 		public ResourceEntity(CoachingClass coachingClass, List<Review> reviews)
@@ -344,6 +346,40 @@ public class ResourceEntity implements Serializable
 				Integer rating = (int) ((coachingClass.getAverageRating() == null) ? 1 : Math.round(coachingClass.getAverageRating()));
 				setRating(rating.intValue());
 				setYear(coachingClass.getYearFounded());
+				setWebsite(coachingClass.getWebsite());
+				setStream(coachingClass.getCourses());
+			}
+			
+		public ResourceEntity(ResultRow coachingClass, List<Review> reviews)
+			{
+				Object desc = coachingClass.getAdditionalProperties().get("description");
+				setDescription((desc != null) ? (String) desc : null);
+				setName(coachingClass.getName());
+				setBranch(coachingClass.getBranch());
+				setAddress(coachingClass.getAddress());
+				setDetailUrl(coachingClass.getWebsite());
+				setIdentity(coachingClass.getName() + "-" + coachingClass.getBranch() + "-");
+				String readMore = getReadMore();
+				if ((coachingClass.getTypeOfProgram() != null) && (coachingClass.getTypeOfProgram().trim().length() > 0))
+					{
+						readMore += "Programs" + coachingClass.getTypeOfProgram() + "\n";
+					}
+				if ((coachingClass.getTargetStudents() != null) && (coachingClass.getTargetStudents().trim().length() > 0))
+					{
+						readMore += "Target Students : " + coachingClass.getTargetStudents() + "\n";
+					}
+				//				if ((coachingClass.getAverageBatchSize() != null) && (coachingClass.getAverageBatchSize() != 0))
+				//					{
+				//						readMore += "Average BatchSize : " + coachingClass.getAverageBatchSize();
+				//					}
+				setUniqueKey(coachingClass.getName());
+				setSmallUrl("images/class.jpg");
+				setReadMore(readMore);
+				setReviews(reviews);
+				Integer rating = (int) ((coachingClass.getAverageRating() == null) ? 1 : Math.round(coachingClass.getAverageRating()));
+				setRating(rating.intValue());
+				Object yearFounded = coachingClass.getAdditionalProperties().get("yearFounded");
+				setYear((yearFounded != null) ? (String) yearFounded : null);
 				setWebsite(coachingClass.getWebsite());
 				setStream(coachingClass.getCourses());
 			}
@@ -427,27 +463,35 @@ public class ResourceEntity implements Serializable
 					}
 				this.year = year;
 			}
-
+			
 		public String getStream()
 			{
 				return stream;
 			}
-
+			
 		public void setStream(String stream)
 			{
 				this.stream = stream;
 			}
-
+			
 		public String getWebsite()
 			{
 				return website;
 			}
-
+			
 		public void setWebsite(String website)
 			{
 				this.website = website;
 			}
 			
-		
+		public String getSubject()
+			{
+				return subject;
+			}
+			
+		public void setSubject(String subject)
+			{
+				this.subject = subject;
+			}
 			
 	}

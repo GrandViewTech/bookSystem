@@ -1,17 +1,61 @@
 package com.v2tech.services;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.v2tech.base.V2GenericException;
 import com.v2tech.domain.CoachingClass;
+import com.v2tech.domain.util.AddNode;
+import com.v2tech.domain.util.Neo4jIndexNode;
+import com.v2tech.domain.util.Neo4jSearchResult;
+import com.v2tech.domain.util.Neo4jSearchStatement;
+import com.v2tech.domain.util.Neo4jSearchStatements;
+import com.v2tech.domain.util.ResultRow;
 import com.v2tech.repository.CoachingClassRepository;
 
 @Service
+@PropertySource("classpath:bookSys.properties")
 public class CoachingClassService1
 	{
+		
+		private static ObjectMapper	objectMapper	= null;
+		private static ObjectWriter	objectWriter	= null;
+		
+		static
+			{
+				try
+					{
+						objectMapper = new ObjectMapper();
+						objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
+					}
+				catch (Exception exception)
+					{
+						exception.printStackTrace();
+					}
+			}
+			
+		@Value("${addNodeToSpatialPlugin}")
+		private String					addNodeToSpatialPlugin;
+		
+		@Value("${addNodeToSpatialPluginApiUrl}")
+		private String					addNodeToSpatialPluginApiUrl;
+		
+		@Value("${updateNeo4jSpatialIndexes}")
+		private String					updateNeo4jSpatialIndexes;
 		
 		@Autowired
 		private CoachingClassRepository	coachingClassRepository;
@@ -85,6 +129,13 @@ public class CoachingClassService1
 					{
 						//This is a new record
 						coachngClass.setKeyword(coachngClass.getZip() + "," + coachngClass.getBranch() + "," + coachngClass.getCity() + "," + coachngClass.getName() + "," + coachngClass.getcStreams() + "," + coachngClass.getAverageBatchSize() + "," + coachngClass.getrExams() + "," + coachngClass.getCourses());
+						String pincode = coachngClass.getZip();
+						com.v2tech.domain.util.GoogleApiResponse googleApiResponse = countryStateCityService.findGeoLocationByPinCode(pincode, 1);
+						if (googleApiResponse != null)
+							{
+								coachngClass.setLat(googleApiResponse.getlatitude());
+								coachngClass.setLon(googleApiResponse.getLongitude());
+							}
 						coachingClass = coachingClassRepository.save(coachngClass);
 						return coachingClass;
 					}
@@ -137,14 +188,15 @@ public class CoachingClassService1
 						Integer rateCount = coachingClass.getRateCount();
 						coachingClass.setAverageRating((averageRating == null) ? 2.5 : averageRating);
 						coachingClass.setRateCount((rateCount == null) ? 1 : rateCount);
-						String pincode = coachingClass.getZip();
-						com.v2tech.domain.util.GoogleApiResponse googleApiResponse = countryStateCityService.findGeoLocationByPinCode(pincode);
+						String pincode = coachngClass.getZip();
+						com.v2tech.domain.util.GoogleApiResponse googleApiResponse = countryStateCityService.findGeoLocationByPinCode(pincode, 1);
 						if (googleApiResponse != null)
 							{
 								coachingClass.setLat(googleApiResponse.getlatitude());
 								coachingClass.setLon(googleApiResponse.getLongitude());
 							}
 						coachingClass = coachingClassRepository.save(coachingClass);
+						addNodeToIndex(coachingClass.getId());
 						return coachingClass;
 					}
 			}
@@ -166,6 +218,118 @@ public class CoachingClassService1
 			{
 				city = "(?i)" + city.trim();
 				return coachingClassRepository.findCoachingClassByCity(city, limit);
+			}
+			
+		public List<ResultRow> findCoachingClassForLocality(String location, String keyword, Double radius)
+			{
+				List<ResultRow> resultRows = new ArrayList<ResultRow>();
+				Neo4jSearchStatement neo4jSearchStatement = new Neo4jSearchStatement();
+				com.v2tech.domain.util.GoogleApiResponse googleApiResponse = countryStateCityService.findGeoLocationByPinCode(location, 2);
+				Double latitude = googleApiResponse.getlatitude();
+				Double longitude = googleApiResponse.getLongitude();
+				if (googleApiResponse != null)
+					{
+						if (keyword != null && keyword.trim().length() > 0)
+							{
+								if (keyword.equalsIgnoreCase("None") == false)
+									{
+										keyword = "(?i).*" + keyword + ".*";
+										neo4jSearchStatement.setStatement("start coachingClass = node:geom('withinDistance:[" + latitude + "," + longitude + "," + radius + "]') MATCH coachingClass WHERE coachingClass.keyword='" + keyword + "' return coachingClass");
+									}
+								else
+									{
+										neo4jSearchStatement.setStatement("start coachingClass = node:geom('withinDistance:[" + latitude + "," + longitude + "," + radius + "]') MATCH coachingClass	 return coachingClass");
+									}
+							}
+						else
+							{
+								neo4jSearchStatement.setStatement("start coachingClass = node:geom('withinDistance:[" + latitude + "," + longitude + "," + radius + "]') MATCH coachingClass	 return coachingClass");
+							}
+						try
+							{
+								List<Neo4jSearchStatement> searchStatements = new ArrayList<Neo4jSearchStatement>();
+								searchStatements.add(neo4jSearchStatement);
+								Neo4jSearchStatements neo4jSearchStatements = new Neo4jSearchStatements();
+								neo4jSearchStatements.setStatements(searchStatements);
+								String jsonStr = objectWriter.writeValueAsString(neo4jSearchStatements);
+								URL obj = new URL(updateNeo4jSpatialIndexes);
+								HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+								con.setRequestMethod("POST");
+								con.setRequestProperty("Content-Type", "application/json");
+								con.setDoOutput(true);
+								DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+								wr.writeBytes(jsonStr);
+								wr.flush();
+								wr.close();
+								int responseCode = con.getResponseCode();
+								if (responseCode == 200)
+									{
+										BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+										String inputLine;
+										StringBuffer response = new StringBuffer();
+										while ((inputLine = bufferedReader.readLine()) != null)
+											{
+												response.append(inputLine);
+											}
+										bufferedReader.close();
+										Neo4jSearchResult neo4jSearchResult = objectMapper.readValue(response.toString(), Neo4jSearchResult.class);
+										resultRows = neo4jSearchResult.getResultRow();
+									}
+							}
+						catch (Exception exception)
+							{
+								exception.printStackTrace();
+							}
+					}
+				return resultRows;
+			}
+			
+		private void addNodeToIndex(Long nodeId)
+			{
+				try
+					{
+						String url = addNodeToSpatialPlugin;
+						url = url.replaceAll("nodeId", nodeId.toString());
+						AddNode addNode = new AddNode();
+						addNode.setLayer("geom");
+						addNode.setNode(url);
+						String jsonStr = objectWriter.writeValueAsString(addNode);
+						URL obj = new URL(addNodeToSpatialPluginApiUrl);
+						HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+						con.setRequestMethod("POST");
+						con.setRequestProperty("Content-Type", "application/json");
+						con.setDoOutput(true);
+						DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+						wr.writeBytes(jsonStr);
+						wr.flush();
+						wr.close();
+						int responseCode = con.getResponseCode();
+						if (responseCode == 200)
+							{
+								System.out.println("Node Id :" + nodeId + " Successfully Added To Spatial Index");
+								Neo4jIndexNode neo4jIndexNode = new Neo4jIndexNode("CoachingClass");
+								jsonStr = objectWriter.writeValueAsString(neo4jIndexNode);
+								obj = new URL(updateNeo4jSpatialIndexes);
+								con = (HttpURLConnection) obj.openConnection();
+								con.setRequestMethod("POST");
+								con.setRequestProperty("Content-Type", "application/json");
+								con.setDoOutput(true);
+								wr = new DataOutputStream(con.getOutputStream());
+								wr.writeBytes(jsonStr);
+								wr.flush();
+								wr.close();
+								int responseCode1 = con.getResponseCode();
+								if (responseCode1 == 200)
+									{
+										System.out.println("Node Id :" + nodeId + " Successfully Updated The Spatial Indexes");
+									}
+									
+							}
+					}
+				catch (Exception exception)
+					{
+						exception.printStackTrace();
+					}
 			}
 			
 	}

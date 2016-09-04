@@ -1,5 +1,8 @@
 package com.v2tech.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
@@ -9,25 +12,26 @@ public class Review
 	{
 		
 		@GraphId
-		private Long	id;
-		private String	resourceIdentity					= "";
-		private String	comment								= "";
-		private String	reviewedBy							= "";
-		private Double	reviewScore							= 0.0;
+		private Long			id;
+		private String			resourceIdentity					= "";
+		private String			comment								= "";
+		private String			reviewedBy							= "";
+		private Double			reviewScore							= 0.0;
 		@Transient
-		private Integer	score;
-		private Integer	visualTools							= 0;
-		private Integer	solvedExamples						= 0;
-		private String	resourceReviewedType				= RESOURCE_TYPE.BOOK.getType();
-		private Integer	solutionToPracticeProblems			= 0;
-		private Integer	effectivenessAndEaseOfCommunication	= 0;
-		private Integer	easyOfUse							= 0;
-		private Integer	studyMaterial						= 0;
-		private Integer	faculty								= 0;
-		private Integer	personalization						= 0;
-		private Integer	infrastructure						= 0;
-		private Integer	interactivity						= 0;
-		private String	location;
+		private Integer			score;
+		private Integer			visualTools							= 0;
+		private Integer			solvedExamples						= 0;
+		private String			resourceReviewedType				= RESOURCE_TYPE.BOOK.getType();
+		private Integer			solutionToPracticeProblems			= 0;
+		private Integer			effectivenessAndEaseOfCommunication	= 0;
+		private Integer			easyOfUse							= 0;
+		private Integer			studyMaterial						= 0;
+		private Integer			faculty								= 0;
+		private Integer			personalization						= 0;
+		private Integer			infrastructure						= 0;
+		private Integer			interactivity						= 0;
+		private String			location;
+		private List<String>	reviewiedSubjects					= new ArrayList<String>();
 		
 		public Long getId()
 			{
@@ -212,12 +216,24 @@ public class Review
 					}
 				return score;
 			}
-			
+
+		public List<String> getReviewiedSubjects()
+			{
+				return reviewiedSubjects;
+			}
+
+		public void setReviewiedSubjects(List<String> reviewiedSubjects)
+			{
+				this.reviewiedSubjects = reviewiedSubjects;
+			}
+
 		@Override
 		public String toString()
 			{
 				return "Review [id=" + id + ", resourceIdentity=" + resourceIdentity + ", comment=" + comment + ", reviewedBy=" + reviewedBy + ", reviewScore=" + reviewScore + ", score=" + score + ", visualTools=" + visualTools + ", solvedExamples=" + solvedExamples + ", resourceReviewedType=" + resourceReviewedType + ", solutionToPracticeProblems=" + solutionToPracticeProblems + ", effectivenessAndEaseOfCommunication=" + effectivenessAndEaseOfCommunication + ", easyOfUse=" + easyOfUse
-				        + ", studyMaterial=" + studyMaterial + ", faculty=" + faculty + ", personalization=" + personalization + ", infrastructure=" + infrastructure + ", interactivity=" + interactivity + ", location=" + location + "]";
+				        + ", studyMaterial=" + studyMaterial + ", faculty=" + faculty + ", personalization=" + personalization + ", infrastructure=" + infrastructure + ", interactivity=" + interactivity + ", location=" + location + ", reviewiedSubjects=" + reviewiedSubjects + "]";
 			}
 			
+		
+		
 	}

@@ -1,3 +1,4 @@
+
 package com.v2tech.services;
 
 import java.util.ArrayList;
@@ -143,6 +144,13 @@ public class ReviewService
 					}
 				else
 					{
+						List<String> reviewedSubjects=review.getReviewiedSubjects();
+						if(reviewedSubjects.isEmpty())
+							{
+								reviewedSubjects.add("Physic");
+								reviewedSubjects.add("Chemistry");
+								reviewedSubjects.add("Maths");
+							}
 						review.setReviewScore(reviewScore);
 						reviewRepository.save(review);
 					}
