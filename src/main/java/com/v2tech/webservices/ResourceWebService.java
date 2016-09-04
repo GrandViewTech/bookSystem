@@ -32,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.v2.booksys.common.util.EmailHtmlThread;
 import com.v2.booksys.common.util.EmailThread;
 import com.v2.booksys.common.util.UtilService;
+import com.v2.booksys.onet.data.answers.Results.Result;
 import com.v2tech.base.V2GenericException;
 import com.v2tech.domain.Book;
 import com.v2tech.domain.CoachingClass;
@@ -44,6 +45,7 @@ import com.v2tech.domain.SocialMediaType;
 import com.v2tech.domain.User;
 import com.v2tech.domain.UserType;
 import com.v2tech.domain.util.ResourceEntity;
+import com.v2tech.domain.util.ResultRow;
 import com.v2tech.domain.util.ServiceResponse;
 import com.v2tech.services.BookService;
 import com.v2tech.services.CoachingClassService1;
@@ -544,38 +546,42 @@ public class ResourceWebService
 										coachingClassKeywords.add(keyword);
 									}
 								Set<String> uniqueKeys = new LinkedHashSet<String>();
+								String resourceReviewedType = RESOURCE_TYPE.COACHING_CLASS.getType();
 								for (String coachingClassKeyword : coachingClassKeywords)
 									{
 										Set<CoachingClass> coachingClasses = null;
-										if (location.trim().equalsIgnoreCase("location"))
+										if (location.trim().equalsIgnoreCase("location") == true)
 											{
 												coachingClasses = coachingClassService.searchCoachingClassByGenericKeyword(coachingClassKeyword, keywordLimit);
+												for (CoachingClass coachingClass : coachingClasses)
+													{
+														String resourceIdentity = (coachingClass.getBranch() + "." + coachingClass.getName()).toLowerCase().trim();
+														if (uniqueKeys.contains(resourceIdentity) == false)
+															{
+																List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(resourceReviewedType, resourceIdentity, reviewLimit);
+																ResourceEntity resourceEntity = new ResourceEntity(coachingClass, reviews);
+																resourceEntities.add(resourceEntity);
+																uniqueKeys.add(resourceIdentity);
+															}
+													}
 											}
 										else
 											{
-												if (coachingClassKeyword.trim().length() == 0)
+												List<ResultRow> resultRows = coachingClassService.findCoachingClassForLocality(location, keyword, 5.0);
+												for (ResultRow resultRow : resultRows)
 													{
-														coachingClasses = coachingClassService.findCoachingClassByCity(location, resourceLimit);
-													}
-												else
-													{
-														coachingClasses = coachingClassService.findCoachingClassByKeywordAndCity(coachingClassKeyword, location, resourceLimit);
-													}
-													
-											}
-										String resourceReviewedType = RESOURCE_TYPE.COACHING_CLASS.getType();
-										for (CoachingClass coachingClass : coachingClasses)
-											{
-												String resourceIdentity = (coachingClass.getBranch() + "." + coachingClass.getName()).toLowerCase().trim();
-												if (uniqueKeys.contains(resourceIdentity) == false)
-													{
-														List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(resourceReviewedType, resourceIdentity, reviewLimit);
-														ResourceEntity resourceEntity = new ResourceEntity(coachingClass, reviews);
-														resourceEntities.add(resourceEntity);
-														uniqueKeys.add(resourceIdentity);
+														String resourceIdentity = (resultRow.getBranch() + "." + resultRow.getName()).toLowerCase().trim();
+														if (uniqueKeys.contains(resourceIdentity) == false)
+															{
+																List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(resourceReviewedType, resultRow.getName(), reviewLimit);
+																ResourceEntity resourceEntity = new ResourceEntity(resultRow, reviews);
+																resourceEntities.add(resourceEntity);
+																uniqueKeys.add(resourceIdentity);
+															}
 													}
 											}
 									}
+									
 								break;
 							}
 						case "digitalResource":

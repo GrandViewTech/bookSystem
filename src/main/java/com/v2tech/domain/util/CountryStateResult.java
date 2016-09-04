@@ -6,9 +6,9 @@ import org.springframework.data.neo4j.annotation.ResultColumn;
 @QueryResult
 public interface CountryStateResult
 	{
-		@ResultColumn("state")
-		String getState();
-		
 		@ResultColumn("city")
 		String getCity();
+		
+		@ResultColumn("region")
+		String getRegion();
 	}
