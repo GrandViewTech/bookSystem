@@ -11,6 +11,47 @@ function generateToken() {
 
 var app = angular.module('myApp', ['FeedbackService', 'UserService', 'ngImgCrop']);
 app.controller( 'discoverController',  function($scope, $http, $window, Feedback) {
+
+	$scope.bookmarkedResources = {};
+	
+		$scope.fetchBookmarks = function(){
+					
+		var user = $window.localStorage.getItem('loggedInUser');
+		var usr = '';
+			if (user === 'null' || user === "null") {
+				return;
+			}
+			else{
+				user = jQuery.parseJSON(user);
+				usr = user.user;
+			}
+			
+		
+			var url = "../ws/rest/reviewRelatedService/fetchBookMarks/user/"+usr+"/token/test";
+				$http
+					.get(url)
+					.success(
+							function(response) {
+								$scope.bookmarkedResources = response;
+							})
+					.error(
+						function(errorResponse) {
+						
+						console.log(JSON.stringify(errorResponse));
+					});
+		}
+		
+		$scope.fetchBookmarks();
+		
+		$scope.goToBookmarkResource = function(resourceName, resourceType){
+			bootbox.alert("Redirection to bookmarked resource coming soon!");
+						// window.localStorage.setItem("isRedirectedSearch", true);
+						//window.localStorage.setItem("redirectSearchKeyword", resourceName);
+						//window.localStorage.setItem("resourceType", resourceType);
+						//$window.location.href = 'prepare_for_greatness.html';
+		}
+
+
 	<!-- Begin user sign/profile/social/etc related stuff
 	
 	$scope.feedback = {};	
@@ -218,6 +259,8 @@ app.controller( 'discoverController',  function($scope, $http, $window, Feedback
 				if(u.userType == 'ADMIN'){
 					$window.location.href = 'AdminShortCuts.html';
 				}
+				
+			$scope.fetchBookmarks();
 		}).
 		error(function (data, status, headers, config) {
                         

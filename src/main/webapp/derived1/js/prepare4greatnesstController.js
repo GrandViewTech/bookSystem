@@ -96,6 +96,7 @@ register
 								.post(url, bookmark)
 								.success(
 										function(response) {
+											$scope.fetchBookmarks ();
 											bootbox.alert("Your resource has been bookmarked. You can check out your bookmarks by going to the 'Services' tab of your profile section. Thanks");
 										})
 								.error(
@@ -134,6 +135,14 @@ register
 					}
 					
 					$scope.fetchBookmarks();
+					
+					$scope.goToBookmarkResource = function(resourceName, resourceType){
+						bootbox.alert("Redirection to bookmarked resource coming soon!");
+					// window.localStorage.setItem("isRedirectedSearch", true);
+						//window.localStorage.setItem("redirectSearchKeyword", resourceName);
+						//window.localStorage.setItem("resourceType", resourceType);
+						//$window.location.href = 'prepare_for_greatness.html';
+					}
 
 					$scope.bookToolTips = function() {
 						$scope.toolTip1 = "Does this book cover all fundamental concepts required to master the topics? Does the book succeed in making concepts crystal clear without much external help? Is the book easy to understand ?";
@@ -314,6 +323,93 @@ register
 							});
 						}
 					}
+					
+					$scope.changeActive = function(entityName) {
+						console.log("entityName " + entityName)
+						if (entityName === 'coachingClass') {
+							if(document.getElementById('topicsContainer') != null){
+								document.getElementById('topicsContainer').style.display = "none";
+							}
+						
+						
+							$scope.reviewEntity = "coaching Class";
+							$scope.identity1 = "Faculty";
+							$scope.identity2 = "Study Materials";
+							$scope.identity3 = "Personalization";
+							$scope.identity4 = "Infrastructure";
+							$scope.searchEntity = 'coachingClass';
+							$scope.showBook = false;
+							$scope.showCoachingClass = true;
+							$scope.showDigitalResource = false;
+							$scope.review.resourceReviewedType = "COACHING_CLASS";
+							$("#selectbook").removeClass("active");
+							$("#selectDigitalResource").removeClass("active");
+							$("#selectCoachingClass").addClass("active");
+							// $scope.searchCoachingClassBasedUponLocation();
+							$("#coachingclasses").show();
+							$("#classCaret").show();
+							$("#bookCaret").hide();
+							$("#digitalCaret").hide();
+							$("#classCaretDown").show();
+							$("#bookCaretDown").hide();
+							$("#digitalCaretDown").hide();
+							$scope.coachingclassesToolTips();
+
+						} else if (entityName === 'digitalResource') {
+							if(document.getElementById('topicsContainer') != null){
+								document.getElementById('topicsContainer').style.display = "none";
+							}
+							$scope.review.resourceReviewedType = "DIGITAL_RESOURCE";
+							$scope.reviewEntity = "Digital Resource";
+							$scope.identity1 = "Personalization";
+							$scope.identity2 = "Interactivity";
+							$scope.identity3 = "Ease of Use";
+							$scope.identity4 = "Study Materials";
+							$scope.searchEntity = 'digitalResource';
+							$scope.showBook = false;
+							$scope.showCoachingClass = false;
+							$scope.showDigitalResource = true;
+							$("#selectbook").removeClass("active");
+							$("#selectDigitalResource").addClass("active");
+							$("#selectCoachingClass").removeClass("active");
+							$scope.searchBar();
+							$("#classCaret").hide();
+							$("#bookCaret").hide();
+							$("#digitalCaret").show();
+							$("#classCaretDown").hide();
+							$("#bookCaretDown").hide();
+							$("#digitalCaretDown").show();
+							$scope.digitalResourceToolTips();
+
+						} else if (entityName === 'book') {
+							if(document.getElementById('topicsContainer') != null){
+								document.getElementById('topicsContainer').style.display = "none";
+							}
+							$scope.review.resourceReviewedType = "BOOK";
+							$scope.reviewEntity = "Book";
+							$scope.identity1 = "Effectiveness";
+							$scope.identity2 = "Visual Aides";
+							$scope.identity3 = "Solutions to practical problems";
+							$scope.identity4 = "Real-world examples";
+							$scope.searchEntity = 'book';
+							$scope.showBook = true;
+							$scope.showCoachingClass = false;
+							$scope.showDigitalResource = false;
+							$("#selectbook").addClass("active");
+							$("#selectDigitalResource").removeClass("active");
+							$("#selectCoachingClass").removeClass("active");
+							$scope.searchBar();
+							$("#classCaret").hide();
+							$("#bookCaret").show();
+							$("#digitalCaret").hide();
+							$("#classCaretDown").hide();
+							$("#bookCaretDown").show();
+							$("#digitalCaretDown").hide();
+							$scope.bookToolTips();
+						}
+					};
+					
+					
 					$scope.init = function(page, isReload) {
 						$scope.nearMe();
 						$("#classCaret").hide();
@@ -374,6 +470,17 @@ register
 									.getItem("redirectSearchKeyword");
 							if (redirectSearchKeyword != ""
 									|| redirectSearchKeyword != '') {
+									
+								var resourceType = window.localStorage.getItem("resourceType");	
+									if(resourceType  == 'BOOKS'){
+										$scope.changeActive('book');
+									}
+									else if(resourceType  == 'COACHING_CLASSES'){
+										$scope.changeActive('coachingClass');
+									}
+									else if(resourceType  == 'DIGITAL_RESOURCES'){
+										$scope.changeActive('digitalResource');
+									}
 								$scope.searchkeyword = redirectSearchKeyword;
 								isReload = true;
 								window.localStorage.setItem(
@@ -460,90 +567,7 @@ register
 
 					};
 
-					$scope.changeActive = function(entityName) {
-						console.log("entityName " + entityName)
-						if (entityName === 'coachingClass') {
-							if(document.getElementById('topicsContainer') != null){
-								document.getElementById('topicsContainer').style.display = "none";
-							}
-						
-						
-							$scope.reviewEntity = "coaching Class";
-							$scope.identity1 = "Faculty";
-							$scope.identity2 = "Study Materials";
-							$scope.identity3 = "Personalization";
-							$scope.identity4 = "Infrastructure";
-							$scope.searchEntity = 'coachingClass';
-							$scope.showBook = false;
-							$scope.showCoachingClass = true;
-							$scope.showDigitalResource = false;
-							$scope.review.resourceReviewedType = "COACHING_CLASS";
-							$("#selectbook").removeClass("active");
-							$("#selectDigitalResource").removeClass("active");
-							$("#selectCoachingClass").addClass("active");
-							// $scope.searchCoachingClassBasedUponLocation();
-							$("#coachingclasses").show();
-							$("#classCaret").show();
-							$("#bookCaret").hide();
-							$("#digitalCaret").hide();
-							$("#classCaretDown").show();
-							$("#bookCaretDown").hide();
-							$("#digitalCaretDown").hide();
-							$scope.coachingclassesToolTips();
-
-						} else if (entityName === 'digitalResource') {
-							if(document.getElementById('topicsContainer') != null){
-								document.getElementById('topicsContainer').style.display = "none";
-							}
-							$scope.review.resourceReviewedType = "DIGITAL_RESOURCE";
-							$scope.reviewEntity = "Digital Resource";
-							$scope.identity1 = "Personalization";
-							$scope.identity2 = "Interactivity";
-							$scope.identity3 = "Ease of Use";
-							$scope.identity4 = "Study Materials";
-							$scope.searchEntity = 'digitalResource';
-							$scope.showBook = false;
-							$scope.showCoachingClass = false;
-							$scope.showDigitalResource = true;
-							$("#selectbook").removeClass("active");
-							$("#selectDigitalResource").addClass("active");
-							$("#selectCoachingClass").removeClass("active");
-							$scope.searchBar();
-							$("#classCaret").hide();
-							$("#bookCaret").hide();
-							$("#digitalCaret").show();
-							$("#classCaretDown").hide();
-							$("#bookCaretDown").hide();
-							$("#digitalCaretDown").show();
-							$scope.digitalResourceToolTips();
-
-						} else if (entityName === 'book') {
-							if(document.getElementById('topicsContainer') != null){
-								document.getElementById('topicsContainer').style.display = "none";
-							}
-							$scope.review.resourceReviewedType = "BOOK";
-							$scope.reviewEntity = "Book";
-							$scope.identity1 = "Effectiveness";
-							$scope.identity2 = "Visual Aides";
-							$scope.identity3 = "Solutions to practical problems";
-							$scope.identity4 = "Real-world examples";
-							$scope.searchEntity = 'book';
-							$scope.showBook = true;
-							$scope.showCoachingClass = false;
-							$scope.showDigitalResource = false;
-							$("#selectbook").addClass("active");
-							$("#selectDigitalResource").removeClass("active");
-							$("#selectCoachingClass").removeClass("active");
-							$scope.searchBar();
-							$("#classCaret").hide();
-							$("#bookCaret").show();
-							$("#digitalCaret").hide();
-							$("#classCaretDown").hide();
-							$("#bookCaretDown").show();
-							$("#digitalCaretDown").hide();
-							$scope.bookToolTips();
-						}
-					};
+					
 
 					$scope.updateIdentity1 = function(value) {
 						var entityName = $scope.searchEntity;

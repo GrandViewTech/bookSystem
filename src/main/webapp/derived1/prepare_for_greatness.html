@@ -1015,7 +1015,7 @@
 								<div class="secondrightborder" ng-repeat="resource in bookmarkedResources">
 
 									<p>
-										<a href="" ><strong>Click here : </strong>{{resource.name}}</a>
+										<a href="" ng-click="goToBookmarkResource(resource.name, resource.resourceType)"><strong>Click here : </strong>{{resource.name}}</a>
 									</p>
 									
 								</div>

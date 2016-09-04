@@ -12,6 +12,8 @@ function generateToken() {
 
 app.controller( 'reviewsController',  function($scope, $http, $window, $filter, $sce) {
 	
+
+	
 	
 
 	$scope.resourceReviews ={};
@@ -35,8 +37,45 @@ app.controller( 'reviewsController',  function($scope, $http, $window, $filter, 
 
 app.controller( 'beJobReadyController',  function($scope, $http, $window, $filter, $sce, Feedback) {
 
+	$scope.bookmarkedResources = {};
+	$scope.fetchBookmarks = function(){
+					
+		var user = $window.localStorage.getItem('loggedInUser');
+		var usr = '';
+			if (user === 'null' || user === "null") {
+				return;
+			}
+			else{
+				user = jQuery.parseJSON(user);
+				usr = user.user;
+			}
+			
+		
+			var url = "../ws/rest/reviewRelatedService/fetchBookMarks/user/"+usr+"/token/test";
+				$http
+					.get(url)
+					.success(
+							function(response) {
+								$scope.bookmarkedResources = response;
+							})
+					.error(
+						function(errorResponse) {
+						
+						console.log(JSON.stringify(errorResponse));
+					});
+		}
+		
+		$scope.fetchBookmarks();
+		$scope.goToBookmarkResource = function(resourceName, resourceType){
+			bootbox.alert("Redirection to bookmarked resource coming soon!");
+						// window.localStorage.setItem("isRedirectedSearch", true);
+						//window.localStorage.setItem("redirectSearchKeyword", resourceName);
+						//window.localStorage.setItem("resourceType", resourceType);
+						//$window.location.href = 'prepare_for_greatness.html';
+		}
 
-$scope.redirectAndSearch = function() {
+
+		$scope.redirectAndSearch = function() {
 						window.localStorage.setItem("isRedirectedSearch", true);
 						window.localStorage.setItem("redirectSearchKeyword",
 								$scope.searchText);
@@ -53,7 +92,7 @@ $scope.redirectAndSearch = function() {
 	$scope.searchString = '';
 	
 	var user = $window.localStorage.getItem('loggedInUser');
-	console.log('user is '+user);
+	//console.log('user is '+user);
 	
 	
 	$scope.loggedInUser = '';
@@ -250,6 +289,9 @@ $scope.redirectAndSearch = function() {
 				if(u.userType == 'ADMIN'){
 					$window.location.href = 'AdminShortCuts.html';
 				}
+				
+			$scope.fetchBookmarks();
+			$scope.fetchBookmarks();
 		}).
 		error(function (data, status, headers, config) {
                         

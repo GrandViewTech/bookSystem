@@ -1188,8 +1188,20 @@
 						<div class="col-md-1"></div>
 						<div class="review col-md-10">
 
+							<div class="title">Resources (Books/Coaching Classes/Digital Tools) Bookmarked</div>
+							<div class="service">
+								
 
-							<div class="title">Services Taken</div>
+								<div class="secondrightborder" ng-repeat="resource in bookmarkedResources">
+
+									<p>
+										<a href="" ng-click="goToBookmarkResource(resource.name, resource.resourceType)"><strong>Click here : </strong>{{resource.name}}</a>
+									</p>
+									
+								</div>
+							</div>
+						
+							<!-- <div class="title">Services Taken</div>
 							<div class="service">
 								{{noServicesAvailedYet }}
 
@@ -1208,7 +1220,7 @@
 										<strong>Description : </strong>{{order.packageDetails}}
 									</p>
 								</div>
-							</div>
+							</div> -->
 
 							<strong>Be Job Ready | DOWNLOAD Cover Letter <a href=""
 								ng-click="downloadCoverLetter()"><i class="fa fa-download"
