@@ -372,13 +372,15 @@ register
 						$("#reviewId").hide();
 						$("#loadingDiv").show();
 						$("#no_result_found").hide();
+
 						$http
 								.get(searchUrl)
 								.success(function(resourceEntities) 
 								{
 											$scope.resource={};
 											$("#bookDetailsId").hide();
-											$("#loadingDiv").hide();	
+											$("#loadingDiv").hide();
+											$("#searchContext1").show()	
 											$scope.resourceEntities = resourceEntities;
 											
 											if ($scope.resourceEntities.length > 0) 
@@ -394,11 +396,11 @@ register
 													}
 												else
 													{
-														$("searchContext1").show();
+														$("#searchContext1").show();
 														$("#bookDetailsId").show();
 														if($scope.resourceEntities.length<4)
 														{
-															$("searchContext1").hide();
+															$("#searchContext1").hide();
 															$("#searchResultDiv").show();
 														}
 														$('html,body').animate({scrollTop: $("#searchContext2").offset().top},'slow');	
@@ -407,7 +409,7 @@ register
 											}
 											else
 											{
-												$("searchContext1").hide();
+												$("#searchContext1").hide();
 												$("#no_result_found").show();
 												$('html,body').animate({scrollTop: $("#no_result_found").offset().top},'slow');	
 											}
