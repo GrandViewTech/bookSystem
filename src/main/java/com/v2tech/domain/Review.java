@@ -33,7 +33,7 @@ public class Review
 		private String			location;
 		private List<String>	reviewiedSubjects					= new ArrayList<String>();
 		
-		String topics = "";
+		String					topics								= "";
 		
 		public Long getId()
 			{
@@ -218,35 +218,37 @@ public class Review
 					}
 				return score;
 			}
-
+			
 		public List<String> getReviewiedSubjects()
 			{
 				return reviewiedSubjects;
 			}
-
+			
 		public void setReviewiedSubjects(List<String> reviewiedSubjects)
 			{
 				this.reviewiedSubjects = reviewiedSubjects;
 			}
-
+			
 		@Override
 		public String toString()
 			{
 				return "Review [id=" + id + ", resourceIdentity=" + resourceIdentity + ", comment=" + comment + ", reviewedBy=" + reviewedBy + ", reviewScore=" + reviewScore + ", score=" + score + ", visualTools=" + visualTools + ", solvedExamples=" + solvedExamples + ", resourceReviewedType=" + resourceReviewedType + ", solutionToPracticeProblems=" + solutionToPracticeProblems + ", effectivenessAndEaseOfCommunication=" + effectivenessAndEaseOfCommunication + ", easyOfUse=" + easyOfUse
 				        + ", studyMaterial=" + studyMaterial + ", faculty=" + faculty + ", personalization=" + personalization + ", infrastructure=" + infrastructure + ", interactivity=" + interactivity + ", location=" + location + ", reviewiedSubjects=" + reviewiedSubjects + "]";
 			}
-
-		public String getTopics() {
-			return topics;
-		}
-
-		public void setTopics(String topics) {
-			this.topics = topics;
-		}
-
-		public void setScore(Integer score) {
-			this.score = score;
-		}
 			
-
+		public String getTopics()
+			{
+				return topics;
+			}
+			
+		public void setTopics(String topics)
+			{
+				this.topics = topics;
+			}
+			
+		public void setScore(Integer score)
+			{
+				this.score = score;
+			}
+			
 	}

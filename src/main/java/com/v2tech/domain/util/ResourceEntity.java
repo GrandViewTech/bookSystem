@@ -1,5 +1,4 @@
 package com.v2tech.domain.util;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,6 +20,7 @@ public class ResourceEntity implements Serializable
 		final static private String	DEFAULT_IMAGE		= "images/class.jpg";
 		
 		private String				name;
+		private String				isbn;
 		private String				publication;
 		private String				year;
 		private String				priceTag;
@@ -47,9 +47,9 @@ public class ResourceEntity implements Serializable
 		private String[]			indicatorArray3		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
 		private String[]			indicatorArray4		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
 		
-		private String subject = "Physics";
+		private String				subject				= "Physics";
 		
-		private String resultCriteria = "";
+		private String				resultCriteria		= "";
 		
 		public String getName()
 			{
@@ -320,12 +320,18 @@ public class ResourceEntity implements Serializable
 				setYear(book.getYear());
 				setUniqueKey(book.getISBN());
 				setSubject(book.getSubject());
-
+				String isbn=book.getISBN();
+				String charr="ISBN-";
+				if(isbn.trim().contains(charr.trim()))
+					{
+						isbn=isbn.replaceAll(charr, "");
+					}
+				setIsbn(isbn);
 			}
 			
 		public ResourceEntity(CoachingClass coachingClass, List<Review> reviews)
 			{
-			setResourceEntity(KeywordEntity.COACHING_CLASSES.getEntity());
+				setResourceEntity(KeywordEntity.COACHING_CLASSES.getEntity());
 				setDescription(coachingClass.getDescription());
 				setName(coachingClass.getName());
 				setBranch(coachingClass.getBranch());
@@ -354,13 +360,13 @@ public class ResourceEntity implements Serializable
 				setYear(coachingClass.getYearFounded());
 				setWebsite(coachingClass.getWebsite());
 				setStream(coachingClass.getCourses());
-			
+				
 			}
 			
 		public ResourceEntity(ResultRow coachingClass, List<Review> reviews)
 			{
-				Object desc = coachingClass.getAdditionalProperties().get("description");
 				setResourceEntity(KeywordEntity.COACHING_CLASSES.getEntity());
+				Object desc = coachingClass.getAdditionalProperties().get("description");
 				setDescription((desc != null) ? (String) desc : null);
 				setName(coachingClass.getName());
 				setBranch(coachingClass.getBranch());
@@ -493,20 +499,21 @@ public class ResourceEntity implements Serializable
 			{
 				this.website = website;
 			}
-
-		
-
-		public String getResultCriteria() {
-			return resultCriteria;
-		}
-
-		public void setResultCriteria(String resultCriteria) {
-			this.resultCriteria = resultCriteria;
-		}
-
-		public void setPrice(Float price) {
-			this.price = price;
-		}
+			
+		public String getResultCriteria()
+			{
+				return resultCriteria;
+			}
+			
+		public void setResultCriteria(String resultCriteria)
+			{
+				this.resultCriteria = resultCriteria;
+			}
+			
+		public void setPrice(Float price)
+			{
+				this.price = price;
+			}
 			
 		public String getSubject()
 			{
@@ -517,5 +524,18 @@ public class ResourceEntity implements Serializable
 			{
 				this.subject = subject;
 			}
+
+		public String getIsbn()
+			{
+				return isbn;
+			}
+
+		public void setIsbn(String isbn)
+			{
+				this.isbn = isbn;
+			}
+		
+		
 			
 	}
+

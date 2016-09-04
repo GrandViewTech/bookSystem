@@ -33,6 +33,22 @@
   top: 80px !important;
   z-index: 999999 !important;
 }
+.boardofadvisorscontainer {
+  opacity: 0.95 !important;
+  top: 80px !important;
+  z-index: 999999 !important;
+}
+.applycontainer {
+  background: rgb(53, 53, 53) none repeat scroll 0 0;
+  opacity: 1 !important;
+  top: 180px !important;
+  z-index: 999999 !important;
+}
+.inviteyourfriendscontainer {
+  opacity: 0.95 !important;
+  top: 150px !important;
+  z-index: 999999 !important;
+}
 .coachingclassescontainer {
   opacity: 0.95 !important;
   top: 80px !important;
@@ -156,7 +172,8 @@ a.btn_red {color: #FFF;}
     font-size: 12px;
 }
 .action_btns a,
-.action_btns a:hover {
+.action_btns a:hover,
+.action_btns a:focus {
   background-color: #df1159;
   border-radius: 0;
   font-size: 13px;
@@ -164,6 +181,7 @@ a.btn_red {color: #FFF;}
   letter-spacing: 2px;
   padding: 8px 25px;
   color: #fff;
+  outline:none;
 }
 
 .social_icon li{
@@ -187,6 +205,9 @@ a.btn_red {color: #FFF;}
   height: 40px;
   padding: 10px;
   width: 40px;
+}
+.social_icon li a{
+	outline:none;
 }
 .social_icon li i.fa-facebook{
     background-color: #3D5699;

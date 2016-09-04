@@ -18,185 +18,220 @@
 
     <body ng-app="myApp" ng-controller="prepare4greatnesstController">
 
+    <!-- Header -->
     <div class="header">
-        <div class="container">
-            <div class="logo col-md-3">
-                <a href="index.html"><img src="images/colorlogo.png" /></a>
+         <div class="container">
+            <div class="logo col-md-3"> 
+               <a href="index.html"><img src="images/colorlogo.png" /></a>
             </div>
-
-            <div class="menu col-md-6"> 
-                <div class="top topsearch">
-                    <div class="search">
-                        <input type="text" name="search" />
-                        <!--<input type="text" class="hideshow" name="search" placeholder="Search"/>-->
-                        <a href="javascript:void(0);" id="searchshow"><i
-                            class="fa fa-search" aria-hidden="true"></i></a>
-                        <div class="popup" style="visibility:hidden">
-                            <i class="fa fa-caret-up" aria-hidden="true"></i>
-                            <ul>
-                                <li><a href="#">Management</a></li>
-                                <li><a href="#">Engineering</a></li>
-                                <li><a href="#">Medicine</a></li>
-                                <li><a href="#">Law</a></li>
-                                <li><a href="#">Unversities</a></li>
-                                <li><a href="#">Pharmacy</a></li>
-                                <li><a href="#">Computer Applications</a></li>
-                                <li><a href="#">Finance & Accounts</a></li>
-                                <li><a href="#">Hospitality & Tourism</a></li>
-                                <li><a href="#">Media & Jourmalism</a></li>
-                                <li><a href="#">Animation & Fashion</a></li>
-                                <li><a href="#">School</a></li>
-                                <li><a href="#">Competition</a></li>
-                                <li><a href="#">Study Abroad</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <div class="menu col-md-6">
+               <div class="top topsearch">
+                  <div class="search">
+                     <div class="all"> </div>
+                     <form ng-submit="redirectAndSearch()">
+                     <input type="text" name="search" ng-model="searchText" placeholder="Books , Coaching Classes And Digital Resource" />
+                     </form>
+                     <!--<input type="text" class="hideshow" name="search" placeholder="Search"/>-->
+                     <a href="javascript:void(0);" id="searchshow"><i class="fa fa-search" aria-hidden="true" ng-click="redirectAndSearch()"></i></a>
+                     <div class="popup">
+                        <i class="fa fa-caret-up" aria-hidden="true"></i>
+                     </div>
+                  </div>
+               </div>
             </div>
             <div class="menu col-md-3">
-                <div class="top">
-                    <div class="login-reg">
-                        <div class="headeruser">
-                            <a href="#headeruser" id="header_user_trigger"><img src="images/user.png" /></a>
-                        </div>
-
-                        <!--===================== Header User Popup Form =====================-->
-                        <div id="headeruser" class="popupContainer headerusercontainer" style="display: none;">
-
-                            <section class="popupBody">
-                                <div class="headeruserpopup">
-                                    <i class="fa fa-caret-up" aria-hidden="true"></i>
-                                    <div class="tellusright">
-                                        <div class="userimg">
-                                            <a href="#"><img src="images/testimonials.png"></a>
-                                        </div>
-                                        <h4>User Name Loren</h4>
-                                        <p>14 Review, 38 Followers</p>
-                                        <strong><a id="tab_trigger" href="#tab">Edit Profile</a></strong> <strong><a id="change_password_trigger" href="#changepassword">Change Password</a></strong> <strong>Last Activity: <span>15 minutes ago</span></strong> <strong><a href="#">Log Out</a></strong>
+               <div class="top">
+                  <div class="login-reg">
+                     <div class="headeruser" ><a href="{{headeruser}}" id="header_user_trigger"><img src="images/user.png" /></a></div>
+                     <!--===================== Header User Popup Form =====================-->
+                     <div id="headeruser" class="popupContainer headerusercontainer" style="display:none;">
+                        <section class="popupBody">
+                           <div class="headeruserpopup">
+                              <i class="fa fa-caret-up" aria-hidden="true"></i>
+                              <div class="tellusright" id="tellusright">
+                                 <h4>{{profileText}}</h4>
+                                 <strong><a id="tab_trigger" href="" ng-click="showInviteFriends()" >Invite Friends</a></strong>
+                                 <strong><a id="tab_trigger" href="" ng-click="showEditProfile()" >Edit Profile</a></strong>
+                                 <strong><a id="change_password_trigger" href="#changepassword">Change Password</a></strong>
+                                 <strong><a href="" ng-click="signOff()">Log Out</a></strong>
+                              </div>
+                           </div>
+                        </section>
+                     </div>
+                     <!--===================== Change Password Popup Form =====================-->
+                     <div id="changepassword" class="popupContainer changepasswordcontainer" style="display:none;">
+                        <header class="popupHeader">
+                           <span class="header_title">Change Password</span>
+                           <span class="modal_close"><img src="images/x.png"></span>
+                        </header>
+                        <section class="popupBody">
+                           <div class="change_password">
+                              <form>
+                                 <fieldset class="form-group">
+                                    <input type="text" name="username" placeholder="User Name*" ng-model="loggedInUser.user" />
+                                 </fieldset>
+                                 <fieldset class="form-group">
+                                    <input type="password" name="oldpassword" placeholder="Old Password*" ng-model="loggedInUser.password" />
+                                 </fieldset>
+                                 <fieldset class="form-group">
+                                    <input type="password" name="newpassword" placeholder="New Password*" ng-model="loggedInUser.newPassword"/>
+                                 </fieldset>
+                                 <fieldset class="form-group">
+                                    <input type="password" name="reconfirm" placeholder="Reconfirm*" ng-model="repeatPassword" />
+                                 </fieldset>
+                                 <div class="action_btns">
+                                    <div class="submit_btn"><a href="" ng-click="checkPasswordValidations()" class="btn btn_red">SUBMIT</a></div>
+                                 </div>
+                              </form>
+                           </div>
+                        </section>
+                     </div>
+                     <div class="logreg">
+                        <a id="modal_trigger" href="#{{profileDialog}}">{{profileText}}</a>
+                     </div>
+                     <!--===================== Login & Register Popup Form =====================-->
+                     <div id="modal" class="popupContainer loginregistercontainer" style="display:none;">
+                        <header class="popupHeader">
+                           <span class="header_title">Join the Network</span>
+                           <span class="modal_close"><a href="" ng-click="closeRegDialog()"><img src="images/x.png"/> </a></span>
+                        </header>
+                        <section class="popupBody">
+                           <!-- Register Form -->
+                           <div class="user_register">
+                              <label class="title">Sign Up</label>
+                              <form id="formRegister" action="" ng-submit="signup(user)">
+                                 <fieldset class="form-group">
+                                    <input type="text" name="name" ng-model="user.firstName" placeholder="Name" style="width: 36% !important; float: left;" required /> <input type="text" name="lastname" ng-model="user.lastName" placeholder="Last Name" style="width: 60% !important; float: right;" required />
+                                 </fieldset>
+                                 <fieldset class="form-group">
+                                    <input type="text" name="contact" ng-model="user.contact" placeholder="Contact Number" required />
+                                 </fieldset>
+                                 <fieldset class="form-group">
+                                    <input type="email" ng-model="user.user" name="email" placeholder="Email ID" required />
+                                 </fieldset>
+                                 <fieldset class="form-group">
+                                    <input type="password" name="password" ng-model="user.password" placeholder="Password" required />
+                                 </fieldset>
+                                 <div class="checkbox">
+                                    <input id="send_updates" type="checkbox" ng-model="termCheck" ng-click="display()" /> <label for="send_updates">I agree to the <a href="">Terms & Conditions</a>,<a href="">Privacy Policy</a></label>
+                                 </div>
+                                 <div class="action_btns">
+                                    <div class="one_half last">
+                                       <input type="submit" name="button" class="btn btn_red" value="SIGNUP" ng-disabled="check()" />
                                     </div>
-                                </div>
-                            </section>
-                        </div>
-
-                        <!--===================== Change Password Popup Form =====================-->
-                        <div id="changepassword" class="popupContainer changepasswordcontainer" style="display: none;">
-                            <header class="popupHeader">
-                                <span class="header_title">Change Password</span> <span class="modal_close"><img src="images/x.png"></span>
-                            </header>
-                            <section class="popupBody">
-                                <div class="change_password">
-                                    <form>
-                                        <fieldset class="form-group">
-                                            <input type="text" name="username" placeholder="User Name*" />
-                                        </fieldset>
-                                        <fieldset class="form-group">
-                                            <input type="text" name="oldpassword" placeholder="Old Password*" />
-                                        </fieldset>
-                                        <fieldset class="form-group">
-                                            <input type="text" name="newpassword" placeholder="New Password*" />
-                                        </fieldset>
-                                        <fieldset class="form-group">
-                                            <input type="text" name="reconfirm" placeholder="Reconfirm*" />
-                                        </fieldset>
-                                        <div class="action_btns">
-                                            <div class="submit_btn">
-                                                <a href="#" class="btn btn_red">SUBMIT</a>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </section>
-                        </div>
-
-
-                        <div class="logreg">
-                            <a id="modal_trigger" href="#modal">login / register</a>
-                        </div>
-
-                        <!--===================== Login & Register Popup Form =====================-->
-                        <div id="modal" class="popupContainer loginregistercontainer" style="display: none;">
-                            <header class="popupHeader">
-                                <span class="header_title">Join the Network</span> <span class="modal_close"><img src="images/x.png"></span>
-                            </header>
-                            <section class="popupBody">
-                                <!-- Register Form -->
-                                <div class="user_register">
-                                    <label class="title">Sign Up</label>
-                                    <form>
-                                        <fieldset class="form-group">
-                                            <input type="text" name="name" placeholder="Name" style="width: 36% !important; float: left;" /> <input type="text" name="lastname" placeholder="Last Name" style="width: 60% !important; float: right;" />
-                                        </fieldset>
-                                        <fieldset class="form-group">
-                                            <input type="text" name="lastname" placeholder="Last Name" />
-                                        </fieldset>
-                                        <fieldset class="form-group">
-                                            <input type="text" name="contact" placeholder="Contact Number" />
-                                        </fieldset>
-                                        <fieldset class="form-group">
-                                            <input type="email" name="email" placeholder="Email ID" />
-                                        </fieldset>
-                                        <fieldset class="form-group">
-                                            <input type="password" name="password" placeholder="Password" />
-                                        </fieldset>
-                                        <div class="checkbox">
-                                            <input id="send_updates" type="checkbox" /> <label for="send_updates">I agree to the <a href="">Terms & Conditions</a>,<a href="">Privacy Policy</a></label>
-                                        </div>
-                                        <div class="action_btns">
-                                            <div class="one_half last">
-                                                <a href="#" class="btn btn_red">SIGN UP</a>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- Social Login -->
-                                <div class="social_login">
-                                    <label class="title">Sign in With</label>
-                                    <p>
-                                        Just select your favorite social <br> network to get started
-                                    </p>
-                                    <div class="social_icon">
-                                        <ul>
-                                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-                                        </ul>
+                                 </div>
+                              </form>
+                           </div>
+                           <!-- Social Login -->
+                           <div class="social_login">
+                              <label class="title">Sign in With</label>
+                              <p>
+                                 Just select your favorite social <br> network to get started
+                              </p>
+                              <!-- social login Div updated By sharmapuneet1510@gmail.com -->
+                              <div class="social_icon">
+                                 <ul>
+                                    <!-- Social Login  -->
+                                    <!--<button onclick="hello('facebook').login({scope:'user_friends'})">Login</button>-->
+                                    <li data-ng-click="socialLogin('facebook')"><a href=""><i class="fa fa-facebook"></i></a></li>
+                                    <li data-ng-click="socialLogin('twitter')"><a href=""><i class="fa fa-twitter"></i></a></li>
+                                    <li data-ng-click="socialLogin('google')"><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <!-- <li data-ng-click="socialLogin('linkedin')"><a href=""><i class="fa fa-linkedin"></i></a></li>  -->
+                                    <li data-ng-click="socialLogin('instagram')"><a href=""><i class="fa fa-instagram"></i></a></li>
+                                 </ul>
+                                 <br>
+                              </div>
+                           </div>
+                           <!-- Username & Password Login form -->
+                           <div class="user_login">
+                              <label class="title">User Login</label>
+                              <form id="loginForm" action="" ng-submit="login(user1)">
+                                 <fieldset class="form-group">
+                                    <input type="text" name="email" placeholder="Username" ng-model="user1.user" required />
+                                 </fieldset>
+                                 <fieldset class="form-group">
+                                    <input type="password" name="password" placeholder="Password" ng-model="user1.password" required />
+                                 </fieldset>
+                                 <div class="action_btns">
+                                    <div class="one_half last">
+                                       <input type="submit" name="submit" class="btn btn_red" value="SUBMIT" />
                                     </div>
-                                </div>
-                                <!-- Username & Password Login form -->
-                                <div class="user_login">
-                                    <label class="title">User Login</label>
-                                    <form>
-                                        <fieldset class="form-group">
-                                            <input type="text" name="email" placeholder="Username" />
-                                        </fieldset>
-                                        <fieldset class="form-group">
-                                            <input type="password" name="password" placeholder="Password" />
-                                        </fieldset>
-                                        <div class="action_btns">
-                                            <div class="one_half last">
-                                                <a href="#" class="btn btn_red">SUBMIT</a>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                </div>
+                                 </div>
+                              </form>
+                           </div>
+                        </section>
+                     </div>
+                  </div>
+               </div>
             </div>
             <div class="menu main_menu col-md-12">
-                <div id='cssmenu'>
-                    <ul>
-                        <li><a href="discover.html" class="menulink">discover</a></li>
-                        <li class='active'><a href="prepare_for_greatness.html" class="menulink">prepare for greatness</a></li>
-                        <li><a href="be_job_ready.html" class="menulink">be job ready</a></li>
-                        <li id="last"><a href="write_review.html" class="menulink">write a review</a></li>
-                    </ul>
-                </div>
+               <div id='cssmenu'>
+                  <ul>
+                     <li><a href="Discover.html" class="menulink">discover</a></li>
+                     <li ><a class="active" href="prepare_for_greatness.html" class="menulink">prepare for greatness</a></li>
+                     <li ><a href="be_job_ready.html" class="menulink">be job ready</a></li>
+                     <li id="last"><a href="#.html" class="menulink">write a review</a></li>
+                  </ul>
+               </div>
             </div>
-        </div>
-    </div> <!-- Header -->
+         </div>
+      </div>
+      <!-- Header -->
+      <!--===================== Invite Friends Popup Form =====================-->
+                     <div id="invitefriendsmodal" class="popupContainer invitefriendsmodalcontainer" style="display: none;">
+                        <header class="popupHeader invitefriendheader   ">
+                           <span class="header_title">Invite Your Friends</span> <span class="modal_close" ng-click=closeInvitefriendsmodal()><img src="images/x.png"></span>
+                        </header>
+                        <section class="popupBody invitefriendbody">
+                           <!-- Select Your Friends -->
+                           <div class="user_register select_your_friends">
+                              <label class="title">Select Your Friends</label>
+                              <div class="formbg">
+                                 <form>
+                                    <fieldset class="form-group friendborder" ng-repeat="friend in friendslist | orderBy:'displayName'">
+                                       <div class="hanuman">
+                                          <img src="images/userfill.png" />
+                                          <p>{{friend.displayName}}</p>
+                                          <input value={{friend.email}} ng-checked="isSelected(friend.email)" ng-click="addFriendToInvitationList(friend.email)" type="checkbox" name="usercheckbox[]">
+                                       </div>
+                                    </fieldset>
+                                 </form>
+                              </div>
+                           </div>
+                           <!-- Your Message -->
+                           <div class="user_login your_message">
+                              <label class="title">Your Message</label>
+                              <div class="formbg">
+                                 <form>
+                                    <fieldset class="form-group">
+                                       <textarea cols="5" rows="5" placeholder="MESSAGE" ng-model="invitationMessage"></textarea>
+                                    </fieldset>
+                                    <div class="action_btns">
+                                       <div class="one_half last messageright">
+                                          <a href="#" class="btn btn_red" ng-click="inviteFriends()">SEND</a><a href="#" class="btn btn_red" ng-click="closeInvitefriendsmodal()">CANCEL</a>
+                                       </div>
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </section>
+                     </div>
+      <div id="headerinvitefriend" class="popupContainer inviteyourfriendscontainer" style="display:none;">
+         <header class="popupHeader">   
+            <span class="modal_close" ng-click="headerinvitefriend()"><img src="images/x.png"></span>
+         </header>
+         <section class="popupBody">
+            <div class="header_invite_friend">
+               <div class="title">Sign in With One of Below to invite friends</div>
+               <a href="#" data-ng-click="socialLoginForGetFriends('facebook')"><i class="fa fa-facebook"></i></a>
+               <a href="#" data-ng-click="socialLoginForGetFriends('google')"><i class="fa fa-google-plus"></i></a>
+            </div>
+         </section>
+      </div>
+
+
+
+     <!-- Header -->
 
 
 		<div class="faqs">

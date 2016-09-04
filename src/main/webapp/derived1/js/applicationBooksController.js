@@ -630,21 +630,35 @@ app
 						document.getElementById('tab').style.display = "";
 					}
 
-					$scope.showInviteFriends = function() {
-						if (socialMedialogin == false) {
-							document.getElementById('inviteFriendsLogin').style.display = "";
-							document.getElementById('headeruser').style.display = "none";
-
-						} else {
-							$scope.getfriends();
+					// date 4 sept 9:50
+					$scope.showInviteFriends = function() 
+					{
+						
+						document.getElementById('headeruser').style.display = "none";
+						if($scope.loggedInUser.socialMedia==true)
+						{
+							$("#headerinvitefriend").show();
 						}
+						else
+						{
+							$scope.socialLoginForGetFriends($scope.loggedInUser.socialMediaType);
+						}
+						
+
+					}
+					$scope.socialLoginForGetFriends = function(network) 
+					{
+						$scope.socialLogin(network);
+						$("#inviteFriendsLogin").hide();
+						$scope.getfriends();
+						$scope.headerinvitefriend();
 					}
 
-					$scope.hideInviteFriends = function() {
-
-						document.getElementById('inviteFriendsLogin').style.display = "none";
-
+					$scope.headerinvitefriend=function()
+					{
+						$("#headerinvitefriend").hide();
 					}
+					
 
 					/** ***** Added By Sagar ******* */
 					$scope.myImage = '';

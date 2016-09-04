@@ -123,31 +123,38 @@ public class CoachingClassWebService
 										coachingClass = coachingClassService.saveOrUpdate(coachingClass);
 										if (objectWriter != null)
 											{
-												if (resourceDir != null && resourceDir.trim().length() > 0)
+												try
 													{
-														String state = coachingClass.getState();
-														String city = coachingClass.getCity();
-														if (state == null || state.trim().length() == 0)
+														if (resourceDir != null && resourceDir.trim().length() > 0)
 															{
-																state = "annonymous";
-																add = false;
+																String state = coachingClass.getState();
+																String city = coachingClass.getCity();
+																if (state == null || state.trim().length() == 0)
+																	{
+																		state = "annonymous";
+																		add = false;
+																	}
+																String dirPath = resourceDir + File.separator + state + File.separator + city;
+																File dir = new File(dirPath);
+																if (dir.isDirectory() == false)
+																	{
+																		FileUtils.forceMkdir(dir);
+																	}
+																File file = new File(dirPath + File.separator + name + ".json");
+																if (file.exists())
+																	{
+																		file.delete();
+																	}
+																file.createNewFile();
+																FileWriter fileWriter = new FileWriter(file);
+																fileWriter.write(objectWriter.writeValueAsString(coachingClass));
+																fileWriter.flush();
+																fileWriter.close();
 															}
-														String dirPath = resourceDir + File.separator + state + File.separator + city;
-														File dir = new File(dirPath);
-														if (dir.isDirectory() == false)
-															{
-																FileUtils.forceMkdir(dir);
-															}
-														File file = new File(dirPath + File.separator + name + ".json");
-														if (file.exists())
-															{
-																file.delete();
-															}
-														file.createNewFile();
-														FileWriter fileWriter = new FileWriter(file);
-														fileWriter.write(objectWriter.writeValueAsString(coachingClass));
-														fileWriter.flush();
-														fileWriter.close();
+													}
+												catch (Exception exception)
+													{
+														exception.printStackTrace();
 													}
 											}
 										if (add == true)
