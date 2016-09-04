@@ -19,8 +19,9 @@ public class ResourceEntity implements Serializable
 		private static final long	serialVersionUID	= 1L;
 		
 		final static private String	DEFAULT_IMAGE		= "images/class.jpg";
-		private String				isbn;
+		
 		private String				name;
+		private String				isbn;
 		private String				publication;
 		private String				year;
 		private String				priceTag;
@@ -39,13 +40,17 @@ public class ResourceEntity implements Serializable
 		private List<Review>		reviews				= new LinkedList<Review>();
 		private String				identity			= "";
 		private String				detailUrl			= "";
-		private String				subject				= "";
+		
 		private String				website				= "";
 		private Integer				rateCount			= 0;
 		private String[]			indicatorArray1		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
 		private String[]			indicatorArray2		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
 		private String[]			indicatorArray3		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
 		private String[]			indicatorArray4		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
+		
+		private String				subject				= "Physics";
+		
+		private String				resultCriteria		= "";
 		
 		public String getName()
 			{
@@ -355,6 +360,7 @@ public class ResourceEntity implements Serializable
 				setYear(coachingClass.getYearFounded());
 				setWebsite(coachingClass.getWebsite());
 				setStream(coachingClass.getCourses());
+				
 			}
 			
 		public ResourceEntity(ResultRow coachingClass, List<Review> reviews)
@@ -404,6 +410,7 @@ public class ResourceEntity implements Serializable
 				setStream(digitalTool.getCareerStreams());
 				setWebsite(digitalTool.getWebSite());
 				setUniqueKey(digitalTool.getName());
+				setSubject(digitalTool.getSubject());
 			}
 			
 		public String[] getIndicatorArray1()
@@ -491,6 +498,21 @@ public class ResourceEntity implements Serializable
 				this.website = website;
 			}
 			
+		public String getResultCriteria()
+			{
+				return resultCriteria;
+			}
+			
+		public void setResultCriteria(String resultCriteria)
+			{
+				this.resultCriteria = resultCriteria;
+			}
+			
+		public void setPrice(Float price)
+			{
+				this.price = price;
+			}
+			
 		public String getSubject()
 			{
 				return subject;
@@ -510,7 +532,7 @@ public class ResourceEntity implements Serializable
 			{
 				this.isbn = isbn;
 			}
+		
+		
 			
-		
-		
 	}

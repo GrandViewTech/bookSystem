@@ -43,7 +43,9 @@
 				<div class="top topsearch">
 					<div class="search">
 						<div class="all"></div>
+						<form ng-submit="redirectAndSearch()">
 						<input type="text" name="search" ng-model="searchText" />
+						</form>
 						<!--<input type="text" class="hideshow" name="search" placeholder="Search"/>-->
 						<a href="javascript:void(0);" id="searchshow"><i
 							class="fa fa-search" aria-hidden="true"

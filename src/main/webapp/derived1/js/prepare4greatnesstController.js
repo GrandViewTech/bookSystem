@@ -224,9 +224,10 @@ register
 												$scope.resource = $scope.resourceEntities[0];
 												$scope.getTopicFromSubject();
 											}
-											if (isReload === true) {
-												$scope.$apply();
+											if (isReload === true) 
+											{
 												$("#searchContext1").show();
+												$scope.$apply();
 												jQuery('.slider4').lbSlider({
 													leftBtn : '.sa-left4',
 													rightBtn : '.sa-right4',
@@ -367,39 +368,48 @@ register
 								+ "&resourceLimit=" + resourceLimit;
 						console.log("searchUrl " + searchUrl);
 						// alert('url' +searchUrl);
-						$("#review_books").hide();
+						$("#searchResultDiv").hide();
+						$("#reviewId").hide();
 						$("#loadingDiv").show();
+						$("#no_result_found").hide();
 						$http
 								.get(searchUrl)
 								.success(function(resourceEntities) 
 								{
 											$scope.resource={};
-											
 											$("#bookDetailsId").hide();
-											$scope.resourceEntities = resourceEntities;
 											$("#loadingDiv").hide();	
+											$scope.resourceEntities = resourceEntities;
 											
-											$('html,body').animate({scrollTop: $("#searchResultDiv").offset().top},'slow');	
 											if ($scope.resourceEntities.length > 0) 
 											{
 												$scope.resource = $scope.resourceEntities[0];
 												$scope.getTopicFromSubject();
 												if ($scope.page === 'write_a_review') 
 													{
-														//$('html,body').animate({scrollTop: $("#review_books").offset().top},'slow');	
-														$("#review_books").show();
+														$("#reviewId").show();
+														$("#searchResultDiv").show();
+														$('html,body').animate({scrollTop: $("#searchResultDiv").offset().top},'slow');	
 														$("#no_result_found").hide();
 													}
 												else
 													{
+														$("searchContext1").show();
 														$("#bookDetailsId").show();
+														if($scope.resourceEntities.length<4)
+														{
+															$("searchContext1").hide();
+															$("#searchResultDiv").show();
+														}
 														$('html,body').animate({scrollTop: $("#searchContext2").offset().top},'slow');	
 														$scope.$apply();
 													}
 											}
 											else
 											{
+												$("searchContext1").hide();
 												$("#no_result_found").show();
+												$('html,body').animate({scrollTop: $("#no_result_found").offset().top},'slow');	
 											}
 																					
 										})

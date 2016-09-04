@@ -47,11 +47,11 @@
                <div class="top topsearch">
                   <div class="search">
                      <div class="all"> </div>
-                     <form ng-submit="redirectAndSearch()">
-                     <input type="text" name="search" ng-model="searchText" placeholder="Books , Coaching Classes And Digital Resource" />
+                     <form ng-submit="searchBar()">
+                     <input type="text" name="search" ng-model="searchkeyword" placeholder="Books , Coaching Classes And Digital Resource" />
                      </form>
                      <!--<input type="text" class="hideshow" name="search" placeholder="Search"/>-->
-                     <a href="javascript:void(0);" id="searchshow"><i class="fa fa-search" aria-hidden="true" ng-click="redirectAndSearch()"></i></a>
+                     <a href="javascript:void(0);" id="searchshow"><i class="fa fa-search" aria-hidden="true" ng-click="searchBar()"></i></a>
                      <div class="popup">
                         <i class="fa fa-caret-up" aria-hidden="true"></i>
                      </div>
@@ -437,7 +437,9 @@
          <div class="no_result_found" id="no_result_found" style="display:none">
              <div align="center"> No Result Found</div>
          </div>
-         <div id="searchContext1" class="prepare_for_greatness_slider" style="display:none">
+
+         
+         <div id="searchContext1" class="prepare_for_greatness_slider">
             <div class="slider-wrap">
                <div id="searchContext2" class="slider4 container" style="height: 480px">
                   <ul id="sliderSectionId">
