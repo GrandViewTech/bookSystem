@@ -450,8 +450,8 @@
                               ng-click="updateSelectedInstance(slide)"
                               style="height: 245px; width: 245px" /></a>
                            <div class="">{{slide.name}}</div>
-                           <div ng-show="showBook">Author : {{slide.author}}</div>
-                           <div ng-show="showCoachingClass">Branch : {{slide.branch}}</div>
+                           <!-- <div ng-show="showBook">Author : {{slide.author}}</div>
+                           <div ng-show="showCoachingClass">Branch : {{slide.branch}}</div> -->
                            <div class="prepare_rateing" style="width: 245px; height: 20px">
                               <fieldset class="rating" style="margin: 0 auto;">
                                  <input type="radio" id={{
@@ -524,7 +524,7 @@
                      {{resource.publication}}
                   </div>
                   <div ng-show="showBook" id="isbn" class="isbn">ISBN:
-                     {{resource.identity}}
+                     {{resource.isbn}}
                   </div>
                   <div ng-show="showBook" id="mrp" class="mrp">MRP:
                      {{resource.priceTag}}

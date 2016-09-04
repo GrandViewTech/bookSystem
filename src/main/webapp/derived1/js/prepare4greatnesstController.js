@@ -374,8 +374,11 @@ register
 								.success(function(resourceEntities) 
 								{
 											$scope.resource={};
+											
+											$("#bookDetailsId").hide();
 											$scope.resourceEntities = resourceEntities;
 											$("#loadingDiv").hide();	
+											
 											$('html,body').animate({scrollTop: $("#searchResultDiv").offset().top},'slow');	
 											if ($scope.resourceEntities.length > 0) 
 											{
@@ -389,6 +392,7 @@ register
 													}
 												else
 													{
+														$("#bookDetailsId").show();
 														$('html,body').animate({scrollTop: $("#searchContext2").offset().top},'slow');	
 														$scope.$apply();
 													}
@@ -427,7 +431,10 @@ register
 						console.log("entityName " + entityName)
 						if (entityName === 'coachingClass') 
 						{
-							document.getElementById('topicsContainer').style.display = "none";
+							if(document.getElementById('topicsContainer') != null)
+							{
+								document.getElementById('topicsContainer').style.display = "none";
+							}
 							$scope.reviewEntity = "coaching Class";
 							$scope.identity1 = "Faculty";
 							$scope.identity2 = "Study Materials";
@@ -453,7 +460,10 @@ register
 
 						} else if (entityName === 'digitalResource') 
 						{
-							document.getElementById('topicsContainer').style.display = "";
+							if(document.getElementById('topicsContainer') != null)
+							{
+								document.getElementById('topicsContainer').style.display = "";
+							}
 							$scope.review.resourceReviewedType = "DIGITAL_RESOURCE";
 							$scope.reviewEntity = "Digital Resource";
 							$scope.identity1 = "Personalization";
@@ -478,7 +488,10 @@ register
 
 						} else if (entityName === 'book') 
 						{
-							document.getElementById('topicsContainer').style.display = "";
+							if(document.getElementById('topicsContainer') != null)
+							{
+								document.getElementById('topicsContainer').style.display = "";
+							}
 							$scope.review.resourceReviewedType = "BOOK";
 							$scope.reviewEntity = "Book";
 							$scope.identity1 = "Effectiveness";
