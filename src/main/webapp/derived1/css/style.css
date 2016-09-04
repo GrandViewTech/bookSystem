@@ -3959,14 +3959,14 @@ background: #333333;
   left: 18%;
   position: absolute;
 }
-#coaching_classes .topcoachingarrow i {
+#books .topcoachingarrow i {
   color: rgb(74, 83, 112);
   font-size: 90px;
   left: 48%;
   position: absolute;
   top: -35px;
 }
-#digital_tools .topdigitalarrow i {
+#books .topdigitalarrow i {
   color: rgb(96, 75, 113);
   font-size: 90px;
   left: 77%;
@@ -4165,6 +4165,25 @@ background: #333333;
 	margin:0 auto;
 	
 }
+
+.digitalTopArrow {
+  float: left;
+  font-size: 90px;
+  left: 77%;
+  position: absolute;
+  top: -77px;
+  color: #F0F0F0;
+}
+
+.classTopArrow {
+  float: left;
+  font-size: 90px;
+  left: 48%;
+  position: absolute;
+  top: -77px;
+  color: #F0F0F0;
+}
+
 .greatnessfor .book_details .booktoparrow,
 .greatnessfor .review_book_details .booktoparrow {
   float: left;

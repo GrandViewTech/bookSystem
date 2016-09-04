@@ -1,113 +1,25 @@
-  .loader {
-         border: 5px solid #f3f3f3;
-         border-radius: 50%;
-         border-top: 5px solid #3498db;
-         width: 40px;
-         height: 40px;
-         -webkit-animation: spin 2s linear infinite;
-         animation: spin 2s linear infinite;
-         }
-         @
-         -webkit-keyframes spin { 0% {
-         -webkit-transform: rotate(0deg);
-         }
-         100%
-         {
-         -webkit-transform
-         :
-         rotate
-         (360
-         deg
-         );
-         }
-         }
-         @
-         keyframes spin { 0% {
-         transform: rotate(0deg);
-         }
-         100%
-         {
-         transform
-         :
-         rotate
-         (360
-         deg
-         );
-         }
-         }
-	 
-	 
-	 .inviteFriends {
-	  position: absolute;
-	  width: 250px;
-	  height: 120px;
-	  z-index: 15;
-	  top: 50%;
-	  left: 50%;
-	  margin: -100px 0 0 -150px;
-	  background: white;
-	}
-	
-	
-	div:focus {
-	    background-color: Green;
-	}
-	
-	
-	/****** Added by Sagar ****/
-.cropArea {
-  background: #E4E4E4;
-  overflow: hidden;
-  width:200px;
-  height:200px;
+.loader {
+  margin:auto;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
-#fileInput{
-  display: inline-block;
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
 }
-/***** Added by Sagar ****/
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
-/**** For social login popup *****/
-.inviteyourfriendscontainer {
-  left: 33% !important;
-  width: 34% !important;
+.no_result_found
+{
+  margin:auto;
 }
-.inviteyourfriendscontainer .popupBody{
-	text-align:center;
-	 height: auto;
-}
-.inviteyourfriendscontainer .popupBody .header_invite_friend .title {
-  color: rgb(255, 255, 255);
-  float: left;
-  font-size: 16px;
-  margin-bottom: 20px;
-  text-align: center;
-  width: 100%;
-}
-.inviteyourfriendscontainer .popupBody .header_invite_friend {
-  float: left;
-  padding: 20px 0 80px;
-  width: 100%;
-   height: auto;
-}
-.inviteyourfriendscontainer .popupBody .header_invite_friend i {
-  border-radius: 100%;
-  color: rgb(255, 255, 255);
-  font-size: 20px;
-  height: 80px;
-  padding: 10px;
-  width: 80px;
-  text-align:center;
-  margin:0 15px;
-}
-.inviteyourfriendscontainer .popupBody .header_invite_friend a{
-	outline:none;
-}
-.inviteyourfriendscontainer .popupBody .header_invite_friend i.fa-facebook {
-  background-color: rgb(61, 86, 153);
-}
-.inviteyourfriendscontainer .popupBody .header_invite_friend i.fa-google-plus {
-  background-color: rgb(225, 73, 78);
-}
-/***** End social login popup******/

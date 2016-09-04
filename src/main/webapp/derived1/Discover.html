@@ -60,7 +60,7 @@
                 <div class="top topsearch">
                     <div class="search">
                             <div class="all"> </div>
-                            <input type="text" name="search" ng-model="searchText"/>
+                            <input type="text" name="search" ng-model="searchText" placeholder="Books , Coaching Classes And Digital Resource"/>
                             <!--<input type="text" class="hideshow" name="search" placeholder="Search"/>-->
                             <a href="javascript:void(0);" id="searchshow"><i class="fa fa-search" aria-hidden="true" ng-click="redirectAndSearch()"></i></a>
                             <div class="popup">
@@ -209,45 +209,7 @@
                                 </section>
                             </div>
                             
-                            <!--===================== Invite Friends Popup Form =====================-->
-                             <div id="invitefriendsmodal" class="popupContainer" style="display: none;">
-				 <header class="popupHeader invitefriendheader">
-				    <span class="header_title">Invite Your Friends</span> <span class="modal_close" ng-click=closeInvitefriendsmodal()><img src="images/x.png"></span>
-				 </header>
-				 <section class="popupBody invitefriendbody">
-				    <!-- Select Your Friends -->
-				    <div class="user_register select_your_friends">
-				       <label class="title">Select Your Friends</label>
-				       <div class="formbg">
-					  <form>
-					     <fieldset class="form-group friendborder" ng-repeat="friend in friendslist | orderBy:'displayName'">
-						<div class="hanuman">
-						   <img src="images/userfill.png" />
-						   <p>{{friend.displayName}}</p>
-						   <input value={{friend.email}} ng-checked="isSelected(friend.email)" ng-click="addFriendToInvitationList(friend.email)" type="checkbox" name="usercheckbox[]">
-						</div>
-					     </fieldset>
-					  </form>
-				       </div>
-				    </div>
-				    <!-- Your Message -->
-				    <div class="user_login your_message">
-				       <label class="title">Your Message</label>
-				       <div class="formbg">
-					  <form>
-					     <fieldset class="form-group">
-						<textarea cols="5" rows="5" placeholder="MESSAGE" ng-model="invitationMessage"></textarea>
-					     </fieldset>
-					     <div class="action_btns">
-						<div class="one_half last messageright">
-						   <a href="#" class="btn btn_red" ng-click="inviteFriends()">SEND</a><a href="#" class="btn btn_red" ng-click="closeInvitefriendsmodal()">CANCEL</a>
-						</div>
-					     </div>
-					  </form>
-				       </div>
-				    </div>
-				 </section>
-			      </div>
+                            
 
                         </div>
                     </div>
@@ -265,27 +227,59 @@
             </div>
         </div> <!-- Header -->
 	
-	<div class="inviteFriends" id="inviteFriendsLogin" style="display:none;">
-		<header>
-		    <span class="header_title">Sign in With One of Below to invite friends</span>
-		   <span class="modal_close"><a href="" ng-click="hideInviteFriends()"><img src="images/smallX.png"/> </a></span>
-		</header>
-	 
-	      <div class="social_icon">
-		 <ul>
-		    <!-- Social Login  -->
-		 
-		    <li data-ng-click="socialLogin('facebook')"><a href=""><i class="fa fa-facebook"></i></a></li>
-		  
-		    <li data-ng-click="socialLogin('google')"><a href=""><i class="fa fa-google-plus"></i></a></li>
-		
-		 </ul>
-		 <br>
-		 
-	      </div>
-	   </div>
+	<!--===================== Invite Friends Popup Form =====================-->
+                     <div id="invitefriendsmodal" class="popupContainer invitefriendsmodalcontainer" style="display: none;">
+                        <header class="popupHeader invitefriendheader   ">
+                           <span class="header_title">Invite Your Friends</span> <span class="modal_close" ng-click=closeInvitefriendsmodal()><img src="images/x.png"></span>
+                        </header>
+                        <section class="popupBody invitefriendbody">
+                           <!-- Select Your Friends -->
+                           <div class="user_register select_your_friends">
+                              <label class="title">Select Your Friends</label>
+                              <div class="formbg">
+                                 <form>
+                                    <fieldset class="form-group friendborder" ng-repeat="friend in friendslist | orderBy:'displayName'">
+                                       <div class="hanuman">
+                                          <img src="images/userfill.png" />
+                                          <p>{{friend.displayName}}</p>
+                                          <input value={{friend.email}} ng-checked="isSelected(friend.email)" ng-click="addFriendToInvitationList(friend.email)" type="checkbox" name="usercheckbox[]">
+                                       </div>
+                                    </fieldset>
+                                 </form>
+                              </div>
+                           </div>
+                           <!-- Your Message -->
+                           <div class="user_login your_message">
+                              <label class="title">Your Message</label>
+                              <div class="formbg">
+                                 <form>
+                                    <fieldset class="form-group">
+                                       <textarea cols="5" rows="5" placeholder="MESSAGE" ng-model="invitationMessage"></textarea>
+                                    </fieldset>
+                                    <div class="action_btns">
+                                       <div class="one_half last messageright">
+                                          <a href="#" class="btn btn_red" ng-click="inviteFriends()">SEND</a><a href="#" class="btn btn_red" ng-click="closeInvitefriendsmodal()">CANCEL</a>
+                                       </div>
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </section>
+                     </div>
+      <div id="headerinvitefriend" class="popupContainer inviteyourfriendscontainer" style="display:none;">
+         <header class="popupHeader">	
+            <span class="modal_close" ng-click="headerinvitefriend()"><img src="images/x.png"></span>
+         </header>
+         <section class="popupBody">
+            <div class="header_invite_friend">
+               <div class="title">Sign in With One of Below to invite friends</div>
+               <a href="#" data-ng-click="socialLoginForGetFriends('facebook')"><i class="fa fa-facebook"></i></a>
+               <a href="#" data-ng-click="socialLoginForGetFriends('google')"><i class="fa fa-google-plus"></i></a>
+            </div>
+         </section>
+      </div>	
 
-        <div class="slides">
+        <div class="slides" style="display:none">
             <div class="topbg">
                 <div class="logo"><img src="images/colorlogo.png" /></div>
                 <div class="desc">Your future is full of possibilities.<br>Find the right one here.</div>

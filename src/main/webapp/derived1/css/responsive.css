@@ -221,26 +221,18 @@
 	  padding-bottom: 30px;
 	}
 	.discover_steps .ipadair .ipad .eightstep .popupContainer .eightstep_popup .realisticicons .realistic img {
-  width: 45px;
-}
-.discover_steps .ipadair .ipad .eightstep .popupContainer .eightstep_popup .realisticicons .realistic .title {
-  padding: 0;
-}
-.discover_steps .ipadair .ipad .eightstep .popupContainer .eightstep_popup .realisticicons .realistic {
-  padding-left: 0;
-}
-.discover_steps .ipadair .ipad .eightstep .popupContainer .eightstep_popup ul li {
-  font-size: 9px;
-  padding-bottom: 0;
-}
-	
-	
-	
-	
-	
-	
-	
-	
+  		width: 45px;
+	}
+	.discover_steps .ipadair .ipad .eightstep .popupContainer .eightstep_popup .realisticicons .realistic .title {
+	  padding: 0;
+	}
+	.discover_steps .ipadair .ipad .eightstep .popupContainer .eightstep_popup .realisticicons .realistic {
+	  padding-left: 0;
+	}
+	.discover_steps .ipadair .ipad .eightstep .popupContainer .eightstep_popup ul li {
+	  font-size: 9px;
+	  padding-bottom: 0;
+	}
 	.overlay-bg, .overlay-bg1 {
 	  height: 465px !important;
 	}
@@ -310,9 +302,6 @@
 	.build_your_cv .zero_to_one_popup .popupBody .basic_pro_elite img {
 	  height: 230px;
 	}
-	
-	
-	
 	.header .menu #cssmenu ul {
 	  width: 90%;
 	}
@@ -328,10 +317,6 @@
 	.changepasswordcontainer .popupBody {
 	  padding: 0px 80px 10px;
 	}
-	
-	
-	
-	
 	.tabcontainer {
 	  height: 425px !important;
 	  overflow-x: hidden;
@@ -386,7 +371,8 @@
 	.prepare_for_greatness_slider .slider3,
 	.prepare_for_greatness_slider .slide4,
 	.prepare_for_greatness_slider .slider5,
-	.prepare_for_greatness_slider .slider6{
+	.prepare_for_greatness_slider .slider6,
+	.proud_partner_slider .slider7 {
 		width:885px !important;
 	}
 	.prepare_for_greatness_slider .slider1 .prepare_rateing .rating, 
@@ -394,20 +380,41 @@
 	.prepare_for_greatness_slider .slider3 .prepare_rateing .rating {
 	  width: auto;
 	}
+
+	.careers_form .contact_forms .contact_des {
+	  width: 50%;
+	}
+	.careers_form .contact_forms form {
+	  width: 62%;
+	}
+	
+	.blogs .right_category {
+	  padding: 0 0 60px;
+	}
+	.blogs .left_blog .social_button .social_links {
+	  width: 78%;
+	}
+	.blogs .left_blog .social_button ul {
+	  width: 30%;
+	}
+	.blogs .left_blog .social_button .readmore {
+	  width: 22%;
+	}
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px){
+
 	.discover_steps .ipadair .ipad .discoverabsulate .topimage .centerimage {
 	  padding: 20px 55px;
 	}
 	.discover_steps .ipadair .ipad .discoverabsulate .topimage .centerimage .progress {
 	  width: 100%;
 	}
-    .footer .followus ul {
+    	.footer .followus ul {
         left: 10%;
         margin: 0;
         position: relative;
-    }
+    	}
 	.changepasswordcontainer .popupBody {
 	  padding: 0px 80px 10px;
 	}
@@ -418,74 +425,74 @@
 	  right: 0;
 	  width:100%;
 	}
-    .header .logo{
-        padding:0;
-        float:left;
-    }
-    .header .logo img {
-        padding: 5px 0;
-    }
-    .header .menu{
-        width:auto;
-        float:left;
-    }
+    	.header .logo{
+        	padding:0;
+    	    float:left;
+    	}
+    	.header .logo img {
+    	    padding: 5px 0;
+    	}
+    	.header .menu{
+    	    width:auto;
+    	    float:left;
+    	}
 	.header .main_menu{
-        width:100% !important;
-        float:left;
-    }
+        	width:100% !important;
+        	float:left;
+    	}
 	.header .menu #cssmenu ul {
 	  width: 93% !important;
 	}
-    .testimonials .carousel-inner .caption .desc{
-        width:91%;
-    }
-    .trendingnow .trending .desc{
-        height:225px;
-    }
-    .trendingnow .trending .titles {
-        font-size: 13px;
-        letter-spacing: 2px;
-        padding: 20px 10px 20px 0;
-    }
-    #cssmenu > ul > li > a{
-        font-size:12px !important;
-    }
-    .feedback .forms {
-        width: 40%;
-    }
-    .selectbook .book,
-    .selectbook .coaching,
-    .selectbook .digital {
-        float:left;
-        width:33.33%;
-    }
-    .radio_tips,
-    #tips{
-        margin-top:20px;
-    }
-    #searchtips i{
-        -webkit-transform: rotate(-270deg);
-        -moz-transform: rotate(-270deg);
-        -ms-transform: rotate(-270deg);
-        -o-transform: rotate(-270deg);
-        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-        left: 70px;
-        top: -19px;
-    }
-    #searchtips {
-        left: 0px;
-        top: 30px;
-        width: 360px;
-        z-index: 999999;
-    }
-    .book_detail {
-        padding: 10px 0;
-    }
-    .book_detail .col-md-5.text-center {
-        float: left;
-        width: 50%;
-    }
-    .book_detail .book_info {
+    	.testimonials .carousel-inner .caption .desc{
+    	    width:91%;
+    	}
+    	.trendingnow .trending .desc{
+     	   height:225px;
+    	}
+    	.trendingnow .trending .titles {
+    	    font-size: 13px;
+    	    letter-spacing: 2px;
+    	    padding: 20px 10px 20px 0;
+    	}
+    	#cssmenu > ul > li > a{
+    	    font-size:12px !important;
+    	}
+    	.feedback .forms {
+    	    width: 40%;
+    	}
+    	.selectbook .book,
+    	.selectbook .coaching,
+    	.selectbook .digital {
+        	float:left;
+        	width:33.33%;
+    	}
+    	.radio_tips,
+    	#tips{
+     	   margin-top:20px;
+    	}
+    	#searchtips i{
+        	-webkit-transform: rotate(-270deg);
+        	-moz-transform: rotate(-270deg);
+        	-ms-transform: rotate(-270deg);
+        	-o-transform: rotate(-270deg);
+        	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+        	left: 70px;
+        	top: -19px;
+    	}
+    	#searchtips {
+    	    left: 0px;
+    	    top: 30px;
+    	    width: 360px;
+    	    z-index: 999999;
+    	}
+    	.book_detail {
+    	    padding: 10px 0;
+    	}
+    	.book_detail .col-md-5.text-center {
+    	    float: left;
+    	    width: 50%;
+    	}
+    	.book_detail .book_info {
         float: right;
         width: 50%;
     }
@@ -599,14 +606,6 @@
 	.elevenstep .preparationlevel table tr td {
 	  padding: 0;
 	}
-
-
-
-
-
-
-
-
 	.discover_steps .ipadair .ipad .discoverabsulate .topimage .right, 
 	.discover_steps .ipadair .ipad .discoverabsulate .topimage .left {
 	  padding: 10px 15px 5px;
@@ -895,9 +894,6 @@
 	.popupBody.tackabreakbody > iframe {
 	  height: 200px;
 	}
-	
-	
-	
 	.tabcontainer {
 	  height: 425px !important;
 	  overflow-x: hidden;
@@ -963,7 +959,8 @@
 	}
 	.prepare_for_greatness_slider .slider4,
 	.prepare_for_greatness_slider .slider5,
-	.prepare_for_greatness_slider .slider6{
+	.prepare_for_greatness_slider .slider6,
+	.proud_partner_slider .slider7 {
 		width:790px;
 	}
 	.prepare_for_greatness_slider .slider1 .prepare_rateing .rating, 
@@ -972,6 +969,41 @@
 	  width: auto;
 	}
 	
+	.careers h1 {
+	  padding: 170px 0;
+	}
+	.current_opening .current_opening_space .current_opening_padd .img{
+	  width:25%;
+	  float:left;
+	}
+	.current_opening .current_opening_space .current_opening_padd {
+	  padding: 30px 0;
+	}
+	.current_opening .current_opening_space .current_opening_padd .img img{
+	  width:250px;
+	}
+	.current_opening .current_opening_space .current_opening_padd .contains {
+	  float: left;
+	  text-align: left;
+	  width: 75%;
+	}
+	.current_opening .current_opening_space .pagenation span {
+	  width: 41%;
+	}
+	.current_opening .current_opening_space .pagenation ul {
+	  width: 27%;
+	}
+	.careers_form .contact_forms .contact_des {
+	  width: 65%;
+	}
+	.careers_form .contact_forms form {
+	  width: 81%;
+	}
+
+	.blogs .right_category {
+	  padding: 0 0 60px;
+	}
+
 }
 
 @media only screen and (max-width: 990px){
@@ -1084,7 +1116,8 @@
 	}
 	.prepare_for_greatness_slider .slider4,
 	.prepare_for_greatness_slider .slider5,
-	.prepare_for_greatness_slider .slider6 {
+	.prepare_for_greatness_slider .slider6,
+	.proud_partner_slider .slider7 {
 		width:530px;
 	}
 	.prepare_for_greatness_slider .slider1 .prepare_rateing .rating, 
@@ -1228,10 +1261,22 @@
 	.interview_preparation .zero_to_one_popup .popupBody .behavioural_interview_questions{
 		width:100%;
 	}
+	.boardofadvisorscontainer {
+	  height: 425px !important;
+	  left: 5% !important;
+	  overflow-x: hidden;
+	  overflow-y: scroll;
+	  width: 90% !important;
+	}
 }
 
 
 @media only screen and (max-width: 768px){
+	
+	.inviteyourfriendscontainer {
+	  left: 15% !important;
+	  width: 70% !important;
+	}
     .testimonials .carousel-inner .leftimage img{
         float:left;
         position:relative;
@@ -1456,11 +1501,13 @@
 	.greatnessfor .preparesortby {
 	  width: 75%;
 	}
-	.greatnessfor .book_details .leftbooks {
+	.greatnessfor .book_details .leftbooks,
+	.greatnessfor .review_book_details .leftbooks {
 	  margin-bottom: 30px;
 	  padding: 0 40px;
 	}
-	.greatnessfor .book_details .rightdetails {
+	.greatnessfor .book_details .rightdetails,
+	.greatnessfor .review_book_details .rightdetails {
 	  float: left;
 	  padding: 0 40px;
 	}
@@ -1471,7 +1518,8 @@
 	.coachingclassescontainer .popupBody {
 	  padding: 35px 50px;
 	}
-	.greatnessfor .book_details .rightdetails .customer_review_name .rating {
+	.greatnessfor .book_details .rightdetails .customer_review_name .rating,
+	.greatnessfor .review_book_details .rightdetails .customer_review_name .rating {
 	  float: none !important;
 	}
 	
@@ -1483,7 +1531,10 @@
 	}
 	.prepare_for_greatness_slider .slider4,
 	.prepare_for_greatness_slider .slider5,
-	.prepare_for_greatness_slider .slider6{
+	.prepare_for_greatness_slider .slider6,
+	.proud_partner_slider .slider7,
+	.board_of_advisors_slider .slider8,
+	.our_team_slider .slider9 {
 		width:530px;
 	}
 	.prepare_for_greatness_slider .slider1 .prepare_rateing .rating, 
@@ -1494,6 +1545,50 @@
 	.prepare_for_greatness_slider .slider6 .prepare_rateing .rating {
 	  width: auto;
 	}
+	
+	.faqs h1,
+	.privacy_policy h1,
+	.terms_conditions h1 {
+	  padding: 170px 0;
+	  font-size: 40px;
+	}
+	.contactus h1 {
+	  font-size: 50px;
+	  padding: 150px 0;
+	}
+	
+	.blog .blog_head {
+	  padding: 150px 0;
+	}
+	.blog_search form input[type="text"] {
+	  font-size: 12px;
+	  width: 100%;
+	}
+	.blog_search form input[type="submit"] {
+	  left: 22px;
+	}
+	.blogs .left_blog > img {
+	  height: auto;
+	}
+	.blogs .left_blog h4 {
+	  font-size: 16px;
+	}
+	.blogs .left_blog ul li {
+	  margin-right: 10px;
+	}
+	.blogs .right_category {
+	  padding: 0 0 60px;
+	}
+	.blogs .left_blog .social_button .social_links {
+	  width: 77%;
+	}
+	.blogs .left_blog .social_button ul {
+	  width: 35%;
+	}
+	.blogs .left_blog .social_button .readmore {
+	  width: 23%;
+	}
+	
 }
 
 @media only screen and (max-width: 575px){
@@ -1508,9 +1603,100 @@
 	}
 }
 
-@media only screen and (min-width: 680px) and (max-width: 768px){
-	
+
+@media only screen and (min-width: 681px) and (max-width: 768px){
+	.careers h1 {
+  	  padding: 150px 0;
+	}
+	.we_are_hiring .we_are_hiring_pad,
+	.current_opening .current_opening_pad,
+	.current_opening .current_opening_space,
+	.careers_form .contact_forms .contact_des,
+	.careers_form .contact_forms form,
+	.careers_form .contact_forms textarea,
+	.careers_form .contact_forms input[type="text"], 
+	.careers_form .contact_forms select {
+    	  width: 100%;
+	}
+	.careers_form .contact_forms input[type="text"], 
+	.careers_form .contact_forms select{
+  	  widht: 100%;
+  	  margin-bottom:20px;
+	}
+	.careers_form .contact_forms .form-group {
+  	  margin-bottom: 0px;
+	}
+	.we_are_hiring .we_are_hiring_pad h2 {
+	  font-size: 30px;
+	}
+	.current_opening .current_opening_space .current_opening_padd {
+	  padding: 30px 0;
+	}
+	.current_opening .current_opening_space .current_opening_padd .img img{
+	  width:250px;
+	  float:left;
+	}
+	.current_opening .current_opening_space .current_opening_padd .contains {
+	  margin-top: 20px;
+	}
+	.current_opening .current_opening_space .pagenation span {
+	  width: 40%;
+	}
+	.current_opening .current_opening_space .pagenation ul {
+	  width: 35%;
+	}
 }
+
+@media only screen and (min-width: 480px) and (max-width: 680px){
+	.careers h1 {
+  	  padding: 150px 0;
+	}
+	.we_are_hiring .we_are_hiring_pad,
+	.current_opening .current_opening_pad,
+	.current_opening .current_opening_space,
+	.careers_form .contact_forms .contact_des,
+	.careers_form .contact_forms form,
+	.careers_form .contact_forms textarea,
+	.careers_form .contact_forms input[type="text"], 
+	.careers_form .contact_forms select {
+    	  width: 100%;
+	}
+	.careers_form .contact_forms input[type="text"], 
+	.careers_form .contact_forms select{
+  	  widht: 100%;
+  	  margin-bottom:20px;
+	}
+	.careers_form .contact_forms .form-group {
+  	  margin-bottom: 0px;
+	}
+	.we_are_hiring .we_are_hiring_pad h2 {
+	  font-size: 30px;
+	}
+	.current_opening .current_opening_space .current_opening_padd {
+	  padding: 30px 0;
+	}
+	.current_opening .current_opening_space .current_opening_padd .img img{
+	  width:250px;
+	  float:left;
+	}
+	.current_opening .current_opening_space .current_opening_padd .contains {
+	  margin-top: 20px;
+	}
+	.current_opening .current_opening_space .pagenation span {
+	  width: 40%;
+	}
+	.current_opening .current_opening_space .pagenation ul {
+	  width: 35%;
+	}
+	.applycontainer .popupBody .careers_apply {
+	  width: 100%;
+	}
+	.applycontainer {
+	  left: 15% !important;
+	  width: 70% !important;
+	}
+
+
 
 }
 @media only screen and (min-width: 500px) and (max-width: 767px){
@@ -1670,6 +1856,18 @@
 	  height: 100px;
 	  margin: 0;
 	  width: 180px !important;
+	}
+	.advertise_with_us_tabs .tabpopup .tab-pane input[type="text"] {
+	  width: 100%;
+	}
+	.advertise_with_us_tabs .tabpopup .tab-pane .next {
+	  width: 70%;
+	}
+	.contacts_us .contact_form input[type="text"],
+	.contacts_us .contact_form textarea	{
+	  margin-bottom: 5px;
+	  margin-right: 0;
+	  width: 100%;
 	}
 
 }
@@ -1877,7 +2075,10 @@
 	}
 	.prepare_for_greatness_slider .slider4,
 	.prepare_for_greatness_slider .slider5,
-	.prepare_for_greatness_slider .slider6 {
+	.prepare_for_greatness_slider .slider6,
+	.proud_partner_slider .slider7,
+	.board_of_advisors_slider .slider8,
+	.our_team_slider .slider9 {
 		width:285px;
 	}
 	.prepare_for_greatness_slider .slider1 .prepare_rateing .rating, 
@@ -1888,9 +2089,59 @@
 	.prepare_for_greatness_slider .slider6 .prepare_rateing .rating {
 	  width: auto;
 	}
+	
+	.advertise_with_us ul li {
+	  border-right: medium none;
+	  width: 100%;
+	}
+	.advertise_with_us_tabs .tabpopup .tab-pane input[type="text"] {
+	  width: 100%;
+	}
+	.advertise_with_us_tabs .tabpopup .tab-pane .next {
+	  width: 70%;
+	}
+	.contacts_us .contact_form input[type="text"],
+	.contacts_us .contact_form textarea	{
+	  margin-bottom: 5px;
+	  margin-right: 0;
+	  width: 100%;
+	}
+	.privacy_policy_contain .privacy_policy_container,
+	.terms_conditions_contain .terms_conditions_container {
+	  width: 100%;
+	}
+	.privacy_policy_contain .privacy_policy_container .padd .numbers span,
+	.terms_conditions_contain .terms_conditions_container .padd .numbers span {
+	  width: 5%;
+	}
+	.privacy_policy_contain .privacy_policy_container .padd .numbers p,
+	.terms_conditions_contain .terms_conditions_container .padd .numbers p {
+	  width: 95%;
+	}
+	
+	.blogs .left_blog .social_button .social_links {
+	  width: 69%;
+	}
+	.blogs .left_blog .social_button ul {
+	  width: 45%;
+	}
+	.blogs .left_blog .social_button .readmore {
+	  width: 31%;
+	}
+	.blogs .left_blog .comments .img {
+	  margin: 0 0 20px;
+	  width:100%;
+	}
+	.blogs .left_blog .comments .comm {
+	  width: 100%;
+	}
 }
 
 @media only screen and (max-width: 479px){
+	.inviteyourfriendscontainer {
+	  left: 10% !important;
+	  width: 80% !important;
+	}
     .header{
         padding:0;
     }
@@ -2105,11 +2356,13 @@
 	.greatnessfor .preparesortby {
 	  width: 75%;
 	}
-	.greatnessfor .book_details .leftbooks {
+	.greatnessfor .book_details .leftbooks,
+	.greatnessfor .review_book_details .leftbooks {
 	  margin-bottom: 30px;
 	  padding: 0 40px;
 	}
-	.greatnessfor .book_details .rightdetails {
+	.greatnessfor .book_details .rightdetails,
+	.greatnessfor .review_book_details .rightdetails {
 	  float: left;
 	  padding: 0 40px;
 	}
@@ -2128,11 +2381,138 @@
 	}
 	.prepare_for_greatness_slider .slider4,
 	.prepare_for_greatness_slider .slider5,
-	.prepare_for_greatness_slider .slider6 {
+	.prepare_for_greatness_slider .slider6,
+	.proud_partner_slider .slider7,
+	.board_of_advisors_slider .slider8,
+	.our_team_slider .slider9 {
 		width:280px;
 	}
+	.our_team_slider .slider9 ul li{
+		width:370px !important;
+	}
+	.boardofadvisorscontainer {
+	  height: 425px !important;
+	  left: 5% !important;
+	  overflow-x: hidden;
+	  overflow-y: scroll;
+	  width: 90% !important;
+	}
+	.proud_partners .title h2 {
+	  font-size: 35px;
+	}
+	.prepare_for_greatness_slider .sa-left7 i {
+	  left: 10px;
+	}
+	.prepare_for_greatness_slider .sa-right7 i {
+	  right: -10px;
+	}
+	.advertise_with_us h2 {
+	  font-size: 27px;
+	}
+	.advertise_with_us ul li {
+	  border-right: medium none;
+	  width: 100%;
+	}
+	.advertise_with_us_tabs .tabpopup .tab-pane input[type="text"] {
+	  width: 100%;
+	}
+	.advertise_with_us_tabs .tabpopup .tab-pane .next {
+	  width: 70%;
+	}
+	.contacts_us .contact_form input[type="text"],
+	.contacts_us .contact_form textarea	{
+	  margin-bottom: 5px;
+	  margin-right: 0;
+	  width: 100%;
+	}
 	
+	.careers h1 {
+  	  padding: 150px 0;
+	}
+	.we_are_hiring .we_are_hiring_pad,
+	.current_opening .current_opening_pad,
+	.current_opening .current_opening_space,
+	.careers_form .contact_forms .contact_des,
+	.careers_form .contact_forms form,
+	.careers_form .contact_forms textarea,
+	.careers_form .contact_forms input[type="text"], 
+	.careers_form .contact_forms select {
+    	  width: 100%;
+	}
+	.careers_form .contact_forms input[type="text"], 
+	.careers_form .contact_forms select{
+  	  widht: 100%;
+  	  margin-bottom:20px;
+	}
+	.careers_form .contact_forms .form-group {
+  	  margin-bottom: 0px;
+	}
+	.we_are_hiring .we_are_hiring_pad h2 {
+	  font-size: 30px;
+	}
+	.current_opening .current_opening_space .current_opening_padd {
+	  padding: 30px 0;
+	}
+	.current_opening .current_opening_space .current_opening_padd .img img{
+	  width:250px;
+	  float:left;
+	}
+	.current_opening .current_opening_space .current_opening_padd .contains {
+	  margin-top: 20px;
+	}
+	.current_opening .current_opening_space .pagenation span {
+	  width: 30%;
+	}
+	.current_opening .current_opening_space .pagenation ul {
+	  width: 55%;
+	}
+	.applycontainer {
+	  left: 5% !important;
+	  width: 90% !important;
+	}
+	.applycontainer .popupBody .careers_apply {
+	  width: 100%;
+	}	
 	
+	.blog .blog_head {
+	  padding: 150px 0;
+	}
+	.blog_search form input[type="text"] {
+	  font-size: 12px;
+	  width: 100%;
+	}
+	.blog_search form input[type="submit"] {
+	  left: 22px;
+	}
+	.blogs .left_blog > img {
+	  height: auto;
+	}
+	.blogs .left_blog h4 {
+	  font-size: 16px;
+	}
+	.blogs .left_blog ul li {
+	  margin-right: 10px;
+	}
+	.blogs .left_blog .social_button .social_links {
+	  width: 50%;
+	}
+	.blogs .left_blog .social_button ul {
+	  width: 100%;
+	}
+	.blogs .left_blog .social_button .readmore {
+	  width: 50%;
+	}
+	.blogs .right_category {
+	  padding: 0 0 60px;
+	}
+	
+	.blogs .left_blog .comments .img {
+	  margin: 0 0 20px;
+	  width:100%;
+	}
+	.blogs .left_blog .comments .comm {
+	  width: 100%;
+	}
 }
 
 @media only screen and (min-width: 411px) and (max-width: 479px){
@@ -2201,7 +2581,9 @@
 	  bottom: -1760px !important;
 	  left: 20px;
 	}
-	
+	.blogs .right_category .right_cat ul li a:hover {
+	  padding-left: 10px;
+	}
 
 }
 @media only screen and (max-width: 320px){
