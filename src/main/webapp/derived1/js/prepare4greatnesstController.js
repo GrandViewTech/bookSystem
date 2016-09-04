@@ -39,6 +39,8 @@ register
 							$window.location.href = 'prepare_for_greatness.html';
 						}
 					}
+					
+					
 
 					var baseUrl = "..";
 					$scope.searchEntity = 'book';
@@ -281,7 +283,8 @@ register
 										"Please Login to use review section",
 										function(result) {
 											if (result === true) {
-												// $("#modal").show();
+												$scope.profileDialog = 'modal';
+												document.getElementById('modal_trigger').click();
 											}
 										});
 							}
@@ -402,6 +405,8 @@ register
 					$scope.changeActive = function(entityName) {
 						console.log("entityName " + entityName)
 						if (entityName === 'coachingClass') {
+						document.getElementById('topicsContainer').style.display = "none";
+						
 							$scope.reviewEntity = "coaching Class";
 							$scope.identity1 = "Faculty";
 							$scope.identity2 = "Study Materials";
@@ -426,6 +431,7 @@ register
 							$scope.coachingclassesToolTips();
 
 						} else if (entityName === 'digitalResource') {
+							document.getElementById('topicsContainer').style.display = "";
 							$scope.review.resourceReviewedType = "DIGITAL_RESOURCE";
 							$scope.reviewEntity = "Digital Resource";
 							$scope.identity1 = "Personalization";
@@ -449,6 +455,7 @@ register
 							$scope.digitalResourceToolTips();
 
 						} else if (entityName === 'book') {
+							document.getElementById('topicsContainer').style.display = "";
 							$scope.review.resourceReviewedType = "BOOK";
 							$scope.reviewEntity = "Book";
 							$scope.identity1 = "Effectiveness";
@@ -532,6 +539,22 @@ register
 					}
 
 					$scope.writeAReview = function() {
+						if($scope.searchEntity != 'coachingClass'){
+							if($scope.topic1 == '' || $scope.topic2 == '' || $scope.topic3 == ''){
+								bootbox.alert("Please select 3 topics. This will help us provide the context for review");
+								return;
+							}
+							
+							if($scope.topic1 == $scope.topic2 || $scope.topic1 == $scope.topic3 || $scope.topic2 == $scope.topic3 ){
+								bootbox.alert("Please select 3 distinct topics. Topic selection is there on the left side of the screen");
+								return;
+							}
+								
+							$scope.review.topics = $scope.topic1+","+$scope.topic2+","+$scope.topic3;
+						}
+					
+						
+						console.log(' topics selected are '+$scope.review.topics);
 						// $scope.review.resourceTitle=$scope.resource.title;
 						var error = false;
 						var errortype = 1;
@@ -552,9 +575,12 @@ register
 							errortype = 2;
 							error = true;
 						}
-						alert(error);
+						
+						
+						
+						//alert(error);
 						if (error == false) {
-							$scope.review.reviewedBy = $scope.userId;
+							$scope.review.reviewedBy = $scope.loggedInUser.user;
 							$scope.review.resourceIdentity = $scope.resource.identity;
 							if ($scope.review.reviewedBy === null
 									|| $scope.review.reviewedBy === "") {
@@ -1268,20 +1294,36 @@ register
 						return $scope.submitted;
 					}
 
-					$scope.getTopicFromSubject = function() {
-						if ($scope.searchEntity === 'book') {
+	<!-- 		Above login related																										-->				
+			$scope.topic1=  '';
+			$scope.topic2 ='';
+			$scope.topic3 = '';			
+				
+
+			$scope.getTopicFromSubject = function() {
+						if ($scope.searchEntity === 'book' || $scope.searchEntity === 'digitalResource' ) {
 							var subject = $scope.resource.subject;
-							if (subject === null || subject === ""
-									|| subject === '') {
-								subject = "physics";
-							}
+								if(subject == null || subject == '' || subject == 'null'){
+									subject = 'Physics';
+								}
+							
 							var statesUrl = "../ws/rest/utilService/topics/subject/"
 									+ subject + "/token/" + generateToken();
 							$http.get(statesUrl).success(function(response) {
 								$scope.topics = response;
 								for ( var i in $scope.topics) {
 									$scope.selectTopics = $scope.topics[i];
-									break;
+										if(i == 0 ){
+											$scope.topic1 = $scope.topics[i];
+										}
+										else if(i==1){
+											$scope.topic2 = $scope.topics[i];
+										}
+										else if(i==2){
+											$scope.topic3 = $scope.topics[i];
+											break;
+										}
+									
 								}
 								var json = JSON.stringify($scope.topics);
 								console.log(json);

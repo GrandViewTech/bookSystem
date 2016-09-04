@@ -522,6 +522,7 @@ public class ResourceWebService
 													{
 														List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(resourceReviewedType, resourceIdentity, reviewLimit);
 														ResourceEntity resourceEntity = new ResourceEntity(book, reviews);
+														resourceEntity.setResultCriteria("Search Results");
 														resourceEntities.add(resourceEntity);
 														uniqueKeys.add(resourceIdentity);
 													}
@@ -602,6 +603,7 @@ public class ResourceWebService
 													{
 														List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(resourceReviewedType, resourceIdentity, reviewLimit);
 														ResourceEntity resourceEntity = new ResourceEntity(digitalTool, reviews);
+														resourceEntity.setResultCriteria("Search Results");
 														resourceEntities.add(resourceEntity);
 														uniqueKeys.add(resourceIdentity);
 													}

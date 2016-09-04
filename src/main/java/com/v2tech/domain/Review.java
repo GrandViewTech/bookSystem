@@ -29,6 +29,8 @@ public class Review
 		private Integer	interactivity						= 0;
 		private String	location;
 		
+		String topics = "";
+		
 		public Long getId()
 			{
 				return id;
@@ -219,5 +221,18 @@ public class Review
 				return "Review [id=" + id + ", resourceIdentity=" + resourceIdentity + ", comment=" + comment + ", reviewedBy=" + reviewedBy + ", reviewScore=" + reviewScore + ", score=" + score + ", visualTools=" + visualTools + ", solvedExamples=" + solvedExamples + ", resourceReviewedType=" + resourceReviewedType + ", solutionToPracticeProblems=" + solutionToPracticeProblems + ", effectivenessAndEaseOfCommunication=" + effectivenessAndEaseOfCommunication + ", easyOfUse=" + easyOfUse
 				        + ", studyMaterial=" + studyMaterial + ", faculty=" + faculty + ", personalization=" + personalization + ", infrastructure=" + infrastructure + ", interactivity=" + interactivity + ", location=" + location + "]";
 			}
+
+		public String getTopics() {
+			return topics;
+		}
+
+		public void setTopics(String topics) {
+			this.topics = topics;
+		}
+
+		public void setScore(Integer score) {
+			this.score = score;
+		}
 			
+		
 	}

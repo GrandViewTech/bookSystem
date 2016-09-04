@@ -448,16 +448,27 @@
                         <input type="radio" id="star1" name="rating" value="1" ng-model="resource.rating"
                         /><label for="star1" title="Sucks big time">1 star</label>
                      </fieldset>
-                    <div class="reviewankar"><a href="#">view preview</a></div>
-                     <div class="title">Top 3 Topics</div>
-                     <div id="selectTopics" class="reviewankar">
-                            <!-- puneet -->
-                            <!-- ng-options="city for city in cities"></select> -->
-                            <select ng-model="selectTopics" ng-options="topic for topic in topics | orderBy "></select>
-                    </div>
-                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
-                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
-                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                    <div class="reviewankar"><a href="" title="Not in psd">view preview</a></div>
+                    
+		     <div id="topicsContainer">
+				<div class="title">Select 3 Topics</div>
+				     <div id="selectTopics" class="reviewankar">
+					  
+					    <select ng-model="topic1" ng-options="topic for topic in topics | orderBy "></select>
+				    </div>
+				    
+				    <div id="selectTopics" class="reviewankar">
+					  
+					    <select ng-model="topic2" ng-options="topic for topic in topics | orderBy "></select>
+				    </div>
+				    efefe
+				    <div id="selectTopics" class="reviewankar">
+					    
+					    <select ng-model="topic3" ng-options="topic for topic in topics | orderBy "></select>
+				    </div>
+				    2222
+		     </div>
+                  
                   </div> 
                   <div class="rightdetails reviewrightdetails col-md-8">
                      <div class="left_rating">
@@ -551,9 +562,7 @@
                            <option value="select">select</option>
                         </select>
                      </div>
-                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
-                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
-                     <div class="plusmore col-md-6"><a href="#">+ Lorem Ipsum</a></div>
+                   
                   </div>
                   <div class="rightdetails reviewrightdetails col-md-8">
                      <div class="left_rating">

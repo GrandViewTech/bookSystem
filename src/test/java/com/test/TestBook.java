@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.ws.rs.core.MediaType;
@@ -140,6 +142,38 @@ static WebClient webClient = null;
 		
 	}
 
+	@Test
+	@Rollback(value=false)
+	public void testCreateBook(){
+		//
+		Book b = new Book();
+		b.setBookTitle("PLC Educators CBSE PMT (NEET) Biology Question Bank");
+		b.setISBN("Title-PLC Educators CBSE PMT (NEET) Biology Question Bank");
+		bookService.saveOrUpdate(b);
+	}
+	
+	@Test
+	@Rollback(value=false)
+	public void testDuplicates(){
+		Result<Book> books = bookRepository.findAll();
+		Map<String,Book> map = new HashMap<>();
+		Iterator<Book> itr = books.iterator();
+		List<Book> list = new ArrayList<>();
+			while(itr.hasNext()){
+				Book bk = itr.next();
+				if(map.get(bk.getISBN()) == null){
+					map.put(bk.getISBN(), bk);
+				}
+				else{
+					list.add(bk);
+				}
+			}
+		for(Book book : list){
+			System.out.println(book.getISBN());
+			bookRepository.delete(book);
+		}
+	}
+	
 	@Test
 	public void testGenericCriteria() throws JsonProcessingException{
 		String value = "(?i).*Coach.*";

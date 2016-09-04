@@ -20,10 +20,10 @@ public interface CoachingClassRepository extends GraphRepository<CoachingClass>
 		@Query("MATCH (class:CoachingClass) WHERE class.name =~ {0} AND class.location =~ {1} return class ")
 		public Set<CoachingClass> findCoachingClassByNameAndLocation(String name, String location);
 		
-		@Query("MATCH (class:CoachingClass) WHERE class.name =~ {0} AND class.branch =~ {1} AND class.zip =~ {2}   return class;")
+		@Query("MATCH (class:CoachingClass) WHERE class.name = {0} AND class.branch = {1} AND class.zip = {2}   return class;")
 		public Set<CoachingClass> findByNameAndBranchAndZipCode(String name, String branch, String zip);
 		
-		@Query("MATCH (class:CoachingClass) WHERE class.name =~ {0} AND class.branch =~ {1} return class;")
+		@Query("MATCH (class:CoachingClass) WHERE class.name = {0} AND class.branch = {1} return class;")
 		public Set<CoachingClass> findByNameAndBranch(String name, String branch);
 		
 		@Query("MATCH (class:CoachingClass) WHERE class.name =~ {0}  return class;")

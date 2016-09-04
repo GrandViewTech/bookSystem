@@ -2,7 +2,10 @@ package com.v2tech.webservices;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.ws.rs.Consumes;
@@ -18,13 +21,20 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.neo4j.conversion.Result;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.v2.booksys.common.util.EmailFeedbackThread;
+import com.v2tech.domain.Book;
+import com.v2tech.domain.CoachingClass;
 import com.v2tech.domain.Course;
 import com.v2tech.domain.CourseType;
+import com.v2tech.domain.DigitalTool;
 import com.v2tech.domain.TempUser;
+import com.v2tech.repository.BookRepository;
+import com.v2tech.repository.CoachingClassRepository;
 import com.v2tech.repository.CourseRepository;
+import com.v2tech.repository.DigitalToolRepository;
 import com.v2tech.repository.TempUserRepository;
 import com.v2tech.services.CourseService;
 
@@ -41,6 +51,15 @@ public class UtilWebService {
 	
 	@Autowired
 	TempUserRepository tempUserRepository;
+	
+	@Autowired
+	DigitalToolRepository digitalToolRepository;
+	
+	@Autowired
+	BookRepository bookRepository;
+	
+	@Autowired
+	CoachingClassRepository coachingClassRepository;
 	
 	@GET
 	@Path("/topics/subject/{subject}/token/{token}")
@@ -65,6 +84,67 @@ public class UtilWebService {
 		EmailFeedbackThread emailFeedbackThread = new EmailFeedbackThread(email, name, message);
 		Thread t = new Thread(emailFeedbackThread);
 		t.start();
+		return Response.ok().build();
+	}
+	
+	@POST
+	@Path("/removeDuplicates/token/{token}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response removeDuplicates(@PathParam("token") String token){
+		Result<DigitalTool> tools = digitalToolRepository.findAll();
+		Map<String,DigitalTool> map = new HashMap<>();
+		Iterator<DigitalTool> itr = tools.iterator();
+		List<DigitalTool> list = new ArrayList<>();
+			while(itr.hasNext()){
+				DigitalTool bk = itr.next();
+				if(map.get(bk.getName()) == null){
+					map.put(bk.getName(), bk);
+				}
+				else{
+					list.add(bk);
+				}
+			}
+		for(DigitalTool bk : list){
+			System.out.println(bk.getName());
+			digitalToolRepository.delete(bk);
+		}
+		
+		
+		Result<CoachingClass> classes = coachingClassRepository.findAll();
+		Map<String,CoachingClass> map1 = new HashMap<>();
+		Iterator<CoachingClass> itr1 = classes.iterator();
+		List<CoachingClass> list1 = new ArrayList<>();
+			while(itr1.hasNext()){
+				CoachingClass bk = itr1.next();
+				if(map1.get(bk.getName()+"-"+bk.getBranch()+"-"+bk.getZip()) == null){
+					map1.put(bk.getName()+"-"+bk.getBranch()+"-"+bk.getZip(), bk);
+				}
+				else{
+					list1.add(bk);
+				}
+			}
+		for(CoachingClass bk : list1){
+			System.out.println(bk.getName()+"-"+bk.getBranch()+"-"+bk.getZip());
+			coachingClassRepository.delete(bk);
+		}
+		
+		Result<Book> books = bookRepository.findAll();
+		Map<String,Book> map2 = new HashMap<>();
+		Iterator<Book> itr2 = books.iterator();
+		List<Book> list2 = new ArrayList<>();
+			while(itr2.hasNext()){
+				Book bk = itr2.next();
+				if(map2.get(bk.getISBN()) == null){
+					map2.put(bk.getISBN(), bk);
+				}
+				else{
+					list2.add(bk);
+				}
+			}
+		for(Book book : list2){
+			System.out.println(book.getISBN());
+			bookRepository.delete(book);
+		}
 		return Response.ok().build();
 	}
 	

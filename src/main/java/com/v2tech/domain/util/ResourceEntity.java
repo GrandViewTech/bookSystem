@@ -46,6 +46,10 @@ public class ResourceEntity implements Serializable
 		private String[]			indicatorArray3		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
 		private String[]			indicatorArray4		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
 		
+		private String subject = "Physics";
+		
+		private String resultCriteria = "";
+		
 		public String getName()
 			{
 				return name;
@@ -314,6 +318,8 @@ public class ResourceEntity implements Serializable
 				setReviews(reviews);
 				setYear(book.getYear());
 				setUniqueKey(book.getISBN());
+				setSubject(book.getSubject());
+				
 			}
 			
 		public ResourceEntity(CoachingClass coachingClass, List<Review> reviews)
@@ -346,6 +352,7 @@ public class ResourceEntity implements Serializable
 				setYear(coachingClass.getYearFounded());
 				setWebsite(coachingClass.getWebsite());
 				setStream(coachingClass.getCourses());
+			
 			}
 			
 		public ResourceEntity(DigitalTool digitalTool, List<Review> reviews)
@@ -361,6 +368,7 @@ public class ResourceEntity implements Serializable
 				setStream(digitalTool.getCareerStreams());
 				setWebsite(digitalTool.getWebSite());
 				setUniqueKey(digitalTool.getName());
+				setSubject(digitalTool.getSubject());
 			}
 			
 		public String[] getIndicatorArray1()
@@ -447,6 +455,26 @@ public class ResourceEntity implements Serializable
 			{
 				this.website = website;
 			}
+
+		public String getSubject() {
+			return subject;
+		}
+
+		public void setSubject(String subject) {
+			this.subject = subject;
+		}
+
+		public String getResultCriteria() {
+			return resultCriteria;
+		}
+
+		public void setResultCriteria(String resultCriteria) {
+			this.resultCriteria = resultCriteria;
+		}
+
+		public void setPrice(Float price) {
+			this.price = price;
+		}
 			
 		
 			

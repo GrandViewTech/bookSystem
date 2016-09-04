@@ -387,7 +387,8 @@ public class BookService
 			
 		public Set<Book> searchBooksByISBN(String isbn, Integer limit)
 			{
-				isbn = ("(?i)" + isbn).trim();
+			//	isbn = ("(?i)" + isbn).trim();
+				isbn.trim();
 				return bookRepository.findBookByISBN(isbn);
 			}
 			

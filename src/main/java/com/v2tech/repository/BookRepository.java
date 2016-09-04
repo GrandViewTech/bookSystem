@@ -19,7 +19,7 @@ public interface BookRepository extends GraphRepository<Book>{
 	@Query("MATCH (bk:Book) WHERE bk.bookTitle =~ {0} AND searchable ='yes' OR bk.authors =~ {0}  return bk;")
 	public Iterable<Book> searchBooksByProfileData(String keyword);
 	
-	@Query("MATCH (bk:Book) WHERE bk.ISBN =~ {0} return bk;")
+	@Query("MATCH (bk:Book) WHERE bk.ISBN = {0} return bk;")
 	public Set<Book> findBookByISBN(String ISBN);
 	
 	@Query("MATCH (a)-[r:HAVE_RATED]->(b) WHERE b.ISBN={0}  AND b.searchable ='yes' RETURN r LIMIT 25")
