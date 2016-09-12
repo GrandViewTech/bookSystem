@@ -468,16 +468,19 @@ public class ResourceWebService
 						String email = socialMediaFriend.get("email");
 						if (tempEmailIds.contains(email) == false)
 							{
-								Set<User> _systemUsers = userService.findUsersByUserName(email);
-								if ((_systemUsers != null) && (_systemUsers.size() > 0))
-									{
-										systemUser.addAll(_systemUsers);
-									}
-								else
-									{
-										nonSystemUser.add(socialMediaFriend);
-									}
-								tempEmailIds.add(email);
+								if(email != null || email.trim().length() != 0){
+									Set<User> _systemUsers = userService.findUsersByUserName(email);
+									if ((_systemUsers != null) && (_systemUsers.size() > 0))
+										{
+											systemUser.addAll(_systemUsers);
+										}
+									else
+										{
+											nonSystemUser.add(socialMediaFriend);
+										}
+									tempEmailIds.add(email);
+								}
+								
 							}
 					}
 				userService.addFriendsToUser(user, systemUser);
