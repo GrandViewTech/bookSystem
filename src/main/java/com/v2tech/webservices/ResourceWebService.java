@@ -466,18 +466,21 @@ public class ResourceWebService
 				for (Map<String, String> socialMediaFriend : socialMediaFriends)
 					{
 						String email = socialMediaFriend.get("email");
-						if (tempEmailIds.contains(email) == false)
+						if (email != null)
 							{
-								Set<User> _systemUsers = userService.findUsersByUserName(email);
-								if ((_systemUsers != null) && (_systemUsers.size() > 0))
+								if (tempEmailIds.contains(email) == false)
 									{
-										systemUser.addAll(_systemUsers);
+										Set<User> _systemUsers = userService.findUsersByUserName(email);
+										if ((_systemUsers != null) && (_systemUsers.size() > 0))
+											{
+												systemUser.addAll(_systemUsers);
+											}
+										else
+											{
+												nonSystemUser.add(socialMediaFriend);
+											}
+										tempEmailIds.add(email);
 									}
-								else
-									{
-										nonSystemUser.add(socialMediaFriend);
-									}
-								tempEmailIds.add(email);
 							}
 					}
 				userService.addFriendsToUser(user, systemUser);

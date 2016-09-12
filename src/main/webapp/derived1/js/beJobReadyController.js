@@ -42,7 +42,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 					
 		var user = $window.localStorage.getItem('loggedInUser');
 		var usr = '';
-			if (user === 'null' || user === "null") {
+			if (user ===null || user === 'null' || user === "null") {
 				return;
 			}
 			else{
@@ -68,10 +68,13 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 		$scope.fetchBookmarks();
 		$scope.goToBookmarkResource = function(resourceName, resourceType){
 			bootbox.alert("Redirection to bookmarked resource coming soon!");
-						// window.localStorage.setItem("isRedirectedSearch", true);
-						//window.localStorage.setItem("redirectSearchKeyword", resourceName);
-						//window.localStorage.setItem("resourceType", resourceType);
-						//$window.location.href = 'prepare_for_greatness.html';
+						// window.localStorage.setItem("isRedirectedSearch",
+						// true);
+						// window.localStorage.setItem("redirectSearchKeyword",
+						// resourceName);
+						// window.localStorage.setItem("resourceType",
+						// resourceType);
+						// $window.location.href = 'prepare_for_greatness.html';
 		}
 
 
@@ -92,7 +95,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 	$scope.searchString = '';
 	
 	var user = $window.localStorage.getItem('loggedInUser');
-	//console.log('user is '+user);
+	// console.log('user is '+user);
 	
 	
 	$scope.loggedInUser = '';
@@ -549,7 +552,7 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 								}
 							if (response.data.length > 0)
 								{
-									$http.post('../ws/rest/resourceService/addFriendsFromSocialMedia/socialMediaType/' + clientNetwork + '/token/test?userId=' + userId, $scope.friendslistTemp).success(function(response)
+									$http.post('../ws/rest/resourceService/addFriendsFromSocialMedia/socialMediaType/' + clientNetwork + '/token/test?userId=' + $scope.loggedInUser.user, $scope.friendslistTemp).success(function(response)
 										{
 											for (var i = 0; i < response.length; i++)
 												{

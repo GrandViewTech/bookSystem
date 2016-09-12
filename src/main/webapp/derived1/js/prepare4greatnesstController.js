@@ -31,10 +31,10 @@ register
 				"prepare4greatnesstController",
 				function($scope, $http, $window, $filter, $sce, Feedback) {
 
-					$scope.redirectAndSearch = function() 
-					{
-						//window.localStorage.setItem("isRedirectedSearch", true);
-						//window.localStorage.setItem("redirectSearchKeyword",$scope.searchText);
+					$scope.redirectAndSearch = function() {
+						// window.localStorage.setItem("isRedirectedSearch",
+						// true);
+						// window.localStorage.setItem("redirectSearchKeyword",$scope.searchText);
 						$scope.searchBar();
 					}
 
@@ -73,101 +73,92 @@ register
 					$scope.submitted = "";
 					$scope.reviewEntity = "Book";
 
-					
 					$scope.bookmarkedResources = {};
-					
-					
-					
-					$scope.bookMark = function(){
-					var bookmark = {};
-					bookmark.resourceId = $scope.resource.uniqueKey;
-					bookmark.resourceType = $scope.resource.resourceEntity;
-					bookmark.userId = $scope.loggedInUser.user;
-					bookmark.name = $scope.resource.name;
-					
-					
-					
-					var url = "../ws/rest/reviewRelatedService/createBookmark/token/test";
-					
+
+					$scope.bookMark = function() {
+						var bookmark = {};
+						bookmark.resourceId = $scope.resource.uniqueKey;
+						bookmark.resourceType = $scope.resource.resourceEntity;
+						bookmark.userId = $scope.loggedInUser.user;
+						bookmark.name = $scope.resource.name;
+
+						var url = "../ws/rest/reviewRelatedService/createBookmark/token/test";
+
 						$http
 								.post(url, bookmark)
 								.success(
 										function(response) {
-											$scope.fetchBookmarks ();
-											bootbox.alert("Your resource has been bookmarked. You can check out your bookmarks by going to the 'Services' tab of your profile section. Thanks");
+											$scope.fetchBookmarks();
+											bootbox
+													.alert("Your resource has been bookmarked. You can check out your bookmarks by going to the 'Services' tab of your profile section. Thanks");
 										})
 								.error(
-									function(errorResponse) {
-									bootbox.alert("Sorry! We are facing some problems in bookmarking your resource right now. Please try later!");
-									console.log(JSON.stringify(errorResponse));
-								});
-					
+										function(errorResponse) {
+											bootbox
+													.alert("Sorry! We are facing some problems in bookmarking your resource right now. Please try later!");
+											console.log(JSON
+													.stringify(errorResponse));
+										});
+
 					}
-					
-					$scope.fetchBookmarks = function(){
-					
-					var user = $window.localStorage.getItem('loggedInUser');
-					var usr = '';
-						if (user === 'null' || user === "null") {
+
+					$scope.fetchBookmarks = function() {
+
+						var user = $window.localStorage.getItem('loggedInUser');
+						var usr = '';
+						if (user == null || user === 'null' || user === "null") {
 							return;
-						}
-						else{
+						} else {
 							user = jQuery.parseJSON(user);
 							usr = user.user;
 						}
-						
-					
-						var url = "../ws/rest/reviewRelatedService/fetchBookMarks/user/"+usr+"/token/test";
-							$http
-								.get(url)
-								.success(
-										function(response) {
-											$scope.bookmarkedResources = response;
-										})
-								.error(
-									function(errorResponse) {
-									
-									console.log(JSON.stringify(errorResponse));
-								});
+
+						var url = "../ws/rest/reviewRelatedService/fetchBookMarks/user/"
+								+ usr + "/token/test";
+						$http.get(url).success(function(response) {
+							$scope.bookmarkedResources = response;
+						}).error(function(errorResponse) {
+
+							console.log(JSON.stringify(errorResponse));
+						});
 					}
-					
+
 					$scope.fetchBookmarks();
-					
-					$scope.goToBookmarkResource = function(resourceName, resourceType){
-						bootbox.alert("Redirection to bookmarked resource coming soon!");
-					// window.localStorage.setItem("isRedirectedSearch", true);
-						//window.localStorage.setItem("redirectSearchKeyword", resourceName);
-						//window.localStorage.setItem("resourceType", resourceType);
-						//$window.location.href = 'prepare_for_greatness.html';
+
+					$scope.goToBookmarkResource = function(resourceName,
+							resourceType) {
+						bootbox
+								.alert("Redirection to bookmarked resource coming soon!");
+						// window.localStorage.setItem("isRedirectedSearch",
+						// true);
+						// window.localStorage.setItem("redirectSearchKeyword",
+						// resourceName);
+						// window.localStorage.setItem("resourceType",
+						// resourceType);
+						// $window.location.href = 'prepare_for_greatness.html';
 					}
 
-
-					$scope.bookToolTips=function()
-					{
-						$scope.toolTip1="Does this book cover all fundamental concepts required to master the topics? Does the book succeed in making concepts crystal clear without much external help? Is the book easy to understand ?";
-						$scope.toolTip2="Sometimes, a picture is worth a thousand words. Think about diagrams, photos, flowcharts, tables, and other visual tools used to explain concepts.";	
-						$scope.toolTip3="Some learn best through examples solved using the concepts at hand. Think about closeness of practice problems to actual exam questions. Did the solved examples help you better understand concepts? Other factors to consider include accuracy, completeness, and presentation of problem solutions.";
-						$scope.toolTip4="Some learn best by understanding real world examples of abstract, theoretical concepts. How well does the book use relevant case studies, real life illustrations, and practical applications to illustrate";						
+					$scope.bookToolTips = function() {
+						$scope.toolTip1 = "Does this book cover all fundamental concepts required to master the topics? Does the book succeed in making concepts crystal clear without much external help? Is the book easy to understand ?";
+						$scope.toolTip2 = "Sometimes, a picture is worth a thousand words. Think about diagrams, photos, flowcharts, tables, and other visual tools used to explain concepts.";
+						$scope.toolTip3 = "Some learn best through examples solved using the concepts at hand. Think about closeness of practice problems to actual exam questions. Did the solved examples help you better understand concepts? Other factors to consider include accuracy, completeness, and presentation of problem solutions.";
+						$scope.toolTip4 = "Some learn best by understanding real world examples of abstract, theoretical concepts. How well does the book use relevant case studies, real life illustrations, and practical applications to illustrate";
 					}
 
-					$scope.coachingclassesToolTips=function()
-					{
-						$scope.toolTip1="Good instructors can significantly impact a student’s performance in exams. Think about quality of lectures, ability to teach complex concepts in simple ways, engagement of the class, and help with individual doubts of students.";						
-						$scope.toolTip2="Good study materials are critical for productive self-study. How effective were the study materials in improving your scores? These include chapter notes, practice problems and solutions, mock tests, cheatsheets, revision guides, and any other materials provided by the coaching class.";
-						$scope.toolTip3="The most effective courses focus on individual student goals, learning styles, strengths, and weaknesses. Think about performance analysis and feedback, doubt solving sessions, student-specific study plans based on individual performance, and overall emphasis on personal attention.";
-						$scope.toolTip4="Who doesn't like a comfy learning environment? Tell us how this class did in providing necessary facilities to support your learning experience. Think about classroom settings, libraries, study centres, laptops / tablets, and online support.";
+					$scope.coachingclassesToolTips = function() {
+						$scope.toolTip1 = "Good instructors can significantly impact a student’s performance in exams. Think about quality of lectures, ability to teach complex concepts in simple ways, engagement of the class, and help with individual doubts of students.";
+						$scope.toolTip2 = "Good study materials are critical for productive self-study. How effective were the study materials in improving your scores? These include chapter notes, practice problems and solutions, mock tests, cheatsheets, revision guides, and any other materials provided by the coaching class.";
+						$scope.toolTip3 = "The most effective courses focus on individual student goals, learning styles, strengths, and weaknesses. Think about performance analysis and feedback, doubt solving sessions, student-specific study plans based on individual performance, and overall emphasis on personal attention.";
+						$scope.toolTip4 = "Who doesn't like a comfy learning environment? Tell us how this class did in providing necessary facilities to support your learning experience. Think about classroom settings, libraries, study centres, laptops / tablets, and online support.";
 					}
 
-
-
-					$scope.digitalResourceToolTips=function()
-					{
-						$scope.toolTip1="The most effective courses focus on individual student goals, learning styles, strengths, and weaknesses. They should be specific to you, easily understood, and effective. Think about performance analysis for practice problems, study plan based on strengths and weaknesses, and test taking strategies for test day.";
-						$scope.toolTip2="How well did this tool engage students and create a natural learning environment. Think about access to experts for doubt solving, live lectures, discussion channels, community activities, and interactive lessons.";
-						$scope.toolTip3="How easy to use was the tool? Think about the user interface, ease of finding other pages, performance with slow internet connections, compatibility issues, and audio / video quality.";
-						$scope.toolTip4="Were the study materials sufficient for your exam prep? Did they help improve your scores? Think about closeness to syllabus and past tests, accuracy, quality of solutions, and originality. Study materials include chapter notes, practice problems and solutions, mock tests, cheatsheets, revision guides, and any other materials.";	
+					$scope.digitalResourceToolTips = function() {
+						$scope.toolTip1 = "The most effective courses focus on individual student goals, learning styles, strengths, and weaknesses. They should be specific to you, easily understood, and effective. Think about performance analysis for practice problems, study plan based on strengths and weaknesses, and test taking strategies for test day.";
+						$scope.toolTip2 = "How well did this tool engage students and create a natural learning environment. Think about access to experts for doubt solving, live lectures, discussion channels, community activities, and interactive lessons.";
+						$scope.toolTip3 = "How easy to use was the tool? Think about the user interface, ease of finding other pages, performance with slow internet connections, compatibility issues, and audio / video quality.";
+						$scope.toolTip4 = "Were the study materials sufficient for your exam prep? Did they help improve your scores? Think about closeness to syllabus and past tests, accuracy, quality of solutions, and originality. Study materials include chapter notes, practice problems and solutions, mock tests, cheatsheets, revision guides, and any other materials.";
 					}
-					
+
 					$scope.applyOrderBy = function(argument) {
 						// alert("findByDistinctStateAndCityForGivenCountry");
 						// $scope.apply();
@@ -287,13 +278,11 @@ register
 											var i = 0;
 											$scope.slider = [];
 											$scope.resourceEntities = resourceEntities;
-											if ($scope.resourceEntities.length > 0) 
-											{
+											if ($scope.resourceEntities.length > 0) {
 												$scope.resource = $scope.resourceEntities[0];
 												$scope.getTopicFromSubject();
 											}
-											if (isReload === true) 
-											{
+											if (isReload === true) {
 												$("#searchContext1").show();
 												$scope.$apply();
 												jQuery('.slider4').lbSlider({
@@ -303,7 +292,7 @@ register
 													autoPlay : true,
 													autoPlayDelay : 5
 												});
-												//jQuery('.slider4').lbSlider("refresh");
+												// jQuery('.slider4').lbSlider("refresh");
 											}
 											console
 													.log(JSON
@@ -329,15 +318,13 @@ register
 						}
 					}
 
-					
 					$scope.changeActive = function(entityName) {
 						console.log("entityName " + entityName)
 						if (entityName === 'coachingClass') {
-							if(document.getElementById('topicsContainer') != null){
+							if (document.getElementById('topicsContainer') != null) {
 								document.getElementById('topicsContainer').style.display = "none";
 							}
-						
-						
+
 							$scope.reviewEntity = "coaching Class";
 							$scope.identity1 = "Faculty";
 							$scope.identity2 = "Study Materials";
@@ -362,8 +349,8 @@ register
 							$scope.coachingclassesToolTips();
 
 						} else if (entityName === 'digitalResource') {
-							if(document.getElementById('topicsContainer') != null){
-								document.getElementById('topicsContainer').style.display = "none";
+							if (document.getElementById('topicsContainer') != null) {
+								document.getElementById('topicsContainer').style.display = "";
 							}
 							$scope.review.resourceReviewedType = "DIGITAL_RESOURCE";
 							$scope.reviewEntity = "Digital Resource";
@@ -388,8 +375,8 @@ register
 							$scope.digitalResourceToolTips();
 
 						} else if (entityName === 'book') {
-							if(document.getElementById('topicsContainer') != null){
-								document.getElementById('topicsContainer').style.display = "none";
+							if (document.getElementById('topicsContainer') != null) {
+								document.getElementById('topicsContainer').style.display = "";
 							}
 							$scope.review.resourceReviewedType = "BOOK";
 							$scope.reviewEntity = "Book";
@@ -414,12 +401,9 @@ register
 							$scope.bookToolTips();
 						}
 					};
-					
-					
-					
-					$scope.init = function(page, isReload) 
-					{
-						//$scope.nearMe();
+
+					$scope.init = function(page, isReload) {
+						// $scope.nearMe();
 
 						$("#classCaret").hide();
 						$("#bookCaret").show();
@@ -440,35 +424,33 @@ register
 							$scope.userId = "anonymous";
 							console.log('disable profile div');
 							$scope.headeruser = '';
-							if ($scope.page === 'write_a_review') 
-							{
+							if ($scope.page === 'write_a_review') {
 								$("#submitReview").hide();
 								bootbox.confirm(
 										"Please Login to use review section",
 										function(result) {
-											if (result === true) 
-											{
+											if (result === true) {
 												$scope.profileDialog = 'modal';
- 												document.getElementById('modal_trigger').click();
+												document.getElementById(
+														'modal_trigger')
+														.click();
 											}
 										});
 							}
-						} else 
-						{
+						} else {
 							user = jQuery.parseJSON(user);
-							if (user.userType == 'ADMIN') 
-							{
+							if (user.userType == 'ADMIN') {
 								console.log('not logged in as Admin');
 								$window.location.href = 'AdminShortCuts.html';
-							} else 
-							{
+							} else {
 								$scope.loggedInUser = user;
 								$scope.headeruser = '#headeruser';
 								$scope.profileDialog = '';
-								$scope.profileText = user.firstName + ' '+ user.lastName;
-								console.log('profileDialog is '+ $scope.profileDialog);
-								if ($scope.page === 'write_a_review') 
-								{
+								$scope.profileText = user.firstName + ' '
+										+ user.lastName;
+								console.log('profileDialog is '
+										+ $scope.profileDialog);
+								if ($scope.page === 'write_a_review') {
 									$("#submitReview").show();
 								}
 							}
@@ -483,22 +465,21 @@ register
 									.getItem("redirectSearchKeyword");
 							if (redirectSearchKeyword != ""
 									|| redirectSearchKeyword != '') {
-									
-								var resourceType = window.localStorage.getItem("resourceType");	
-									if(resourceType  == 'BOOKS'){
-										$scope.changeActive('book');
-									}
-									else if(resourceType  == 'COACHING_CLASSES'){
-										$scope.changeActive('coachingClass');
-									}
-									else if(resourceType  == 'DIGITAL_RESOURCES'){
-										$scope.changeActive('digitalResource');
-									}
 
-						
+								var resourceType = window.localStorage
+										.getItem("resourceType");
+								if (resourceType == 'BOOKS') {
+									$scope.changeActive('book');
+								} else if (resourceType == 'COACHING_CLASSES') {
+									$scope.changeActive('coachingClass');
+								} else if (resourceType == 'DIGITAL_RESOURCES') {
+									$scope.changeActive('digitalResource');
+								}
+
 								$scope.searchkeyword = redirectSearchKeyword;
 								isReload = true;
-								window.localStorage.setItem("isRedirectedSearch", false);
+								window.localStorage.setItem(
+										"isRedirectedSearch", false);
 							}
 						}
 						$scope.search(isReload);
@@ -549,70 +530,81 @@ register
 
 						$http
 								.get(searchUrl)
-								.success(function(resourceEntities) 
-								{
-											$scope.resource={};
+								.success(
+										function(resourceEntities) {
+											$scope.resource = {};
 											$("#bookDetailsId").hide();
 											$("#loadingDiv").hide();
-											$("#searchContext1").show()	
+											$("#searchContext1").show()
 											$scope.resourceEntities = resourceEntities;
-											
-											if ($scope.resourceEntities.length > 0) 
-											{
+
+											if ($scope.resourceEntities.length > 0) {
 												$scope.resource = $scope.resourceEntities[0];
 												$scope.getTopicFromSubject();
-												if ($scope.page === 'write_a_review') 
-													{
-														$("#reviewId").show();
-														$("#searchResultDiv").show();
-														$('html,body').animate({scrollTop: $("#searchResultDiv").offset().top},'slow');	
-														$("#no_result_found").hide();
+												if ($scope.page === 'write_a_review') {
+													$("#reviewId").show();
+													$("#searchResultDiv")
+															.show();
+													$('html,body')
+															.animate(
+																	{
+																		scrollTop : $(
+																				"#searchResultDiv")
+																				.offset().top
+																	}, 'slow');
+													$("#no_result_found")
+															.hide();
+												} else {
+													$("#searchContext1").show();
+													$("#bookDetailsId").show();
+													if ($scope.resourceEntities.length < 4) {
+														$("#searchContext1")
+																.hide();
+														$("#searchResultDiv")
+																.show();
 													}
-												else
-													{
-														$("#searchContext1").show();
-														$("#bookDetailsId").show();
-														if($scope.resourceEntities.length<4)
-														{
-															$("#searchContext1").hide();
-															$("#searchResultDiv").show();
-														}
-														$('html,body').animate({scrollTop: $("#searchContext2").offset().top},'slow');	
-														$scope.$apply();
-													}
-											}
-											else
-											{
+													$('html,body')
+															.animate(
+																	{
+																		scrollTop : $(
+																				"#searchContext2")
+																				.offset().top
+																	}, 'slow');
+													$scope.$apply();
+												}
+											} else {
 												$("#searchContext1").hide();
 												$("#no_result_found").show();
-												$('html,body').animate({scrollTop: $("#no_result_found").offset().top},'slow');	
+												$('html,body')
+														.animate(
+																{
+																	scrollTop : $(
+																			"#no_result_found")
+																			.offset().top
+																}, 'slow');
 											}
-																					
-										})
-								.error(function(errorResponse) 
-								{
+
+										}).error(function(errorResponse) {
 									console.log(JSON.stringify(errorResponse));
 								});
 					};
 
-					$scope.updateSelectedInstance = function(resource)
-					 {
+					$scope.updateSelectedInstance = function(resource) {
 						$scope.resetReview();
 						$scope.resource = resource;
-						
-						if ($scope.page === 'write_a_review') 
-						{
+
+						if ($scope.page === 'write_a_review') {
 							$scope.getTopicFromSubject();
-							$('html,body').animate({scrollTop: $("#reviewId").offset().top},'slow');
-						}
-						else
-						{
-							$('html,body').animate({scrollTop: $("#bookDetailsId").offset().top},'slow');	
+							$('html,body').animate({
+								scrollTop : $("#reviewId").offset().top
+							}, 'slow');
+						} else {
+							$('html,body').animate({
+								scrollTop : $("#bookDetailsId").offset().top
+							}, 'slow');
 						}
 
 					};
-
-
 
 					$scope.updateIdentity1 = function(value) {
 						var entityName = $scope.searchEntity;
@@ -693,7 +685,7 @@ register
 							errortype = 2;
 							error = true;
 						}
-						alert(error);
+						// alert(error);
 						if (error == false) {
 							$scope.review.reviewedBy = $scope.userId;
 							$scope.review.resourceIdentity = $scope.resource.identity;
@@ -810,9 +802,8 @@ register
 											if (u.userType == 'ADMIN') {
 												$window.location.href = 'AdminShortCuts.html';
 											}
-											
-											
-											//fetch bookmarks for profiles
+
+											// fetch bookmarks for profiles
 											$scope.fetchBookmarks();
 										})
 								.error(
@@ -892,19 +883,17 @@ register
 						document.getElementById('headeruser').style.display = "none";
 						$("#headerinvitefriend").show();
 					}
-					$scope.socialLoginForGetFriends = function(network) 
-					{
+					$scope.socialLoginForGetFriends = function(network) {
 						$scope.socialLogin(network);
 						$("#inviteFriendsLogin").hide();
 						$scope.getfriends();
 						$scope.headerinvitefriend();
 					}
 
-					$scope.headerinvitefriend=function()
-					{
+					$scope.headerinvitefriend = function() {
 						$("#headerinvitefriend").hide();
 					}
-					
+
 					$scope.hideInviteFriends = function() {
 						document.getElementById('inviteFriendsLogin').style.display = "none";
 					}
@@ -1060,7 +1049,7 @@ register
 																	'../ws/rest/resourceService/addFriendsFromSocialMedia/socialMediaType/'
 																			+ clientNetwork
 																			+ '/token/test?userId='
-																			+ userId,
+																			+ $scope.loggedInUser.user,
 																	$scope.friendslistTemp)
 															.success(
 																	function(
@@ -1076,10 +1065,19 @@ register
 																				.log("Updated List of Emails"
 																						+ JSON
 																								.stringify($scope.inviteFriendLists));
-																		console.log("Updated List of friendslist"+ JSON.stringify($scope.friendslist));
-																		$("#loading").hide();
-																		$("#modal").hide();
-																		$("#invitefriendsmodal").show();
+																		console
+																				.log("Updated List of friendslist"
+																						+ JSON
+																								.stringify($scope.friendslist));
+																		$(
+																				"#loading")
+																				.hide();
+																		$(
+																				"#modal")
+																				.hide();
+																		$(
+																				"#invitefriendsmodal")
+																				.show();
 
 																	});
 												}
@@ -1406,50 +1404,36 @@ register
 						return $scope.submitted;
 					}
 
-					$scope.topic1 ='';
- 					$scope.topic2 ='';
- 					$scope.topic3 ='';	
-					$scope.getTopicFromSubject=function()
-					{
-						if($scope.searchEntity === 'book' || $scope.searchEntity === 'digitalResource'  )
-							{
-								var subject=$scope.resource.subject;
-								var statesUrl = "../ws/rest/utilService/topics/subject/"+'physics'+"/token/"+ generateToken();
-								$http.get(statesUrl)
-									 	.success(
-									 		function(response) 
-									 		{
-									 			$scope.topics=response;
-									 			for(var i in $scope.topics)
-												{
-													$scope.selectTopics=$scope.topics[i];
-													if(i == 0 )
-													{
- 														$scope.topic1 = $scope.topics[i];
- 													}
- 													else if(i==1)
- 													{
- 														$scope.topic2 = $scope.topics[i];
- 													}
- 													else if(i==2)
- 													{
- 														$scope.topic3 = $scope.topics[i];
- 														break;
- 													}
-												}
-									 			//var json=JSON.stringify($scope.topics);
-									 			//console.log(json);
-									 		})
-									 	.error(
-									 		function(exception) 
-									 		{
-									 			$scope.topics=[];
-									 		});
+					$scope.topic1 = '';
+					$scope.topic2 = '';
+					$scope.topic3 = '';
+					$scope.getTopicFromSubject = function() {
+						if ($scope.searchEntity === 'book'
+								|| $scope.searchEntity === 'digitalResource') {
+							var subject = $scope.resource.subject;
+							var statesUrl = "../ws/rest/utilService/topics/subject/"
+									+ 'physics' + "/token/" + generateToken();
+							$http.get(statesUrl).success(function(response) {
+								$scope.topics = response;
+								for ( var i in $scope.topics) {
+									$scope.selectTopics = $scope.topics[i];
+									if (i == 0) {
+										$scope.topic1 = $scope.topics[i];
+									} else if (i == 1) {
+										$scope.topic2 = $scope.topics[i];
+									} else if (i == 2) {
+										$scope.topic3 = $scope.topics[i];
+										break;
+									}
+								}
+								// var json=JSON.stringify($scope.topics);
+								// console.log(json);
+							}).error(function(exception) {
+								$scope.topics = [];
+							});
 
-								
-							}
-							
+						}
+
 					}
-					
 
 				});
