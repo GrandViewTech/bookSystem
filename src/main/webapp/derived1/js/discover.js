@@ -337,13 +337,13 @@ app.controller( 'discoverController',  function($scope, $http, $window, Feedback
 					{
 						
 						document.getElementById('headeruser').style.display = "none";
-						if($scope.loggedInUser.socialMedia==true)
+						if($scope.loggedInUser.socialMedia===false)
+						{
+						 	 bootbox.alert("LoggedIn user must be a social User in order to use this functionality");	
+						}
+						else	
 						{
 							$("#headerinvitefriend").show();
-						}
-						else
-						{
-							$scope.socialLoginForGetFriends($scope.loggedInUser.socialMediaType);
 						}
 						
 

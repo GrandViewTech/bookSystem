@@ -632,11 +632,13 @@ app
 					$scope.showInviteFriends = function() {
 
 						document.getElementById('headeruser').style.display = "none";
-						if ($scope.loggedInUser.socialMedia == true) {
-							$("#headerinvitefriend").show();
-						} else {
-							$scope
-									.socialLoginForGetFriends($scope.loggedInUser.socialMediaType);
+						if($scope.loggedInUser.socialMedia===false)
+						{
+						  bootbox.alert("LoggedIn user is not a Social Media User hence cannot use this functionality");	
+						}
+						else	
+						{
+						$("#headerinvitefriend").show();
 						}
 
 					}

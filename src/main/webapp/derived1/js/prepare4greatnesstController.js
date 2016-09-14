@@ -881,20 +881,31 @@ register
 
 					$scope.showInviteFriends = function() {
 						document.getElementById('headeruser').style.display = "none";
-						$("#headerinvitefriend").show();
+						if($scope.loggedInUser.socialMedia===false)
+						{
+						 	 bootbox.alert("LoggedIn user must be a social User in order to use this functionality");	
+						}
+						else	
+						{
+							$("#headerinvitefriend").show();
+						}
 					}
 					$scope.socialLoginForGetFriends = function(network) {
-						$scope.socialLogin(network);
-						$("#inviteFriendsLogin").hide();
-						$scope.getfriends();
-						$scope.headerinvitefriend();
+						
+						
+							$scope.socialLogin(network);
+							$("#inviteFriendsLogin").hide();
+							$scope.getfriends();
+							$scope.headerinvitefriend();
+					    
 					}
 
 					$scope.headerinvitefriend = function() {
 						$("#headerinvitefriend").hide();
 					}
 
-					$scope.hideInviteFriends = function() {
+					$scope.hideInviteFriends = function() {socialMedia===false
+
 						document.getElementById('inviteFriendsLogin').style.display = "none";
 					}
 
@@ -1105,7 +1116,8 @@ register
 							hello.init({
 								'facebook' : '617188258436797'
 							}, {
-								redirect_uri : 'index.html'
+								redirect_uri : 'index.html',
+								scope : [ 'friends', 'email' ]
 							});
 						} else if (network == 'linkedin') {
 							hello.init({
@@ -1130,9 +1142,7 @@ register
 											});
 						}
 						var socail = hello(network);
-						socail
-								.login()
-								.then(function(r) {
+						socail.login({scope:'email'}).then(function(r) {
 									socialMedialogin = true;
 									// alert('You are signed in to '+network);
 									return socail.api('me');
@@ -1142,7 +1152,7 @@ register
 								.then(
 										function(response) {
 											socialMedialogin = true;
-											console.log(JSON
+											console.log("response from "+network+" : "+JSON
 													.stringify(response));
 											var url = '../ws/rest/resourceService/getUserByEmailAddressAndSocialMediaType/socialMediaType/'
 													+ network
