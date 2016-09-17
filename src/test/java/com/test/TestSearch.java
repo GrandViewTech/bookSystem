@@ -28,7 +28,7 @@ public class TestSearch
 				Double radius = 5.0;
 				LoggerUtil.log("testBooksByPublicationYear", bookService.findAllBooksByRecentPublicationYear(limit));
 				LoggerUtil.log("findBooksByUserProfile", bookService.findBooksByUserProfile(userId));
-				LoggerUtil.log("findCoachingClassesUserProfile", coachingClassService.findCoachingClassesUserProfile(loaction, radius, userId));
+				//LoggerUtil.log("findCoachingClassesUserProfile", coachingClassService.findCoachingClassesUserProfile(loaction, radius, userId));
 				
 			}
 	}

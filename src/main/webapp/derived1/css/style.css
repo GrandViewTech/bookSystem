@@ -5682,4 +5682,132 @@ background: #333333;
 
 
 
+<!-- new replacement slider -->
 
+.greatnessfor .head_title {
+  float: left;
+  margin: 0 0 0 35px;
+  width: 70%;
+}
+.greatnessfor .head_title h2{
+	float:left;
+	width:100%;
+	font-size:25px;
+  font-weight:normal;
+}
+.preparesslide1 {
+  padding: 0px 0 50px;
+}
+.preparesslide1 .sliderdata{
+	position:relative;
+}
+.preparesslide1 #sliderdata_1 .left{
+  color: hsl(264, 51%, 32%) !important;
+  float: left;
+  font-size: 70px;
+  left: -20px;
+  position: absolute;
+  top: 15%;
+}
+.preparesslide1 #sliderdata_2 .left,
+.preparesslide1 #sliderdata_3 .left,
+.preparesslide1 #sliderdata_4 .left {
+  color: hsl(264, 51%, 32%) !important;
+  float: left;
+  font-size: 70px;
+  left: -20px;
+  position: absolute;
+  top: 25%;
+}
+.preparesslide1 #sliderdata_1 .right {
+  color: hsl(264, 51%, 32%) !important;
+  float: right;
+  font-size: 70px;
+  position: absolute;
+  right: -20px;
+  top: 15%;
+}
+.preparesslide1 #sliderdata_2 .right,
+.preparesslide1 #sliderdata_3 .right,
+.preparesslide1 #sliderdata_4 .right {
+  color: hsl(264, 51%, 32%) !important;
+  float: right;
+  font-size: 70px;
+  position: absolute;
+  right: -20px;
+  top: 25%;
+}
+.preparesslide1 .title {
+  color: hsl(264, 51%, 32%);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
+  margin-top:10px;
+}
+.preparesslide1 .subtitle {
+  color: hsl(340, 80%, 55%);
+  font-size: 18px;
+  text-align:center;
+}
+.preparesslide1 #sliderdata_1,
+.preparesslide1 #sliderdata_2,
+.preparesslide1 #sliderdata_3,
+.preparesslide1 #sliderdata_4{
+	float:left;
+	width:100%;
+	margin-bottom:25px;
+}
+.preparesslide1 #sliderdata_2 h2,
+.preparesslide1 #sliderdata_3 h2,
+.preparesslide1 #sliderdata_4 h2 {
+  float: left;
+  font-size: 25px;
+  font-weight: normal;
+  margin: 0 0 0 20px;
+  padding-bottom: 15px;
+  width: 100%;
+}
+.preparesslide1 .prepare_rateing .rating {
+  float: left;
+  padding: 0 0 5px;
+  width: 41%;
+}
+.preparesslide1 .prepare_rateing .rating:not(:checked) > label {
+  cursor: pointer;
+  float: right;
+  font-size: 20px;
+  font-weight: 300 !important;
+  line-height: 17px;
+  margin: 0 !important;
+  overflow: hidden;
+  padding: 0 0.1em;
+  text-align: center;
+  text-shadow: 1px 1px hsl(42, 100%, 61%), 2px 2px hsl(42, 100%, 61%);
+  white-space: nowrap;
+  width: 1em;
+}
+.preparesslide1 .prices {
+  color: rgb(73, 40, 124);
+  float: left;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 15px;
+  text-transform: uppercase;
+  width: 100%;
+  text-align:center;
+}
+.preparesslide1 .readmore {
+  color: rgb(73, 40, 124);
+  float: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  width: 100%;
+  text-align:center;
+}
+.preparesslide1 .readmore a, 
+.preparesslide1 .readmore a:focus {
+  color: hsl(264, 51%, 32%);
+  outline: medium none;
+  text-decoration: none;
+}
