@@ -65,7 +65,7 @@ public class UserKeywordRelationService
 		 */
 		public void increaseSearchTermCounterForUser(String user, String key)
 			{
-<<<<<<< Updated upstream
+
 				User user2 = null;
 				
 				if(key == "" || key == null || key.trim().length() ==0 || key.equalsIgnoreCase("None")){
@@ -80,13 +80,7 @@ public class UserKeywordRelationService
 				}
 			
 				 
-=======
-				if (user == null || user.trim().length() == 0)
-					{
-						user = "admin@grovenue.com";
-					}
-				User user2 = userService.getSingleUser(new User(user));
->>>>>>> Stashed changes
+
 				if (user2 == null)
 					{
 						throw new V2GenericException("User can nopt be null");
