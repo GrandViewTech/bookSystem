@@ -291,6 +291,40 @@ public class ResourceEntity implements Serializable
 					}
 				this.reviews = reviews;
 			}
+		
+		
+		public ResourceEntity(Book book){
+			setResourceEntity(KeywordEntity.BOOKS.getEntity());
+			setDescription("");
+			setPriceTag(((book.getMrp() == null) || (book.getMrp() == -0.1f)) ? "NA" : "" + book.getMrp());
+			setName(book.getBookTitle());
+			setPrice(book.getCurrency(), book.getMrp());
+			setPublication("" + book.getPublisher());
+			setDetailUrl(book.getDetailPageURL());
+			setIdentity(book.getISBN());
+			if ((book.getLargeImageUrl() != null) && (book.getLargeImageUrl().trim().length() > 0))
+				{
+					setBigUrl("" + book.getLargeImageUrl());
+				}
+			if ((book.getSmallImageUrl() != null) && (book.getSmallImageUrl().trim().length() > 0))
+				{
+					setSmallUrl("" + book.getSmallImageUrl());
+				}
+			Integer rating = (int) ((book.getAverageRating() == null) ? 1 : Math.round(book.getAverageRating()));
+			setRating(rating.intValue());
+			setAuthor(book.getAuthors());
+			setRateCount(book.getRateCount());
+			setYear(book.getYear());
+			setUniqueKey(book.getISBN());
+			setSubject(book.getSubject());
+			String isbn=book.getISBN();
+			String charr="ISBN-";
+			if(isbn.trim().contains(charr.trim()))
+				{
+					isbn=isbn.replaceAll(charr, "");
+				}
+			setIsbn(isbn);
+		}
 			
 		public ResourceEntity(Book book, List<Review> reviews)
 			{
@@ -329,6 +363,35 @@ public class ResourceEntity implements Serializable
 				setIsbn(isbn);
 			}
 			
+		public ResourceEntity(CoachingClass coachingClass){
+			setResourceEntity(KeywordEntity.COACHING_CLASSES.getEntity());
+			setDescription(coachingClass.getDescription());
+			setName(coachingClass.getName());
+			setBranch(coachingClass.getBranch());
+			setAddress(coachingClass.getAddress());
+			setDetailUrl(coachingClass.getWebsite());
+			setIdentity(coachingClass.getName() + "-" + coachingClass.getBranch() + "-");
+			if ((coachingClass.getTypeOfProgram() != null) && (coachingClass.getTypeOfProgram().trim().length() > 0))
+			{
+				readMore += "Programs" + coachingClass.getTypeOfProgram() + "\n";
+			}
+			if ((coachingClass.getTargetStudents() != null) && (coachingClass.getTargetStudents().trim().length() > 0))
+				{
+					readMore += "Target Students : " + coachingClass.getTargetStudents() + "\n";
+				}
+			if ((coachingClass.getAverageBatchSize() != null) && (coachingClass.getAverageBatchSize() != 0))
+				{
+					readMore += "Average BatchSize : " + coachingClass.getAverageBatchSize();
+				}
+			setUniqueKey(coachingClass.getName());
+			setSmallUrl("images/class.jpg");
+			Integer rating = (int) ((coachingClass.getAverageRating() == null) ? 1 : Math.round(coachingClass.getAverageRating()));
+			setRating(rating.intValue());
+			setYear(coachingClass.getYearFounded());
+			setWebsite(coachingClass.getWebsite());
+			setStream(coachingClass.getCourses());
+		}
+		
 		public ResourceEntity(CoachingClass coachingClass, List<Review> reviews)
 			{
 				setResourceEntity(KeywordEntity.COACHING_CLASSES.getEntity());
@@ -397,6 +460,21 @@ public class ResourceEntity implements Serializable
 				setWebsite(coachingClass.getWebsite());
 				setStream(coachingClass.getCourses());
 			}
+		
+		public ResourceEntity(DigitalTool digitalTool){
+			setResourceEntity(KeywordEntity.DIGITAL_RESOURCES.getEntity());
+			setDescription(digitalTool.getWhatDoesItDo());
+			setName(digitalTool.getName());
+			setBigUrl("images/digitalResource.png");
+			setDetailUrl(digitalTool.getWebSite());
+			setIdentity(digitalTool.getName());
+			Integer rating = (int) ((digitalTool.getAverageRating() == null) ? 1 : Math.round(digitalTool.getAverageRating()));
+			setRating(rating.intValue());
+			setStream(digitalTool.getCareerStreams());
+			setWebsite(digitalTool.getWebSite());
+			setUniqueKey(digitalTool.getName());
+			setSubject(digitalTool.getSubject());
+		}
 			
 		public ResourceEntity(DigitalTool digitalTool, List<Review> reviews)
 			{

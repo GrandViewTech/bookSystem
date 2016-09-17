@@ -22,6 +22,8 @@ public class UserKeywordRelation {
 	  @Fetch
 	   Long count = 0l;
 	  
+	  String resourceType = RESOURCE_TYPE.BOOK.getType();//CoachingClass/DigitalTool
+	  
 	  String role;
 
 	public Long getNodeId() {
@@ -65,6 +67,14 @@ public class UserKeywordRelation {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getResourceType() {
+		return resourceType;
+	}
+
+	public void setResourceType(String resourceType) {
+		this.resourceType = resourceType;
 	}
 	   
 	   

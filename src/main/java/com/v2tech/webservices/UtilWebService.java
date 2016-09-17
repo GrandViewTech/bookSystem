@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.neo4j.conversion.Result;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.v2.booksys.common.util.EmailFeedbackThread;
@@ -31,13 +32,20 @@ import com.v2tech.domain.CoachingClass;
 import com.v2tech.domain.Course;
 import com.v2tech.domain.CourseType;
 import com.v2tech.domain.DigitalTool;
+import com.v2tech.domain.RESOURCE_TYPE;
 import com.v2tech.domain.TempUser;
+import com.v2tech.domain.util.ResourceEntity;
 import com.v2tech.repository.BookRepository;
 import com.v2tech.repository.CoachingClassRepository;
 import com.v2tech.repository.CourseRepository;
 import com.v2tech.repository.DigitalToolRepository;
 import com.v2tech.repository.TempUserRepository;
+import com.v2tech.repository.UserKeywordRelationRepository;
+import com.v2tech.services.BookService;
+import com.v2tech.services.CoachingClassService1;
 import com.v2tech.services.CourseService;
+import com.v2tech.services.DigitalToolService;
+import com.v2tech.services.UserKeywordRelationService;
 
 @Path("/utilService")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -62,6 +70,21 @@ public class UtilWebService
 		
 		@Autowired
 		CoachingClassRepository	coachingClassRepository;
+		
+		@Autowired
+		UserKeywordRelationService userKeywordRelationService;
+		
+		@Autowired
+		UserKeywordRelationRepository userKeywordRelationRepository;
+		
+		@Autowired
+		BookService bookService;
+		
+		@Autowired
+		CoachingClassService1 coachingClassService;
+		
+		@Autowired
+		DigitalToolService digitalToolService;
 		
 		@GET
 		@Path("/topics/subject/{subject}/token/{token}")
@@ -205,5 +228,65 @@ public class UtilWebService
 				Set<Course> courses = coucourseRepository.getCourses(courseType, 10);
 				return Response.ok().entity(courses).build();
 			}
+		
+		/**
+		 * For both normal and anonymous user, return results by most searched keyword.
+		 * @param user
+		 * @param token
+		 * @return
+		 */
+		@GET
+		@Path("/fetchMostSearchedResourcesForUser/user/{user}/entityType/{entityType}/token/{token}")
+		@Produces(MediaType.APPLICATION_JSON)
+		@Consumes(MediaType.APPLICATION_JSON)
+		public Response fetchMostSearchedResourcesForUser(@PathParam("user") String user, @PathParam("entityType") String entityType, @PathParam("token") String token){
+				if(user == "" || user == null){
+					user = "anonymous@grovenue.com";
+				}
+				String keyword = userKeywordRelationRepository.findTopRatedKeywordsForUser(user);	
+				
+				
+			if(entityType.equalsIgnoreCase(RESOURCE_TYPE.BOOK.getType())){
+				
+				Set<Book> books = bookService.searchBooksByGenericKeyword(keyword, 12);
+					List<ResourceEntity> bookEnts = new ArrayList<>();
+						for(Book book : books){
+							ResourceEntity resourceEntity = new ResourceEntity(book);
+							bookEnts.add(resourceEntity);
+						}
+						Response response = Response.ok().entity(bookEnts).build();
+						return response;
+			}
+			else if(entityType.equalsIgnoreCase(RESOURCE_TYPE.DIGITAL_RESOURCE.getType())){
+				
+				Set<DigitalTool> tools = digitalToolService.searchDigitalToolByGenericKeyword(keyword, 12);
+					if(tools.size() == 0){
+						tools = digitalToolService.searchDigitalToolByGenericKeyword("JEE", 12);
+					}
+				List<ResourceEntity> toolEnts = new ArrayList<>();
+				for(DigitalTool tool : tools){
+					ResourceEntity resourceEntity = new ResourceEntity(tool);
+					toolEnts.add(resourceEntity);
+				}
+				Response response = Response.ok().entity(toolEnts).build();
+				return response;
+			}
+			else if(entityType.equalsIgnoreCase(RESOURCE_TYPE.COACHING_CLASS.getType())){
+				
+				Set<CoachingClass> classes = coachingClassService.searchCoachingClassByGenericKeyword(keyword, 12);
+					if(classes.size() == 0){
+						classes = coachingClassService.searchCoachingClassByGenericKeyword("Mumbai", 12);
+					}
+				List<ResourceEntity> classEnts = new ArrayList<>();
+				for(CoachingClass class1 : classes){
+					ResourceEntity resourceEntity = new ResourceEntity(class1);
+					classEnts.add(resourceEntity);
+				}
+				Response response = Response.ok().entity(classEnts).build();
+				return response;
+			}
+			
+			return Response.ok().entity(new ArrayList<>()).build();
+		}
 			
 	}

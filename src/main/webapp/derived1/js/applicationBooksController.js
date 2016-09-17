@@ -35,46 +35,44 @@ app
 		.controller(
 				'indexController',
 				function($scope, $http, $window, $filter, $sce, Feedback) {
-				
+
 					$scope.bookmarkedResources = {};
-				
-					$scope.fetchBookmarks = function(){
-					
-					var user = $window.localStorage.getItem('loggedInUser');
-					var usr = '';
-						if (user === 'null' || user === "null") {
+
+					$scope.fetchBookmarks = function() {
+
+						var user = $window.localStorage.getItem('loggedInUser');
+						var usr = '';
+						if (user === null || user === 'null' || user === "null") {
 							return;
-						}
-						else{
+						} else {
 							user = jQuery.parseJSON(user);
 							usr = user.user;
 						}
-						
-					
-						var url = "../ws/rest/reviewRelatedService/fetchBookMarks/user/"+usr+"/token/test";
-							$http
-								.get(url)
-								.success(
-										function(response) {
-											$scope.bookmarkedResources = response;
-										})
-								.error(
-									function(errorResponse) {
-									
-									console.log(JSON.stringify(errorResponse));
-								});
+
+						var url = "../ws/rest/reviewRelatedService/fetchBookMarks/user/"
+								+ usr + "/token/test";
+						$http.get(url).success(function(response) {
+							$scope.bookmarkedResources = response;
+						}).error(function(errorResponse) {
+
+							console.log(JSON.stringify(errorResponse));
+						});
 					}
-					
+
 					$scope.fetchBookmarks();
-					
-					$scope.goToBookmarkResource = function(resourceName, resourceType){
-						bootbox.alert("Redirection to bookmarked resource coming soon!");
-						// window.localStorage.setItem("isRedirectedSearch", true);
-						//window.localStorage.setItem("redirectSearchKeyword", resourceName);
-						//window.localStorage.setItem("resourceType", resourceType);
-						//$window.location.href = 'prepare_for_greatness.html';
+
+					$scope.goToBookmarkResource = function(resourceName,
+							resourceType) {
+						bootbox
+								.alert("Redirection to bookmarked resource coming soon!");
+						// window.localStorage.setItem("isRedirectedSearch",
+						// true);
+						// window.localStorage.setItem("redirectSearchKeyword",
+						// resourceName);
+						// window.localStorage.setItem("resourceType",
+						// resourceType);
+						// $window.location.href = 'prepare_for_greatness.html';
 					}
-				
 
 					$scope.redirectAndSearch = function() {
 						window.localStorage.setItem("isRedirectedSearch", true);
@@ -553,7 +551,7 @@ app
 											if (u.userType == 'ADMIN') {
 												$window.location.href = 'AdminShortCuts.html';
 											}
-											
+
 											$scope.fetchBookmarks();
 										})
 								.error(
@@ -631,34 +629,27 @@ app
 					}
 
 					// date 4 sept 9:50
-					$scope.showInviteFriends = function() 
-					{
-						
+					$scope.showInviteFriends = function() {
+
 						document.getElementById('headeruser').style.display = "none";
-						if($scope.loggedInUser.socialMedia==true)
-						{
+						if ($scope.loggedInUser.socialMedia == true) {
 							$("#headerinvitefriend").show();
+						} else {
+							$scope
+									.socialLoginForGetFriends($scope.loggedInUser.socialMediaType);
 						}
-						else
-						{
-							$scope.socialLoginForGetFriends($scope.loggedInUser.socialMediaType);
-						}
-						
 
 					}
-					$scope.socialLoginForGetFriends = function(network) 
-					{
+					$scope.socialLoginForGetFriends = function(network) {
 						$scope.socialLogin(network);
 						$("#inviteFriendsLogin").hide();
 						$scope.getfriends();
 						$scope.headerinvitefriend();
 					}
 
-					$scope.headerinvitefriend=function()
-					{
+					$scope.headerinvitefriend = function() {
 						$("#headerinvitefriend").hide();
 					}
-					
 
 					/** ***** Added By Sagar ******* */
 					$scope.myImage = '';
@@ -846,7 +837,7 @@ app
 																	'../ws/rest/resourceService/addFriendsFromSocialMedia/socialMediaType/'
 																			+ clientNetwork
 																			+ '/token/test?userId='
-																			+ userId,
+																			+ $scope.loggedInUser.user,
 																	$scope.friendslistTemp)
 															.success(
 																	function(

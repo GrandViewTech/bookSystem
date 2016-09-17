@@ -466,21 +466,23 @@ public class ResourceWebService
 				for (Map<String, String> socialMediaFriend : socialMediaFriends)
 					{
 						String email = socialMediaFriend.get("email");
-						if (tempEmailIds.contains(email) == false)
+						if (email != null)
 							{
-								if(email != null || email.trim().length() != 0){
-									Set<User> _systemUsers = userService.findUsersByUserName(email);
-									if ((_systemUsers != null) && (_systemUsers.size() > 0))
-										{
-											systemUser.addAll(_systemUsers);
-										}
-									else
-										{
-											nonSystemUser.add(socialMediaFriend);
-										}
-									tempEmailIds.add(email);
-								}
-								
+
+								if (tempEmailIds.contains(email) == false)
+									{
+										Set<User> _systemUsers = userService.findUsersByUserName(email);
+										if ((_systemUsers != null) && (_systemUsers.size() > 0))
+											{
+												systemUser.addAll(_systemUsers);
+											}
+										else
+											{
+												nonSystemUser.add(socialMediaFriend);
+											}
+										tempEmailIds.add(email);
+									}
+
 							}
 					}
 				userService.addFriendsToUser(user, systemUser);
@@ -493,6 +495,11 @@ public class ResourceWebService
 		@Path("getResourceEntityBasedByUponSearchCriteria/token/{token}")
 		public List<ResourceEntity> getResourceEntityBasedByUponSearchCriteria(@DefaultValue("anonymous") @QueryParam("userId") String userId, @DefaultValue("None") @QueryParam("keyword") String keyword, @DefaultValue("generic") @QueryParam("searchType") String searchType, @DefaultValue("book") @QueryParam("searchEntity") String searchEntity, @DefaultValue("location") @QueryParam("location") String location, @DefaultValue("20") @QueryParam("resourceLimit") Integer resourceLimit)
 			{
+				/**
+				 * Step 1 Save keyword-user relation in d/b
+				 */
+				userKeywordRelationService.increaseSearchTermCounterForUser(userId, keyword);
+			
 				List<ResourceEntity> resourceEntities = new ArrayList<ResourceEntity>();
 				if ((userId == null) || (userId.trim().length() == 0))
 					{

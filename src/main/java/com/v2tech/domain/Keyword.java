@@ -22,9 +22,9 @@ public class Keyword {
 		this.text = txt;
 	}
 	
-	String keywordType = KeywordType.AUTHOR.toString();
+	String keywordType = KeywordType.NONE.toString();
 	
-	String	keywordEntity	= KeywordEntity.BOOKS.getEntity();
+	String	keywordEntity	= KeywordEntity.GENERIC.getEntity();
 	public Keyword(){
 		
 	}

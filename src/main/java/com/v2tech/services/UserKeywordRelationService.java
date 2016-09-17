@@ -11,11 +11,14 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.v2tech.base.V2GenericException;
 import com.v2tech.domain.Keyword;
 import com.v2tech.domain.KeywordEntity;
+import com.v2tech.domain.SocialMediaType;
 import com.v2tech.domain.User;
 import com.v2tech.domain.UserKeywordRelation;
+import com.v2tech.domain.UserType;
 import com.v2tech.domain.util.KeywordResult;
 import com.v2tech.repository.KeywordRepository;
 import com.v2tech.repository.UserKeywordRelationRepository;
@@ -40,11 +43,42 @@ public class UserKeywordRelationService
 		@Autowired
 		UserRepository					userRepository;
 		
-		@Async
+		public User getAnonymousUser(){
+			User anon = new User("anonymous@grovenue.com", SocialMediaType.NONE);
+			anon = userService.getSingleUserBySocialMediaType(anon);
+				if(anon == null){
+					anon = new User();
+					anon.setUserType(UserType.STUDENT);
+					anon.setUser("anonymous@grovenue.com");
+					anon.setPassword("anonymous");
+					anon.setValidated(true);
+					anon = userService.saveOrUpdate(anon);
+				}
+			return anon;
+		}
+		
+		//@Async
+		/**
+		 * Increase search term counter for either normal user or anonymous user.
+		 * @param user
+		 * @param key
+		 */
 		public void increaseSearchTermCounterForUser(String user, String key)
 			{
+				User user2 = null;
 				
-				User user2 = userService.getSingleUser(new User(user));
+				if(key == "" || key == null || key.trim().length() ==0 || key.equalsIgnoreCase("None")){
+					return;
+				}
+			
+				if(user == null || user.trim().length() ==0 || user.trim().equalsIgnoreCase("anonymous")){
+					user2 = getAnonymousUser();
+				}
+				else{
+					user2 = userService.getSingleUser(new User(user));
+				}
+			
+				 
 				if (user2 == null)
 					{
 						throw new V2GenericException("User can nopt be null");

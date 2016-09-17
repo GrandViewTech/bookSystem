@@ -282,6 +282,12 @@ public class BookWebService
 		@Transactional
 		public SearchResponse searchBooksByGenericCriteria(@PathParam("genericCriteria") String genericCriteria, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token, @DefaultValue("default") @QueryParam("searchType") String searchType, @DefaultValue("") @QueryParam("userId") String userId)
 			{
+			/**
+			 * Step 1 Save keyword-user relation in d/b
+			 */
+			userKeywordRelationService.increaseSearchTermCounterForUser(userId, genericCriteria);
+			
+			
 				int start = -1;
 				int max = -1;
 				try
@@ -327,7 +333,7 @@ public class BookWebService
 					{
 						// User Specific Personalize Search
 						// TODO: Currently Using token Value as userId later would be replaced by input from ui.
-						userKeywordRelationService.increaseSearchTermCounterForUser(userId, genericCriteria);
+					//	userKeywordRelationService.increaseSearchTermCounterForUser(userId, genericCriteria);
 						books = bookService.searchBooksByGenericKeyword("(?i).*" + genericCriteria + ".*", max);
 					}
 				SearchResponse searchResponse = new SearchResponse();
@@ -343,8 +349,13 @@ public class BookWebService
 		@Path("/search/criteria/{criteria}/startFrom/{startFrom}/maxResults/{maxResults}/token/{token}")
 		@Produces(MediaType.APPLICATION_JSON)
 		@Transactional
-		public SearchResponse searchBooks(@PathParam("criteria") String criteria, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token)
+		public SearchResponse searchBooks(@PathParam("criteria") String criteria, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token, @DefaultValue("") @QueryParam("userId") String userId)
 			{
+			/**
+			 * Step 1 Save keyword-user relation in d/b
+			 */
+			userKeywordRelationService.increaseSearchTermCounterForUser(userId, criteria);
+			
 				int start = -1;
 				int max = -1;
 				try
@@ -382,8 +393,13 @@ public class BookWebService
 		@Path("/search/careerStream/{careerStream}/subject/{subject}/startFrom/{startFrom}/maxResults/{maxResults}/token/{token}")
 		@Produces(MediaType.APPLICATION_JSON)
 		@Transactional
-		public SearchResponse searchBooksByCareerStreamAndSubject(@PathParam("careerStream") String careerStream, @PathParam("subject") String subject, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token)
+		public SearchResponse searchBooksByCareerStreamAndSubject(@PathParam("careerStream") String careerStream, @PathParam("subject") String subject, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token, @DefaultValue("") @QueryParam("userId") String userId)
 			{
+			/**
+			 * Step 1 Save keyword-user relation in d/b
+			 */
+			userKeywordRelationService.increaseSearchTermCounterForUser(userId, careerStream);
+			
 				int start = -1;
 				int max = -1;
 				try
@@ -421,8 +437,14 @@ public class BookWebService
 		@Path("/search/careerStream/{careerStream}/exam/{exam}/startFrom/{startFrom}/maxResults/{maxResults}/token/{token}")
 		@Produces(MediaType.APPLICATION_JSON)
 		@Transactional
-		public SearchResponse searchBooksByCareerStreamAndExam(@PathParam("careerStream") String careerStream, @PathParam("exam") String exam, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token)
+		public SearchResponse searchBooksByCareerStreamAndExam(@PathParam("careerStream") String careerStream, @PathParam("exam") String exam, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token, @DefaultValue("") @QueryParam("userId") String userId)
 			{
+				
+			/**
+			 * Step 1 Save keyword-user relation in d/b
+			 */
+			userKeywordRelationService.increaseSearchTermCounterForUser(userId, careerStream);
+			userKeywordRelationService.increaseSearchTermCounterForUser(userId, exam);
 				int start = -1;
 				int max = -1;
 				try
@@ -460,8 +482,14 @@ public class BookWebService
 		@Path("/search/subject/{subject}/exam/{exam}/startFrom/{startFrom}/maxResults/{maxResults}/token/{token}")
 		@Produces(MediaType.APPLICATION_JSON)
 		@Transactional
-		public SearchResponse searchBooksBySubjectAndExam(@PathParam("subject") String subject, @PathParam("exam") String exam, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token)
+		public SearchResponse searchBooksBySubjectAndExam(@PathParam("subject") String subject, @PathParam("exam") String exam, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token, @DefaultValue("") @QueryParam("userId") String userId)
 			{
+			/**
+			 * Step 1 Save keyword-user relation in d/b
+			 */
+			userKeywordRelationService.increaseSearchTermCounterForUser(userId, subject);
+			userKeywordRelationService.increaseSearchTermCounterForUser(userId, exam);
+			
 				int start = -1;
 				int max = -1;
 				try
@@ -499,8 +527,12 @@ public class BookWebService
 		@Path("/search/subject/{subject}/startFrom/{startFrom}/maxResults/{maxResults}/token/{token}")
 		@Produces(MediaType.APPLICATION_JSON)
 		@Transactional
-		public SearchResponse searchBooksBySubject(@PathParam("subject") String subject, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token)
+		public SearchResponse searchBooksBySubject(@PathParam("subject") String subject, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token, @DefaultValue("") @QueryParam("userId") String userId)
 			{
+			/**
+			 * Step 1 Save keyword-user relation in d/b
+			 */
+			userKeywordRelationService.increaseSearchTermCounterForUser(userId, subject);
 				int start = -1;
 				int max = -1;
 				try
@@ -538,8 +570,13 @@ public class BookWebService
 		@Path("/search/exam/{exam}/startFrom/{startFrom}/maxResults/{maxResults}/token/{token}")
 		@Produces(MediaType.APPLICATION_JSON)
 		@Transactional
-		public SearchResponse searchBooksByExam(@PathParam("exam") String exam, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token)
+		public SearchResponse searchBooksByExam(@PathParam("exam") String exam, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token, @DefaultValue("") @QueryParam("userId") String userId)
 			{
+			/**
+			 * Step 1 Save keyword-user relation in d/b
+			 */
+			userKeywordRelationService.increaseSearchTermCounterForUser(userId, exam);
+			
 				int start = -1;
 				int max = -1;
 				try
@@ -578,8 +615,14 @@ public class BookWebService
 		@Path("/search/institution/{institution}/subject/{subject}/startFrom/{startFrom}/maxResults/{maxResults}/token/{token}")
 		@Produces(MediaType.APPLICATION_JSON)
 		@Transactional
-		public SearchResponse searchBooksByInstitutionTypeAndSubject(@PathParam("institution") String institution, @PathParam("subject") String subject, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token)
+		public SearchResponse searchBooksByInstitutionTypeAndSubject(@PathParam("institution") String institution, @PathParam("subject") String subject, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token, @DefaultValue("") @QueryParam("userId") String userId)
 			{
+			/**
+			 * Step 1 Save keyword-user relation in d/b
+			 */
+			userKeywordRelationService.increaseSearchTermCounterForUser(userId, subject);
+			userKeywordRelationService.increaseSearchTermCounterForUser(userId, institution);
+			
 				int start = -1;
 				int max = -1;
 				try
@@ -617,8 +660,13 @@ public class BookWebService
 		@Path("/search/bookTitle/{bookTitle}/startFrom/{startFrom}/maxResults/{maxResults}/token/{token}")
 		@Produces(MediaType.APPLICATION_JSON)
 		@Transactional
-		public SearchResponse searchBooksByBookTitle(@PathParam("bookTitle") String bookTitle, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token)
+		public SearchResponse searchBooksByBookTitle(@PathParam("bookTitle") String bookTitle, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token, @DefaultValue("") @QueryParam("userId") String userId)
 			{
+			/**
+			 * Step 1 Save keyword-user relation in d/b
+			 */
+			userKeywordRelationService.increaseSearchTermCounterForUser(userId, bookTitle);
+			
 				int start = -1;
 				int max = -1;
 				try
@@ -656,8 +704,12 @@ public class BookWebService
 		@Path("/search/isbn/{isbn}/startFrom/{startFrom}/maxResults/{maxResults}/token/{token}")
 		@Produces(MediaType.APPLICATION_JSON)
 		@Transactional
-		public SearchResponse searchBooksByISBN(@PathParam("isbn") String isbn, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token)
+		public SearchResponse searchBooksByISBN(@PathParam("isbn") String isbn, @PathParam("startFrom") String startFrom, @PathParam("maxResults") String maxResults, @PathParam("token") String token, @DefaultValue("") @QueryParam("userId") String userId)
 			{
+			/**
+			 * Step 1 Save keyword-user relation in d/b
+			 */
+			userKeywordRelationService.increaseSearchTermCounterForUser(userId, isbn);
 				int start = -1;
 				int max = -1;
 				try

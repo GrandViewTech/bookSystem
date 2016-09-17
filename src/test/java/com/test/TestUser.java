@@ -9,6 +9,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.v2tech.domain.User;
 import com.v2tech.domain.UserType;
 import com.v2tech.repository.UserRepository;
@@ -46,6 +48,20 @@ public class TestUser
 				user.setUser("admin@grovenue.com");
 				user.setPassword("Welcome@1");
 				user.setValidated(true);
+				//Ruser
+				userService.saveOrUpdate(user);
+			}
+		
+		@Test
+		public void testCreateAnonymousUser() throws Exception
+			{
+				User user = new User();
+				user.setUserType(UserType.STUDENT);
+				user.setUser("anonymous@grovenue.com");
+				user.setPassword("anonymous");
+				user.setValidated(true);
+				ObjectMapper mapper = new ObjectMapper();
+				String str = mapper.writeValueAsString(user);
 				//Ruser
 				userService.saveOrUpdate(user);
 			}

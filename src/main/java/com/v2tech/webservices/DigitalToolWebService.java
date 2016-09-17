@@ -201,7 +201,7 @@ public class DigitalToolWebService
 		public SearchResponse searchAllDigitalToolsWithName(@PathParam("name") String name, @PathParam("token") String token)
 			{
 				//Set<Book> books = bookRepository.searchAllBooksByTitle(".*"+title+".*");
-				Set<DigitalTool> tools = digitalToolRepository.findDigitalToolByName(name);
+				Set<DigitalTool> tools = digitalToolRepository.findDigitalToolByName("(?i).*"+name+".*");
 				List<DigitalTool> ret = new ArrayList<>(tools);
 				SearchResponse searchResponse = new SearchResponse();
 				searchResponse.setTools(ret);

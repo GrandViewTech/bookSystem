@@ -241,7 +241,7 @@ public class CoachingClassWebService
 		public SearchResponse searchCoachingClass(@PathParam("name") String name, @PathParam("token") String token)
 			{
 				//Set<Book> books = bookRepository.searchAllBooksByTitle(".*"+title+".*");
-				Set<CoachingClass> classes = coachingClassRepository.searchAllCoachingClassesByName(name);
+				Set<CoachingClass> classes = coachingClassRepository.searchAllCoachingClassesByName("(?i).*"+name+".*");
 				List<CoachingClass> ret = new ArrayList<>(classes);
 				SearchResponse searchResponse = new SearchResponse();
 				searchResponse.setClasses(ret);
