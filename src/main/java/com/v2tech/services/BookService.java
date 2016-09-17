@@ -398,7 +398,7 @@ public class BookService
 								uniqueIdentifiers.add(uniqueKey);
 							}
 					}
-				results.sort((Book book1, Book book2) -> book2.getAverageRating().compareTo(book1.getAverageRating()));
+				//results.sort((Book book1, Book book2) -> book2.getAverageRating().compareTo(book1.getAverageRating()));
 				SearchList searchList = new SearchList();
 				searchList.setBooks(results);
 				searchList.setUniqueIds(uniqueIdentifiers);
