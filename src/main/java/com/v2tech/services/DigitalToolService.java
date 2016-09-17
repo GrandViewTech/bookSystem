@@ -190,6 +190,7 @@ public class DigitalToolService
 								List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(RESOURCE_TYPE.DIGITAL_RESOURCE.getType(), resourceIdentity, 5);
 								ResourceEntity resourceEntity = new ResourceEntity(digitalTool, reviews);
 								List<String> resultCriterias = new ArrayList<String>();
+								resultCriterias.add("searched");
 								resultCriterias.add("rating");
 								resourceEntity.setResultCriterias(resultCriterias);
 								resourceEntities.add(resourceEntity);

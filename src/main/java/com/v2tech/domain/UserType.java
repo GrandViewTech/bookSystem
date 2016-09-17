@@ -1,7 +1,7 @@
 package com.v2tech.domain;
 
 public enum UserType {
-	ADMIN("ADMIN"), STUDENT("STUDENT");
+	ADMIN("ADMIN"), STUDENT("STUDENT") ,SYSTEM("SYSTEM");
 	
 	String type;
 	

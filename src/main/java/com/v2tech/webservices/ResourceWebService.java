@@ -97,6 +97,13 @@ public class ResourceWebService
 				user.setPassword("grovenue@123");
 				user.setValidated(true);
 				userService.saveOrUpdate(user);
+				
+				User user1 = new User();
+				user1.setUserType(UserType.SYSTEM);
+				user1.setUser("admin@grovenue.com");
+				user1.setPassword("admin@123");
+				user1.setValidated(true);
+				userService.saveOrUpdate(user1);
 			}
 			
 		@Autowired
@@ -495,16 +502,12 @@ public class ResourceWebService
 		@Path("getResourceEntityBasedByUponSearchCriteria/token/{token}")
 		public List<ResourceEntity> getResourceEntityBasedByUponSearchCriteria(@DefaultValue("anonymous") @QueryParam("userId") String userId, @DefaultValue("None") @QueryParam("keyword") String keyword, @DefaultValue("generic") @QueryParam("searchType") String searchType, @DefaultValue("book") @QueryParam("searchEntity") String searchEntity, @DefaultValue("location") @QueryParam("location") String location, @DefaultValue("20") @QueryParam("resourceLimit") Integer resourceLimit)
 			{
-				/**
-				 * Step 1 Save keyword-user relation in d/b
-				 */
-				userKeywordRelationService.increaseSearchTermCounterForUser(userId, keyword);
 			
 				List<ResourceEntity> resourceEntities = new ArrayList<ResourceEntity>();
-				if ((userId == null) || (userId.trim().length() == 0))
+				if ((userId == null) || (userId.trim().length() == 0) || userId.trim().equalsIgnoreCase("anonymous"))
 					{
 						searchType = "generic";
-						userId = "annonymous";
+						userId = "admin@grovenue.com";
 					}
 				switch (searchEntity)
 					{
@@ -516,11 +519,19 @@ public class ResourceWebService
 											{
 												resourceEntities.addAll(bookService.findBooksForUserPreference(userId));
 											}
-										else if (searchType.equalsIgnoreCase("friends"))
+										else if (searchType.equalsIgnoreCase("recommendation"))
 											{
 												resourceEntities.addAll(bookService.findBooksForUserFriends(userId));
 											}
 										else if (searchType.equalsIgnoreCase("rating"))
+											{
+												resourceEntities.addAll(bookService.findBooksForTopRating(userId, resourceLimit));
+											}
+										else if (searchType.equalsIgnoreCase("generic"))
+											{
+												resourceEntities.addAll(bookService.findBooksForTopRating(userId, resourceLimit));
+											}
+										else
 											{
 												resourceEntities.addAll(bookService.findBooksForTopRating(userId, resourceLimit));
 											}
@@ -539,11 +550,19 @@ public class ResourceWebService
 											{
 												resourceEntities.addAll(coachingClassService.findCoachingClassesForUserPreference(userId, location, 5.0));
 											}
-										else if (searchType.equalsIgnoreCase("friends"))
+										else if (searchType.equalsIgnoreCase("recommendation"))
 											{
-												resourceEntities.addAll(coachingClassService.findBooksForUserFriends(userId, location, 5.0));
+												resourceEntities.addAll(coachingClassService.findCoachingClasessForUserFriends(userId, location, 5.0));
 											}
 										else if (searchType.equalsIgnoreCase("rating"))
+											{
+												resourceEntities.addAll(coachingClassService.findCoachingClassesForRating(userId, location, 5.0));
+											}
+										else if (searchType.equalsIgnoreCase("generic"))
+											{
+												resourceEntities.addAll(coachingClassService.findCoachingClassesForRating(userId, location, 5.0));
+											}
+										else
 											{
 												resourceEntities.addAll(coachingClassService.findCoachingClassesForRating(userId, location, 5.0));
 											}
@@ -552,7 +571,7 @@ public class ResourceWebService
 									{
 										Set<String> coachingClassKeywords = new LinkedHashSet<String>();
 										coachingClassKeywords.add(keyword);
-										resourceEntities.addAll(coachingClassService.findCoachingClassesByCriteria(userId, coachingClassKeywords, "rating", location, 5.0));
+										resourceEntities.addAll(coachingClassService.findCoachingClassesByCriteria(userId, coachingClassKeywords, "searched", location, 5.0));
 										userKeywordRelationService.increaseSearchTermCounterForUser(userId, keyword);
 									}
 								break;
@@ -565,7 +584,7 @@ public class ResourceWebService
 											{
 												resourceEntities.addAll(digitalToolService.findDigitalResourceForUserPreference(userId));
 											}
-										else if (searchType.equalsIgnoreCase("friends"))
+										else if (searchType.equalsIgnoreCase("recommendation"))
 											{
 												resourceEntities.addAll(digitalToolService.findDigitalResourceForFriends(userId));
 											}
@@ -573,10 +592,17 @@ public class ResourceWebService
 											{
 												resourceEntities.addAll(digitalToolService.searchTopRatedDigitalTool(resourceLimit));
 											}
+										else if (searchType.equalsIgnoreCase("generic"))
+											{
+												resourceEntities.addAll(digitalToolService.searchTopRatedDigitalTool(resourceLimit));
+											}
+										else
+											{
+												resourceEntities.addAll(digitalToolService.searchTopRatedDigitalTool(resourceLimit));
+											}
 									}
 								else
 									{
-										
 										resourceEntities.addAll(digitalToolService.searchTopRatedDigitalToolByKeyword(keyword, resourceLimit));
 										userKeywordRelationService.increaseSearchTermCounterForUser(userId, keyword);
 									}

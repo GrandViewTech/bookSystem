@@ -17,10 +17,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.v2tech.base.V2GenericException;
-import com.v2tech.domain.Book;
 import com.v2tech.domain.CoachingClass;
 import com.v2tech.domain.KeywordEntity;
 import com.v2tech.domain.RESOURCE_TYPE;
@@ -353,9 +351,16 @@ public class CoachingClassService1
 					}
 			}
 			
-		public List<ResourceEntity> findBooksForUserFriends(String userId, String location, Double radius)
+		public List<ResourceEntity> findCoachingClasessForUserFriends(String userId, String location, Double radius)
 			{
-				return findCoachingClassesByCriteria(userId, userKeywordRelationService.getSearchedTermByFriendsAndKeyWordEntityType(userId, KeywordEntity.BOOKS.getEntity()), "friends", location, radius);
+				List<ResourceEntity> resourceEntities = findCoachingClassesByCriteria(userId, userKeywordRelationService.getSearchedTermByFriendsAndKeyWordEntityType(userId, KeywordEntity.COACHING_CLASSES.getEntity()), "friends", location, radius);
+				Set<String> keywords = new HashSet<String>();
+				keywords.add("Regular");
+				keywords.add("Distance Learning");
+				keywords.add("Test Series");
+				keywords.add("Crash Course");
+				resourceEntities.addAll(findCoachingClassesByCriteria(userId, keywords, "relativeKeyword", location, radius));
+				return resourceEntities;
 			}
 			
 		public List<ResourceEntity> findCoachingClassesByCriteria(String userId, Set<String> keywords, String criteria, String location, Double radius)
@@ -376,7 +381,8 @@ public class CoachingClassService1
 												List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(RESOURCE_TYPE.COACHING_CLASS.getType(), resourceIdentity, 5);
 												ResourceEntity resourceEntity = new ResourceEntity(coachingClass, reviews);
 												List<String> resultCriterias = new ArrayList<String>();
-												resultCriterias.add("profile");
+												resultCriterias.add("rating");
+												resultCriterias.add(criteria);
 												resourceEntity.setResultCriterias(resultCriterias);
 												resourceEntities.add(resourceEntity);
 											}
@@ -398,6 +404,7 @@ public class CoachingClassService1
 												ResourceEntity resourceEntity = new ResourceEntity(resultRow, reviews);
 												List<String> resultCriterias = new ArrayList<String>();
 												resultCriterias.add(criteria);
+												resultCriterias.add("rating");
 												resultCriterias.add("location");
 												resourceEntity.setResultCriterias(resultCriterias);
 												resourceEntities.add(resourceEntity);

@@ -562,7 +562,7 @@ public class BookService
 								List<String> resultCriterias = new ArrayList<String>();
 								if (profileInformation.getUniqueIds().contains(resourceIdentity))
 									{
-										resultCriterias.add("profile");
+										resultCriterias.add("rating");
 									}
 								resourceEntity.setResultCriterias(resultCriterias);
 								resourceEntities.add(resourceEntity);
@@ -735,6 +735,10 @@ public class BookService
 							{
 								List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(RESOURCE_TYPE.COACHING_CLASS.getType(), resourceIdentity, 5);
 								ResourceEntity resourceEntity = new ResourceEntity(book, reviews);
+								List<String> resultCriterias = new ArrayList<String>();
+								resultCriterias.add("searched");
+								resultCriterias.add("rating");
+								resourceEntity.setResultCriterias(resultCriterias);
 								resourceEntities.add(resourceEntity);
 								uniqueKeys.add(resourceIdentity);
 							}

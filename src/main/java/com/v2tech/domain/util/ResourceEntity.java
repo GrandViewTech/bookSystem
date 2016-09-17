@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.v2tech.domain.Book;
 import com.v2tech.domain.CoachingClass;
 import com.v2tech.domain.DigitalTool;
@@ -44,9 +45,13 @@ public class ResourceEntity implements Serializable
 		
 		private String				website				= "";
 		private Integer				rateCount			= 0;
+		@JsonIgnore
 		private String[]			indicatorArray1		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
+		@JsonIgnore
 		private String[]			indicatorArray2		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
+		@JsonIgnore
 		private String[]			indicatorArray3		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
+		@JsonIgnore
 		private String[]			indicatorArray4		= new String[] { "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0", "rate0" };
 		
 		private String				subject				= "Physics";
