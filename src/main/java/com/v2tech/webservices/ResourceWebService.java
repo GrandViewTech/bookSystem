@@ -32,7 +32,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.v2.booksys.common.util.EmailHtmlThread;
 import com.v2.booksys.common.util.EmailThread;
 import com.v2.booksys.common.util.UtilService;
-import com.v2.booksys.onet.data.answers.Results.Result;
 import com.v2tech.base.V2GenericException;
 import com.v2tech.domain.Book;
 import com.v2tech.domain.CoachingClass;
@@ -46,6 +45,7 @@ import com.v2tech.domain.User;
 import com.v2tech.domain.UserType;
 import com.v2tech.domain.util.ResourceEntity;
 import com.v2tech.domain.util.ResultRow;
+import com.v2tech.domain.util.SearchList;
 import com.v2tech.domain.util.ServiceResponse;
 import com.v2tech.services.BookService;
 import com.v2tech.services.CoachingClassService1;
@@ -504,130 +504,87 @@ public class ResourceWebService
 				if ((userId == null) || (userId.trim().length() == 0))
 					{
 						searchType = "generic";
+						userId = "annonymous";
 					}
-				Integer reviewLimit = 5;
-				Integer keywordLimit = 10;
 				switch (searchEntity)
 					{
 						case "book":
 							{
-								Set<String> bookKeywords = null;
-								String keywordEntity = KeywordEntity.BOOKS.getEntity();
 								if (keyword.trim().equalsIgnoreCase("None"))
 									{
-										bookKeywords = userKeywordRelationService.getSearchedTermByFriendsAndKeyWordEntityType(userId, keywordEntity);
+										if (searchType.equalsIgnoreCase("preference"))
+											{
+												resourceEntities.addAll(bookService.findBooksForUserPreference(userId));
+											}
+										else if (searchType.equalsIgnoreCase("friends"))
+											{
+												resourceEntities.addAll(bookService.findBooksForUserFriends(userId));
+											}
+										else if (searchType.equalsIgnoreCase("rating"))
+											{
+												resourceEntities.addAll(bookService.findBooksForTopRating(userId, resourceLimit));
+											}
 									}
 								else
 									{
-										bookKeywords = new LinkedHashSet<String>();
-										bookKeywords.add(keyword);
-									}
-								Set<String> uniqueKeys = new LinkedHashSet<String>();
-								String resourceReviewedType = RESOURCE_TYPE.BOOK.getType();
-								for (String bookKeyword : bookKeywords)
-									{
-										Set<Book> books = bookService.searchBooksByGenericKeyword(bookKeyword, keywordLimit);
-										for (Book book : books)
-											{
-												String resourceIdentity = book.getISBN().trim().toLowerCase();
-												if (uniqueKeys.contains(resourceIdentity) == false)
-													{
-														List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(resourceReviewedType, resourceIdentity, reviewLimit);
-														ResourceEntity resourceEntity = new ResourceEntity(book, reviews);
-														resourceEntity.setResultCriteria("Search Results");
-														resourceEntities.add(resourceEntity);
-														uniqueKeys.add(resourceIdentity);
-													}
-											}
+										resourceEntities.addAll(bookService.userDefinedSearch(userId, keyword));
 									}
 								break;
 							}
 						case "coachingClass":
 							{
-								String keywordEntity = KeywordEntity.COACHING_CLASSES.getEntity();
-								Set<String> coachingClassKeywords = null;
 								if (keyword.trim().equalsIgnoreCase("None"))
 									{
-										coachingClassKeywords = userKeywordRelationService.getSearchedTermByFriendsAndKeyWordEntityType(userId, keywordEntity);
+										if (searchType.equalsIgnoreCase("preference"))
+											{
+												resourceEntities.addAll(coachingClassService.findCoachingClassesForUserPreference(userId, location, 5.0));
+											}
+										else if (searchType.equalsIgnoreCase("friends"))
+											{
+												resourceEntities.addAll(coachingClassService.findBooksForUserFriends(userId, location, 5.0));
+											}
+										else if (searchType.equalsIgnoreCase("rating"))
+											{
+												resourceEntities.addAll(coachingClassService.findCoachingClassesForRating(userId, location, 5.0));
+											}
 									}
 								else
 									{
-										coachingClassKeywords = new LinkedHashSet<String>();
+										Set<String> coachingClassKeywords = new LinkedHashSet<String>();
 										coachingClassKeywords.add(keyword);
+										resourceEntities.addAll(coachingClassService.findCoachingClassesByCriteria(userId, coachingClassKeywords, "rating", location, 5.0));
+										userKeywordRelationService.increaseSearchTermCounterForUser(userId, keyword);
 									}
-								Set<String> uniqueKeys = new LinkedHashSet<String>();
-								String resourceReviewedType = RESOURCE_TYPE.COACHING_CLASS.getType();
-								for (String coachingClassKeyword : coachingClassKeywords)
-									{
-										Set<CoachingClass> coachingClasses = null;
-										if (location.trim().equalsIgnoreCase("location") == true)
-											{
-												coachingClasses = coachingClassService.searchCoachingClassByGenericKeyword(coachingClassKeyword, keywordLimit);
-												for (CoachingClass coachingClass : coachingClasses)
-													{
-														String resourceIdentity = (coachingClass.getBranch() + "." + coachingClass.getName()).toLowerCase().trim();
-														if (uniqueKeys.contains(resourceIdentity) == false)
-															{
-																List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(resourceReviewedType, resourceIdentity, reviewLimit);
-																ResourceEntity resourceEntity = new ResourceEntity(coachingClass, reviews);
-																resourceEntities.add(resourceEntity);
-																uniqueKeys.add(resourceIdentity);
-															}
-													}
-											}
-										else
-											{
-												List<ResultRow> resultRows = coachingClassService.findCoachingClassForLocality(location, keyword, 5.0);
-												for (ResultRow resultRow : resultRows)
-													{
-														String resourceIdentity = (resultRow.getBranch() + "." + resultRow.getName()).toLowerCase().trim();
-														if (uniqueKeys.contains(resourceIdentity) == false)
-															{
-																List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(resourceReviewedType, resultRow.getName(), reviewLimit);
-																ResourceEntity resourceEntity = new ResourceEntity(resultRow, reviews);
-																resourceEntities.add(resourceEntity);
-																uniqueKeys.add(resourceIdentity);
-															}
-													}
-											}
-									}
-									
 								break;
 							}
 						case "digitalResource":
 							{
-								Set<String> digitalToolKeywords = null;
-								String keywordEntity = KeywordEntity.DIGITAL_RESOURCES.getEntity();
 								if (keyword.trim().equalsIgnoreCase("None"))
 									{
-										digitalToolKeywords = userKeywordRelationService.getSearchedTermByFriendsAndKeyWordEntityType(userId, keywordEntity);
+										if (searchType.equalsIgnoreCase("preference"))
+											{
+												resourceEntities.addAll(digitalToolService.findDigitalResourceForUserPreference(userId));
+											}
+										else if (searchType.equalsIgnoreCase("friends"))
+											{
+												resourceEntities.addAll(digitalToolService.findDigitalResourceForFriends(userId));
+											}
+										else if (searchType.equalsIgnoreCase("rating"))
+											{
+												resourceEntities.addAll(digitalToolService.searchTopRatedDigitalTool(resourceLimit));
+											}
 									}
 								else
 									{
-										digitalToolKeywords = new LinkedHashSet<String>();
-										digitalToolKeywords.add(keyword);
+										
+										resourceEntities.addAll(digitalToolService.searchTopRatedDigitalToolByKeyword(keyword, resourceLimit));
+										userKeywordRelationService.increaseSearchTermCounterForUser(userId, keyword);
 									}
-								Set<String> uniqueKeys = new LinkedHashSet<String>();
-								String resourceReviewedType = RESOURCE_TYPE.DIGITAL_RESOURCE.getType();
-								for (String digitalToolKeyword : digitalToolKeywords)
-									{
-										Set<DigitalTool> digitalTools = digitalToolService.searchDigitalToolByGenericKeyword(digitalToolKeyword, resourceLimit);
-										for (DigitalTool digitalTool : digitalTools)
-											{
-												String resourceIdentity = digitalTool.getName().trim().toLowerCase();
-												if (uniqueKeys.contains(resourceIdentity) == false)
-													{
-														List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(resourceReviewedType, resourceIdentity, reviewLimit);
-														ResourceEntity resourceEntity = new ResourceEntity(digitalTool, reviews);
-														resourceEntity.setResultCriteria("Search Results");
-														resourceEntities.add(resourceEntity);
-														uniqueKeys.add(resourceIdentity);
-													}
-											}
-									}
+									
 								break;
 							}
 					}
+					
 				if (resourceEntities.size() > resourceLimit)
 					{
 						return resourceEntities.subList(0, resourceLimit);

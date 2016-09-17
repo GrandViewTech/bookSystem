@@ -12,6 +12,9 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @NodeEntity
 public class User
 	{
@@ -117,7 +120,6 @@ public class User
 		
 		//	@RelatedToVia(type="Have_Rated")
 		//	Set<Rating> ratings = new HashSet<>();
-		
 		@RelatedTo(type = "IS_FRIEND_OF", direction = Direction.OUTGOING)
 		Set<User>				friends							= new HashSet<>();
 		

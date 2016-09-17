@@ -2,6 +2,7 @@ package com.v2tech.services;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -298,5 +299,40 @@ public class UserService
 					{
 						userRepository.delete(users);
 					}
+			}
+			
+		public Set<String> getKeywordFromUserProfile(String userId)
+			{
+				Set<User> users = findUsersByUserName(userId);
+				Set<String> keywords = new LinkedHashSet<String>();
+				for (User user : users)
+					{
+						String careerStream = user.getCareerStream();
+						if (careerStream != null && careerStream.trim().length() > 0)
+							{
+								keywords.add(careerStream.toLowerCase());
+							}
+						String specialization = user.getSpecialization();
+						if (specialization != null && specialization.trim().length() > 0)
+							{
+								keywords.add(specialization.toLowerCase());
+							}
+						String institution = user.getInstitution();
+						if (institution != null && institution.trim().length() > 0)
+							{
+								keywords.add(institution.toLowerCase());
+							}
+						String examInsterestedIn = user.getExamInterestedIn();
+						if (examInsterestedIn != null && examInsterestedIn.trim().length() > 0)
+							{
+								keywords.add(examInsterestedIn.toLowerCase());
+							}
+						String dreamOccupation = user.getDreamOccupation();
+						if (dreamOccupation != null && dreamOccupation.trim().length() > 0)
+							{
+								keywords.add(dreamOccupation.toLowerCase());
+							}
+					}
+				return keywords;
 			}
 	}

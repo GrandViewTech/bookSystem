@@ -1,6 +1,10 @@
 package com.v2tech.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,27 +14,41 @@ import com.v2tech.base.V2GenericException;
 import com.v2tech.domain.Book;
 import com.v2tech.domain.CareerStream;
 import com.v2tech.domain.Exam;
+import com.v2tech.domain.KeywordEntity;
+import com.v2tech.domain.RESOURCE_TYPE;
+import com.v2tech.domain.Review;
 import com.v2tech.domain.Source;
 import com.v2tech.domain.Subject;
+import com.v2tech.domain.util.ResourceEntity;
+import com.v2tech.domain.util.SearchList;
 import com.v2tech.repository.BookRepository;
 
 @Service
 public class BookService
 	{
 		@Autowired
-		BookRepository		bookRepository;
+		UserKeywordRelationService	userKeywordRelationService;
 		
 		@Autowired
-		ExamService			examService;
+		ReviewService				reviewService;
 		
 		@Autowired
-		CareerStreamService	careerStreamService;
+		UserService					userService;
 		
 		@Autowired
-		SubjectService		subjectService;
+		BookRepository				bookRepository;
 		
 		@Autowired
-		SourceService		sourceService;
+		ExamService					examService;
+		
+		@Autowired
+		CareerStreamService			careerStreamService;
+		
+		@Autowired
+		SubjectService				subjectService;
+		
+		@Autowired
+		SourceService				sourceService;
 		
 		public boolean ifBookExists(String isbn)
 			{
@@ -44,9 +62,10 @@ public class BookService
 						return true;
 					}
 			}
-		
+			
 		/**
 		 * Also update the subject param
+		 * 
 		 * @param book
 		 * @return
 		 */
@@ -360,6 +379,32 @@ public class BookService
 				return bookRepository.searchBooksByGenericKeyword(keyword, limit);
 			}
 			
+		public Set<Book> searchTopRatedBooksByGenericKeyword(String keyword, Integer limit)
+			{
+				keyword = "(?i).*" + keyword + ".*";
+				return bookRepository.searchTopRatedBooksByGenericKeyword(keyword, limit);
+			}
+			
+		public SearchList searchTopRatedBooks(Integer limit)
+			{
+				List<Book> results = new ArrayList<Book>();
+				Set<String> uniqueIdentifiers = new HashSet<String>();
+				for (Book book : bookRepository.searchTopRatedBooks(limit))
+					{
+						String uniqueKey = book.getISBN().trim().toLowerCase();
+						if (uniqueIdentifiers.contains(uniqueKey) == false)
+							{
+								results.add(book);
+								uniqueIdentifiers.add(uniqueKey);
+							}
+					}
+				//results.sort((Book book1, Book book2) -> book2.getAverageRating().compareTo(book1.getAverageRating()));
+				SearchList searchList = new SearchList();
+				searchList.setBooks(results);
+				searchList.setUniqueIds(uniqueIdentifiers);
+				return searchList;
+			}
+			
 		public Set<Book> searchBooksByCareerStreamAndSubject(String careerStream, String subject, Integer limit)
 			{
 				return bookRepository.searchBooksByCareerStreamAndSubject(careerStream, subject, limit);
@@ -387,7 +432,7 @@ public class BookService
 			
 		public Set<Book> searchBooksByISBN(String isbn, Integer limit)
 			{
-			//	isbn = ("(?i)" + isbn).trim();
+				//	isbn = ("(?i)" + isbn).trim();
 				isbn.trim();
 				return bookRepository.findBookByISBN(isbn);
 			}
@@ -422,4 +467,278 @@ public class BookService
 				return bookRepository.searchBooksByYear(year, limit);
 			}
 			
+		public SearchList findAllBooksByRecentPublicationYear(Integer limit)
+			{
+				List<Book> results = new LinkedList<Book>();
+				Set<String> uniqueIdentifiers = new HashSet<String>();
+				Set<Book> books = bookRepository.findAllBooksByRecentPublicationYear(limit);
+				for (Book book : books)
+					{
+						String uniqueKey = book.getISBN().trim().toLowerCase();
+						if (uniqueIdentifiers.contains(uniqueKey) == false)
+							{
+								results.add(book);
+								uniqueIdentifiers.add(uniqueKey);
+							}
+					}
+				//results.sort((Book book1, Book book2) -> book2.getAverageRating().compareTo(book1.getAverageRating()));
+				SearchList searchList = new SearchList();
+				searchList.setBooks(results);
+				searchList.setUniqueIds(uniqueIdentifiers);
+				return searchList;
+				
+			}
+			
+		public SearchList findBooksByUserProfile(String userId)
+			{
+				List<Book> results = new LinkedList<Book>();
+				Set<String> uniqueIdentifiers = new HashSet<String>();
+				if (userId != null && userId.trim().length() > 0)
+					{
+						if (userId.trim().equalsIgnoreCase("annonymous") == false)
+							{
+								Set<String> keywords = userService.getKeywordFromUserProfile(userId);
+								for (String keyword : keywords)
+									{
+										Set<Book> books = searchTopRatedBooksByGenericKeyword(keyword, 1);
+										for (Book book : books)
+											{
+												String uniqueKey = book.getISBN().trim().toLowerCase();
+												if (uniqueIdentifiers.contains(uniqueKey) == false)
+													{
+														results.add(book);
+														uniqueIdentifiers.add(uniqueKey);
+													}
+											}
+									}
+								//results.sort((Book book1, Book book2) -> book2.getAverageRating().compareTo(book1.getAverageRating()));
+							}
+					}
+				SearchList searchList = new SearchList();
+				searchList.setBooks(results);
+				searchList.setUniqueIds(uniqueIdentifiers);
+				return searchList;
+			}
+			
+		public SearchList findBooksByKeywords(Set<String> keywords)
+			{
+				
+				List<Book> results = new LinkedList<Book>();
+				Set<String> uniqueIdentifiers = new HashSet<String>();
+				for (String keyword : keywords)
+					{
+						Set<Book> books = searchTopRatedBooksByGenericKeyword(keyword, 1);
+						for (Book book : books)
+							{
+								String uniqueKey = book.getISBN().trim().toLowerCase();
+								if (uniqueIdentifiers.contains(uniqueKey) == false)
+									{
+										results.add(book);
+										uniqueIdentifiers.add(uniqueKey);
+									}
+							}
+					}
+				SearchList searchList = new SearchList();
+				searchList.setBooks(results);
+				searchList.setUniqueIds(uniqueIdentifiers);
+				return searchList;
+			}
+			
+		public List<ResourceEntity> findBooksForTopRating(String userId, Integer limit)
+			{
+				Integer reviewLimit = 5;
+				String resourceReviewedType = RESOURCE_TYPE.BOOK.getType();
+				List<ResourceEntity> resourceEntities = new ArrayList<ResourceEntity>();
+				
+				SearchList profileInformation = findBooksByUserProfile(userId);
+				Set<String> uniqueKeys = new LinkedHashSet<String>();
+				for (Book book : profileInformation.getBooks())
+					{
+						String resourceIdentity = book.getISBN().trim().toLowerCase();
+						if (uniqueKeys.contains(resourceIdentity) == false)
+							{
+								List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(resourceReviewedType, resourceIdentity, reviewLimit);
+								ResourceEntity resourceEntity = new ResourceEntity(book, reviews);
+								List<String> resultCriterias = new ArrayList<String>();
+								if (profileInformation.getUniqueIds().contains(resourceIdentity))
+									{
+										resultCriterias.add("profile");
+									}
+								resourceEntity.setResultCriterias(resultCriterias);
+								resourceEntities.add(resourceEntity);
+								uniqueKeys.add(resourceIdentity);
+							}
+					}
+				if (resourceEntities.size() == 0)
+					{
+						SearchList ratingInformation = searchTopRatedBooks(limit);
+						for (Book book : ratingInformation.getBooks())
+							{
+								String resourceIdentity = book.getISBN().trim().toLowerCase();
+								if (uniqueKeys.contains(resourceIdentity) == false)
+									{
+										List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(resourceReviewedType, resourceIdentity, reviewLimit);
+										ResourceEntity resourceEntity = new ResourceEntity(book, reviews);
+										List<String> resultCriterias = new ArrayList<String>();
+										if (ratingInformation.getUniqueIds().contains(resourceIdentity))
+											{
+												resultCriterias.add("rating");
+											}
+										resourceEntity.setResultCriterias(resultCriterias);
+										resourceEntities.add(resourceEntity);
+										uniqueKeys.add(resourceIdentity);
+									}
+							}
+					}
+					
+				return resourceEntities;
+			}
+			
+		public List<ResourceEntity> findBooksForUserFriends(String userId)
+			{
+				String keywordEntity = KeywordEntity.BOOKS.getEntity();
+				String resourceReviewedType = RESOURCE_TYPE.BOOK.getType();
+				List<ResourceEntity> resourceEntities = new ArrayList<ResourceEntity>();
+				Set<String> friendsRecommendationKeywords = new HashSet<String>();
+				List<Book> books = new ArrayList<Book>();
+				for (String keyword : userKeywordRelationService.getSearchedTermByFriendsAndKeyWordEntityType(userId, keywordEntity))
+					{
+						for (Book book : searchTopRatedBooksByGenericKeyword(keyword, 5))
+							{
+								String resourceIdentity = book.getISBN().trim().toLowerCase();
+								friendsRecommendationKeywords.add(resourceIdentity);
+								books.add(book);
+							}
+					}
+				Set<String> systemsRecommendationKeywords = new HashSet<String>();
+				for (String keyword : userKeywordRelationService.getRecommendedSearchTeamBySystemForEntityType(userId, keywordEntity))
+					{
+						for (Book book : searchTopRatedBooksByGenericKeyword(keyword, 5))
+							{
+								String resourceIdentity = book.getISBN().trim().toLowerCase();
+								systemsRecommendationKeywords.add(resourceIdentity);
+								books.add(book);
+							}
+					}
+				Set<String> systemsRecommendationFromProfileKeywords = new HashSet<String>();
+				for (String keyword : userService.getKeywordFromUserProfile(userId))
+					{
+						for (Book book : searchTopRatedBooksByGenericKeyword(keyword, 5))
+							{
+								String resourceIdentity = book.getISBN().trim().toLowerCase();
+								systemsRecommendationFromProfileKeywords.add(resourceIdentity);
+								books.add(book);
+							}
+					}
+				SearchList publicationInformation = findAllBooksByRecentPublicationYear(5);
+				books.addAll(publicationInformation.getBooks());
+				Set<String> bookKeywords = new HashSet<String>();
+				bookKeywords.add("Pratice");
+				bookKeywords.add("solved");
+				bookKeywords.add("paper");
+				SearchList relativeKeywordInformation = findBooksByKeywords(bookKeywords);
+				books.addAll(relativeKeywordInformation.getBooks());
+				Set<String> uniqueKeys = new LinkedHashSet<String>();
+				Integer reviewLimit = 5;
+				for (Book book : books)
+					{
+						String resourceIdentity = book.getISBN().trim().toLowerCase();
+						if (uniqueKeys.contains(resourceIdentity) == false)
+							{
+								List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(resourceReviewedType, resourceIdentity, reviewLimit);
+								ResourceEntity resourceEntity = new ResourceEntity(book, reviews);
+								List<String> resultCriterias = new ArrayList<String>();
+								if (friendsRecommendationKeywords.contains(resourceIdentity))
+									{
+										resultCriterias.add("friends");
+									}
+								if (systemsRecommendationKeywords.contains(resourceIdentity))
+									{
+										resultCriterias.add("system");
+									}
+								if (systemsRecommendationFromProfileKeywords.contains(resourceIdentity))
+									{
+										resultCriterias.add("profile");
+									}
+								if (publicationInformation.getUniqueIds().contains(resourceIdentity))
+									{
+										resultCriterias.add("publication");
+									}
+								if (relativeKeywordInformation.getUniqueIds().contains(resourceIdentity))
+									{
+										resultCriterias.add("relativeKeyword");
+									}
+								resourceEntity.setResultCriterias(resultCriterias);
+								resourceEntities.add(resourceEntity);
+								uniqueKeys.add(resourceIdentity);
+							}
+					}
+				return resourceEntities;
+			}
+			
+		public List<ResourceEntity> findBooksForUserPreference(String userId)
+			{
+				
+				Integer reviewLimit = 5;
+				List<ResourceEntity> resourceEntities = new ArrayList<ResourceEntity>();
+				String resourceReviewedType = RESOURCE_TYPE.BOOK.getType();
+				List<Book> books = new ArrayList<Book>();
+				SearchList profileInformation = findBooksByUserProfile(userId);
+				books.addAll(profileInformation.getBooks());
+				SearchList publicationInformation = findAllBooksByRecentPublicationYear(5);
+				books.addAll(publicationInformation.getBooks());
+				Set<String> bookKeywords = new HashSet<String>();
+				bookKeywords.add("Pratice");
+				bookKeywords.add("solved");
+				bookKeywords.add("paper");
+				SearchList relativeKeywordInformation = findBooksByKeywords(bookKeywords);
+				books.addAll(relativeKeywordInformation.getBooks());
+				Set<String> uniqueKeys = new LinkedHashSet<String>();
+				for (Book book : books)
+					{
+						String resourceIdentity = book.getISBN().trim().toLowerCase();
+						if (uniqueKeys.contains(resourceIdentity) == false)
+							{
+								List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(resourceReviewedType, resourceIdentity, reviewLimit);
+								ResourceEntity resourceEntity = new ResourceEntity(book, reviews);
+								List<String> resultCriterias = new ArrayList<String>();
+								if (profileInformation.getUniqueIds().contains(resourceIdentity))
+									{
+										resultCriterias.add("profile");
+									}
+								if (publicationInformation.getUniqueIds().contains(resourceIdentity))
+									{
+										resultCriterias.add("publication");
+									}
+								if (publicationInformation.getUniqueIds().contains(resourceIdentity))
+									{
+										resultCriterias.add("relativeKeyword");
+									}
+								resourceEntity.setResultCriterias(resultCriterias);
+								resourceEntities.add(resourceEntity);
+								uniqueKeys.add(resourceIdentity);
+							}
+					}
+				return resourceEntities;
+			}
+			
+		public List<ResourceEntity> userDefinedSearch(String userId, String keyword)
+			{
+				List<ResourceEntity> resourceEntities = new ArrayList<ResourceEntity>();
+				userKeywordRelationService.increaseSearchTermCounterForUser(userId, keyword);
+				Set<Book> books = searchBooksByGenericKeyword(keyword, 10);
+				Set<String> uniqueKeys = new LinkedHashSet<String>();
+				for (Book book : books)
+					{
+						String resourceIdentity = book.getISBN().trim().toLowerCase();
+						if (uniqueKeys.contains(resourceIdentity) == false)
+							{
+								List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(RESOURCE_TYPE.COACHING_CLASS.getType(), resourceIdentity, 5);
+								ResourceEntity resourceEntity = new ResourceEntity(book, reviews);
+								resourceEntities.add(resourceEntity);
+								uniqueKeys.add(resourceIdentity);
+							}
+					}
+				return resourceEntities;
+			}
 	}

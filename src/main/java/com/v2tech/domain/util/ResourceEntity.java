@@ -1,6 +1,8 @@
 package com.v2tech.domain.util;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +51,7 @@ public class ResourceEntity implements Serializable
 		
 		private String				subject				= "Physics";
 		
-		private String				resultCriteria		= "";
+		private List<String>		resultCriterias		= new ArrayList<String>();
 		
 		public String getName()
 			{
@@ -354,11 +356,11 @@ public class ResourceEntity implements Serializable
 				setYear(book.getYear());
 				setUniqueKey(book.getISBN());
 				setSubject(book.getSubject());
-				String isbn=book.getISBN();
-				String charr="ISBN-";
-				if(isbn.trim().contains(charr.trim()))
+				String isbn = book.getISBN();
+				String charr = "ISBN-";
+				if (isbn.trim().contains(charr.trim()))
 					{
-						isbn=isbn.replaceAll(charr, "");
+						isbn = isbn.replaceAll(charr, "");
 					}
 				setIsbn(isbn);
 			}
@@ -478,7 +480,7 @@ public class ResourceEntity implements Serializable
 			
 		public ResourceEntity(DigitalTool digitalTool, List<Review> reviews)
 			{
-			setResourceEntity(KeywordEntity.DIGITAL_RESOURCES.getEntity());
+				setResourceEntity(KeywordEntity.DIGITAL_RESOURCES.getEntity());
 				setDescription(digitalTool.getWhatDoesItDo());
 				setName(digitalTool.getName());
 				setBigUrl("images/digitalResource.png");
@@ -578,14 +580,14 @@ public class ResourceEntity implements Serializable
 				this.website = website;
 			}
 			
-		public String getResultCriteria()
+		public List<String> getResultCriterias()
 			{
-				return resultCriteria;
+				return resultCriterias;
 			}
 			
-		public void setResultCriteria(String resultCriteria)
+		public void setResultCriterias(List<String> resultCriterias)
 			{
-				this.resultCriteria = resultCriteria;
+				this.resultCriterias = resultCriterias;
 			}
 			
 		public void setPrice(Float price)
@@ -602,18 +604,15 @@ public class ResourceEntity implements Serializable
 			{
 				this.subject = subject;
 			}
-
+			
 		public String getIsbn()
 			{
 				return isbn;
 			}
-
+			
 		public void setIsbn(String isbn)
 			{
 				this.isbn = isbn;
 			}
-		
-		
 			
 	}
-

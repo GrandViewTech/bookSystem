@@ -367,13 +367,13 @@ app.controller( 'beJobReadyController',  function($scope, $http, $window, $filte
 				$scope.showInviteFriends = function() 
 					{
 						document.getElementById('headeruser').style.display = "none";
-						if($scope.loggedInUser.socialMedia==true)
+						if($scope.loggedInUser.socialMedia===false)
 						{
-							$("#headerinvitefriend").show();
+						  bootbox.alert("LoggedIn user is not a Social Media User hence cannot use this functionality");	
 						}
-						else
+						else	
 						{
-							$scope.socialLoginForGetFriends($scope.loggedInUser.socialMediaType);
+						$("#headerinvitefriend").show();
 						}
 					}
 					$scope.socialLoginForGetFriends = function(network) 
