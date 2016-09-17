@@ -32,4 +32,9 @@ public interface CoachingClassRepository extends GraphRepository<CoachingClass>
 		@Query("MATCH (class:CoachingClass) WHERE  class.searchable ='yes' AND (class.keyword =~ {0} OR class.name =~ {0} OR class.typeOfProgram =~ {0}  OR class.courses =~ {0}  OR class.rExams =~ {0}  OR class.cStreams =~ {0} ) RETURN class LIMIT {1};")
 		public Set<CoachingClass> searchCoachingClassByGenericKeyword(String keyword, Integer limit);
 		
+		@Query("MATCH (class:CoachingClass) WHERE  class.searchable ='yes' AND (class.keyword =~ {0} OR class.name =~ {0} OR class.typeOfProgram =~ {0}  OR class.courses =~ {0}  OR class.rExams =~ {0}  OR class.cStreams =~ {0} ) RETURN class ORDER BY class.averageRating DESC LIMIT {1};")
+		public Set<CoachingClass> searchTopRatedCoachingClassByGenericKeyword(String keyword, Integer limit);
+		
+		@Query("start coachingClass = node:geom({0}) MATCH (class:CoachingClass) WHERE  class.searchable ='yes' AND (class.keyword =~ {1} OR class.name =~ {1} OR class.typeOfProgram =~ {1}  OR class.courses =~ {1}  OR class.rExams =~ {1}  OR class.cStreams =~ {1} ) RETURN class ORDER BY class.averageRating DESC LIMIT {2};")
+		public Set<CoachingClass> searchTopRatedCoachingClassByGenericKeywordAndLocation(String withinDistance, String keyword, Integer limit);
 	}

@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,12 +20,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.v2tech.base.V2GenericException;
+import com.v2tech.domain.Book;
 import com.v2tech.domain.CoachingClass;
+import com.v2tech.domain.KeywordEntity;
+import com.v2tech.domain.RESOURCE_TYPE;
+import com.v2tech.domain.Review;
 import com.v2tech.domain.util.AddNode;
 import com.v2tech.domain.util.Neo4jIndexNode;
 import com.v2tech.domain.util.Neo4jSearchResult;
 import com.v2tech.domain.util.Neo4jSearchStatement;
 import com.v2tech.domain.util.Neo4jSearchStatements;
+import com.v2tech.domain.util.ResourceEntity;
 import com.v2tech.domain.util.ResultRow;
 import com.v2tech.repository.CoachingClassRepository;
 
@@ -49,19 +56,26 @@ public class CoachingClassService1
 			}
 			
 		@Value("${addNodeToSpatialPlugin}")
-		private String					addNodeToSpatialPlugin;
+		private String						addNodeToSpatialPlugin;
 		
 		@Value("${addNodeToSpatialPluginApiUrl}")
-		private String					addNodeToSpatialPluginApiUrl;
+		private String						addNodeToSpatialPluginApiUrl;
 		
 		@Value("${updateNeo4jSpatialIndexes}")
-		private String					updateNeo4jSpatialIndexes;
+		private String						updateNeo4jSpatialIndexes;
 		
 		@Autowired
-		private CoachingClassRepository	coachingClassRepository;
+		private UserKeywordRelationService	userKeywordRelationService;
+		@Autowired
+		private ReviewService				reviewService;
+		@Autowired
+		private UserService					userService;
 		
 		@Autowired
-		private CountryStateCityService	countryStateCityService;
+		private CoachingClassRepository		coachingClassRepository;
+		
+		@Autowired
+		private CountryStateCityService		countryStateCityService;
 		
 		public CoachingClass findByNameAndBranchAndZipCode(String name, String branch, String zipCode)
 			{
@@ -207,6 +221,12 @@ public class CoachingClassService1
 				return coachingClassRepository.searchCoachingClassByGenericKeyword(keyword, limit);
 			}
 			
+		public Set<CoachingClass> searchTopRatedCoachingClassByGenericKeyword(String keyword, Integer limit)
+			{
+				keyword = "(?i).*" + keyword + ".*";
+				return coachingClassRepository.searchTopRatedCoachingClassByGenericKeyword(keyword, limit);
+			}
+			
 		public Set<CoachingClass> findCoachingClassByKeywordAndCity(String keyword, String city, Integer limit)
 			{
 				keyword = "(?i).*" + keyword + ".*";
@@ -234,16 +254,17 @@ public class CoachingClassService1
 								if (keyword.equalsIgnoreCase("None") == false)
 									{
 										keyword = "(?i).*" + keyword + ".*";
-										neo4jSearchStatement.setStatement("start coachingClass = node:geom('withinDistance:[" + latitude + "," + longitude + "," + radius + "]') MATCH coachingClass WHERE coachingClass.keyword='" + keyword + "' return coachingClass");
+										neo4jSearchStatement.setStatement("start coachingClass = node:geom('withinDistance:[" + latitude + "," + longitude + "," + radius + "]') MATCH coachingClass WHERE coachingClass.searchable='yes' AND (coachingClass.keyword=~'" + keyword + "' OR coachingClass.cStreams=~'" + keyword + "' OR coachingClass.courses =~'" + keyword + "' OR coachingClass.typesOfCoursesOffered =~'" + keyword + "'  OR coachingClass.typeOfProgram =~'" + keyword
+										        + "' ) return  coachingClass ORDER BY coachingClass.rateCount , coachingClass.averageRating DESC");
 									}
 								else
 									{
-										neo4jSearchStatement.setStatement("start coachingClass = node:geom('withinDistance:[" + latitude + "," + longitude + "," + radius + "]') MATCH coachingClass	 return coachingClass");
+										neo4jSearchStatement.setStatement("start coachingClass = node:geom('withinDistance:[" + latitude + "," + longitude + "," + radius + "]') MATCH coachingClass WHERE coachingClass.searchable='yes' return coachingClass ORDER BY coachingClass.rateCount  , coachingClass.averageRating DESC ");
 									}
 							}
 						else
 							{
-								neo4jSearchStatement.setStatement("start coachingClass = node:geom('withinDistance:[" + latitude + "," + longitude + "," + radius + "]') MATCH coachingClass	 return coachingClass");
+								neo4jSearchStatement.setStatement("start coachingClass = node:geom('withinDistance:[" + latitude + "," + longitude + "," + radius + "]') MATCH coachingClass  WHERE coachingClass.searchable='yes' return coachingClass ORDER BY coachingClass.rateCount , coachingClass.averageRating DESC");
 							}
 						try
 							{
@@ -330,6 +351,74 @@ public class CoachingClassService1
 					{
 						exception.printStackTrace();
 					}
+			}
+			
+		public List<ResourceEntity> findBooksForUserFriends(String userId, String location, Double radius)
+			{
+				return findCoachingClassesByCriteria(userId, userKeywordRelationService.getSearchedTermByFriendsAndKeyWordEntityType(userId, KeywordEntity.BOOKS.getEntity()), "friends", location, radius);
+			}
+			
+		public List<ResourceEntity> findCoachingClassesByCriteria(String userId, Set<String> keywords, String criteria, String location, Double radius)
+			{
+				
+				Set<String> uniqueIdentifiers = new HashSet<String>();
+				List<ResourceEntity> resourceEntities = new LinkedList<ResourceEntity>();
+				if (location == null || location.trim().equalsIgnoreCase("location") == true)
+					{
+						for (String keyword : keywords)
+							{
+								for (CoachingClass coachingClass : searchTopRatedCoachingClassByGenericKeyword(keyword, 5))
+									{
+										String resourceIdentity = coachingClass.getName().trim().toLowerCase();
+										if (uniqueIdentifiers.contains(resourceIdentity) == false)
+											{
+												uniqueIdentifiers.add(resourceIdentity);
+												List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(RESOURCE_TYPE.COACHING_CLASS.getType(), resourceIdentity, 5);
+												ResourceEntity resourceEntity = new ResourceEntity(coachingClass, reviews);
+												List<String> resultCriterias = new ArrayList<String>();
+												resultCriterias.add("profile");
+												resourceEntity.setResultCriterias(resultCriterias);
+												resourceEntities.add(resourceEntity);
+											}
+									}
+							}
+					}
+				else
+					{
+						for (String keyword : keywords)
+							{
+								List<ResultRow> resultRows = findCoachingClassForLocality(location, keyword, radius);
+								for (ResultRow resultRow : resultRows)
+									{
+										String uniqueKey = resultRow.getName().trim().toLowerCase();
+										if (uniqueIdentifiers.contains(uniqueKey) == false)
+											{
+												uniqueIdentifiers.add(uniqueKey);
+												List<Review> reviews = reviewService.getReviewByResourceReviewedTypeAndResourceIdentity(RESOURCE_TYPE.COACHING_CLASS.getType(), uniqueKey, 5);
+												ResourceEntity resourceEntity = new ResourceEntity(resultRow, reviews);
+												List<String> resultCriterias = new ArrayList<String>();
+												resultCriterias.add(criteria);
+												resultCriterias.add("location");
+												resourceEntity.setResultCriterias(resultCriterias);
+												resourceEntities.add(resourceEntity);
+											}
+									}
+							}
+					}
+				return resourceEntities;
+			}
+			
+		public List<ResourceEntity> findCoachingClassesForUserPreference(String userId, String location, Double radius)
+			{
+				Set<String> keywords = userService.getKeywordFromUserProfile(userId);
+				return findCoachingClassesByCriteria(userId, keywords, "profile", location, radius);
+			}
+			
+		public List<ResourceEntity> findCoachingClassesForRating(String userId, String location, Double radius)
+			{
+				Set<String> keywords = new HashSet<String>();
+				keywords.add("None");
+				return findCoachingClassesByCriteria(userId, keywords, "rating", location, radius);
 			}
 			
 	}

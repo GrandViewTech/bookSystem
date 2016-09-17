@@ -15,4 +15,10 @@ public interface DigitalToolRepository extends GraphRepository<DigitalTool>
 		
 		@Query("MATCH (dt:DigitalTool) WHERE dt.keyword =~ {0} return dt LIMIT {1};")
 		Set<DigitalTool> searchDigitalToolByGenericKeyword(String keyword, Integer limit);
+		
+		@Query("MATCH (dt:DigitalTool) WHERE dt.keyword =~ {0} return dt ORDER BY dt.averageRating DESC LIMIT {1};")
+		Set<DigitalTool> searchTopRatedDigitalToolByGenericKeyword(String keyword, Integer limit);
+		
+		@Query("MATCH (dt:DigitalTool) return dt ORDER BY dt.averageRating DESC LIMIT {0};")
+		Set<DigitalTool> searchTopRatedDigitalTool(Integer limit);
 	}

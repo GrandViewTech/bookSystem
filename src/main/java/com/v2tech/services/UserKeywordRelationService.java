@@ -92,6 +92,44 @@ public class UserKeywordRelationService
 				return terms;
 			}
 			
+		public Set<String> getRecommendedSearchTeamBySystemForEntityType(String userId, String keywordEntity)
+			{
+				Set<String> terms = new LinkedHashSet<String>();
+				if (keywordEntity.equalsIgnoreCase(KeywordEntity.DIGITAL_RESOURCES.getEntity()))
+					{
+						terms.add("Engineering");
+						terms.add("Medical");
+						terms.add("Android");
+						terms.add("Business");
+						terms.add("JEE");
+						terms.add("Marketing");
+						terms.add("Computer");
+						terms.add("Product design");
+						terms.add("MBA");
+						terms.add("GMAT");
+						terms.add("GATE");
+						terms.add("Law");
+						terms.add("Management");
+						terms.add("CBSE");
+						terms.add("Architecture");
+					}
+				else if (keywordEntity.equalsIgnoreCase(KeywordEntity.COACHING_CLASSES.getEntity()))
+					{
+						terms.add("Engineering");
+						terms.add("Medical");
+						terms.add("Engineering,Medical");
+						terms.add("JEE");
+					}
+				else if (keywordEntity.equalsIgnoreCase(KeywordEntity.BOOKS.getEntity()))
+					{
+						terms.add("Math");
+						terms.add("Chemistry");
+						terms.add("Biology");
+						terms.add("Physic");
+					}
+				return terms;
+			}
+			
 		public Set<String> getSearchedTermByFriendsAndKeyWordEntityType(String user, String keywordEntity)
 			{
 				List<KeywordResult> results = userRepository.getMostSearchedKeywordUsingEntityType(user, keywordEntity);
@@ -99,46 +137,6 @@ public class UserKeywordRelationService
 				for (KeywordResult keywordResult : results)
 					{
 						terms.add(keywordResult.getSearchedTerm());
-					}
-				Set<User> users = userService.findUsersByUserName(user);
-				for (User usr : users)
-					{
-						
-					}
-				if (terms.size() == 0)
-					{
-						if (keywordEntity.equalsIgnoreCase(KeywordEntity.DIGITAL_RESOURCES.getEntity()))
-							{
-								terms.add("Engineering");
-								terms.add("Medical");
-								terms.add("Android");
-								terms.add("Business");
-								terms.add("JEE");
-								terms.add("Marketing");
-								terms.add("Computer");
-								terms.add("Product design");
-								terms.add("MBA");
-								terms.add("GMAT");
-								terms.add("GATE");
-								terms.add("Law");
-								terms.add("Management");
-								terms.add("CBSE");
-								terms.add("Architecture");
-							}
-						else if (keywordEntity.equalsIgnoreCase(KeywordEntity.COACHING_CLASSES.getEntity()))
-							{
-								terms.add("Engineering");
-								terms.add("Medical");
-								terms.add("Engineering,Medical");
-								terms.add("JEE");
-							}
-						else if (keywordEntity.equalsIgnoreCase(KeywordEntity.BOOKS.getEntity()))
-							{
-								terms.add("Math");
-								terms.add("Chemistry");
-								terms.add("Biology");
-								terms.add("Physic");
-							}
 					}
 				return terms;
 			}
