@@ -179,6 +179,7 @@ public class DigitalToolService
 			
 		public List<ResourceEntity> searchTopRatedDigitalToolByKeyword(String keyword, Integer limit)
 			{
+				keyword = "(?i).*"+keyword+".*";
 				List<ResourceEntity> resourceEntities = new ArrayList<ResourceEntity>();
 				Set<String> uniqueIdentifiers = new HashSet<String>();
 				for (DigitalTool digitalTool : digitalToolRepository.searchTopRatedDigitalToolByGenericKeyword(keyword, limit))
