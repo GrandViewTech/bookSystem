@@ -83,6 +83,8 @@ public class ResultRow
 		@JsonIgnore
 		private Map<String, Object>	additionalProperties	= new HashMap<String, Object>();
 		
+		
+		
 		/**
 		 * @return The state
 		 */

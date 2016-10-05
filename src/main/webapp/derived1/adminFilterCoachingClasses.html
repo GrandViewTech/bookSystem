@@ -46,7 +46,7 @@
             <th width="15%">Coaching Class Name</th>
             <th width="25%">City - Branch - Zip</th>
             <th width="25%">Keyword</th>
-            <th width="20%">Type of Courses Offered</th>
+            <th width="20%">Image URL</th>
             
             <th width="10%" >Searchable</th>
 	  <th width="5%"> Update</th>
@@ -57,7 +57,7 @@
                 <td  width="25%">{{ coach.name }}</td>
                 <td  width="25%">{{ coach.city }} - {{ coach.branch }} - {{ coach.zip }}</td>
                 <td  width="25%"><input type="text" ng-model="coach.keyword" /></td>
-                <td  width="10%">{{ coach.typesOfCoursesOffered }}</td>
+                <td  width="10%"><input type="text" ng-model="coach.imageUrl" /></td>
                 <td  width="10%">
                 <label> Yes <input type="radio" name="{{ coach.name }}-{{ coach.city }}-{{ coach.branch }}-{{ coach.zip }}" value="yes" ng-model="coach.searchable"></label>
                 <label> No  <input type="radio" name="{{ coach.name }}-{{ coach.city }}-{{ coach.branch }}-{{ coach.zip }}"  value="no" ng-model="coach.searchable"> </label>
@@ -69,7 +69,7 @@
     </div>
     <div class="container">
 <ul class="pagination">
-              <li class="disabled"><a href="#">«</a></li>
+              <li class="disabled"><a href="#">ï¿½</a></li>
               <li class="active"><a  ng-click="fetchCoachingClassss('A')"  href="#">A <span class="sr-only">(current)</span></a></li>
               <li><a ng-click="fetchCoachingClassss('B')" href="#">B</a></li>
               <li><a ng-click="fetchCoachingClassss('C')" href="#">C</a></li>
@@ -97,7 +97,7 @@
               <li><a ng-click="fetchCoachingClassss('X')" href="#">X</a></li>
               <li><a ng-click="fetchCoachingClassss('Y')" href="#">Y</a></li>
               <li><a ng-click="fetchCoachingClassss('Z')" href="#">Z</a></li>
-              <li><a ng-click="fetchCoachingClassss('A')" href="#">»</a></li>
+              <li><a ng-click="fetchCoachingClassss('A')" href="#">ï¿½</a></li>
             </ul>
 </div>
 </section>

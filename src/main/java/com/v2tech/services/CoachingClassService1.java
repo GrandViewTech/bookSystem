@@ -100,6 +100,7 @@ public class CoachingClassService1
 					}
 				coachingClass2.setKeyword(coachingClass.getKeyword());
 				coachingClass2.setSearchable(coachingClass.getSearchable());
+				coachingClass2.setImageUrl(coachingClass.getImageUrl());
 				coachingClassRepository.save(coachingClass2);
 			}
 			

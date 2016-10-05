@@ -88,6 +88,8 @@ public class CoachingClass
 		
 		String			searchable					= "yes";
 		
+		String imageUrl = "";
+		
 		private Double	averageRating				= 2.5;
 		
 		private Integer	rateCount					= 1;
@@ -501,7 +503,15 @@ public class CoachingClass
 			{
 				this.lon = lon;
 			}
+
+		public String getImageUrl() {
+			return imageUrl;
+		}
+
+		public void setImageUrl(String imageUrl) {
+			this.imageUrl = imageUrl;
+		}
 		
-		
+//		
 			
 	}

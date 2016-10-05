@@ -44,7 +44,7 @@
 
         <tr>
             <th width="15%">Digital Tool Name</th>
-            <th width="20%">Career Streams</th>
+            <th width="20%">Image URL</th>
             <th width="20%">Keyword</th>
             <th width="15%">Subject</th>
             <th width="15%">Exams</th>
@@ -56,7 +56,7 @@
     </thead>
             <tr ng-repeat="tool in searchResponse.tools">
                 <td  width="15%">{{ tool.name }}</td>
-                <td  width="20%">{{ tool.careerStreams}}</td>
+                <td  width="20%"><input type="text" ng-model="tool.imageUrl" /></td>
                 <td  width="20%"><input type="text" ng-model="tool.keyword" /></td>
                 <td  width="15%"><input type="text" ng-model="tool.subject" /></td>
                 <td  width="15%">{{ tool.exams }}</td>

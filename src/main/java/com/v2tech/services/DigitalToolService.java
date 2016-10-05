@@ -75,6 +75,7 @@ public class DigitalToolService
 				digitalTool2.setKeyword(digitalTool.getKeyword());
 				digitalTool2.setSearchable(digitalTool.getSearchable());
 				digitalTool2.setSubject(digitalTool.getSubject());
+				digitalTool2.setImageUrl(digitalTool.getImageUrl());
 				digitalToolRepository.save(digitalTool2);
 			}
 			
